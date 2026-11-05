@@ -1,0 +1,336 @@
+dataset,title,contract_field,physical_table,physical_column,sql_type,scale,sensitivity,required,desc
+D01,市场规则文件,doc_id,d01_rule_doc,doc_id,TEXT,,PUBLIC,是,规则文件业务编号，RULE-<发布机构码>-<年>-<序号>
+D01,市场规则文件,doc_no,d01_rule_doc,doc_no,TEXT,,PUBLIC,是,文号，如 鄂电交易〔2025〕9号
+D01,市场规则文件,title,d01_rule_doc,title,TEXT,,PUBLIC,是,文件全称
+D01,市场规则文件,issuer,d01_rule_doc,issuer,TEXT,,PUBLIC,是,发布机构
+D01,市场规则文件,doc_type,d01_rule_doc,doc_type,TEXT,,PUBLIC,是,层级
+D01,市场规则文件,publish_date,d01_rule_doc,publish_date,TEXT,,PUBLIC,是,发布日期
+D01,市场规则文件,effective_from,d01_rule_doc,effective_from,TEXT,,PUBLIC,是,实施日期
+D01,市场规则文件,effective_to,d01_rule_doc,effective_to,TEXT,,PUBLIC,否,失效日期，NULL=未见失效条款
+D01,市场规则文件,status,d01_rule_doc,status,TEXT,,PUBLIC,是,现行状态
+D01,市场规则文件,url,d01_rule_doc,url,TEXT,,PUBLIC,是,官方正文 URL
+D01,市场规则文件,file_hash,d01_rule_doc,file_hash,TEXT,,PUBLIC,是,正文/附件 SHA-256
+D01,市场规则文件,clause_count,d01_rule_doc,clause_count,INTEGER,,PUBLIC,是,已结构化条款数
+D01,市场规则文件,supersedes_doc_id,d01_rule_doc,supersedes_doc_id,TEXT,,PUBLIC,否,替代的旧文件编号
+D01,市场规则文件,batch_id,d01_rule_doc,src_batch_id,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,source_system,d01_rule_doc,src_source_system,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,source_file,d01_rule_doc,src_source_file,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,source_row_no,d01_rule_doc,src_source_row_no,INTEGER,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,file_hash,d01_rule_doc,src_file_hash,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,imported_at,d01_rule_doc,src_imported_at,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,importer_version,d01_rule_doc,src_importer_version,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,rule_version,d01_rule_doc,src_rule_version,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,valid_from,d01_rule_doc,src_valid_from,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,valid_to,d01_rule_doc,src_valid_to,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,is_current,d01_rule_doc,src_is_current,INTEGER,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D01,市场规则文件,owner,d01_rule_doc,src_owner,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,user_id,d02_user,user_id,TEXT,,HIGHLY_SENSITIVE,是,匿名用户ID，USER-<ORG4>-<SEQ6>-<CHK>
+D02,用户主数据,industry_code,d02_user,industry_code,TEXT,,HIGHLY_SENSITIVE,是,行业编码，GB/T 4754 门类；粒度待 Q02 样本确认
+D02,用户主数据,region_code,d02_user,region_code,TEXT,,HIGHLY_SENSITIVE,是,行政区划代码（GB/T 2260，6 位，湖北 42xxxx）
+D02,用户主数据,voltage_level,d02_user,voltage_level,TEXT,,HIGHLY_SENSITIVE,是,电压等级
+D02,用户主数据,status,d02_user,status,TEXT,,HIGHLY_SENSITIVE,是,用户状态
+D02,用户主数据,contract_capacity_kw,d02_user,contract_capacity_kw,INTEGER,4,HIGHLY_SENSITIVE,是,合同容量 kW，3 位小数
+D02,用户主数据,retail_package_id,d02_user,retail_package_id,TEXT,,HIGHLY_SENSITIVE,否,当前零售套餐编号
+D02,用户主数据,batch_id,d02_user,src_batch_id,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,source_system,d02_user,src_source_system,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,source_file,d02_user,src_source_file,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,source_row_no,d02_user,src_source_row_no,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,file_hash,d02_user,src_file_hash,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,imported_at,d02_user,src_imported_at,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,importer_version,d02_user,src_importer_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,rule_version,d02_user,src_rule_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,valid_from,d02_user,src_valid_from,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,valid_to,d02_user,src_valid_to,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,is_current,d02_user,src_is_current,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D02,用户主数据,owner,d02_user,src_owner,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,meter_id,d03_meter,meter_id,TEXT,,HIGHLY_SENSITIVE,是,匿名计量点ID，METER-<ORG4>-<SEQ6>-<CHK>
+D03,计量点主数据,user_id,d03_meter,user_id,TEXT,,HIGHLY_SENSITIVE,是,所属用户
+D03,计量点主数据,metering_period,d03_meter,metering_period,TEXT,,HIGHLY_SENSITIVE,是,抄表周期
+D03,计量点主数据,ct_ratio,d03_meter,ct_ratio,INTEGER,4,HIGHLY_SENSITIVE,是,电流互感器倍率
+D03,计量点主数据,pt_ratio,d03_meter,pt_ratio,INTEGER,4,HIGHLY_SENSITIVE,是,电压互感器倍率
+D03,计量点主数据,unit,d03_meter,unit,TEXT,,HIGHLY_SENSITIVE,是,电量单位
+D03,计量点主数据,status,d03_meter,status,TEXT,,HIGHLY_SENSITIVE,是,计量点状态
+D03,计量点主数据,commissioned_at,d03_meter,commissioned_at,TEXT,,HIGHLY_SENSITIVE,是,投运日期
+D03,计量点主数据,batch_id,d03_meter,src_batch_id,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,source_system,d03_meter,src_source_system,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,source_file,d03_meter,src_source_file,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,source_row_no,d03_meter,src_source_row_no,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,file_hash,d03_meter,src_file_hash,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,imported_at,d03_meter,src_imported_at,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,importer_version,d03_meter,src_importer_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,rule_version,d03_meter,src_rule_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,valid_from,d03_meter,src_valid_from,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,valid_to,d03_meter,src_valid_to,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,is_current,d03_meter,src_is_current,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D03,计量点主数据,owner,d03_meter,src_owner,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,user_id,d04_load_hourly,user_id,TEXT,,HIGHLY_SENSITIVE,是,匿名用户ID
+D04,用户负荷曲线（小时主栅格）,business_date,d04_load_hourly,business_date,TEXT,,HIGHLY_SENSITIVE,是,业务日（自然日，Asia/Shanghai）
+D04,用户负荷曲线（小时主栅格）,slot_no,d04_load_hourly,slot_no,INTEGER,,HIGHLY_SENSITIVE,是,"时段号 1..24，对应 [h-1,h) 小时"
+D04,用户负荷曲线（小时主栅格）,interval_start,d04_load_hourly,interval_start,TEXT,,HIGHLY_SENSITIVE,是,区间左端，== business_date + (slot_no-1)h
+D04,用户负荷曲线（小时主栅格）,energy_mwh,d04_load_hourly,energy_mwh,INTEGER,3,HIGHLY_SENSITIVE,否,小时电量 MWh，3 位小数；NULL=未观测
+D04,用户负荷曲线（小时主栅格）,observed_sum_mwh,d04_load_hourly,observed_sum_mwh,INTEGER,4,HIGHLY_SENSITIVE,否,仅诊断：实际观测到的 15min 电量之和
+D04,用户负荷曲线（小时主栅格）,source_15min_count,d04_load_hourly,source_15min_count,INTEGER,,HIGHLY_SENSITIVE,是,参与聚合的 15min 点数 0..4
+D04,用户负荷曲线（小时主栅格）,quality_flag,d04_load_hourly,quality_flag,TEXT,,HIGHLY_SENSITIVE,是,质量等级，沿用时间栅格 T7
+D04,用户负荷曲线（小时主栅格）,tariff_segment,d04_load_hourly,tariff_segment,TEXT,,HIGHLY_SENSITIVE,否,分时电价段，U5 定稿前可空
+D04,用户负荷曲线（小时主栅格）,batch_id,d04_load_hourly,src_batch_id,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,source_system,d04_load_hourly,src_source_system,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,source_file,d04_load_hourly,src_source_file,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,source_row_no,d04_load_hourly,src_source_row_no,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,file_hash,d04_load_hourly,src_file_hash,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,imported_at,d04_load_hourly,src_imported_at,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,importer_version,d04_load_hourly,src_importer_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,rule_version,d04_load_hourly,src_rule_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,valid_from,d04_load_hourly,src_valid_from,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,valid_to,d04_load_hourly,src_valid_to,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,is_current,d04_load_hourly,src_is_current,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D04,用户负荷曲线（小时主栅格）,owner,d04_load_hourly,src_owner,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,contract_id,d05_wholesale_contract,contract_id,TEXT,,HIGHLY_SENSITIVE,是,合同编号，CONTRACT-<ORG4>-<SEQ6>-<CHK>
+D05,批发合同,variety,d05_wholesale_contract,variety,TEXT,,HIGHLY_SENSITIVE,是,交易品种
+D05,批发合同,counterparty_id,d05_wholesale_contract,counterparty_id,TEXT,,HIGHLY_SENSITIVE,是,对手方交易主体编号
+D05,批发合同,period_start,d05_wholesale_contract,period_start,TEXT,,HIGHLY_SENSITIVE,是,合同起始日
+D05,批发合同,period_end,d05_wholesale_contract,period_end,TEXT,,HIGHLY_SENSITIVE,是,合同截止日（含）
+D05,批发合同,total_energy_mwh,d05_wholesale_contract,total_energy_mwh,INTEGER,3,HIGHLY_SENSITIVE,是,合同总电量 MWh
+D05,批发合同,price_type,d05_wholesale_contract,price_type,TEXT,,HIGHLY_SENSITIVE,是,价格形式
+D05,批发合同,price,d05_wholesale_contract,price,INTEGER,4,HIGHLY_SENSITIVE,否,固定价 元/MWh，FORMULA 时为空
+D05,批发合同,formula_text,d05_wholesale_contract,formula_text,TEXT,,HIGHLY_SENSITIVE,否,联动公式原文
+D05,批发合同,curve_json,d05_wholesale_contract,curve_json,TEXT,,HIGHLY_SENSITIVE,是,"分时曲线：24×N 的 {date|year_month, slot_no, energy_mwh}"
+D05,批发合同,version,d05_wholesale_contract,version,INTEGER,,HIGHLY_SENSITIVE,是,版本号，1 起
+D05,批发合同,status,d05_wholesale_contract,status,TEXT,,HIGHLY_SENSITIVE,是,合同状态
+D05,批发合同,batch_id,d05_wholesale_contract,src_batch_id,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,source_system,d05_wholesale_contract,src_source_system,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,source_file,d05_wholesale_contract,src_source_file,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,source_row_no,d05_wholesale_contract,src_source_row_no,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,file_hash,d05_wholesale_contract,src_file_hash,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,imported_at,d05_wholesale_contract,src_imported_at,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,importer_version,d05_wholesale_contract,src_importer_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,rule_version,d05_wholesale_contract,src_rule_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,valid_from,d05_wholesale_contract,src_valid_from,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,valid_to,d05_wholesale_contract,src_valid_to,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,is_current,d05_wholesale_contract,src_is_current,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D05,批发合同,owner,d05_wholesale_contract,src_owner,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,contract_id,d06_retail_contract,contract_id,TEXT,,HIGHLY_SENSITIVE,是,零售合同编号
+D06,零售合同,user_id,d06_retail_contract,user_id,TEXT,,HIGHLY_SENSITIVE,是,签约用户
+D06,零售合同,package_id,d06_retail_contract,package_id,TEXT,,HIGHLY_SENSITIVE,是,零售套餐编号，PACKAGE-<ORG4>-<SEQ6>-<CHK>
+D06,零售合同,price_type,d06_retail_contract,price_type,TEXT,,HIGHLY_SENSITIVE,是,套餐类型
+D06,零售合同,formula_text,d06_retail_contract,formula_text,TEXT,,HIGHLY_SENSITIVE,是,价格公式/浮动比例/封顶保底条款
+D06,零售合同,term_start,d06_retail_contract,term_start,TEXT,,HIGHLY_SENSITIVE,是,合同期起
+D06,零售合同,term_end,d06_retail_contract,term_end,TEXT,,HIGHLY_SENSITIVE,是,合同期止（含）
+D06,零售合同,version,d06_retail_contract,version,INTEGER,,HIGHLY_SENSITIVE,是,版本号
+D06,零售合同,status,d06_retail_contract,status,TEXT,,HIGHLY_SENSITIVE,是,合同状态
+D06,零售合同,batch_id,d06_retail_contract,src_batch_id,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,source_system,d06_retail_contract,src_source_system,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,source_file,d06_retail_contract,src_source_file,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,source_row_no,d06_retail_contract,src_source_row_no,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,file_hash,d06_retail_contract,src_file_hash,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,imported_at,d06_retail_contract,src_imported_at,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,importer_version,d06_retail_contract,src_importer_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,rule_version,d06_retail_contract,src_rule_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,valid_from,d06_retail_contract,src_valid_from,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,valid_to,d06_retail_contract,src_valid_to,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,is_current,d06_retail_contract,src_is_current,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D06,零售合同,owner,d06_retail_contract,src_owner,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,batch_id,d07_declaration,batch_id,TEXT,,HIGHLY_SENSITIVE,是,申报批次号
+D07,交易申报,trade_date,d07_declaration,trade_date,TEXT,,HIGHLY_SENSITIVE,是,交易日
+D07,交易申报,variety,d07_declaration,variety,TEXT,,HIGHLY_SENSITIVE,是,品种
+D07,交易申报,slot_no,d07_declaration,slot_no,INTEGER,,HIGHLY_SENSITIVE,是,时段号
+D07,交易申报,energy_mwh,d07_declaration,energy_mwh,INTEGER,3,HIGHLY_SENSITIVE,是,申报电量 MWh
+D07,交易申报,price,d07_declaration,price,INTEGER,4,HIGHLY_SENSITIVE,是,申报价 元/MWh
+D07,交易申报,submitted_at,d07_declaration,submitted_at,TEXT,,HIGHLY_SENSITIVE,是,提交时刻
+D07,交易申报,status,d07_declaration,status,TEXT,,HIGHLY_SENSITIVE,是,申报状态
+D07,交易申报,batch_id,d07_declaration,src_batch_id,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,source_system,d07_declaration,src_source_system,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,source_file,d07_declaration,src_source_file,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,source_row_no,d07_declaration,src_source_row_no,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,file_hash,d07_declaration,src_file_hash,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,imported_at,d07_declaration,src_imported_at,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,importer_version,d07_declaration,src_importer_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,rule_version,d07_declaration,src_rule_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,valid_from,d07_declaration,src_valid_from,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,valid_to,d07_declaration,src_valid_to,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,is_current,d07_declaration,src_is_current,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D07,交易申报,owner,d07_declaration,src_owner,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,trade_id,d08_trade_result,trade_id,TEXT,,HIGHLY_SENSITIVE,是,成交序号（交易机构口径）
+D08,成交结果,trade_date,d08_trade_result,trade_date,TEXT,,HIGHLY_SENSITIVE,是,交易日
+D08,成交结果,variety,d08_trade_result,variety,TEXT,,HIGHLY_SENSITIVE,是,品种
+D08,成交结果,slot_no,d08_trade_result,slot_no,INTEGER,,HIGHLY_SENSITIVE,是,时段号
+D08,成交结果,volume_mwh,d08_trade_result,volume_mwh,INTEGER,3,HIGHLY_SENSITIVE,是,成交量 MWh
+D08,成交结果,price,d08_trade_result,price,INTEGER,4,HIGHLY_SENSITIVE,是,成交价 元/MWh
+D08,成交结果,fee_amount,d08_trade_result,fee_amount,INTEGER,2,HIGHLY_SENSITIVE,否,手续费 元
+D08,成交结果,counterparty_id,d08_trade_result,counterparty_id,TEXT,,HIGHLY_SENSITIVE,否,对手方编号
+D08,成交结果,cleared_at,d08_trade_result,cleared_at,TEXT,,HIGHLY_SENSITIVE,是,出清时刻
+D08,成交结果,batch_id,d08_trade_result,src_batch_id,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,source_system,d08_trade_result,src_source_system,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,source_file,d08_trade_result,src_source_file,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,source_row_no,d08_trade_result,src_source_row_no,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,file_hash,d08_trade_result,src_file_hash,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,imported_at,d08_trade_result,src_imported_at,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,importer_version,d08_trade_result,src_importer_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,rule_version,d08_trade_result,src_rule_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,valid_from,d08_trade_result,src_valid_from,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,valid_to,d08_trade_result,src_valid_to,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,is_current,d08_trade_result,src_is_current,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D08,成交结果,owner,d08_trade_result,src_owner,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,energy_date,d09_daily_settlement,energy_date,TEXT,,HIGHLY_SENSITIVE,是,电量归属日（按 interval_start，见时间栅格 T9）
+D09,日清数据,slot_no,d09_daily_settlement,slot_no,INTEGER,,HIGHLY_SENSITIVE,是,时段号
+D09,日清数据,subject_code,d09_daily_settlement,subject_code,TEXT,,HIGHLY_SENSITIVE,是,清算科目编码（客户账单科目对照表，待 Q02 样本）
+D09,日清数据,direction,d09_daily_settlement,direction,TEXT,,HIGHLY_SENSITIVE,是,购/售方向
+D09,日清数据,energy_mwh,d09_daily_settlement,energy_mwh,INTEGER,3,HIGHLY_SENSITIVE,是,科目电量 MWh，保留符号
+D09,日清数据,price,d09_daily_settlement,price,INTEGER,4,HIGHLY_SENSITIVE,是,科目价格 元/MWh
+D09,日清数据,amount,d09_daily_settlement,amount,INTEGER,2,HIGHLY_SENSITIVE,是,科目金额 元，2 位小数
+D09,日清数据,settle_date,d09_daily_settlement,settle_date,TEXT,,HIGHLY_SENSITIVE,是,结算日（不用于反推 energy_date）
+D09,日清数据,rule_ref,d09_daily_settlement,rule_ref,TEXT,,HIGHLY_SENSITIVE,是,依据条款号
+D09,日清数据,quality_flag,d09_daily_settlement,quality_flag,TEXT,,HIGHLY_SENSITIVE,是,质量等级
+D09,日清数据,batch_id,d09_daily_settlement,src_batch_id,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,source_system,d09_daily_settlement,src_source_system,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,source_file,d09_daily_settlement,src_source_file,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,source_row_no,d09_daily_settlement,src_source_row_no,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,file_hash,d09_daily_settlement,src_file_hash,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,imported_at,d09_daily_settlement,src_imported_at,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,importer_version,d09_daily_settlement,src_importer_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,rule_version,d09_daily_settlement,src_rule_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,valid_from,d09_daily_settlement,src_valid_from,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,valid_to,d09_daily_settlement,src_valid_to,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,is_current,d09_daily_settlement,src_is_current,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D09,日清数据,owner,d09_daily_settlement,src_owner,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,settle_month,d10_monthly_settlement,settle_month,TEXT,,HIGHLY_SENSITIVE,是,结算月 YYYY-MM
+D10,月结数据,subject_code,d10_monthly_settlement,subject_code,TEXT,,HIGHLY_SENSITIVE,是,科目编码
+D10,月结数据,direction,d10_monthly_settlement,direction,TEXT,,HIGHLY_SENSITIVE,是,购/售方向
+D10,月结数据,energy_mwh,d10_monthly_settlement,energy_mwh,INTEGER,3,HIGHLY_SENSITIVE,是,月电量 MWh
+D10,月结数据,amount,d10_monthly_settlement,amount,INTEGER,2,HIGHLY_SENSITIVE,是,月金额 元
+D10,月结数据,retro_adjust_type,d10_monthly_settlement,retro_adjust_type,TEXT,,HIGHLY_SENSITIVE,是,追退补类型
+D10,月结数据,related_month,d10_monthly_settlement,related_month,TEXT,,HIGHLY_SENSITIVE,否,追退补对应的原结算月
+D10,月结数据,retro_seq,d10_monthly_settlement,retro_seq,INTEGER,,HIGHLY_SENSITIVE,是,同月同科目的调整序号，0=原单
+D10,月结数据,rule_ref,d10_monthly_settlement,rule_ref,TEXT,,HIGHLY_SENSITIVE,是,依据条款号
+D10,月结数据,settle_date,d10_monthly_settlement,settle_date,TEXT,,HIGHLY_SENSITIVE,是,结算日
+D10,月结数据,batch_id,d10_monthly_settlement,src_batch_id,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,source_system,d10_monthly_settlement,src_source_system,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,source_file,d10_monthly_settlement,src_source_file,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,source_row_no,d10_monthly_settlement,src_source_row_no,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,file_hash,d10_monthly_settlement,src_file_hash,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,imported_at,d10_monthly_settlement,src_imported_at,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,importer_version,d10_monthly_settlement,src_importer_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,rule_version,d10_monthly_settlement,src_rule_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,valid_from,d10_monthly_settlement,src_valid_from,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,valid_to,d10_monthly_settlement,src_valid_to,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,is_current,d10_monthly_settlement,src_is_current,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D10,月结数据,owner,d10_monthly_settlement,src_owner,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,region_code,d11_weather,region_code,TEXT,,PUBLIC,是,行政区划代码
+D11,天气数据,valid_at,d11_weather,valid_at,TEXT,,PUBLIC,是,整点时刻（小时栅格左端）
+D11,天气数据,temperature_c,d11_weather,temperature_c,INTEGER,1,PUBLIC,是,气温 ℃，1 位小数
+D11,天气数据,humidity_pct,d11_weather,humidity_pct,INTEGER,1,PUBLIC,是,相对湿度 %
+D11,天气数据,weather_code,d11_weather,weather_code,TEXT,,PUBLIC,是,WMO 天气现象码
+D11,天气数据,alert_level,d11_weather,alert_level,TEXT,,PUBLIC,是,气象预警级别
+D11,天气数据,source,d11_weather,source,TEXT,,PUBLIC,是,数据源名称与版本（如 open-meteo archive v1）
+D11,天气数据,batch_id,d11_weather,src_batch_id,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,source_system,d11_weather,src_source_system,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,source_file,d11_weather,src_source_file,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,source_row_no,d11_weather,src_source_row_no,INTEGER,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,file_hash,d11_weather,src_file_hash,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,imported_at,d11_weather,src_imported_at,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,importer_version,d11_weather,src_importer_version,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,rule_version,d11_weather,src_rule_version,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,valid_from,d11_weather,src_valid_from,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,valid_to,d11_weather,src_valid_to,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,is_current,d11_weather,src_is_current,INTEGER,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D11,天气数据,owner,d11_weather,src_owner,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,calendar_date,d12_calendar,calendar_date,TEXT,,PUBLIC,是,自然日
+D12,节假日与交易日历,day_type,d12_calendar,day_type,TEXT,,PUBLIC,是,日类型（四类）
+D12,节假日与交易日历,holiday_name,d12_calendar,holiday_name,TEXT,,PUBLIC,否,节假日名称
+D12,节假日与交易日历,is_workday,d12_calendar,is_workday,INTEGER,,PUBLIC,是,是否工作日（调休上班日=true）
+D12,节假日与交易日历,makeup_for,d12_calendar,makeup_for,TEXT,,PUBLIC,否,调休补班的对应节日
+D12,节假日与交易日历,tariff_segment_map_version,d12_calendar,tariff_segment_map_version,TEXT,,PUBLIC,否,分时电价 24 段映射版本，U5 定稿后填写
+D12,节假日与交易日历,source,d12_calendar,source,TEXT,,PUBLIC,是,依据文号（国办发明电〔2025〕7号）
+D12,节假日与交易日历,batch_id,d12_calendar,src_batch_id,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,source_system,d12_calendar,src_source_system,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,source_file,d12_calendar,src_source_file,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,source_row_no,d12_calendar,src_source_row_no,INTEGER,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,file_hash,d12_calendar,src_file_hash,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,imported_at,d12_calendar,src_imported_at,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,importer_version,d12_calendar,src_importer_version,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,rule_version,d12_calendar,src_rule_version,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,valid_from,d12_calendar,src_valid_from,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,valid_to,d12_calendar,src_valid_to,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,is_current,d12_calendar,src_is_current,INTEGER,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D12,节假日与交易日历,owner,d12_calendar,src_owner,TEXT,,PUBLIC,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,correction_id,d13_production_correction,correction_id,TEXT,,SENSITIVE,是,修正单编号
+D13,生产计划修正,user_id,d13_production_correction,user_id,TEXT,,SENSITIVE,是,受影响用户
+D13,生产计划修正,business_date,d13_production_correction,business_date,TEXT,,SENSITIVE,是,生效日
+D13,生产计划修正,type,d13_production_correction,type,TEXT,,SENSITIVE,是,修正类型
+D13,生产计划修正,impact_ratio,d13_production_correction,impact_ratio,INTEGER,4,SENSITIVE,是,影响比例 0..1，4 位小数
+D13,生产计划修正,reason,d13_production_correction,reason,TEXT,,SENSITIVE,是,原因摘要
+D13,生产计划修正,source,d13_production_correction,source,TEXT,,SENSITIVE,是,来源（表单/邮件/口头转录）
+D13,生产计划修正,batch_id,d13_production_correction,src_batch_id,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,source_system,d13_production_correction,src_source_system,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,source_file,d13_production_correction,src_source_file,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,source_row_no,d13_production_correction,src_source_row_no,INTEGER,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,file_hash,d13_production_correction,src_file_hash,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,imported_at,d13_production_correction,src_imported_at,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,importer_version,d13_production_correction,src_importer_version,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,rule_version,d13_production_correction,src_rule_version,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,valid_from,d13_production_correction,src_valid_from,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,valid_to,d13_production_correction,src_valid_to,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,is_current,d13_production_correction,src_is_current,INTEGER,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D13,生产计划修正,owner,d13_production_correction,src_owner,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,participant_id,d14_credit_limit,participant_id,TEXT,,HIGHLY_SENSITIVE,是,交易主体编号，TRADER-<ORG4>-<SEQ6>-<CHK>
+D14,履约与额度,as_of,d14_credit_limit,as_of,TEXT,,HIGHLY_SENSITIVE,是,数据截止日
+D14,履约与额度,credit_limit_amount,d14_credit_limit,credit_limit_amount,INTEGER,2,HIGHLY_SENSITIVE,是,授信额度 元
+D14,履约与额度,margin_required,d14_credit_limit,margin_required,INTEGER,4,HIGHLY_SENSITIVE,是,应缴保证金 元
+D14,履约与额度,margin_posted,d14_credit_limit,margin_posted,INTEGER,4,HIGHLY_SENSITIVE,是,实缴保证金 元
+D14,履约与额度,guarantee_amount,d14_credit_limit,guarantee_amount,INTEGER,2,HIGHLY_SENSITIVE,是,保函金额 元
+D14,履约与额度,used_amount,d14_credit_limit,used_amount,INTEGER,2,HIGHLY_SENSITIVE,是,已用额度 元
+D14,履约与额度,warning_line_amount,d14_credit_limit,warning_line_amount,INTEGER,2,HIGHLY_SENSITIVE,是,预警线 元
+D14,履约与额度,status,d14_credit_limit,status,TEXT,,HIGHLY_SENSITIVE,是,额度状态
+D14,履约与额度,batch_id,d14_credit_limit,src_batch_id,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,source_system,d14_credit_limit,src_source_system,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,source_file,d14_credit_limit,src_source_file,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,source_row_no,d14_credit_limit,src_source_row_no,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,file_hash,d14_credit_limit,src_file_hash,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,imported_at,d14_credit_limit,src_imported_at,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,importer_version,d14_credit_limit,src_importer_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,rule_version,d14_credit_limit,src_rule_version,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,valid_from,d14_credit_limit,src_valid_from,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,valid_to,d14_credit_limit,src_valid_to,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,is_current,d14_credit_limit,src_is_current,INTEGER,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D14,履约与额度,owner,d14_credit_limit,src_owner,TEXT,,HIGHLY_SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,account_id,d15_user_account,account_id,TEXT,,SENSITIVE,是,账号（工号/邮箱）
+D15,用户与权限,display_name,d15_user_account,display_name,TEXT,,SENSITIVE,是,显示名
+D15,用户与权限,role,d15_user_account,role,TEXT,,SENSITIVE,是,角色
+D15,用户与权限,org_code,d15_user_account,org_code,TEXT,,SENSITIVE,是,组织编码
+D15,用户与权限,permissions,d15_user_account,permissions,TEXT,,SENSITIVE,是,"权限点列表，如 [""trade.submit"",""settle.view""]"
+D15,用户与权限,status,d15_user_account,status,TEXT,,SENSITIVE,是,账号状态
+D15,用户与权限,mfa_enabled,d15_user_account,mfa_enabled,INTEGER,,SENSITIVE,是,是否启用多因素
+D15,用户与权限,last_login_at,d15_user_account,last_login_at,TEXT,,SENSITIVE,否,最近登录时刻
+D15,用户与权限,batch_id,d15_user_account,src_batch_id,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,source_system,d15_user_account,src_source_system,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,source_file,d15_user_account,src_source_file,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,source_row_no,d15_user_account,src_source_row_no,INTEGER,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,file_hash,d15_user_account,src_file_hash,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,imported_at,d15_user_account,src_imported_at,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,importer_version,d15_user_account,src_importer_version,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,rule_version,d15_user_account,src_rule_version,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,valid_from,d15_user_account,src_valid_from,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,valid_to,d15_user_account,src_valid_to,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,is_current,d15_user_account,src_is_current,INTEGER,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D15,用户与权限,owner,d15_user_account,src_owner,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,call_id,d16_model_call_log,call_id,TEXT,,SENSITIVE,是,调用ID（UUID）
+D16,模型调用日志,task,d16_model_call_log,task,TEXT,,SENSITIVE,是,任务类型：forecast/strategy/qa/summary
+D16,模型调用日志,model,d16_model_call_log,model,TEXT,,SENSITIVE,是,模型名与版本
+D16,模型调用日志,prompt_tokens,d16_model_call_log,prompt_tokens,INTEGER,,SENSITIVE,是,输入 Token
+D16,模型调用日志,completion_tokens,d16_model_call_log,completion_tokens,INTEGER,,SENSITIVE,是,输出 Token
+D16,模型调用日志,latency_ms,d16_model_call_log,latency_ms,INTEGER,,SENSITIVE,是,端到端耗时 ms
+D16,模型调用日志,redacted_summary,d16_model_call_log,redacted_summary,TEXT,,SENSITIVE,是,脱敏后的输入摘要（不得含原始敏感字段）
+D16,模型调用日志,status,d16_model_call_log,status,TEXT,,SENSITIVE,是,调用结果
+D16,模型调用日志,trace_id,d16_model_call_log,trace_id,TEXT,,SENSITIVE,是,链路追踪ID
+D16,模型调用日志,actor_account_id,d16_model_call_log,actor_account_id,TEXT,,SENSITIVE,是,发起账号
+D16,模型调用日志,batch_id,d16_model_call_log,src_batch_id,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,source_system,d16_model_call_log,src_source_system,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,source_file,d16_model_call_log,src_source_file,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,source_row_no,d16_model_call_log,src_source_row_no,INTEGER,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,file_hash,d16_model_call_log,src_file_hash,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,imported_at,d16_model_call_log,src_imported_at,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,importer_version,d16_model_call_log,src_importer_version,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,rule_version,d16_model_call_log,src_rule_version,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,valid_from,d16_model_call_log,src_valid_from,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,valid_to,d16_model_call_log,src_valid_to,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,is_current,d16_model_call_log,src_is_current,INTEGER,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀
+D16,模型调用日志,owner,d16_model_call_log,src_owner,TEXT,,SENSITIVE,公共列,契约公共列，物理加 src_ 前缀

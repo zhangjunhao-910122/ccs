@@ -1,0 +1,213 @@
+{
+  "name": "business-data-store",
+  "version": "1.0",
+  "ticket": "#25",
+  "upstream": [
+    "docs/spec/data-contract/contract.schema.json v1.0（#33）",
+    "docs/spec/time-grid/SPEC.md v1.0（#26）"
+  ],
+  "engine": {
+    "stage1": "SQLite 3.35+（WAL、foreign_keys=ON、busy_timeout=5000）",
+    "stage2": "PostgreSQL 16+（同一逻辑模型，可加原生月分区）",
+    "portable_subset": "只用标准 SQL 与两种引擎都支持的类型；禁止在逻辑层使用 SQLite 专有语法"
+  },
+  "null_semantics": "NULL=未观测；0=观测到零；禁止用 0 代替缺失",
+  "decimal_storage": {
+    "rule": "decimal 一律存整数最小单位，应用层用 Decimal 换算；禁止 REAL/FLOAT",
+    "scales": {
+      "energy": 3,
+      "volume": 3,
+      "price": 4,
+      "amount": 2,
+      "ratio": 4,
+      "temperature": 1,
+      "humidity": 1,
+      "default": 4
+    }
+  },
+  "common_column_prefix": "src_",
+  "common_column_note": "契约的 12 个公共列在物理表统一加 src_ 前缀，避免与业务字段同名（如 D07.batch_id）",
+  "row_identity": {
+    "record_id": "sha256(dataset | 业务键值 | valid_from)",
+    "current_key": "业务键去掉 version 后的规范 JSON",
+    "current_unique": "部分唯一索引 (dataset, current_key) WHERE src_is_current=1"
+  },
+  "common_tables": {
+    "ingest_batch": "批次台账：dataset + file_hash 唯一，重复批次直接判 DUPLICATE",
+    "quarantine_row": "隔离行：保留原始 JSON、规则号、批次与行号，可查但不进任何视图",
+    "lineage_edge": "血缘边：from_ref → to_ref，带 transform_id 与 run_id",
+    "column_policy": "列级敏感策略：每列一行，供安全网关裁剪",
+    "schema_version": "存储版本与迁移记录"
+  },
+  "tables": {
+    "D01": {
+      "table": "d01_rule_doc",
+      "retention": "10y",
+      "aux": [
+        "d01_rule_clause"
+      ],
+      "extra_indexes": []
+    },
+    "D02": {
+      "table": "d02_user",
+      "retention": "7y",
+      "aux": [],
+      "extra_indexes": []
+    },
+    "D03": {
+      "table": "d03_meter",
+      "retention": "7y",
+      "aux": [],
+      "extra_indexes": []
+    },
+    "D04": {
+      "table": "d04_load_hourly",
+      "retention": "7y",
+      "aux": [],
+      "extra_indexes": [
+        [
+          "user_id",
+          "business_date"
+        ]
+      ]
+    },
+    "D05": {
+      "table": "d05_wholesale_contract",
+      "retention": "10y",
+      "aux": [],
+      "extra_indexes": []
+    },
+    "D06": {
+      "table": "d06_retail_contract",
+      "retention": "10y",
+      "aux": [],
+      "extra_indexes": []
+    },
+    "D07": {
+      "table": "d07_declaration",
+      "retention": "7y",
+      "aux": [],
+      "extra_indexes": [
+        [
+          "trade_date",
+          "variety"
+        ]
+      ]
+    },
+    "D08": {
+      "table": "d08_trade_result",
+      "retention": "7y",
+      "aux": [],
+      "extra_indexes": [
+        [
+          "trade_date",
+          "variety"
+        ]
+      ]
+    },
+    "D09": {
+      "table": "d09_daily_settlement",
+      "retention": "7y",
+      "aux": [],
+      "extra_indexes": [
+        [
+          "subject_code",
+          "direction"
+        ],
+        [
+          "energy_date"
+        ]
+      ]
+    },
+    "D10": {
+      "table": "d10_monthly_settlement",
+      "retention": "10y",
+      "aux": [],
+      "extra_indexes": [
+        [
+          "settle_month"
+        ],
+        [
+          "subject_code",
+          "direction"
+        ]
+      ]
+    },
+    "D11": {
+      "table": "d11_weather",
+      "retention": "3y",
+      "aux": [],
+      "extra_indexes": [
+        [
+          "region_code",
+          "valid_at"
+        ]
+      ]
+    },
+    "D12": {
+      "table": "d12_calendar",
+      "retention": "10y",
+      "aux": [],
+      "extra_indexes": []
+    },
+    "D13": {
+      "table": "d13_production_correction",
+      "retention": "7y",
+      "aux": [],
+      "extra_indexes": [
+        [
+          "user_id",
+          "business_date"
+        ]
+      ]
+    },
+    "D14": {
+      "table": "d14_credit_limit",
+      "retention": "7y",
+      "aux": [],
+      "extra_indexes": [
+        [
+          "participant_id",
+          "as_of"
+        ]
+      ]
+    },
+    "D15": {
+      "table": "d15_user_account",
+      "retention": "2y",
+      "aux": [],
+      "extra_indexes": []
+    },
+    "D16": {
+      "table": "d16_model_call_log",
+      "retention": "1y",
+      "aux": [],
+      "extra_indexes": [
+        [
+          "task"
+        ],
+        [
+          "trace_id"
+        ]
+      ]
+    }
+  },
+  "derived_tables": {
+    "d04_load_daily": "由小时表按 #26 规则重算：电量求和、质量取最差、带 rebuild_run_id",
+    "d04_load_monthly": "由日表按月重算；只作查询加速，小时表是唯一事实来源"
+  },
+  "quarantine_rules": {
+    "BLOCK": "任一 BLOCK 级错误 → 整批 0 行进主表，全部行写入 quarantine_row，批次状态 BLOCKED（沿用 #44 R6）",
+    "WARN": "行级警告 → 允许入主表但 quality_flag≠OK 且 conflict_flag=1，查询视图默认排除",
+    "retention": "隔离行保留 180 天，人工处置后归档"
+  },
+  "views": {
+    "valid": "v_<table>_valid：src_is_current=1 且 quality_flag ∈ (OK, ESTIMATED)（无质量列的表只过滤 is_current）",
+    "masked": "HIGHLY_SENSITIVE 表不提供行级视图，只允许 k≥5 聚合；PUBLIC/SENSITIVE 表提供 v_<table>_masked"
+  },
+  "time_grid": {
+    "hourly_fact": "D04/D07/D09 以 (business_date, slot_no) 为业务键，interval_start 由 #26 生成，禁止手填",
+    "partition": "阶段一不分表，按 energy_date/settle_month 建索引；阶段二 PostgreSQL 按月分区"
+  },
+  "retention": "原始文件与批次台账 7 年；结算数据 10 年；模型日志 1 年；血缘边 7 年"
+}
