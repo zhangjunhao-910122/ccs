@@ -1,0 +1,1950 @@
+# 由 tools/build_library.py parse 自动生成，请勿手工编辑。
+# 源基线：见 profile.version_meta.generated_from
+# 修改审核点请改基线 Markdown 后重新生成，或由 #5 I8 人工核定后回填。
+profile:
+  id: ohs-gbt45001-2020
+  domain: ohs
+  standard:
+    designation: GB/T 45001-2020
+    iso_equivalent: ISO 45001:2018
+    edition: '2020'
+    status: current
+    published: null
+    effective: null
+    withdrawn: null
+    supersedes: null
+    relation: identical
+    official_sources:
+    - url: https://openstd.samr.gov.cn/bzgk/gb/std_list
+      accessed: '2026-11-05'
+      title: 国家标准全文公开系统 GB/T 45001 条目（采标、现行）
+  scope:
+    applies_to: 职业健康安全管理体系认证审核
+    excludes: []
+  version_meta:
+    generated_from: docs/research/iso45001-clause-audit-baseline.md
+    verification_status: toc_verified
+    verified_by: null
+    verified_at: null
+    clause_tree_ref: clause_trees/ohs-gbt45001-2020.yaml
+    snapshot_id: sha256:92199cead0182e5101314d7767450319d05d7ac0202230361e65c0ef1ec1c71e
+clauses:
+- clause_no: '4.1'
+  title: 理解组织及其所处的环境
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.1'
+    audit_question: 组织如何确定与其职业健康安全管理体系相关的内部因素与外部因素？识别过程是否覆盖法律法规要求、相关方需求与期望、组织规模与场所条件、员工能力与安全文化、既有事件与应急状况等维度？环境分析结论是否转化为
+      4.2 的相关方要求与 6.1 的风险和机遇，而非停留在清单本身？
+    written_evidence:
+    - 组织环境识别过程的文件或作业指导
+    - 内部因素与外部因素识别清单及最近一次评审记录
+    - 环境分析与风险和机遇清单之间的对应关系表
+    - 环境识别结果的更新频次与触发条件说明
+    - 新场所、新业务、新法规变化对环境识别的影响评估记录
+    on_site_evidence:
+    - 访谈安全、EHS、设备、人力、采购等不同部门，确认其提供的环境信息确实进入了识别清单
+    - 核对清单是否覆盖生产现场、公用工程、检维修、仓储与外包场所等实际变化点
+    - 追溯最近一次工艺或场所变化是否进入环境识别与风险评价
+    - 向一线了解其知晓的重大变化事项及是否被识别为环境因素
+    typical_nc:
+    - 环境识别停留在体系建立当年的静态清单，近年扩产改造、工艺变更、场所搬迁、法规修订或新业务领域未纳入
+    - 环境分析结果没有传递到 6.1 风险评价与 4.2 相关方要求，风险和机遇清单与环境分析互不引用
+    - 识别由单一部门闭门完成，内容与现场实际不符
+    - 环境变化无人负责更新，识别结果长期不复审
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 组织环境识别过程的文件或作业指导
+        priority: core
+      - id: w2
+        kind: written
+        text: 内部因素与外部因素识别清单及最近一次评审记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 环境分析与风险和机遇清单之间的对应关系表
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 环境识别结果的更新频次与触发条件说明
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 新场所、新业务、新法规变化对环境识别的影响评估记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 访谈安全、EHS、设备、人力、采购等不同部门，确认其提供的环境信息确实进入了识别清单
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对清单是否覆盖生产现场、公用工程、检维修、仓储与外包场所等实际变化点
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 追溯最近一次工艺或场所变化是否进入环境识别与风险评价
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 向一线了解其知晓的重大变化事项及是否被识别为环境因素
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '4.2'
+  title: 理解工作人员和其他相关方的需求和期望
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.2'
+    audit_question: 组织如何确定与其职业健康安全管理体系相关的相关方及其需求和期望？相关方是否覆盖法律法规与其他要求方、工作场所内的各层人员与承包商、供方、客户、监管机构、社区与公众等类别，并分别确定接口与责任部门？工作人员与其他相关方的需求和期望是否被监视、评审，并在发生变化时转化为体系策划输入？
+    written_evidence:
+    - 相关方清单及其需求事项、责任部门与沟通方式的对应表
+    - 合同与协议中的职业健康安全条款（客户、供方、承包商）
+    - 相关方需求与期望的监视与评审记录
+    - 员工意见与承包商反馈的收集与处置记录
+    - 客户投诉、监管意见与外部反馈的处理记录
+    - 相关方需求变化触发的体系文件评审与修订记录
+    on_site_evidence:
+    - 抽查客户或供方合同中的安全条款，核对其与本组织体系要求是否一致
+    - 向一线人员了解其对客户与供方安全要求的知晓程度
+    - 查看外部投诉、举报与监管意见的处理闭环及结果反馈
+    - 验证外部要求发生变化后是否实际修订了体系文件与作业标准
+    - 核实工作人员与其他相关方的需求是否真的进入了策划过程，而非只登记在册
+    typical_nc:
+    - 把相关方等同于顾客满意度，忽略员工家属、监管机构、社区、非正式工等直接相关方
+    - 合同条款与体系文件形成两套并行要求且未做对齐检查
+    - 相关方要求有评审无处置，或评审后不修订体系
+    - 与承包商、分包方的安全要求未写入合同，形成体系边界之外的管控空白
+    - 外部投诉只做赔付不做体系改进
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 相关方清单及其需求事项、责任部门与沟通方式的对应表
+        priority: core
+      - id: w2
+        kind: written
+        text: 合同与协议中的职业健康安全条款（客户、供方、承包商）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 相关方需求与期望的监视与评审记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 员工意见与承包商反馈的收集与处置记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 客户投诉、监管意见与外部反馈的处理记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 相关方需求变化触发的体系文件评审与修订记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查客户或供方合同中的安全条款，核对其与本组织体系要求是否一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 向一线人员了解其对客户与供方安全要求的知晓程度
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看外部投诉、举报与监管意见的处理闭环及结果反馈
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 验证外部要求发生变化后是否实际修订了体系文件与作业标准
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 核实工作人员与其他相关方的需求是否真的进入了策划过程，而非只登记在册
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '4.3'
+  title: 确定职业健康安全管理体系的范围
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.3'
+    audit_question: 体系范围如何确定并形成文件？范围是否覆盖组织的所有场所、所有活动与所有人员，包括承包商、临时用工、劳务派遣与访客？是否存在被排除的场所或活动，排除是否有充分理由且不影响法律法规符合性与职业健康安全风险的降低？范围文件与实际场所清单、实际业务范围是否一致？
+    written_evidence:
+    - 管理体系范围文件，明确场所、过程、活动与人员边界
+    - 场所清单与承包商清单
+    - 范围变更（新增或撤销场所、变更业务范围）的评审与批准记录
+    - 被排除场所或活动的说明及其风险论证
+    - 范围与登记证照、许可范围的对应关系
+    on_site_evidence:
+    - 将范围文件所列场所与现场实际厂房、仓库、施工区、办公场所逐一对照，核查有无未纳入的场所
+    - 查看多法人、多场所之间的体系边界划分与接口人安排
+    - 确认门卫、保洁、供方送货、施工等非正式进入场所的人员是否被纳入作业管控
+    - 核实排除项的实际影响范围是否与说明相符
+    typical_nc:
+    - 范围只覆盖生产主厂区，忽略仓储、办公场所、外包场地、员工宿舍与食堂
+    - 场所清单与实际不符，新厂区、新生产线投产后未纳入体系
+    - 使用“情况特殊”“暂不具备条件”等笼统理由排除区域而不做风险论证
+    - 承包商与劳务派遣人员的作业被排除在范围之外
+    - 范围描述使用功能名称而非可核对的具体场所，难以验证
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 管理体系范围文件，明确场所、过程、活动与人员边界
+        priority: core
+      - id: w2
+        kind: written
+        text: 场所清单与承包商清单
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 范围变更（新增或撤销场所、变更业务范围）的评审与批准记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 被排除场所或活动的说明及其风险论证
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 范围与登记证照、许可范围的对应关系
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 将范围文件所列场所与现场实际厂房、仓库、施工区、办公场所逐一对照，核查有无未纳入的场所
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看多法人、多场所之间的体系边界划分与接口人安排
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 确认门卫、保洁、供方送货、施工等非正式进入场所的人员是否被纳入作业管控
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核实排除项的实际影响范围是否与说明相符
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '4.4'
+  title: 职业健康安全管理体系
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - pdca-process-approach
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.4'
+    audit_question: 组织如何建立、实施、保持并持续改进职业健康安全管理体系？体系所覆盖的过程与活动如何确定，各过程的输入输出、顺序与相互作用、准则与方法、资源、职责权限、绩效指标与改进方式是否明确？体系的范围与边界是否与
+      4.3 的范围文件保持一致？体系与职业健康安全方针（5.2）、目标（6.2）、风险和机遇（6.1）如何衔接？4.1 的内外部因素与 4.2 的相关方需求如何体现在体系过程要求与策划输入中？体系在环境变化时是否被评审并保持完整与有效？
+    written_evidence:
+    - 体系建立与保持的总体策划文件，含体系过程清单与过程关系说明
+    - 各体系过程的策划记录（输入输出、顺序与相互作用、准则与方法、资源、职责权限、绩效指标、改进方式）
+    - 体系范围与 4.3 范围文件的一致性对照说明
+    - 体系与方针、目标、风险和机遇之间的对应关系表
+    - 内外部因素与相关方需求进入体系策划输入的记录
+    - 体系有效性评价与体系结构变更评审记录（组织架构、场所、工艺、承包商范围变化时）
+    on_site_evidence:
+    - 抽取一条实际业务过程做端到端追踪，核对体系文件描述的过程顺序与现场实际流转是否一致
+    - 向部门负责人追问其过程在体系中的位置、上游输入与下游输出是否与文件表述一致
+    - 核对现场实际做法与体系策划结论的差异是否已被识别并触发改进
+    - 检查体系各文件对同一过程的描述是否自相矛盾
+    - 验证扩产、并购、场所搬迁或外包范围变化后是否做过体系结构性调整评审
+    typical_nc:
+    - 体系只有一本手册加几张流程图，没有过程策划与保持记录，文件写的过程与现场实际两张皮
+    - 体系过程之间无顺序与相互作用说明，接口处问题无人负责
+    - 体系与方针、目标、风险和机遇各自独立编写、互不引用，形成四本互不相干的账
+    - 环境变化与相关方需求变化未引起体系调整，体系长期不适配业务
+    - 体系范围与 4.3 范围文件不一致，一处包含承包商作业而另一处不包含
+    - 体系被当作文件体系维护，无过程改进与有效性评价记录
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 体系建立与保持的总体策划文件，含体系过程清单与过程关系说明
+        priority: core
+      - id: w2
+        kind: written
+        text: 各体系过程的策划记录（输入输出、顺序与相互作用、准则与方法、资源、职责权限、绩效指标、改进方式）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 体系范围与 4.3 范围文件的一致性对照说明
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 体系与方针、目标、风险和机遇之间的对应关系表
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 内外部因素与相关方需求进入体系策划输入的记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 体系有效性评价与体系结构变更评审记录（组织架构、场所、工艺、承包商范围变化时）
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽取一条实际业务过程做端到端追踪，核对体系文件描述的过程顺序与现场实际流转是否一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 向部门负责人追问其过程在体系中的位置、上游输入与下游输出是否与文件表述一致
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对现场实际做法与体系策划结论的差异是否已被识别并触发改进
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 检查体系各文件对同一过程的描述是否自相矛盾
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 验证扩产、并购、场所搬迁或外包范围变化后是否做过体系结构性调整评审
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '5.1'
+  title: 领导作用和承诺
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '5.1'
+    audit_question: 最高管理者如何体现对体系的领导作用与承诺？是否承担体系有效性的责任、提供资源、建立沟通渠道、确保要求融入业务过程？是否保证体系与组织的战略方向和业务过程相容？是否亲自推动持续改进？是否对工作人员的协商和参与机制给予公开支持？
+    written_evidence:
+    - 管理评审记录中最高管理者的主持与决策痕迹
+    - 职业健康安全方针及其批准与发布记录
+    - 管理体系与战略方向、业务过程衔接的说明与评审证据
+    - 资源投入与专项预算的审批记录
+    - 最高管理者参与安全活动的纪要、签到与指令性文件
+    - 内部与外部沟通渠道的设立与运行记录
+    on_site_evidence:
+    - 与最高管理者及分管负责人访谈，考察其能否说出本组织头号职业健康安全风险、年度目标完成情况与尚未关闭的重大问题
+    - 查看其签发的整改指示与资源审批是否被业务部门落实
+    - 观察其参与一线巡查、应急演练或承包商访谈的痕迹
+    - 核对承诺事项在体系文件与部门目标中的落地情况
+    typical_nc:
+    - 领导承诺只停留在文件层面，缺少资源决策与个人参与的可核查证据
+    - 体系被整体推给安全部门，最高管理者说不清关键风险与目标实况
+    - 沟通渠道形同虚设，员工反映的问题从未进入决策层
+    - 领导承诺未与战略、预算和业务过程建立联系，仅挂在体系文件里
+    - 最高管理者在文件上署名但实际不参与、不决策，承诺无人兑现
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 管理评审记录中最高管理者的主持与决策痕迹
+        priority: core
+      - id: w2
+        kind: written
+        text: 职业健康安全方针及其批准与发布记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 管理体系与战略方向、业务过程衔接的说明与评审证据
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 资源投入与专项预算的审批记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 最高管理者参与安全活动的纪要、签到与指令性文件
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 内部与外部沟通渠道的设立与运行记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 与最高管理者及分管负责人访谈，考察其能否说出本组织头号职业健康安全风险、年度目标完成情况与尚未关闭的重大问题
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看其签发的整改指示与资源审批是否被业务部门落实
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 观察其参与一线巡查、应急演练或承包商访谈的痕迹
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对承诺事项在体系文件与部门目标中的落地情况
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '5.2'
+  title: 职业健康安全方针
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '5.2'
+    audit_question: 组织如何制定、批准和发布职业健康安全方针？方针是否与组织的目的、战略方向和运行环境相适应，是否满足法律法规及其他要求，是否包含持续改进承诺，是否为职业健康安全目标提供框架？方针如何沟通、理解和在组织内保持一致，使各层级人员知晓其含义与自身岗位的关系？方针的制定是否经过与工作人员的协商，并在需要时评审和修订？
+    written_evidence:
+    - 职业健康安全方针文本及最高管理者批准与发布记录
+    - 方针制定与评审记录，含与战略方向、法律法规要求、员工意见的对照说明
+    - 方针与职业健康安全目标（6.2）的对应关系说明
+    - 方针沟通与宣贯记录，含班前会、培训签到、看板与电子屏发布痕迹
+    - 方针文本在办公场所、作业现场与承包商作业点的张贴或发放记录
+    - 方针评审与修订记录及修订后的重新沟通记录
+    on_site_evidence:
+    - 现场随机抽查各层级人员，请其用自己的话说明方针的含义、与本岗位的关系及其对日常作业的实际影响
+    - 核对办公区、车间、门卫、食堂与承包商作业点的方针版本是否一致、是否与当前业务相符
+    - 向一线追问其是否参与过方针制定或修订的意见征询
+    - 观察方针宣贯后是否产生了可核查的行为变化，如作业禁令、报告义务与防护要求的落实
+    typical_nc:
+    - 方针套用模板，与本组织业务、场所和重大风险无关
+    - 方针缺少法律法规符合或持续改进承诺的表述
+    - 方针由安全部门代笔，未经最高管理者批准即发布
+    - 方针宣贯集中于建体系当年的一次性培训，日常无沟通动作
+    - 一线员工能背诵口号却说不出与本岗位的关系
+    - 方针与战略、目标、预算互不关联，仅挂在手册首页
+    - 方针长期不评审，工艺与场所已变而方针不变
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 职业健康安全方针文本及最高管理者批准与发布记录
+        priority: core
+      - id: w2
+        kind: written
+        text: 方针制定与评审记录，含与战略方向、法律法规要求、员工意见的对照说明
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 方针与职业健康安全目标（6.2）的对应关系说明
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 方针沟通与宣贯记录，含班前会、培训签到、看板与电子屏发布痕迹
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 方针文本在办公场所、作业现场与承包商作业点的张贴或发放记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 方针评审与修订记录及修订后的重新沟通记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场随机抽查各层级人员，请其用自己的话说明方针的含义、与本岗位的关系及其对日常作业的实际影响
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对办公区、车间、门卫、食堂与承包商作业点的方针版本是否一致、是否与当前业务相符
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 向一线追问其是否参与过方针制定或修订的意见征询
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 观察方针宣贯后是否产生了可核查的行为变化，如作业禁令、报告义务与防护要求的落实
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '5.3'
+  title: 组织的角色、职责和权限
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '5.3'
+    audit_question: 组织如何确定并分配职业健康安全管理体系中各层级的角色、职责和权限？最高管理者、体系归口管理部门、各职能部门、各场所与岗位的职责是否明确到可核查的层面？各岗位所需能力要求是否与所承担的职责相匹配？职责分配是否已沟通、传达并被相关人员所理解？职责是否覆盖协商与参与、内部审核、管理评审、事件报告等关键角色？
+    written_evidence:
+    - 组织机构图与职业健康安全职责分配表
+    - 岗位说明书与各层级职责文件，含最高管理者、体系归口部门、各职能部门与场所的职责权限界定
+    - 关键角色任命文件（体系负责人、内部审核员、工作人员代表、设备与计量管理员、事件报告责任人）
+    - 岗位能力要求与培训要求的对应矩阵
+    - 职责分配表的下达、宣贯与确认记录
+    - 职责调整时的变更与再沟通记录
+    on_site_evidence:
+    - 向各层级负责人分别追问其在体系中的职责边界与授权事项，核对是否与职责文件一致
+    - 抽查某一具体职责（如作业许可签发、隐患处置、事件上报）是否确实由文件规定的人员在实际行使
+    - 观察内部审核员、工作人员代表等被指定角色是否真实履职并留下履职痕迹
+    - 核对职责文件所列岗位是否全部为在编在岗人员、有无空缺或兼任冲突
+    - 向一线员工了解其对自身报告义务与升级路径的知晓情况
+    typical_nc:
+    - 职责文件只到部门未到岗位，或职责描述停留在“负责安全工作”等空泛表述
+    - 体系整体责任被默认推给安全部门，最高管理者的职责未落到文件与决策记录中
+    - 关键角色无任命文件，或名义上的内部审核员、工作人员代表从未实际履职
+    - 职责分配与实际分工不符，文件与现场存在两套口径
+    - 职责分配后无沟通与培训，相关人员不知自己负责什么
+    - 职责出现空缺无人替补，关键岗位人员轮岗后长期无人承担
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 组织机构图与职业健康安全职责分配表
+        priority: core
+      - id: w2
+        kind: written
+        text: 岗位说明书与各层级职责文件，含最高管理者、体系归口部门、各职能部门与场所的职责权限界定
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 关键角色任命文件（体系负责人、内部审核员、工作人员代表、设备与计量管理员、事件报告责任人）
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 岗位能力要求与培训要求的对应矩阵
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 职责分配表的下达、宣贯与确认记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 职责调整时的变更与再沟通记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 向各层级负责人分别追问其在体系中的职责边界与授权事项，核对是否与职责文件一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查某一具体职责（如作业许可签发、隐患处置、事件上报）是否确实由文件规定的人员在实际行使
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 观察内部审核员、工作人员代表等被指定角色是否真实履职并留下履职痕迹
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对职责文件所列岗位是否全部为在编在岗人员、有无空缺或兼任冲突
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 向一线员工了解其对自身报告义务与升级路径的知晓情况
+        priority: supporting
+    difficulty: low
+    apg_ref: []
+- clause_no: '5.4'
+  title: 工作人员的协商和参与
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '5.4'
+    audit_question: 组织如何确定并落实与工作人员协商和参与职业健康安全事务的机制？是否消除参与障碍，明确工作人员提出意见不受惩罚？是否提供工作人员获得咨询与参与决策的渠道、资源与时间？工作人员代表如何产生并履行职责？参与过程是否真正影响了决策与作业条件？
+    written_evidence:
+    - 协商与参与的程序文件或机制说明
+    - 工作人员代表、安全委员会的选举或任命文件与授权
+    - 意见与隐患提报渠道及问题台账
+    - 协商、参与活动的记录（座谈、联合检查、班组危险源辨识、工作人员代表会议）
+    - 参与结果实际改变决策或作业方案的记录
+    - 反报复承诺与相关制度
+    on_site_evidence:
+    - 与一线人员、承包商人员、临时用工随机访谈，询问是否知道如何提意见、提过的问题是否得到回应
+    - 观察班前会、班组看板与随手拍隐患的实际使用情况
+    - 查看参与促成的具体决策实例（工艺改动、工时安排、防护配置、停机建议）
+    - 核实参与渠道对外包与临时作业人员是否开放
+    - 确认是否存在因提意见受处理的迹象
+    typical_nc:
+    - 只设专职安全员收意见，没有咨询与参与决策的实体机制与时间保障
+    - 意见收集后无反馈或无实效，工作人员的合理结论是提意见没用
+    - 参与被理解为听培训、签到表，缺少双向沟通与决策影响
+    - 外包与临时作业人员被排除在协商范围之外
+    - 机制只在总部层面向对基层班组的覆盖无法证明
+    - 未建立反报复安排，工作人员不敢反映问题
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 协商与参与的程序文件或机制说明
+        priority: core
+      - id: w2
+        kind: written
+        text: 工作人员代表、安全委员会的选举或任命文件与授权
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 意见与隐患提报渠道及问题台账
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 协商、参与活动的记录（座谈、联合检查、班组危险源辨识、工作人员代表会议）
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 参与结果实际改变决策或作业方案的记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 反报复承诺与相关制度
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 与一线人员、承包商人员、临时用工随机访谈，询问是否知道如何提意见、提过的问题是否得到回应
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 观察班前会、班组看板与随手拍隐患的实际使用情况
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看参与促成的具体决策实例（工艺改动、工时安排、防护配置、停机建议）
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核实参与渠道对外包与临时作业人员是否开放
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 确认是否存在因提意见受处理的迹象
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '6.1'
+  title: 应对风险和机遇的措施
+  scope_note: null
+  covers:
+  - 6.1.1
+  - 6.1.2
+  - 6.1.3
+  - 6.1.4
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-planning
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '6.1'
+    audit_question: 本条覆盖 6.1.1 总则、6.1.2 危险源辨识和职业健康安全风险评价、6.1.3 法律法规要求和其他要求的确定、6.1.4 措施的策划。组织如何确定体系中的危险源、风险和机遇？危险源辨识与风险和机遇评价的方法、准则、分级规则是否明确并保持一致？评价是否覆盖全部人员活动、场所、过程、设备与外包过程？法律法规要求和其他要求如何确定并持续更新？措施如何策划、纳入体系并配置资源？是否优先采用消除危险源、降低风险的工程技术与管理措施？
+    written_evidence:
+    - 危险源辨识与风险评价程序及方法说明
+    - 危险源辨识清单与风险评价表（工作危害分析、作业条件分析记录）
+    - 风险和机遇的评价准则及其确定依据
+    - 职业健康安全机遇与其他机遇的识别记录
+    - 法律法规要求和其他要求的清单及更新机制
+    - 风险和机遇应对措施计划，含责任人、时限、资源与验收方式
+    on_site_evidence:
+    - 现场核对危险源清单与实际设备、物料、作业方式是否一致，抽取已发生或已整改的风险点反向追溯其辨识记录
+    - 验证分级管控措施在现场是否真实落实（隔离、防护、警示、作业许可、应急）
+    - 检查法规更新后危险源清单与措施是否同步修订
+    - 确认重大风险已进入 6.2 目标与 8.2 应急
+    - 核对检维修、动火、高处、受限空间、临时作业等非常规作业是否单独辨识
+    typical_nc:
+    - 危险源清单只覆盖正式工序，忽略检维修、临时动火、高处、有限空间、承包商作业与新工艺试产
+    - 评价结果与现场措施脱节，纸面判定合格却无实际防护
+    - 只评风险不评机遇，或把机遇当作口号
+    - 法规已更新但危险源与措施未复评
+    - 只做风险矩阵打分，缺少分级管控、责任人、时限与效果跟踪
+    - 危险源辨识由安全部门完成，未让实际作业人员参与
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 危险源辨识与风险评价程序及方法说明
+        priority: core
+      - id: w2
+        kind: written
+        text: 危险源辨识清单与风险评价表（工作危害分析、作业条件分析记录）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 风险和机遇的评价准则及其确定依据
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 职业健康安全机遇与其他机遇的识别记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 法律法规要求和其他要求的清单及更新机制
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 风险和机遇应对措施计划，含责任人、时限、资源与验收方式
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场核对危险源清单与实际设备、物料、作业方式是否一致，抽取已发生或已整改的风险点反向追溯其辨识记录
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 验证分级管控措施在现场是否真实落实（隔离、防护、警示、作业许可、应急）
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 检查法规更新后危险源清单与措施是否同步修订
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 确认重大风险已进入 6.2 目标与 8.2 应急
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 核对检维修、动火、高处、受限空间、临时作业等非常规作业是否单独辨识
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '6.2'
+  title: 职业健康安全目标及其实现的策划
+  scope_note: null
+  covers:
+  - 6.2.1
+  - 6.2.2
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '6.2'
+    audit_question: 本条覆盖 6.2.1 职业健康安全目标、6.2.2 实现职业健康安全目标的策划。目标如何制定，是否与方针一致、可测量、有时限、有责任人，并与相关职能和层级相关？目标是否考虑法律法规要求与危险源辨识、风险和机遇评价的结果？实现目标的措施是否已纳入
+      8.1 的运行策划并配置资源？目标进展是否被监视，并作为绩效评价与管理评审的输入？
+    written_evidence:
+    - 职业健康安全目标及其实现措施的策划文件，含基准值、目标值、完成期限与责任人
+    - 目标向部门与岗位的分解表及下达记录
+    - 目标进展的阶段性统计与考核记录
+    - 未达标目标的分析与纠偏记录
+    - 目标与危险源辨识、风险评价结果及法律法规要求的对应说明
+    on_site_evidence:
+    - 向部门负责人追问其被分解的目标、当前实际值与主要差距，核对与书面记录是否一致
+    - 查看目标完成情况在车间看板与月度例会上的跟踪痕迹
+    - 抽查某个目标的达成是否真正依赖安全投入与过程改进，而非统计口径修约
+    - 验证目标未达标时是否启动纠偏与升级机制
+    typical_nc:
+    - 目标只有零事故一类口号式表述，缺少过程指标、量化基准与统计口径
+    - 目标无分解、无责任人、无期限，分解后无人知晓
+    - 年底一次性统计、年中不跟踪，异常波动无人发现
+    - 目标未达标无纠偏与升级
+    - 目标与风险评价结果脱钩，未针对重大风险设目标
+    - 目标定义不统计事件数量，而是分解成难以验证的安全检查次数
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 职业健康安全目标及其实现措施的策划文件，含基准值、目标值、完成期限与责任人
+        priority: core
+      - id: w2
+        kind: written
+        text: 目标向部门与岗位的分解表及下达记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 目标进展的阶段性统计与考核记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 未达标目标的分析与纠偏记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 目标与危险源辨识、风险评价结果及法律法规要求的对应说明
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 向部门负责人追问其被分解的目标、当前实际值与主要差距，核对与书面记录是否一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看目标完成情况在车间看板与月度例会上的跟踪痕迹
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 抽查某个目标的达成是否真正依赖安全投入与过程改进，而非统计口径修约
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 验证目标未达标时是否启动纠偏与升级机制
+        priority: supporting
+    difficulty: low
+    apg_ref: []
+- clause_no: '7.1'
+  title: 资源
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.1'
+    audit_question: 体系所需资源（人员、职责权限、能力、技术、资金、基础设施、信息与沟通渠道）如何确定并提供？资源是否与风险水平、法律法规要求、组织规模、场所数量相适应？资源不足时是否有识别与升级反映的机制？
+    written_evidence:
+    - 资源需求评估与保障计划，含人力编制与预算
+    - 职责权限分配表与岗位说明书
+    - 人员配置与资质证书台账
+    - 体系运行预算与专项投入记录
+    - 检测设备、防护装备与信息系统的配置清单
+    - 资源不足问题的提出与升级记录
+    on_site_evidence:
+    - 核对职业健康安全专职人员数量与承担职责是否匹配企业规模与多场所需求
+    - 查看气体检测、噪声、个体防护等设备是否在检定或校准有效期内并处于可用状态
+    - 走访设备维修与安全投入的实际排产优先级
+    - 核实关键岗位持证上岗在现场的执行情况
+    - 观察信息系统与应急通信设施是否实际可用
+    typical_nc:
+    - 安全管理人员身兼多职且被大量行政事务占用，实际投入不足
+    - 检测设备超期未检、现场无法使用或长期闲置
+    - 资金只投硬件不投培训、监测与外包管控
+    - 新业务或新装置投产后人员与资源未同步到位
+    - 资源需求仅由使用部门申报，无与风险评价结果的挂钩
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 资源需求评估与保障计划，含人力编制与预算
+        priority: core
+      - id: w2
+        kind: written
+        text: 职责权限分配表与岗位说明书
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 人员配置与资质证书台账
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 体系运行预算与专项投入记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 检测设备、防护装备与信息系统的配置清单
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 资源不足问题的提出与升级记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核对职业健康安全专职人员数量与承担职责是否匹配企业规模与多场所需求
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看气体检测、噪声、个体防护等设备是否在检定或校准有效期内并处于可用状态
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 走访设备维修与安全投入的实际排产优先级
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核实关键岗位持证上岗在现场的执行情况
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 观察信息系统与应急通信设施是否实际可用
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '7.2'
+  title: 能力
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.2'
+    audit_question: 如何确定与体系相关岗位所需的能力？如何依据教育、培训或经历保证能力？培训是否覆盖新员工、临时用工、承包商、转岗人员与新岗位？培训有效性如何评价？是否对夜班、高龄、孕期、残障等特殊人群与高风险岗位作出针对性安排？
+    written_evidence:
+    - 岗位能力要求矩阵，含岗位、对应法规要求、培训项目与评价方式
+    - 年度培训计划与实施记录
+    - 培训有效性评价记录，含考试结果与现场操作验证方式
+    - 特种作业及持证岗位人员证书台账与有效期
+    - 外包、劳务与承包商人员的培训责任界面约定与交接记录
+    on_site_evidence:
+    - 随机请一线人员现场演示关键操作（灭火器、锁定挂牌、受限空间作业、应急撤离、心肺复苏），与培训记录比对
+    - 查看培训签到表与实到人员核对，识别代签、补签与重复参训
+    - 抽查新员工上岗前培训证据是否齐备
+    - 核实承包商作业人员是否接受入场安全告知与专项培训
+    - 现场观察特殊岗位人员的能力是否与其实际承担的工作匹配
+    typical_nc:
+    - 培训以签到表与考试分数代替能力保证，未做现场技能验证
+    - 培训内容通用化，未覆盖岗位具体危险源与操作步骤
+    - 承包商与临时用工无培训责任约定与证据
+    - 证书过期或人证不符仍安排相应岗位
+    - 转岗与新工艺投产后未补做针对性培训
+    - 夜班与季节性作业人员培训覆盖率明显偏低
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 岗位能力要求矩阵，含岗位、对应法规要求、培训项目与评价方式
+        priority: core
+      - id: w2
+        kind: written
+        text: 年度培训计划与实施记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 培训有效性评价记录，含考试结果与现场操作验证方式
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 特种作业及持证岗位人员证书台账与有效期
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 外包、劳务与承包商人员的培训责任界面约定与交接记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 随机请一线人员现场演示关键操作（灭火器、锁定挂牌、受限空间作业、应急撤离、心肺复苏），与培训记录比对
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看培训签到表与实到人员核对，识别代签、补签与重复参训
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 抽查新员工上岗前培训证据是否齐备
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核实承包商作业人员是否接受入场安全告知与专项培训
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 现场观察特殊岗位人员的能力是否与其实际承担的工作匹配
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '7.3'
+  title: 意识
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.3'
+    audit_question: 如何确保相关人员知晓职业健康安全方针、目标、体系要求及其与自身岗位的关系？如何确认沟通是有效的而非仅完成动作？员工是否清楚自身安全责任、作业禁令与主动报告问题的义务？
+    written_evidence:
+    - 意识提升的策划与实施记录，含入职宣贯、日常班前会、警示告知与看板宣传
+    - 沟通活动的照片、签到、视频等佐证
+    - 对违反安全规则行为的处理与教育记录
+    - 员工知晓度调查设计与结果分析
+    - 针对特殊岗位与新员工的针对性意识提升安排
+    on_site_evidence:
+    - 在作业现场随机询问员工上岗前的安全交底内容、本岗位主要危险源与应急处置办法
+    - 观察班前会是否包含本班次风险提示与作业变化
+    - 查看公告栏内容是否更新并与当前工艺一致
+    - 核实员工是否知道隐患报告渠道、报告后的处理方式与报复保护
+    - 观察新员工是否带教满规定周期后独立上岗
+    typical_nc:
+    - 宣贯集中在建体系时一次性完成，日常无持续沟通
+    - 员工说不清本岗位主要风险与应急处置
+    - 告示牌内容与实际工艺脱节，长期未更新
+    - 员工把上报隐患视为自找麻烦，报告意愿低
+    - 对违章行为只做口头提醒，无处理与教育记录
+    - 外来与临时作业人员完全脱离日常意识宣贯渠道
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 意识提升的策划与实施记录，含入职宣贯、日常班前会、警示告知与看板宣传
+        priority: core
+      - id: w2
+        kind: written
+        text: 沟通活动的照片、签到、视频等佐证
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 对违反安全规则行为的处理与教育记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 员工知晓度调查设计与结果分析
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 针对特殊岗位与新员工的针对性意识提升安排
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 在作业现场随机询问员工上岗前的安全交底内容、本岗位主要危险源与应急处置办法
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 观察班前会是否包含本班次风险提示与作业变化
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看公告栏内容是否更新并与当前工艺一致
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核实员工是否知道隐患报告渠道、报告后的处理方式与报复保护
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 观察新员工是否带教满规定周期后独立上岗
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '7.4'
+  title: 沟通
+  scope_note: null
+  covers:
+  - 7.4.1
+  - 7.4.2
+  - 7.4.3
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.4'
+    audit_question: 本条覆盖 7.4.1 总则、7.4.2 内部沟通、7.4.3 外部沟通。内部与外部沟通的事项、时机、对象、渠道与责任是否明确？沟通内容是否覆盖法规更新、危险源与风险和机遇变化、事件信息、协商与参与机制、应急信息与体系变更？对外沟通中谁在什么时限内向哪个机构报告什么内容，是否有明确的报告路径？
+    written_evidence:
+    - 沟通矩阵，含事项、对象、渠道、责任人、频次与记录要求
+    - 内部会议纪要、交接班与调度记录
+    - 对外沟通与报告的程序、联系人清单与报告模板
+    - 事件对外报告的实际报告件与回执
+    - 与供方、承包商、监管机构的沟通记录
+    - 体系变更与法规更新的通知与宣贯记录
+    on_site_evidence:
+    - 核实上一次事故或险情是否按规定时限与渠道对外报告、报告内容是否符合法定要素
+    - 查看是否建立与属地应急、卫健、消防等机构的联络机制并有验证记录
+    - 抽查会议纪要是否真正传递了危险源信息与整改要求
+    - 观察跨部门、跨场所、跨专业的信息传递是否存在断点
+    - 验证交接班记录是否覆盖夜班与特殊作业
+    typical_nc:
+    - 沟通矩阵文件化但无执行痕迹，表单长期空白
+    - 对外报告责任人不明确，实际由基层临场应对
+    - 对多场所组织，总部与场所之间的危险源与变更信息不同步
+    - 重大工艺变更未通知受影响的作业与承包商
+    - 沟通只向下不向上，基层的隐患与异常信息到不了决策层
+    - 语言、格式与接收对象不匹配，信息发出但未被理解
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 沟通矩阵，含事项、对象、渠道、责任人、频次与记录要求
+        priority: core
+      - id: w2
+        kind: written
+        text: 内部会议纪要、交接班与调度记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 对外沟通与报告的程序、联系人清单与报告模板
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 事件对外报告的实际报告件与回执
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 与供方、承包商、监管机构的沟通记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 体系变更与法规更新的通知与宣贯记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核实上一次事故或险情是否按规定时限与渠道对外报告、报告内容是否符合法定要素
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看是否建立与属地应急、卫健、消防等机构的联络机制并有验证记录
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 抽查会议纪要是否真正传递了危险源信息与整改要求
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 观察跨部门、跨场所、跨专业的信息传递是否存在断点
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 验证交接班记录是否覆盖夜班与特殊作业
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '7.5'
+  title: 文件化信息
+  scope_note: null
+  covers:
+  - 7.5.1
+  - 7.5.2
+  - 7.5.3
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-documented-information
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.5'
+    audit_question: 本条覆盖 7.5.1 总则、7.5.2 创建和更新、7.5.3 文件化信息的控制。体系要求的文件化信息是否已建立、保持并可获取？文件化信息的格式、审批、修订、版本、发放与保管要求是否明确？记录的保存期限、销毁审批与备份恢复是否满足法规与合同要求？外来文件是否受控？
+    written_evidence:
+    - 文件化信息控制程序与职责分工
+    - 文件与记录清单及版本状态
+    - 模板与表单（作业许可、设备点检、访谈记录、演练记录、事件报告）
+    - 文件修订与审批记录
+    - 记录保存期限台账、销毁记录与备份策略
+    - 电子系统的权限、审计日志与灾备方案
+    on_site_evidence:
+    - 抽查作业许可、设备点检、隐患整改三类高频文件的现场使用版本与填写质量
+    - 查看电子系统中的修改日志与访问权限设置
+    - 核实纸质与电子记录的一致性及备份的可恢复性
+    - 检查作废文件的回收、隔离与标识
+    - 确认现场可即时取得所需的受控版本
+    typical_nc:
+    - 文件控制程序未落到版本、发放、回收的具体动作，现场仍用旧版
+    - 记录表单缺失或临时手写，关键项不填且无复核
+    - 保存期限短于法规要求或根本没有规定，销毁无审批
+    - 电子记录可被随意修改且无日志
+    - 外来文件未纳入控制
+    - 文件化信息分散在多个系统与纸质档案，检索与调用困难
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 文件化信息控制程序与职责分工
+        priority: core
+      - id: w2
+        kind: written
+        text: 文件与记录清单及版本状态
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 模板与表单（作业许可、设备点检、访谈记录、演练记录、事件报告）
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 文件修订与审批记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 记录保存期限台账、销毁记录与备份策略
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 电子系统的权限、审计日志与灾备方案
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查作业许可、设备点检、隐患整改三类高频文件的现场使用版本与填写质量
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看电子系统中的修改日志与访问权限设置
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核实纸质与电子记录的一致性及备份的可恢复性
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 检查作废文件的回收、隔离与标识
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 确认现场可即时取得所需的受控版本
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '8.1'
+  title: 运行策划和控制
+  scope_note: null
+  covers:
+  - 8.1.1
+  - 8.1.2
+  - 8.1.3
+  - 8.1.4
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '8.1'
+    audit_question: 本条覆盖 8.1.1 总则、8.1.2 消除危险源和降低职业健康安全风险、8.1.3 变更管理、8.1.4 采购。是否对满足体系要求的产品和服务实施策划，并对其要求进行评审与验证？是否策划、实施并控制满足体系要求的过程，包括外包过程？消除危险源和降低职业健康安全风险的措施是否在策划阶段就被识别并落实，而不是事后补救？变更管理、设备与设施维护、采购与承包商接口等控制要求是否逐项策划并留存证据？
+    written_evidence:
+    - 过程的策划与评审记录，含策划方案、评审意见与批准记录
+    - 变更管理程序与变更申请、事前风险评价、审批与实施记录
+    - 设备设施台账、预防性维护计划与维保记录
+    - 作业许可与作业风险评估表
+    - 采购与外包过程的控制要求及合同安全条款
+    - 策划结果转化为作业文件的修订记录
+    on_site_evidence:
+    - 抽查已完成的变更项目，查看变更前后的危险源辨识与风险评价是否留痕、变更后现场是否真正按新要求作业
+    - 现场查看设备维护、点检与检定执行情况
+    - 抽查动火、高处、受限空间作业票与实际作业条件是否一致
+    - 核对承包商作业是否按采购条款接受同等管控、作业前是否交底
+    - 观察策划结论是否改变了实际作业方式，而非只增加审批环节
+    typical_nc:
+    - 策划文件停留在程序层面，具体过程无策划记录与评审结论
+    - 变更未做事前风险评价，事故后再补文件与审批
+    - 设备维护靠故障后抢修，预防性维护计划与备件管理缺失
+    - 作业许可与现场实际条件脱节，签批流于形式后补
+    - 外包与承包商管控弱于自有作业，形成体系盲区
+    - 策划文件与作业文件两张皮，现场按习惯操作
+    - 策划输出的检验与放行环节缺失，产品与服务的职业健康安全符合性无人验证
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 过程的策划与评审记录，含策划方案、评审意见与批准记录
+        priority: core
+      - id: w2
+        kind: written
+        text: 变更管理程序与变更申请、事前风险评价、审批与实施记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 设备设施台账、预防性维护计划与维保记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 作业许可与作业风险评估表
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 采购与外包过程的控制要求及合同安全条款
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 策划结果转化为作业文件的修订记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查已完成的变更项目，查看变更前后的危险源辨识与风险评价是否留痕、变更后现场是否真正按新要求作业
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 现场查看设备维护、点检与检定执行情况
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 抽查动火、高处、受限空间作业票与实际作业条件是否一致
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对承包商作业是否按采购条款接受同等管控、作业前是否交底
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 观察策划结论是否改变了实际作业方式，而非只增加审批环节
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '8.2'
+  title: 应急准备和响应
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '8.2'
+    audit_question: 是否策划并实施应急准备与响应方案？是否识别可能的紧急情况并制定计划，明确行动、职责、沟通方式与所需资源？是否与相关方（消防、医疗机构、承包商、周边社区）协调与沟通？是否提供应急培训与演练，并评价演练结果以改进？是否定期评价应急准备与响应的充分性？
+    written_evidence:
+    - 应急管理程序与各场景应急预案，含火灾、泄漏与中毒窒息、坍塌、高处坠落、极端天气与自然灾害等
+    - 应急组织与职责分工、疏散路线与集合点清单
+    - 应急物资台账与检查记录
+    - 演练计划、演练方案与评估报告
+    - 应急培训记录
+    - 与消防、医院、社区及承包商的通知与协作记录
+    on_site_evidence:
+    - 现场查看消防器材、应急照明、洗眼器、应急淋浴、集合点标识是否完好，标识与预案是否一致
+    - 实地观察一次报警与疏散流程，或抽查演练影像与评估记录是否真实
+    - 询问一线员工在真实情景下的第一反应、集合路线与职责
+    - 核对应急物资是否在检验有效期内、取用是否需要开启复杂过程
+    - 检查预案中的关键岗位在夜班与节假日是否有人
+    typical_nc:
+    - 预案与实际场所、工艺、人员不匹配，长期未评审
+    - 演练只做宣贯不走流程，评估表事后补写
+    - 应急物资过期、缺失或被挪用他用
+    - 员工不知道集合点，也不清楚本岗位的应急处置
+    - 评估提出的改进项无跟踪关闭
+    - 特殊工况（检修、动火、有限空间）无对应专项预案
+    - 承包商与访客的应急告知缺失
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 应急管理程序与各场景应急预案，含火灾、泄漏与中毒窒息、坍塌、高处坠落、极端天气与自然灾害等
+        priority: core
+      - id: w2
+        kind: written
+        text: 应急组织与职责分工、疏散路线与集合点清单
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 应急物资台账与检查记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 演练计划、演练方案与评估报告
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 应急培训记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 与消防、医院、社区及承包商的通知与协作记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场查看消防器材、应急照明、洗眼器、应急淋浴、集合点标识是否完好，标识与预案是否一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 实地观察一次报警与疏散流程，或抽查演练影像与评估记录是否真实
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 询问一线员工在真实情景下的第一反应、集合路线与职责
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对应急物资是否在检验有效期内、取用是否需要开启复杂过程
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 检查预案中的关键岗位在夜班与节假日是否有人
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '9.1'
+  title: 监视、测量、分析和评价
+  scope_note: null
+  covers:
+  - 9.1.1
+  - 9.1.2
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '9.1'
+    audit_question: 本条覆盖 9.1.1 总则、9.1.2 合规性评价。监视、测量、分析和评价由谁负责，依据什么准则、以什么频率进行？是否同时监视体系绩效与职业健康安全绩效？法律法规符合性如何评价，评价准则、频次与责任人是否明确？监测与测量设备是否经校准或检定，数据的准确性与完整性如何保证？分析与评价的结果流向何处，是否进入管理评审与改进？
+    written_evidence:
+    - 监视测量分析与评价程序及职责分工
+    - 绩效监视指标清单、数据来源、统计口径与频率
+    - 趋势分析与绩效报表，含与目标的对比
+    - 合规性评价计划、评价清单与逐条判定结论
+    - 监测设备台账、校准证书与失效期
+    - 数据分析与评价报告及其在管理评审中的引用
+    on_site_evidence:
+    - 核对统计数据的原始来源（检测报告、点检记录、系统导出）与汇总报表一致
+    - 抽查某期统计数据是否存在口径修约、补录或剔除异常值
+    - 现场验证监测设备状态、校准标识与实际操作方法
+    - 追问某项不合规结论的判定依据与来源条款
+    - 查看评价结果是否转化为资源或整改决策
+    typical_nc:
+    - 绩效监视仅有事故与事件计数一项，缺少领先指标与暴露量类指标
+    - 合规性评价只是罗列法规名称，未逐条给出符合性判定
+    - 分析结论与实际趋势相反且无人复核
+    - 监测设备失准或超期，数据不可信却被用于决策
+    - 评价结果不进入任何改进或资源配置
+    - 统计口径在期间之间被调整以便达标，且无说明
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 监视测量分析与评价程序及职责分工
+        priority: core
+      - id: w2
+        kind: written
+        text: 绩效监视指标清单、数据来源、统计口径与频率
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 趋势分析与绩效报表，含与目标的对比
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 合规性评价计划、评价清单与逐条判定结论
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 监测设备台账、校准证书与失效期
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 数据分析与评价报告及其在管理评审中的引用
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核对统计数据的原始来源（检测报告、点检记录、系统导出）与汇总报表一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查某期统计数据是否存在口径修约、补录或剔除异常值
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 现场验证监测设备状态、校准标识与实际操作方法
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 追问某项不合规结论的判定依据与来源条款
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 查看评价结果是否转化为资源或整改决策
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '9.2'
+  title: 内部审核
+  scope_note: null
+  covers:
+  - 9.2.1
+  - 9.2.2
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-audit-and-review
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '9.2'
+    audit_question: 本条覆盖 9.2.1 总则、9.2.2 内部审核方案。是否建立并实施内部审核方案，覆盖体系全部要素与过程、全部场所与相关职能，并考虑过程的相互作用与重要性、变化及以往审核结果？审核员是否胜任、独立且不审核自己的工作？审核是否依据策划的准则与范围实施，形成可核查的记录与报告？发现的不符合项是否按时关闭并验证有效性？审核结果是否向员工通报？
+    written_evidence:
+    - 年度内部审核方案，含审核准则、范围、场所、审核组构成与时间安排
+    - 审核员资格、独立性声明与回避记录
+    - 审核计划、检查表与完整审核记录，含抽样依据与客观证据
+    - 审核报告、不符合项及其纠正措施与验证证据
+    - 审核结果向员工的通报记录
+    - 历次审核的横向比较与趋势分析
+    on_site_evidence:
+    - 抽查任意一份内审报告，追踪其中至少一条发现到整改实施与有效性验证
+    - 核实审核员是否审核了自己负责的工作、审核覆盖是否包含全部场所与体系要素
+    - 向被审核部门了解内审发现与其实际业务的吻合度
+    - 查看审核是否包含对上次不符合项的验证与持续有效性判断
+    - 观察审核员在现场是否取证充分、是否仅凭被审核方口头陈述下结论
+    typical_nc:
+    - 内审方案按部门轮流分配，未按过程与风险重要性抽样
+    - 审核员审自己的部门或缺乏对应专业能力
+    - 审核报告只写基本符合，没有具体证据与判定准则
+    - 不符合项长期挂账，或以已回复视为关闭
+    - 审核结果不向员工通报，同类问题次年重复出现
+    - 审核只覆盖文件，未进入现场
+    - 审核未考虑外包过程与承包商作业的覆盖情况
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 年度内部审核方案，含审核准则、范围、场所、审核组构成与时间安排
+        priority: core
+      - id: w2
+        kind: written
+        text: 审核员资格、独立性声明与回避记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 审核计划、检查表与完整审核记录，含抽样依据与客观证据
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 审核报告、不符合项及其纠正措施与验证证据
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 审核结果向员工的通报记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 历次审核的横向比较与趋势分析
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查任意一份内审报告，追踪其中至少一条发现到整改实施与有效性验证
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核实审核员是否审核了自己负责的工作、审核覆盖是否包含全部场所与体系要素
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 向被审核部门了解内审发现与其实际业务的吻合度
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查看审核是否包含对上次不符合项的验证与持续有效性判断
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 观察审核员在现场是否取证充分、是否仅凭被审核方口头陈述下结论
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '9.3'
+  title: 管理评审
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-audit-and-review
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '9.3'
+    audit_question: 最高管理者是否按策划的时间间隔主持管理评审，输入是否完整（监视测量分析评价结果、合规性评价、审核结果、事件与不符合、相关方反馈、应急准备状况、资源充分性、危险源与风险和机遇识别结果、改进建议）？评审输出是否包含必要的变更、改进决定与资源承诺？评审结论是否向员工传达并落实？
+    written_evidence:
+    - 管理评审计划与历次评审记录，含输入清单与逐项结论
+    - 评审报告中的决定事项、责任人、时限与资源承诺
+    - 各输入项的支撑材料（绩效报表、内审报告、事件统计、法规符合性评价、资源需求评估）
+    - 评审结论向员工传达的记录
+    - 评审频次变更与临时评审的记录
+    on_site_evidence:
+    - 核对评审输入是否真正来自体系运行数据，而非模板化文字
+    - 追踪评审决定事项在业务中的落实证据
+    - 向中层管理者追问最近一次评审对本科室提出的要求及完成情况
+    - 核实评审覆盖了应急准备与资源充分性等关键输入
+    - 观察评审中的分歧、追问与决策过程是否有真实痕迹
+    typical_nc:
+    - 评审输入敷衍，各项结论一律填写体系运行正常
+    - 评审决定事项无责任人与时限，或长期不落实
+    - 未覆盖资源充分性、应急准备、危险源和风险机遇等关键输入
+    - 评审记录事后补写，缺少真实讨论痕迹
+    - 评审结论未向下传导，中层不清楚本单位被要求改进什么
+    - 评审周期过长或过于频繁，与实际运行节奏不匹配
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 管理评审计划与历次评审记录，含输入清单与逐项结论
+        priority: core
+      - id: w2
+        kind: written
+        text: 评审报告中的决定事项、责任人、时限与资源承诺
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 各输入项的支撑材料（绩效报表、内审报告、事件统计、法规符合性评价、资源需求评估）
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 评审结论向员工传达的记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 评审频次变更与临时评审的记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核对评审输入是否真正来自体系运行数据，而非模板化文字
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 追踪评审决定事项在业务中的落实证据
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 向中层管理者追问最近一次评审对本科室提出的要求及完成情况
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核实评审覆盖了应急准备与资源充分性等关键输入
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 观察评审中的分歧、追问与决策过程是否有真实痕迹
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '10.1'
+  title: 总则
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '10.1'
+    audit_question: 是否针对事件、不符合和纠正措施建立并实施一套成文的过程？过程是否同时覆盖事件（事故、险情、职业健康损害事件及法定报告事项）与不符合两类输入？是否要求策划纠正措施并考虑原因分析、措施实施、有效性验证、职责与权限、资源、必要的变更以及记录的保留？
+    written_evidence:
+    - 事件、不符合和纠正措施的过程文件
+    - 事件报告与调查表模板
+    - 不符合项台账，含来源、判定、责任人、期限与状态
+    - 原因分析方法说明及实际应用记录
+    - 纠正措施实施证据与有效性验证记录
+    - 事件统计分析报告与趋势
+    - 内部通报与外部报告的衔接规定
+    on_site_evidence:
+    - 抽取最近若干起事件与不符合项，追踪发现、分析、措施、验证链条是否完整
+    - 现场核查已采取纠正措施的作业点是否真正落实
+    - 向当事人了解报告之后是否得到及时响应与反馈
+    - 查看长期未关闭问题是否触发升级机制
+    - 检查不符合项来源是否覆盖审核、巡检、投诉与作业反馈等渠道
+    typical_nc:
+    - 把事件等同于造成损失的事故，未遂事件与险情不上报，指标虚假
+    - 不符合项只登记不分析根因，措施一律写成加强培训与提高警惕
+    - 措施实施后未验证有效性即关闭
+    - 同类问题反复发生而根因分析始终停留在个人违章层面
+    - 事件调查缺少独立性与跨专业参与
+    - 外部报告与内部处置之间无衔接，存在迟报漏报风险
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 事件、不符合和纠正措施的过程文件
+        priority: core
+      - id: w2
+        kind: written
+        text: 事件报告与调查表模板
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 不符合项台账，含来源、判定、责任人、期限与状态
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 原因分析方法说明及实际应用记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 纠正措施实施证据与有效性验证记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 事件统计分析报告与趋势
+        priority: supporting
+      - id: w7
+        kind: written
+        text: 内部通报与外部报告的衔接规定
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽取最近若干起事件与不符合项，追踪发现、分析、措施、验证链条是否完整
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 现场核查已采取纠正措施的作业点是否真正落实
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 向当事人了解报告之后是否得到及时响应与反馈
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查看长期未关闭问题是否触发升级机制
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 检查不符合项来源是否覆盖审核、巡检、投诉与作业反馈等渠道
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '10.2'
+  title: 事件、不符合和纠正措施
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-nonconformity
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '10.2'
+    audit_question: 事件是否被及时报告、记录与分级？是否按规定向外部机构报告并保存现场证据？是否调查事件并识别根本原因，包含管理体系层面的系统性因素？是否针对根本原因策划纠正措施并明确时限、责任人与资源？是否验证措施有效性，并据此更新危险源辨识、风险评价与体系文件？不符合项是否在规定期限内关闭？
+    written_evidence:
+    - 事件报告单与外部报告回执
+    - 事件调查报告与根本原因分析记录，含体系层面因素
+    - 纠正措施方案与实施证据（工艺改造、防护更换、程序修订、设施整改）
+    - 有效性验证记录与再评估结论
+    - 风险清单因事件而更新的记录
+    - 不符合项关闭台账与独立验证人签署
+    - 重复性事件的专项分析与整改记录
+    on_site_evidence:
+    - 现场核实纠正措施是否落到实处，设备是否真的改了、操作是否真的变了
+    - 向一线询问最近一次事件后作业条件的变化
+    - 检查风险清单与应急预案是否因事件同步更新
+    - 抽查未遂事件是否被真实上报并进入分析
+    - 核对外部报告的时限、对象与内容是否符合法规要求
+    - 验证同类问题的复发情况
+    typical_nc:
+    - 报告迟延，或以内部处理替代法定报告
+    - 根本原因分析止于人员违章与责任心不强，未触及设计、工艺与管理层级原因
+    - 措施与根因不对应，改为加强培训与增加警示牌
+    - 同类事件复发且风险清单未更新
+    - 不符合项关闭缺少独立验证，或由实施人自行关闭
+    - 调查结论未在同类场所与相关工序横向推广
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 事件报告单与外部报告回执
+        priority: core
+      - id: w2
+        kind: written
+        text: 事件调查报告与根本原因分析记录，含体系层面因素
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 纠正措施方案与实施证据（工艺改造、防护更换、程序修订、设施整改）
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 有效性验证记录与再评估结论
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 风险清单因事件而更新的记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 不符合项关闭台账与独立验证人签署
+        priority: supporting
+      - id: w7
+        kind: written
+        text: 重复性事件的专项分析与整改记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场核实纠正措施是否落到实处，设备是否真的改了、操作是否真的变了
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 向一线询问最近一次事件后作业条件的变化
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 检查风险清单与应急预案是否因事件同步更新
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 抽查未遂事件是否被真实上报并进入分析
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 核对外部报告的时限、对象与内容是否符合法规要求
+        priority: supporting
+      - id: o6
+        kind: on_site
+        text: 验证同类问题的复发情况
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '10.3'
+  title: 持续改进
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '10.3'
+    audit_question: 是否持续改进体系的适用性、充分性与有效性？改进机会来自何处（绩效分析、审核结果、事件与不符合、相关方反馈、管理评审结论、员工建议）？改进是否经过策划、实施并评价效果？是否鼓励员工与相关方提出改进建议，并对采纳与否给予反馈？
+    written_evidence:
+    - 持续改进的程序或机制说明
+    - 改进机会清单与立项记录，含责任人、资源与验收标准
+    - 改进项目的效果评价与改进前后对比数据
+    - 员工与相关方改进建议的接收、采纳与反馈记录
+    - 体系文件版本演进与改进事项的对应关系
+    - 改进未达成预期时的后续处置记录
+    on_site_evidence:
+    - 选取一项已完成改进，核对其效果数据是否真实呈现变化，而非仅写已完成
+    - 向一线了解其提出的改进是否被采纳及未采纳的理由
+    - 观察体系文件与现场实际做法的差异是否被主动收敛
+    - 核查改进项目在资源上是否得到保障
+    - 查看改进成果是否进入下一轮目标与风险评价
+    typical_nc:
+    - 把持续改进等同于体系文件换版或表格更新
+    - 改进停留在口号，无立项、无责任人、无效果验证
+    - 员工建议无采纳与反馈机制，提出后无任何回应
+    - 体系文件与现场做法两张皮的状态长期存在且无人收敛
+    - 改进项目为达标而做，无实质变化
+    - 改进成果不进入下一轮目标、风险评价与管理评审，形成孤立活动
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 持续改进的程序或机制说明
+        priority: core
+      - id: w2
+        kind: written
+        text: 改进机会清单与立项记录，含责任人、资源与验收标准
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 改进项目的效果评价与改进前后对比数据
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 员工与相关方改进建议的接收、采纳与反馈记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 体系文件版本演进与改进事项的对应关系
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 改进未达成预期时的后续处置记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 选取一项已完成改进，核对其效果数据是否真实呈现变化，而非仅写已完成
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 向一线了解其提出的改进是否被采纳及未采纳的理由
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 观察体系文件与现场实际做法的差异是否被主动收敛
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核查改进项目在资源上是否得到保障
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 查看改进成果是否进入下一轮目标与风险评价
+        priority: supporting
+    difficulty: low
+    apg_ref: []

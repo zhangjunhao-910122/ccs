@@ -87,7 +87,7 @@ profiles:
     clause_tree_ref: clause_trees/qms-gbt19001-2016.yaml
     version_meta:
       generated_from: docs/research/iso9001-clause-audit-baseline.md
-      verification_status: unverified   # unverified | verified
+      verification_status: toc_verified   # toc_verified | unverified | verified
       verified_by: null
       verified_at: null
 ```
@@ -159,7 +159,7 @@ clauses:
             - {id: w2, kind: written, text: "...", priority: supporting}
           on_site:
             - {id: o1, kind: on_site, text: "...", priority: core}
-        difficulty: high                 # high | medium | low | null（取不到就留空，不猜）
+        difficulty: high                 # high | medium_high | medium | low | null（取不到就留空，不猜）
         apg_ref: []                      # ISO 审计实践组相关条款引用（可空）
 ```
 
@@ -208,11 +208,12 @@ profiles:
 
 确定性、可复现：
 
-1. 定位 Markdown 第 5 节「条款级审核点基线」，到第 6 节为止。
+1. 定位标题含「条款级审核点基线」的一级或二级 Markdown 小节（标题级别自适应），到下一个同级或更高级标题为止。
 2. 以 `#### <条款号> <标题>` 切分条款卡；`##### ` 开头的是口径说明块（如 5.5.1），**不生成审核点**。
-3. 读每张卡的 `| 项目 | 内容 |` 表，取四行：审核问题 / 需索取的书面证据 / 现场核查证据 / 常见不符合项。
+3. 读每张卡的 `| 项目 | 内容 |` 表，取四行：审核问题 / 需索取的书面证据（也兼容「需索取书面证据」）/ 现场核查证据 / 常见不符合项。
 4. 单元格按中文/英文分号切成证据项数组；四项缺任一则跳过该卡并报告。
-5. 难度：从第 8.3 节「取证难度分级」表按条款号 join，取不到留 `null`（不猜）。
+5. 难度：从标题含「取证难度分级」的表按条款号 join（表头列数自适应：4 列为「难度|条款|…」，3 列为「条款号|难度|理由」；条款格支持 `4.1～4.3` 区间展开），取不到留 `null`（不猜）。
+   难度按子条款分档时，卡级难度取「卡自身难度」与「其 covers 子条款难度」的最高档（`resolve_difficulty`）。
 6. 标题取全角括号前为 `title`，括号内容进 `scope_note`；括注里的编号进 `mentioned_units`（仅线索）。
 7. `covers` 由条款树推导，不由括注推导。
 8. `snapshot_id` = `sha256(json.dumps({"clauses": clauses}, sort_keys=True))`。
@@ -224,7 +225,7 @@ profiles:
 | V1 | 画像 id / domain / standard.designation 与注册表一致 |
 | V2 | 同一条款卡内 `point_key` 唯一 |
 | V3 | 审核点四行齐全；`evidence_items` 数量与 `*_evidence` 一致 |
-| V4 | `photo_evidence` ∈ {allowed, conditional, not_applicable}；`difficulty` ∈ {high, medium, low, null}；`priority` ∈ {core, supporting} |
+| V4 | `photo_evidence` ∈ {allowed, conditional, not_applicable}；`difficulty` ∈ {high, medium_high, medium, low, null}；`priority` ∈ {core, supporting} |
 | V5 | 条款号不在 `invalid_numbers`；别名不与真实条款号冲突 |
 | V6 | 条款卡引用的共享块确实包含该条款，且块已登记该条款 |
 | V7 | 证据项编号按 `w1..` / `o1..` 顺序 |
@@ -259,16 +260,18 @@ V11 不报错只告警：基线是判断性内容，与条款树冲突时应由�
 
 ## 9. 已知缺口（截至本版）
 
-1. **条款单元数口径**：按 GB/T 19001-2016 条款树，标准含 27 个条款级条目 + 43 个子条款 = 70 个可追溯单元；
-   基线自称覆盖 55 个单元。差异需 #16 R4 核定。
-2. **基线存在版本口径冲突（4 条，转换器已标出）**：
-   - 6.2 括注出现 6.2.1 / 6.2.2 —— 2015 版 6.2 无子条款，这是 ISO 9001:2026 的编号
-   - 8.1 称「四个内容块」—— 2015 版 8.1 有 3 个子条款（8.1.1~8.1.3）
-   - 8.6 括注出现 5.5.1 —— 2008 版残留编号（2015 版已无第 5 章的 5.4/5.5）
-   - 6.1 称「三个内容块」—— 2015 版 6.1 无子条款（2026 版才有 6.1.1~6.1.3）
-   另有 `shared/aliases.yaml` 把 7.5.1~7.5.3 / 8.1.1~8.1.3 记为「2015 版未设编号子条款」，
-   与 GB/T 19001-2016 实际结构不符，需一并更正。
-3. **难度标注仅 16/27**，其余留 `null`。
+1. **条款单元数口径**：三个画像的条款树均按 ISO 官方预览版目录一手核定，节点数分别为
+   QMS 73（7 个章级 + 28 个二级 + 38 个三级）、EMS 45、OHS 50。
+   转换器按条款树推导的覆盖单元数：QMS 66（28 二级 + 38 三级，章级只作组织层级）、EMS 38、OHS 43 ——
+   三个体系均 100% 覆盖条款树的全部非章级节点（`build_library.py parse` 输出）。
+   基线侧另有一个「审核点分组」口径（9001 §8.2 明细表为 56 个），两者统计对象不同：基线按卡内分组计数，
+   转换器按条款树节点计数；差异已在基线中逐条说明。
+2. **中文条款标题与正文措辞未核定**：条款号与层级已一手核定（`verification_status: toc_verified`），
+   但中文标题、正文措辞，以及 GB/T 与 ISO 的目录差异（ISO 45001:2018 官方目录含 6.1.2.1~6.1.2.3、
+   8.1.4.1~8.1.4.3，GB/T 45001-2020 官方目次未列该层级）仍须 #5 I8 以正版标准逐条核定，
+   核定后回填 `verified_by` / `verified_at`。
+3. **难度标注**：基线按子条款分档，转换器聚合到卡级（`resolve_difficulty`）；
+   未被难度表覆盖的条款留 `null`，不猜。
 4. `photo_evidence` 全部为 `not_applicable`，白名单待 #11 I4 照片取证链路核定。
 5. `shared/rules.yaml` 目前是最小版本，四态细则与锚点规则由 #9 S2 展开。
 

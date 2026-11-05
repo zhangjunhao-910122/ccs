@@ -45,5 +45,11 @@ photo_evidence_rules:
   - photo_evidence=not_applicable 表示照片无法作为该条款证据
   - 白名单内容由 #11 I4 提供；本文件只定义标记位与规则
 
-difficulty_levels: [high, medium, low]
+difficulty_levels: [high, medium_high, medium, low]
 difficulty_meaning: 取证难度（客观证据是否可得、是否需跨部门追溯、是否依赖主观陈述），决定审核时间分配与抽样强度
+difficulty_aggregation: |
+  取证难度共四档：high（高）、medium_high（中高）、medium（中）、low（低）。
+  基线按子条款分档，审核点按条款卡组织：一条款卡的难度取
+  「该卡自身难度」与「该卡 covers 的全部子条款难度」中的最高档。
+  若不聚合，子条款级难度标注会整段丢失（例如 8.5.2 中高会因卡为 8.5 而未被引用）。
+  聚合规则由 build_library.py 的 resolve_difficulty 实现，转换器与画像必须同版本。

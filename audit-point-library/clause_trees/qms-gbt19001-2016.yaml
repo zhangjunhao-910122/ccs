@@ -1,6 +1,10 @@
 # 标准条款树 —— 按「标准版本」组织的条款层级结构
 # 对应 GitHub Issue #2（规格 S1）。条款树是客观结构（标准目录），审核点表是判断性内容，两者必须分开。
-# 本文件为公开标准目录重建，非标准正文复制；条款号与标题的准确性由 #16 R4 / #5 I8 核定。
+#
+# 条款号与层级来源（均为一手目录来源，已逐条核对）：
+#   - ISO 9001:2015 官方目录：SS ISO 9001:2015 官方预览版目录（.research-tmp/ss9001.pdf，第 3-5 页，Singapore Standards 转载 ISO 授权预览）
+#   - ISO 9001:2015 官方目录复核：ANSI Webstore 预览页转载目录、ISO 9001:2015 英文目录
+# 中文条款标题按 GB/T 19001-2016 通行译法填写，未经正版正文逐条核定，由 #5 I8 核定后回填。
 #
 # 关键设计：审核点表的 covers（这张表覆盖哪些条款单元）只能来自条款树，
 # 不能从表格标题的自然语言括注里猜 —— 括注是描述，不是结构化事实。
@@ -10,17 +14,19 @@ profile_id: qms-gbt19001-2016
 standard: GB/T 19001-2016
 iso_equivalent: ISO 9001:2015
 version_label: "ISO 9001:2015 / GB/T 19001-2016 条款结构"
-verification_status: unverified
+verification_status: toc_verified
 verified_by: null
 verified_at: null
 notes:
-  - "本树按 ISO 9001:2015（GB/T 19001-2016）公开目录结构重建"
+  - "条款号与层级取自 ISO 9001:2015 官方预览版目录（一手来源），已逐条核对"
+  - "2015 版关键口径：7.5 设有 7.5.1/7.5.2/7.5.3；8.1 无编号子条款；8.5.6 = 更新的控制；8.6 = 产品的放行；8.7 = 不合格输出的控制；9.2、10.2、6.2 均无编号子条款"
+  - "中文条款标题待 #5 I8 用正版 GB/T 19001-2016 正文逐条核定"
   - "ISO 9001:2026（2026-09-16 发布）已重构 6.1 / 6.2 / 8.1 等条款，换版树由 #16 R4 产出"
-  - "审核点基线若与本树冲突，以本树 + #5 I8 人工核定为准，并作为缺陷回改基线"
+  - "本树是 covers 的唯一来源；审核点基线的自然语言括注不得用于推断覆盖范围"
 
 clause_tree:
   - clause_no: "4"
-    title: 质量管理体系
+    title: 组织环境
     children:
       - clause_no: "4.1"
         title: 组织的环境
@@ -96,13 +102,6 @@ clause_tree:
     children:
       - clause_no: "8.1"
         title: 运行策划和控制
-        children:
-          - clause_no: "8.1.1"
-            title: 总则
-          - clause_no: "8.1.2"
-            title: 对产品和服务的要求
-          - clause_no: "8.1.3"
-            title: 更改的策划
       - clause_no: "8.2"
         title: 产品和服务的要求
         children:
@@ -152,8 +151,10 @@ clause_tree:
           - clause_no: "8.5.5"
             title: 交付
           - clause_no: "8.5.6"
-            title: 输出放行
+            title: 更新的控制
       - clause_no: "8.6"
+        title: 产品的放行
+      - clause_no: "8.7"
         title: 不合格输出的控制
   - clause_no: "9"
     title: 绩效评价
@@ -185,10 +186,5 @@ clause_tree:
         title: 总则
       - clause_no: "10.2"
         title: 不合格和纠正措施
-        children:
-          - clause_no: "10.2.1"
-            title: 总则
-          - clause_no: "10.2.2"
-            title: 不符合和纠正措施
       - clause_no: "10.3"
         title: 持续改进

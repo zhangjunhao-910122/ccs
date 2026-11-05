@@ -1,0 +1,2718 @@
+# 由 tools/build_library.py parse 自动生成，请勿手工编辑。
+# 源基线：见 profile.version_meta.generated_from
+# 修改审核点请改基线 Markdown 后重新生成，或由 #5 I8 人工核定后回填。
+profile:
+  id: ems-gbt24001-2016
+  domain: environment
+  standard:
+    designation: GB/T 24001-2016
+    iso_equivalent: ISO 14001:2015
+    edition: '2016'
+    status: current
+    published: null
+    effective: null
+    withdrawn: null
+    supersedes: null
+    relation: identical
+    official_sources:
+    - url: https://openstd.samr.gov.cn/bzgk/gb/std_list
+      accessed: '2026-11-05'
+      title: 国家标准全文公开系统 GB/T 24001 条目（采标、现行）
+  scope:
+    applies_to: 环境管理体系认证审核
+    excludes: []
+  version_meta:
+    generated_from: docs/research/iso14001-clause-audit-baseline.md
+    verification_status: toc_verified
+    verified_by: null
+    verified_at: null
+    clause_tree_ref: clause_trees/environment-gbt24001-2016.yaml
+    snapshot_id: sha256:ce9426d012d07ea4beb642fac57d3c4084310e2929f05444c96ee57548aec0cb
+clauses:
+- clause_no: '4.1'
+  title: 理解组织及其环境
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.1'
+    audit_question: 组织是否系统识别了其所处的内外部环境因素，并针对这些因素做出与体系相称的响应？
+    written_evidence:
+    - 环境因素识别清单（PESTLE 分析表）
+    - 内外部因素影响评价记录
+    - 环境因素评审台账及最近一次更新记录
+    - 环境管理体系影响评价报告
+    - 相关方要求识别汇总表
+    on_site_evidence:
+    - 访谈各区域负责人对业务环境变化的描述
+    - 查看厂区公示的环境因素看板
+    - 观察化学品暂存区、储罐区的防渗与围堰实况
+    - 核对部门共享盘内分析文档的更新日期
+    typical_nc:
+    - 只罗列环保法规而未分析社会、市场与科技因素
+    - 识别过程无评审痕迹且长期未更新
+    - 因素清单与后续目标、运行控制之间无任何对应关系
+    - 把环境分析当成建体系的一次性动作
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 环境因素识别清单（PESTLE 分析表）
+        priority: core
+      - id: w2
+        kind: written
+        text: 内外部因素影响评价记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 环境因素评审台账及最近一次更新记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 环境管理体系影响评价报告
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 相关方要求识别汇总表
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 访谈各区域负责人对业务环境变化的描述
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看厂区公示的环境因素看板
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 观察化学品暂存区、储罐区的防渗与围堰实况
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对部门共享盘内分析文档的更新日期
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '4.2'
+  title: 理解相关方需求和期望
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.2'
+    audit_question: 组织是否识别了与 EMS 有关的相关方及其需求和期望，并把其中合法合规的强制要求纳入了体系？
+    written_evidence:
+    - 相关方识别清单（内外部相关方及其关注事项）
+    - 相关方需求与期望分析表
+    - 法律法规及其他要求清单的获取记录
+    - 相关方要求的应对方式及责任人分配表
+    on_site_evidence:
+    - 访谈采购、销售、投诉处理岗位对客户环保要求的了解
+    - 查阅客户问卷、合同环保条款及投诉台账
+    - 查看社区、政府、行业协会往来函件登记
+    typical_nc:
+    - 相关方仅列政府机关与行业协会，忽略客户、供应商、员工和周边社区
+    - 将所有相关方期望都当成强制要求，无筛选依据
+    - 需求分析未定期更新，客户要求变化无响应
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 相关方识别清单（内外部相关方及其关注事项）
+        priority: core
+      - id: w2
+        kind: written
+        text: 相关方需求与期望分析表
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 法律法规及其他要求清单的获取记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 相关方要求的应对方式及责任人分配表
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 访谈采购、销售、投诉处理岗位对客户环保要求的了解
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查阅客户问卷、合同环保条款及投诉台账
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看社区、政府、行业协会往来函件登记
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '4.3'
+  title: 确定环境管理体系范围
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.3'
+    audit_question: 体系的边界是否与组织实际运营边界一致，是否覆盖了所有具有 EMS 职责与影响的场所和活动？
+    written_evidence:
+    - 体系范围说明文件（含场所清单、产品/服务清单、过程边界）
+    - 范围确定依据与批准记录
+    - 场所平面图与工艺流程图
+    - 范围与注册/认证证书的一致性说明
+    on_site_evidence:
+    - 核实证书地址与实际场所是否同一
+    - 查看被排除场所的物理隔离与标识
+    - 核对范围内是否包含承包商、租赁场地与临时作业点
+    - 核查范围描述与现场在产工艺的对应
+    typical_nc:
+    - 范围只写总部办公室而漏掉生产厂区
+    - 范围涵盖但实际不具备管理控制能力
+    - 存在租赁或共用设施未说明责任边界
+    - 范围描述与实际场所、组织名称变更不同步
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 体系范围说明文件（含场所清单、产品/服务清单、过程边界）
+        priority: core
+      - id: w2
+        kind: written
+        text: 范围确定依据与批准记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 场所平面图与工艺流程图
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 范围与注册/认证证书的一致性说明
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核实证书地址与实际场所是否同一
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看被排除场所的物理隔离与标识
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对范围内是否包含承包商、租赁场地与临时作业点
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核查范围描述与现场在产工艺的对应
+        priority: supporting
+    difficulty: low
+    apg_ref: []
+- clause_no: '4.4'
+  title: 环境管理体系
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - pdca-process-approach
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.4'
+    audit_question: 组织是否建立、实施、保持并持续改进了 EMS，并把体系与业务过程和战略方向整合而非游离？
+    written_evidence:
+    - EMS 手册或体系文件总纲
+    - 过程地图与 EMS 过程清单
+    - 体系与组织战略、业务计划的对应关系说明
+    - 体系有效性评价记录
+    - 年度体系运行总结
+    on_site_evidence:
+    - 询问体系主管，体系如何进入部门日常工作而非独立于生产
+    - 查看体系文件在车间的可获得性与版本控制
+    - 核查业务计划与年度环境目标同源证据
+    - 抽查体系会议纪要的实际议题
+    typical_nc:
+    - 体系文件与现场实际两张皮，现场执行的是另一套做法
+    - 体系仅覆盖环境部门而不覆盖研发、采购等过程
+    - 手册两年未更新而引用文件已废止
+    - 管理层以手册代替体系策划
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: EMS 手册或体系文件总纲
+        priority: core
+      - id: w2
+        kind: written
+        text: 过程地图与 EMS 过程清单
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 体系与组织战略、业务计划的对应关系说明
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 体系有效性评价记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 年度体系运行总结
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 询问体系主管，体系如何进入部门日常工作而非独立于生产
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看体系文件在车间的可获得性与版本控制
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核查业务计划与年度环境目标同源证据
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 抽查体系会议纪要的实际议题
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '5.1'
+  title: 领导作用和承诺
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '5.1'
+    audit_question: 最高管理者是否对 EMS 作出可见的承诺，并亲自参与体系策划、评审与资源决策？
+    written_evidence:
+    - 最高管理者环境方针签署件
+    - 管理评审会议记录及签到
+    - EMS 策划与资源决策会议纪要
+    - 最高管理者参加环境事务的影像与通知记录
+    - 授权与任命文件
+    on_site_evidence:
+    - 访谈一线员工"最高管理者何时到现场、谈过什么环境事项"
+    - 查看管理评审会议室布置与投屏内容
+    - 核对最高管理者是否到过投诉与应急处置现场
+    - 查看员工访谈时是否随时能找到管理者
+    typical_nc:
+    - 承诺仅停留在方针文字与会议签名，无具体参与行为
+    - 环境职责全部下放给环境部门，最高管理者以不知情为由免于责任
+    - 资源需求由环保专员争取而非管理者决策
+    - 出现重大环境事件后无管理者层面的追责
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 最高管理者环境方针签署件
+        priority: core
+      - id: w2
+        kind: written
+        text: 管理评审会议记录及签到
+        priority: supporting
+      - id: w3
+        kind: written
+        text: EMS 策划与资源决策会议纪要
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 最高管理者参加环境事务的影像与通知记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 授权与任命文件
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 访谈一线员工"最高管理者何时到现场、谈过什么环境事项"
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看管理评审会议室布置与投屏内容
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对最高管理者是否到过投诉与应急处置现场
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查看员工访谈时是否随时能找到管理者
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '5.2'
+  title: 环境方针
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '5.2'
+    audit_question: 环境方针是否由最高管理者制定并传达，是否适宜于战略方向和环境影响，并提供承诺遵守适用法律法规与持续改进的框架？
+    written_evidence:
+    - 环境方针正式文本与修订记录
+    - 方针宣贯培训签到与考核记录
+    - 方针与法律法规合规承诺的对应说明
+    - 方针与战略、目标的可追溯关系表
+    on_site_evidence:
+    - 抽查作业岗位人员能否说出与本岗位相关的方针要点
+    - 查看车间张贴版本与文件库版本是否一致
+    - 核实新员工岗前培训中是否包含方针宣贯
+    - 询问职工代表对方针的理解与建议渠道
+    typical_nc:
+    - 方针仅为模板套话，缺少可验证的承诺语句
+    - 方针未涉及合规与持续改进
+    - 方针与组织战略脱节，仅讲环保不讲业务
+    - 宣贯流于签到，无岗位转化说明
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 环境方针正式文本与修订记录
+        priority: core
+      - id: w2
+        kind: written
+        text: 方针宣贯培训签到与考核记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 方针与法律法规合规承诺的对应说明
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 方针与战略、目标的可追溯关系表
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查作业岗位人员能否说出与本岗位相关的方针要点
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看车间张贴版本与文件库版本是否一致
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核实新员工岗前培训中是否包含方针宣贯
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 询问职工代表对方针的理解与建议渠道
+        priority: supporting
+    difficulty: low
+    apg_ref: []
+- clause_no: '5.3'
+  title: 组织的岗位、职责和权限
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '5.3'
+    audit_question: EMS 相关职责与权限是否分配到具体岗位并被理解，是否存在无人负责的空白？
+    written_evidence:
+    - 岗位说明书中的 EMS 职责条款
+    - 环境管理体系组织架构图与职责分工表
+    - 任命文件（体系主管、法律法规负责人、内审员）
+    - 职责履行情况的考核记录
+    on_site_evidence:
+    - 随机询问一线员工本岗位环境职责与越权情形如何处理
+    - 查看授权文件是否覆盖排放、投诉、停线等关键决定权
+    - 核对各岗位职责描述是否互不推诿
+    - 确认兼职岗位的实际投入时间
+    typical_nc:
+    - 职责只写到部门不写到岗位
+    - 体系主管无实际授权，仅承担台账工作
+    - 关键决定权仍集中在与 EMS 无关的层级
+    - 职责分配后从未被沟通，员工不知道自己的 EMS 责任
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 岗位说明书中的 EMS 职责条款
+        priority: core
+      - id: w2
+        kind: written
+        text: 环境管理体系组织架构图与职责分工表
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 任命文件（体系主管、法律法规负责人、内审员）
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 职责履行情况的考核记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 随机询问一线员工本岗位环境职责与越权情形如何处理
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看授权文件是否覆盖排放、投诉、停线等关键决定权
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对各岗位职责描述是否互不推诿
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 确认兼职岗位的实际投入时间
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '6.1'
+  title: 应对风险和机遇的措施
+  scope_note: null
+  covers:
+  - 6.1.1
+  - 6.1.2
+  - 6.1.3
+  - 6.1.4
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-planning
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '6.1'
+    audit_question: 组织是否确定了与 EMS 有关的风险和机遇，并策划了应对措施以增强有利影响、减轻不利影响并支持持续改进？
+    written_evidence:
+    - 风险与机遇识别清单
+    - 风险评价矩阵（可能性与影响分级标准）
+    - 应对措施实施计划与责任分工表
+    - 措施有效性验证记录
+    - 风险评审年度记录
+    on_site_evidence:
+    - 访谈各岗位人员如何识别本岗位风险并报告
+    - 查看车间风险看板与应急预案的关联标识
+    - 核对措施所需预算与设备是否实际到位
+    - 抽查一项已实施措施的效果验证证据
+    typical_nc:
+    - 风险清单照搬通用模板未结合实际业务
+    - 只识别不策划，措施栏空白或无责任人
+    - 机遇完全未列，机会一律被视为风险
+    - 措施有效性从未验证，年度复评流于形式
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 风险与机遇识别清单
+        priority: core
+      - id: w2
+        kind: written
+        text: 风险评价矩阵（可能性与影响分级标准）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 应对措施实施计划与责任分工表
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 措施有效性验证记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 风险评审年度记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 访谈各岗位人员如何识别本岗位风险并报告
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看车间风险看板与应急预案的关联标识
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对措施所需预算与设备是否实际到位
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 抽查一项已实施措施的效果验证证据
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: 6.1.1
+  title: 总则
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 6.1.1
+    audit_question: 风险与机遇的识别范围是否覆盖组织全部活动、产品服务、场所以及相关方要求和重大变化？
+    written_evidence:
+    - 策划过程输入清单（内外部因素变化、相关方要求、法律法规更新、过程绩效数据）
+    - 策划方法说明（SWOT、PDCA 等）与使用记录
+    - 策划输出与体系其他条款的对应表
+    on_site_evidence:
+    - 询问一线员工是否清楚本过程的主要风险与机遇及其上报路径
+    - 查看过程识别方法文件及其实际使用痕迹
+    - 核对策划是否覆盖采购、后勤、研发等支持性职能
+    typical_nc:
+    - 仅对生产现场做风险策划，支持职能遗漏
+    - 策划作为建体系的一次性动作，未随重大变化重做
+    - 策划输入缺少法律法规与相关方变化的来源说明
+    - 与 4.1、6.1.2 各自独立成文，互不引用
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 策划过程输入清单（内外部因素变化、相关方要求、法律法规更新、过程绩效数据）
+        priority: core
+      - id: w2
+        kind: written
+        text: 策划方法说明（SWOT、PDCA 等）与使用记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 策划输出与体系其他条款的对应表
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 询问一线员工是否清楚本过程的主要风险与机遇及其上报路径
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看过程识别方法文件及其实际使用痕迹
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对策划是否覆盖采购、后勤、研发等支持性职能
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: 6.1.2
+  title: 环境因素
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 6.1.2
+    audit_question: 是否按确定的方法识别全部环境因素，并覆盖生命周期、正常与异常状态、影响范围及组织可控与可施加影响的对象？
+    written_evidence:
+    - 环境因素识别与评价清单（含评价准则与评分规则）
+    - 生命周期边界与工序分解说明
+    - 异常与应急状态清单
+    - 评价结果及重大环境因素判定记录
+    on_site_evidence:
+    - 现场比对实际物料、工艺与清单条目是否一致
+    - 核对历史泄漏、溢流、异味投诉是否已入清单
+    - 抽查原料、中间品、副产品、废弃物各环节识别完整性
+    - 查看区域与设备标识
+    typical_nc:
+    - 只识别正常工况排放，遗漏启停、检修、泄漏等异常状态
+    - 漏掉上游供应商与下游处置环节
+    - 评价无量化准则，重大因素判定随意
+    - 清单与工艺变更长期不同步
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 环境因素识别与评价清单（含评价准则与评分规则）
+        priority: core
+      - id: w2
+        kind: written
+        text: 生命周期边界与工序分解说明
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 异常与应急状态清单
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 评价结果及重大环境因素判定记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场比对实际物料、工艺与清单条目是否一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对历史泄漏、溢流、异味投诉是否已入清单
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 抽查原料、中间品、副产品、废弃物各环节识别完整性
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查看区域与设备标识
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: 6.1.3
+  title: 合规义务
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 6.1.3
+    audit_question: 组织是否确定并获取了与 EMS 有关的合规义务，是否评价了其充分性并将义务落实到位？
+    written_evidence:
+    - 法律法规及其他要求清单（登记编号、条款要点、适用性判定、责任人、频次）
+    - 合规义务定期获取与更新记录
+    - 合规性评价结论及不符合项处理记录
+    on_site_evidence:
+    - 抽查某一条法规，核对清单登记与现场落实的对应关系
+    - 查看更新记录中的实际检索证据与获取渠道
+    - 询问合规义务如何传递到岗位与承包商
+    - 核对新法规的转化时间与执行状态
+    typical_nc:
+    - 清单多年未更新，缺失新出台或修订的法规要求
+    - 只登记法规标题，未分解到可执行的具体条款义务
+    - 未评价义务是否充分适当
+    - 义务未向下传递至承包商与一线岗位
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 法律法规及其他要求清单（登记编号、条款要点、适用性判定、责任人、频次）
+        priority: core
+      - id: w2
+        kind: written
+        text: 合规义务定期获取与更新记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 合规性评价结论及不符合项处理记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查某一条法规，核对清单登记与现场落实的对应关系
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看更新记录中的实际检索证据与获取渠道
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 询问合规义务如何传递到岗位与承包商
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对新法规的转化时间与执行状态
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: 6.1.4
+  title: 策划措施
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 6.1.4
+    audit_question: 风险机遇、合规义务与环境因素等策划输出，是否与体系其他条款的过程、目标与运行控制建立了可追溯的联系？
+    written_evidence:
+    - 策划措施清单及责任人、完成期限
+    - 措施与目标、运行控制、应急准备的对应矩阵
+    - 未达标或异常情形的处置与升级路径
+    - 措施有效性评价与重新策划记录
+    on_site_evidence:
+    - 抽查一项策划措施在现场是否被执行并留下记录
+    - 核对措施所需资源与年度目标资源是否一致
+    - 确认异常触发升级流程的实际案例与责任人
+    - 查看措施变更的审批轨迹
+    typical_nc:
+    - 策划输出停留在文件层面，未进入操作现场
+    - 措施与目标无关联，资源不匹配
+    - 缺少异常升级机制，异常长期无人知
+    - 措施失效后没有重新策划动作
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 策划措施清单及责任人、完成期限
+        priority: core
+      - id: w2
+        kind: written
+        text: 措施与目标、运行控制、应急准备的对应矩阵
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 未达标或异常情形的处置与升级路径
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 措施有效性评价与重新策划记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查一项策划措施在现场是否被执行并留下记录
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对措施所需资源与年度目标资源是否一致
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 确认异常触发升级流程的实际案例与责任人
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查看措施变更的审批轨迹
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '6.2'
+  title: 环境目标及其实现的策划
+  scope_note: null
+  covers:
+  - 6.2.1
+  - 6.2.2
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '6.2'
+    audit_question: 组织是否策划了可测量的环境目标并建立了包含指标、基准、目标值、方案与资源的实施计划？
+    written_evidence:
+    - 环境目标分解表（层级、指标、基准、目标值、完成期限）
+    - 目标实现方案与资源需求清单
+    - 目标评审与调整记录
+    - 目标与合规义务、风险的对应说明
+    on_site_evidence:
+    - 访谈目标责任部门确认指标口径与数据来源一致
+    - 查看车间目标看板的更新频率与数据来源
+    - 核对数据采集方式与实际是否相符
+    - 确认目标已分解到相关过程与岗位
+    typical_nc:
+    - 目标不可测量，只写"减少环境影响"
+    - 无基准值或基准多年沿用
+    - 目标只有总量未分解到单元过程
+    - 目标下达后无过程方案与资源承诺
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 环境目标分解表（层级、指标、基准、目标值、完成期限）
+        priority: core
+      - id: w2
+        kind: written
+        text: 目标实现方案与资源需求清单
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 目标评审与调整记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 目标与合规义务、风险的对应说明
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 访谈目标责任部门确认指标口径与数据来源一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看车间目标看板的更新频率与数据来源
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对数据采集方式与实际是否相符
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 确认目标已分解到相关过程与岗位
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: 6.2.1
+  title: 环境目标
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 6.2.1
+    audit_question: 环境目标是否与环境方针一致、符合合规要求、考虑相关方需求，并覆盖组织的重要环境影响与义务？
+    written_evidence:
+    - 目标与方针各条款的对应说明
+    - 目标覆盖领域清单（温室气体、能耗、废弃物、合规等）
+    - 目标合理性论证与法规或行业基准对比材料
+    - 最高管理者批准的目标文本
+    on_site_evidence:
+    - 抽查目标是否覆盖已判定的重大环境因素与合规重点领域
+    - 查看目标在车间如何转化为具体指标
+    - 比对历史绩效数据确认目标是否具挑战性
+    - 核实目标的批准层级与发布时间
+    typical_nc:
+    - 目标与方针无可追溯关系
+    - 回避重大合规领域或重大影响领域
+    - 目标低于现状水平，不构成改进
+    - 未经最高管理者批准即下达执行
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 目标与方针各条款的对应说明
+        priority: core
+      - id: w2
+        kind: written
+        text: 目标覆盖领域清单（温室气体、能耗、废弃物、合规等）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 目标合理性论证与法规或行业基准对比材料
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 最高管理者批准的目标文本
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查目标是否覆盖已判定的重大环境因素与合规重点领域
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看目标在车间如何转化为具体指标
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 比对历史绩效数据确认目标是否具挑战性
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核实目标的批准层级与发布时间
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: 6.2.2
+  title: 实现环境目标的策划措施
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 6.2.2
+    audit_question: 每项目标是否有可执行的实现措施，明确做什么、由谁负责、需要什么资源、何时完成以及如何评价效果？
+    written_evidence:
+    - 目标—措施—责任—资源—时限—评价方式对照表
+    - 措施实施进度台账
+    - 资源投入与采购记录
+    - 效果评价结论与改进措施记录
+    on_site_evidence:
+    - 抽查某项目标措施的实际执行证据而非计划文件
+    - 查看资源是否到位（设备、经费、人员与工时）
+    - 核实进度台账更新是否与现场实况一致
+    - 确认效果评价有客观数据支撑
+    typical_nc:
+    - 措施栏只有口号，无责任人与完成时限
+    - 资源未实际配置，措施无法实施
+    - 台账长期不更新，进度与实际脱节
+    - 效果评价无数据或事后补填记录
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 目标—措施—责任—资源—时限—评价方式对照表
+        priority: core
+      - id: w2
+        kind: written
+        text: 措施实施进度台账
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 资源投入与采购记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 效果评价结论与改进措施记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查某项目标措施的实际执行证据而非计划文件
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看资源是否到位（设备、经费、人员与工时）
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核实进度台账更新是否与现场实况一致
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 确认效果评价有客观数据支撑
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '7.1'
+  title: 资源
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.1'
+    audit_question: 组织是否为体系的有效运行和目标实现提供了必需且相称的人力、设施与基础设施资源？
+    written_evidence:
+    - 环境管理体系资源需求清单与配置记录
+    - 环境管理岗位编制与人员配备说明
+    - 监测设备台账与校准计划
+    - 基础设施（处理设施、实验室、应急物资）清单与运行记录
+    - 资源投入与年度预算对照表
+    on_site_evidence:
+    - 查看在线监测设备运行、校验标识与数据有效性判别记录
+    - 核实实验室、废物暂存间、应急池等设施是否可用并被实际使用
+    - 确认专职与兼职环保人员的实际投入比例
+    - 检查设备维护保养与故障记录
+    typical_nc:
+    - 环保岗位由兼职人员承担且无时间保障
+    - 监测设备超期未校准，数据仍被用于评价
+    - 应急设施存在但无物资或无法启用
+    - 资源投入未随新项目、新法规同步增加
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 环境管理体系资源需求清单与配置记录
+        priority: core
+      - id: w2
+        kind: written
+        text: 环境管理岗位编制与人员配备说明
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 监测设备台账与校准计划
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 基础设施（处理设施、实验室、应急物资）清单与运行记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 资源投入与年度预算对照表
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 查看在线监测设备运行、校验标识与数据有效性判别记录
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核实实验室、废物暂存间、应急池等设施是否可用并被实际使用
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 确认专职与兼职环保人员的实际投入比例
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 检查设备维护保养与故障记录
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '7.2'
+  title: 能力
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.2'
+    audit_question: 组织是否确定在其控制下影响 EMS 绩效的人员所需能力，并基于教育和培训或采取措施保证其具备该能力？
+    written_evidence:
+    - 岗位能力要求矩阵（按岗位列出应知应会与判定标准）
+    - 培训需求分析与培训计划
+    - 培训实施记录与有效性评价（考试、现场操作验证、观察记录）
+    - 外部培训证明与持证上岗情况汇总
+    on_site_evidence:
+    - 随机请一线人员演示对应操作或回答岗位环境要求问题
+    - 查看培训签到与考核原始记录，核对参训人与岗位名单一致
+    - 核实新员工、转岗员工是否完成岗前培训
+    - 检查培训内容是否覆盖其岗位的实际环境因素
+    typical_nc:
+    - 以培训计划代替能力评价，未确认人员是否真的会做
+    - 培训记录只有签到表无考核或效果验证
+    - 一线实操型岗位培训内容泛泛讲体系
+    - 管理岗位培训严重不足，法规识别能力缺失
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 岗位能力要求矩阵（按岗位列出应知应会与判定标准）
+        priority: core
+      - id: w2
+        kind: written
+        text: 培训需求分析与培训计划
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 培训实施记录与有效性评价（考试、现场操作验证、观察记录）
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 外部培训证明与持证上岗情况汇总
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 随机请一线人员演示对应操作或回答岗位环境要求问题
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看培训签到与考核原始记录，核对参训人与岗位名单一致
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核实新员工、转岗员工是否完成岗前培训
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 检查培训内容是否覆盖其岗位的实际环境因素
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '7.3'
+  title: 意识
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.3'
+    audit_question: 组织是否确保其人员知晓岗位对 EMS 的贡献、后果以及不符合 EMS 带来的影响？
+    written_evidence:
+    - 意识宣贯材料与推送记录（班前会、看板、警示标识）
+    - 岗位环境职责说明与考核记录
+    - 员工参与环境改进与提案的统计记录
+    - 违反规定的后果说明材料
+    on_site_evidence:
+    - 在车间随机问员工"你的岗位对环境有什么影响、不做好会怎样"
+    - 查看现场警示标识、地面标线、分类投放标识与实际行为是否一致
+    - 访谈员工是否清楚异常上报路径
+    - 观察班前会是否涉及环境议题
+    typical_nc:
+    - 意识宣贯停留在标语层面，员工说不清自身影响
+    - 现场标识与实际操作不符，分类投放混装
+    - 员工不知道上报异常 undiscovered 问题的渠道与责任人
+    - 外包与临时工完全未被覆盖
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 意识宣贯材料与推送记录（班前会、看板、警示标识）
+        priority: core
+      - id: w2
+        kind: written
+        text: 岗位环境职责说明与考核记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 员工参与环境改进与提案的统计记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 违反规定的后果说明材料
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 在车间随机问员工"你的岗位对环境有什么影响、不做好会怎样"
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看现场警示标识、地面标线、分类投放标识与实际行为是否一致
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 访谈员工是否清楚异常上报路径
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 观察班前会是否涉及环境议题
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '7.4'
+  title: 沟通
+  scope_note: null
+  covers:
+  - 7.4.1
+  - 7.4.2
+  - 7.4.3
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.4'
+    audit_question: 组织是否确定与其 EMS 有关的内外部沟通，包括沟通什么、何时沟通、向谁沟通、如何沟通、由谁负责？
+    written_evidence:
+    - 沟通矩阵（事项、对象、频次、方式、责任岗位、记录要求）
+    - 内外部沟通计划与年度执行记录
+    - 举报与投诉信息处理流程及台账
+    - 对外信息发布审批流程
+    on_site_evidence:
+    - 查看外部信息（环保公告、许可信息、污染治理设施公开）的发布渠道与实际张贴内容
+    - 访谈对外联络岗位如何汇总上报信息
+    - 核实内部沟通是否覆盖所有相关方层级
+    - 抽查一次对外通报的实际文本与审批记录
+    typical_nc:
+    - 只笼统写"保持沟通"，无对象与频次
+    - 对外沟通内容与实际排放、许可状况不符
+    - 外部通报未经审批即发布
+    - 举报与投诉信息未进入体系闭环
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 沟通矩阵（事项、对象、频次、方式、责任岗位、记录要求）
+        priority: core
+      - id: w2
+        kind: written
+        text: 内外部沟通计划与年度执行记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 举报与投诉信息处理流程及台账
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 对外信息发布审批流程
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 查看外部信息（环保公告、许可信息、污染治理设施公开）的发布渠道与实际张贴内容
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 访谈对外联络岗位如何汇总上报信息
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核实内部沟通是否覆盖所有相关方层级
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 抽查一次对外通报的实际文本与审批记录
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: 7.4.1
+  title: 总则
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 7.4.1
+    audit_question: 沟通策划是否基于相关方需求、适用法律法规要求和体系运行中的实际信息需求？
+    written_evidence:
+    - 沟通策划输入记录
+    - 沟通事项与相关方、法规要求的对应说明
+    - 内外部沟通需求的评审记录
+    - 沟通矩阵的版本与批准记录
+    on_site_evidence:
+    - 核对沟通矩阵中的事项是否都能追溯到相关方要求或体系内部需求
+    - 查看需求评审的时间点与依据
+    - 询问沟通矩阵历次修订的触发原因
+    - 核实是否包含法律法规要求的对外公示事项
+    typical_nc:
+    - 沟通矩阵凭经验编写，无需求输入
+    - 遗漏法规强制报告与公示事项
+    - 矩阵多年未修订
+    - 只关注外部沟通，内部沟通无规划
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 沟通策划输入记录
+        priority: core
+      - id: w2
+        kind: written
+        text: 沟通事项与相关方、法规要求的对应说明
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 内外部沟通需求的评审记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 沟通矩阵的版本与批准记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核对沟通矩阵中的事项是否都能追溯到相关方要求或体系内部需求
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看需求评审的时间点与依据
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 询问沟通矩阵历次修订的触发原因
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核实是否包含法律法规要求的对外公示事项
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: 7.4.2
+  title: 组织内部沟通
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 7.4.2
+    audit_question: 组织内部各层级与职能之间的环境信息是否得到及时、适宜的沟通，包括异常、事件与绩效数据？
+    written_evidence:
+    - 内部沟通机制说明（会议、简报、看板、系统）
+    - 环境绩效与异常信息通报记录
+    - 跨部门协调会议纪要
+    - 信息上报与反馈时限规定
+    on_site_evidence:
+    - 抽查某个异常事件从发现到上报到处理的全过程时间记录
+    - 查看班组与职能间的信息传递渠道是否真实使用
+    - 访谈一线人员获取环境信息的途径与时效
+    - 核对内部通报内容的准确性与更新
+    typical_nc:
+    - 异常信息只在口头传递，无留痕
+    - 环保数据每月汇总一次，上报滞后影响处置
+    - 内部沟通单向向下，反馈不闭合
+    - 跨部门信息壁垒，问题在部门间推诿
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 内部沟通机制说明（会议、简报、看板、系统）
+        priority: core
+      - id: w2
+        kind: written
+        text: 环境绩效与异常信息通报记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 跨部门协调会议纪要
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 信息上报与反馈时限规定
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查某个异常事件从发现到上报到处理的全过程时间记录
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看班组与职能间的信息传递渠道是否真实使用
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 访谈一线人员获取环境信息的途径与时效
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对内部通报内容的准确性与更新
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: 7.4.3
+  title: 组织外部沟通
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 7.4.3
+    audit_question: 组织的外部环境信息沟通是否满足法律法规、许可与其他相关方的要求，内容是否准确一致？
+    written_evidence:
+    - 排污许可与登记材料及对外公示文本
+    - 环境信息对外报告与年度执行记录
+    - 投诉、举报、公众意见处理台账与回复凭证
+    - 对外发布信息审批与发布记录
+    on_site_evidence:
+    - 查看现场公示的排污信息、监测数据与实际运行是否一致
+    - 核实环保设施与污染物排放在线数据与报告口径是否吻合
+    - 访谈投诉受理岗位查证受理、回复与闭环记录
+    - 查看对外资料发布版本控制
+    typical_nc:
+    - 公示数据与实际监测不符或更新不及时
+    - 未按许可要求报告超标与异常
+    - 投诉回复模板化，未记录实际处置
+    - 对外披露未经审核，风险信息被淡化
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 排污许可与登记材料及对外公示文本
+        priority: core
+      - id: w2
+        kind: written
+        text: 环境信息对外报告与年度执行记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 投诉、举报、公众意见处理台账与回复凭证
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 对外发布信息审批与发布记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 查看现场公示的排污信息、监测数据与实际运行是否一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核实环保设施与污染物排放在线数据与报告口径是否吻合
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 访谈投诉受理岗位查证受理、回复与闭环记录
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查看对外资料发布版本控制
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '7.5'
+  title: 文件化信息
+  scope_note: null
+  covers:
+  - 7.5.1
+  - 7.5.2
+  - 7.5.3
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-documented-information
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.5'
+    audit_question: 组织是否建立、实施并保持满足体系要求的文件化信息，包括创建更新与控制所需的机制？
+    written_evidence:
+    - 文件化信息清单（体系文件、记录、许可证、报表）
+    - 文件控制程序（编号、批准、发放、修订、作废、保存）
+    - 记录保存期限与归档规定
+    - 文件与记录的介质管理方式说明
+    on_site_evidence:
+    - 抽取一份现场使用的文件核对是否为现行有效版本
+    - 抽查记录保存是否满足期限且可检索
+    - 查看电子系统中的版本与权限控制
+    - 核对作废文件是否已标识并撤出使用点
+    typical_nc:
+    - 文件清单缺失，无法确认受控范围
+    - 现场使用作废版本且无标识
+    - 记录保存期限短于法规要求
+    - 电子记录无权限与修改记录，可随意涂改
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 文件化信息清单（体系文件、记录、许可证、报表）
+        priority: core
+      - id: w2
+        kind: written
+        text: 文件控制程序（编号、批准、发放、修订、作废、保存）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 记录保存期限与归档规定
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 文件与记录的介质管理方式说明
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽取一份现场使用的文件核对是否为现行有效版本
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查记录保存是否满足期限且可检索
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看电子系统中的版本与权限控制
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对作废文件是否已标识并撤出使用点
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: 7.5.1
+  title: 总则
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 7.5.1
+    audit_question: 体系所需的文件化信息是否涵盖组织与体系两个层面，并明确哪些必须具备？
+    written_evidence:
+    - 组织层面文件化信息需求识别记录
+    - 体系层面必需文件与记录清单
+    - 未形成文件的信息清单及不作为的理由说明
+    - 清单与条款的对应矩阵
+    on_site_evidence:
+    - 核对文件清单是否覆盖两类层面的全部要素
+    - 抽查某项记录是否存在且能追溯到活动
+    - 查看免于文件化的判断依据与批准记录
+    - 确认清单随体系版本同步更新
+    typical_nc:
+    - 只列体系文件，忽略组织层面的经营与决策信息
+    - 必需记录缺失（如合规评价、应急演练记录）
+    - 免于文件化判断无依据、无批准
+    - 清单与实际文件数量长期不符
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 组织层面文件化信息需求识别记录
+        priority: core
+      - id: w2
+        kind: written
+        text: 体系层面必需文件与记录清单
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 未形成文件的信息清单及不作为的理由说明
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 清单与条款的对应矩阵
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核对文件清单是否覆盖两类层面的全部要素
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查某项记录是否存在且能追溯到活动
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看免于文件化的判断依据与批准记录
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 确认清单随体系版本同步更新
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: 7.5.2
+  title: 文件化信息的创建和更新
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 7.5.2
+    audit_question: 文件化信息的标识、格式、评审与批准是否恰当，创建和更新过程是否保证其充分性与适宜性？
+    written_evidence:
+    - 文件编制与评审批准流程
+    - 文件模板与编号规则
+    - 评审记录与意见处理单
+    - 版本修订历史与变更申请
+    - 文件适用性确认记录
+    on_site_evidence:
+    - 抽取一份近期修订的文件查看评审意见与批准痕迹
+    - 核对文件版式、标识、日期是否符合规则
+    - 查看修订是否来源于实际变化与输入
+    - 检查作废文件的标识与隔离处理
+    typical_nc:
+    - 文件无编号无版本，无法判断现行性
+    - 评审流于形式，只签字不提意见
+    - 修订滞后于法规与工艺变化
+    - 外部文件未受控地直接使用
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 文件编制与评审批准流程
+        priority: core
+      - id: w2
+        kind: written
+        text: 文件模板与编号规则
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 评审记录与意见处理单
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 版本修订历史与变更申请
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 文件适用性确认记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽取一份近期修订的文件查看评审意见与批准痕迹
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对文件版式、标识、日期是否符合规则
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看修订是否来源于实际变化与输入
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 检查作废文件的标识与隔离处理
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: 7.5.3
+  title: 文件化信息的控制
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 7.5.3
+    audit_question: 文件化信息在分发、访问、检索、使用、存储、防护、变更与保留上是否得到适当控制？
+    written_evidence:
+    - 文件分发与领用记录
+    - 电子系统权限矩阵与访问日志
+    - 备份与恢复记录
+    - 外来文件的接收与评审记录
+    - 保存期限、销毁与保密规定
+    on_site_evidence:
+    - 抽查电子系统权限与实际操作人员是否匹配
+    - 查看外来法规原文的获取、评审与转化记录
+    - 测试关键记录的可检索性与备份有效性
+    - 确认过期记录按期限处置且有审批
+    typical_nc:
+    - 权限管理失控，无关人员可修改记录
+    - 外来文件未评审直接执行
+    - 备份未验证，故障时无法恢复
+    - 敏感数据无保密与访问控制措施
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 文件分发与领用记录
+        priority: core
+      - id: w2
+        kind: written
+        text: 电子系统权限矩阵与访问日志
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 备份与恢复记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 外来文件的接收与评审记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 保存期限、销毁与保密规定
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查电子系统权限与实际操作人员是否匹配
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看外来法规原文的获取、评审与转化记录
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 测试关键记录的可检索性与备份有效性
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 确认过期记录按期限处置且有审批
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '8.1'
+  title: 运行策划和控制
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '8.1'
+    audit_question: 组织是否对满足 EMS 要求的过程实施策划、实施、控制与评价，并对运行中的偏离与变化及时作出响应和处置？
+    written_evidence:
+    - 运行策划与控制清单（过程、准则、控制措施、责任人）
+    - 运行控制程序与受控作业文件及参数限值表
+    - 运行阶段环境因素识别程序、识别记录表单与评价准则
+    - 监视与测量的点位、方法、频次及校准记录
+    - 变更管理程序、变更申请与变更前影响评价及变更后验证记录
+    - 运行策划输出与体系其他条款（风险机遇、合规义务、环境目标）的对应矩阵
+    - 外包过程的控制要求与评价记录
+    - 偏离与异常的登记、处置及有效性验证记录
+    on_site_evidence:
+    - 现场观察关键过程是否按受控文件操作并留下可追溯记录
+    - 核对实际运行参数是否在控制限值内且超限有处置记录
+    - 抽查运行阶段环境因素识别表单的填报频次与真实性，核实工艺或设备变更后是否重新识别
+    - 查看车间公示的环境因素看板与识别清单是否一致
+    - 抽查一项变更从申请、评审、批准到文件与培训同步更新的全过程
+    - 访谈一线人员是否知道本岗位需控制的参数、偏离上报路径与频次
+    - 核实外包作业是否纳入现场监督与评价范围
+    typical_nc:
+    - 运行控制文件齐备但现场不按其执行，控制要求停留在纸面
+    - 环境因素识别仅在体系建立阶段做一次，运行阶段无持续识别机制与记录
+    - 监视测量频次低于法规或风险要求，数据缺失或超限无处置
+    - 变更未走程序先实施后补手续，新风险未纳入清单且文件参数未同步
+    - 外包过程只签合同不评价不监督
+    - 运行偏离无登记无响应，异常长期无人知
+    - 策划输出与运行控制各自为政，未建立可追溯的对应关系
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 运行策划与控制清单（过程、准则、控制措施、责任人）
+        priority: core
+      - id: w2
+        kind: written
+        text: 运行控制程序与受控作业文件及参数限值表
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 运行阶段环境因素识别程序、识别记录表单与评价准则
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 监视与测量的点位、方法、频次及校准记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 变更管理程序、变更申请与变更前影响评价及变更后验证记录
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 运行策划输出与体系其他条款（风险机遇、合规义务、环境目标）的对应矩阵
+        priority: supporting
+      - id: w7
+        kind: written
+        text: 外包过程的控制要求与评价记录
+        priority: supporting
+      - id: w8
+        kind: written
+        text: 偏离与异常的登记、处置及有效性验证记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场观察关键过程是否按受控文件操作并留下可追溯记录
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对实际运行参数是否在控制限值内且超限有处置记录
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 抽查运行阶段环境因素识别表单的填报频次与真实性，核实工艺或设备变更后是否重新识别
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查看车间公示的环境因素看板与识别清单是否一致
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 抽查一项变更从申请、评审、批准到文件与培训同步更新的全过程
+        priority: supporting
+      - id: o6
+        kind: on_site
+        text: 访谈一线人员是否知道本岗位需控制的参数、偏离上报路径与频次
+        priority: supporting
+      - id: o7
+        kind: on_site
+        text: 核实外包作业是否纳入现场监督与评价范围
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '8.2'
+  title: 应急准备和响应
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '8.2'
+    audit_question: 组织是否对已识别的应急情景建立策划、准备与响应机制，是否覆盖相关方沟通与定期演练并保留改进证据？
+    written_evidence:
+    - 应急准备与响应程序与情景清单
+    - 应急组织架构、职责与联络清单
+    - 应急物资与设施配置清单及定期检查记录
+    - 演练计划、演练记录与效果评估报告
+    - 事件后的评审与改进措施记录
+    on_site_evidence:
+    - 现场抽查应急物资是否在位、未超期并可即刻取用
+    - 查看关键应急设施（事故池、切断阀、备用电源、集合点）的可用状态与标识
+    - 访谈一线员工确认报警方式、撤离路线与报告对象是否清楚
+    - 核对演练是否真实触发响应流程并有改进项落地
+    typical_nc:
+    - 应急程序只写原则不落到情景与岗位
+    - 物资清单与现场实物不符，检查表只打勾
+    - 演练走形式未验证真实响应能力
+    - 事件后未做评审与改进，同类事件重复发生
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 应急准备与响应程序与情景清单
+        priority: core
+      - id: w2
+        kind: written
+        text: 应急组织架构、职责与联络清单
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 应急物资与设施配置清单及定期检查记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 演练计划、演练记录与效果评估报告
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 事件后的评审与改进措施记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场抽查应急物资是否在位、未超期并可即刻取用
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看关键应急设施（事故池、切断阀、备用电源、集合点）的可用状态与标识
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 访谈一线员工确认报警方式、撤离路线与报告对象是否清楚
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对演练是否真实触发响应流程并有改进项落地
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '9.1'
+  title: 监视、测量、分析和评价
+  scope_note: null
+  covers:
+  - 9.1.1
+  - 9.1.2
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '9.1'
+    audit_question: 组织是否监视、测量、分析和评价其 EMS 绩效，并是否及时报告结果以供决策？
+    written_evidence:
+    - 监视测量项目清单与频次规定
+    - 绩效数据与分析报告（含趋势与统计口径说明）
+    - 数据分析结果的评审记录
+    - 报告的分发与决策使用记录
+    - 监视测量设备的校准与有效性记录
+    on_site_evidence:
+    - 抽查分析报告中的数据是否可回溯到原始记录
+    - 查看数据采集频次是否满足法规与风险要求
+    - 访谈数据提供部门确认口径统一
+    - 核对分析结论是否真正用于改进决策
+    typical_nc:
+    - 只统计合规达标率，不分析趋势与波动
+    - 数据口径各科室不一，无法比较
+    - 分析报告长期不变，无改进建议
+    - 监测设备失准仍用于绩效判定
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 监视测量项目清单与频次规定
+        priority: core
+      - id: w2
+        kind: written
+        text: 绩效数据与分析报告（含趋势与统计口径说明）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 数据分析结果的评审记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 报告的分发与决策使用记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 监视测量设备的校准与有效性记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查分析报告中的数据是否可回溯到原始记录
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看数据采集频次是否满足法规与风险要求
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 访谈数据提供部门确认口径统一
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对分析结论是否真正用于改进决策
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: 9.1.1
+  title: 总则
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 9.1.1
+    audit_question: 监视测量的方法是否适用、结果是否有效，评价结论是否支持决策并推动体系改进？
+    written_evidence:
+    - 监视测量方法说明与评价准则
+    - 数据采集、汇总与审核的责任分工
+    - 分析评价的频次与触发条件
+    - 不满足准则时的处置规则
+    on_site_evidence:
+    - 核实评价准则与法规限值、目标值的一致性
+    - 抽查原始数据与结论之间是否可复算
+    - 确认未达标时是否启动相应流程
+    - 查看评价频次与业务变化节奏是否匹配
+    typical_nc:
+    - 评价准则缺失或宽于法规限值
+    - 原始数据不可追溯或被修改无痕
+    - 未达标情形无处置规则与升级路径
+    - 评价频次固定，与风险波动脱节
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 监视测量方法说明与评价准则
+        priority: core
+      - id: w2
+        kind: written
+        text: 数据采集、汇总与审核的责任分工
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 分析评价的频次与触发条件
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 不满足准则时的处置规则
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核实评价准则与法规限值、目标值的一致性
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查原始数据与结论之间是否可复算
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 确认未达标时是否启动相应流程
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查看评价频次与业务变化节奏是否匹配
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: 9.1.2
+  title: 合规性评价
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 9.1.2
+    audit_question: 组织是否定期评价对法律法规及其他合规义务的遵守情况，并在必要时进行重新评价？
+    written_evidence:
+    - 合规性评价计划与频次说明
+    - 逐条合规义务的评价表（状态、证据、结论）
+    - 超标与不符合情况的处理记录
+    - 评价结果向管理评审的报告记录
+    - 触发重新评价的情形规定
+    on_site_evidence:
+    - 抽查一份合规评价报告，核对结论是否逐条对应义务并有证据支撑
+    - 查看最近一次评价时间与频次规定是否一致
+    - 确认超限或违规事实的处理与上报链条
+    - 访谈环保专职人员评价的开展方式
+    typical_nc:
+    - 合规评价结论笼统写"符合"，无逐条证据
+    - 评价周期超出规定或从未开展
+    - 已发生的不符合未进入纠正措施流程
+    - 发生重大变化后未触发重新评价
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 合规性评价计划与频次说明
+        priority: core
+      - id: w2
+        kind: written
+        text: 逐条合规义务的评价表（状态、证据、结论）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 超标与不符合情况的处理记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 评价结果向管理评审的报告记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 触发重新评价的情形规定
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查一份合规评价报告，核对结论是否逐条对应义务并有证据支撑
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看最近一次评价时间与频次规定是否一致
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 确认超限或违规事实的处理与上报链条
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 访谈环保专职人员评价的开展方式
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '9.2'
+  title: 内部审核
+  scope_note: null
+  covers:
+  - 9.2.1
+  - 9.2.2
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-audit-and-review
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '9.2'
+    audit_question: 本条为 9.2 内部审核的引导条款，其下设 9.2.1 总则、9.2.2 内部审核方案：9.2.1 侧重内部审核的策划前提（审核方针与方案的策划、审核准则的确定、审核员独立性与能力要求、审核范围与频次的确定），9.2.2
+      侧重审核方案的实施（年度审核计划的制定与调整、审核组组成与分工、审核实施记录与证据获取、审核报告的编制与发布、不符合项的报告与闭环、审核结果的输入与跟踪）。作为引导条款，其本身不设独立审核点，本基线关注的整体问题仍为：组织是否按策划的时间间隔实施内部审核，审核是否覆盖体系全部过程与条款并由具备能力且独立于受审核活动的审核员实施？
+    written_evidence:
+    - 内审方案与年度内审计划
+    - 审核组组成与审核员资格证明
+    - 审核检查表与抽样依据
+    - 不符合项报告与不符合项确认记录
+    - 内审报告与结论及跟踪关闭证据
+    on_site_evidence:
+    - 抽查内审报告，确认覆盖范围与抽样是否合理
+    - 访谈被审核部门确认审核员独立性与专业性
+    - 查看不符合项从开具到关闭的证据链
+    - 核对上年度内审发现的重复发生情况
+    typical_nc:
+    - 内审由本部门负责人自审自己
+    - 检查表照抄标准条款，无针对过程的内容
+    - 不符合项描述笼统，关闭无证据
+    - 发现重复问题未做原因分析，仍按原结论关闭
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 内审方案与年度内审计划
+        priority: core
+      - id: w2
+        kind: written
+        text: 审核组组成与审核员资格证明
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 审核检查表与抽样依据
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 不符合项报告与不符合项确认记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 内审报告与结论及跟踪关闭证据
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查内审报告，确认覆盖范围与抽样是否合理
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 访谈被审核部门确认审核员独立性与专业性
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看不符合项从开具到关闭的证据链
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对上年度内审发现的重复发生情况
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: 9.2.1
+  title: 总则
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 9.2.1
+    audit_question: 内部审核的策划前提是否事先确立——审核方针与方案的策划、审核准则的确定、审核员的能力要求与独立性、审核范围与频次的确定，是否成文、明确并经批准？
+    written_evidence:
+    - 内部审核方针或内部审核策划文件（含批准与修订记录）
+    - 审核准则清单及其与受审核条款、过程的对应表
+    - 内部审核员的能力评价记录、培训记录与资格证明
+    - 内审员独立性规定与回避记录
+    - 审核范围界定说明与审核频次规定
+    on_site_evidence:
+    - 访谈审核组长，说明审核准则与抽样规则的形成依据
+    - 随机抽取内审员，核对其能力评价与培训经历是否支撑所承担的审核范围
+    - 查看年度审核计划中范围与频次的确定依据
+    - 确认审核员是否回避本部门受审核活动
+    - 核对审核准则在实际审核中的可操作性
+    typical_nc:
+    - 审核方针与策划要求未成文，靠临时口头布置审核
+    - 审核准则笼统写成"符合标准要求"，无可操作判据
+    - 内审员由受审核部门负责人担任或自审自签
+    - 审核范围与频次凭经验拍定，长期漏掉部分过程与条款
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 内部审核方针或内部审核策划文件（含批准与修订记录）
+        priority: core
+      - id: w2
+        kind: written
+        text: 审核准则清单及其与受审核条款、过程的对应表
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 内部审核员的能力评价记录、培训记录与资格证明
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 内审员独立性规定与回避记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 审核范围界定说明与审核频次规定
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 访谈审核组长，说明审核准则与抽样规则的形成依据
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 随机抽取内审员，核对其能力评价与培训经历是否支撑所承担的审核范围
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看年度审核计划中范围与频次的确定依据
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 确认审核员是否回避本部门受审核活动
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 核对审核准则在实际审核中的可操作性
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: 9.2.2
+  title: 内部审核方案
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: 9.2.2
+    audit_question: 内部审核方案是否被真正执行——年度审核计划的制定与调整、审核组组成与分工、审核实施记录与证据获取、审核报告的编制与发布、不符合项的报告与闭环、审核结果的输入与跟踪，各环节是否有真实可查的落地证据？
+    written_evidence:
+    - 年度内部审核计划及其变更调整记录
+    - 审核组组成与分工表（审核组长、审核员、观察员及分工说明）
+    - 审核实施记录（首次会议记录、检查表、抽样清单、末次会议记录）
+    - 内部审核报告及其发布与分发记录
+    - 不符合项报告与纠正措施闭环证据
+    - 审核结果输入管理评审的记录与跟踪台账
+    on_site_evidence:
+    - 抽查一次内部审核的实际记录，核对签字、日期与检查表内容能否一一对应
+    - 访谈被审核部门，确认审核组实际到场人员、沟通方式与抽样对象
+    - 查看不符合项从开具到关闭的时间线与验证证据
+    - 核对审核报告结论是否如实反映现场发现
+    - 确认上年度审核结果在管理评审输入中的体现
+    - 观察审核记录是否有事后补填痕迹
+    typical_nc:
+    - 年度计划只列日期不列范围与对象，实际审核与计划脱节、事后补做记录
+    - 审核报告与检查表内容雷同，笔迹与现场描述雷同
+    - 不符合项描述笼统、无责任人与期限，关闭仅凭签字无证据
+    - 审核结果不进入管理评审，同类问题跨年重复发生
+    - 审核组由被审核部门人员混编，独立性无从谈起
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 年度内部审核计划及其变更调整记录
+        priority: core
+      - id: w2
+        kind: written
+        text: 审核组组成与分工表（审核组长、审核员、观察员及分工说明）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 审核实施记录（首次会议记录、检查表、抽样清单、末次会议记录）
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 内部审核报告及其发布与分发记录
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 不符合项报告与纠正措施闭环证据
+        priority: supporting
+      - id: w6
+        kind: written
+        text: 审核结果输入管理评审的记录与跟踪台账
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查一次内部审核的实际记录，核对签字、日期与检查表内容能否一一对应
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 访谈被审核部门，确认审核组实际到场人员、沟通方式与抽样对象
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看不符合项从开具到关闭的时间线与验证证据
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对审核报告结论是否如实反映现场发现
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 确认上年度审核结果在管理评审输入中的体现
+        priority: supporting
+      - id: o6
+        kind: on_site
+        text: 观察审核记录是否有事后补填痕迹
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '9.3'
+  title: 管理评审
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-audit-and-review
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '9.3'
+    audit_question: 组织是否按策划的时间间隔开展管理评审，输入是否完整，输出是否包含必要的决定与资源承诺？
+    written_evidence:
+    - 管理评审计划与历次评审记录
+    - 评审输入清单（内审结论、合规评价、绩效数据、目标达成、风险与机遇变化、相关方反馈、改进机会）
+    - 评审输出与决定事项跟踪记录
+    - 最高管理者对输出的确认与资源承诺
+    on_site_evidence:
+    - 抽查一次评审记录核对输入要素是否齐备
+    - 确认评审由最高管理者主持并有决策输出
+    - 查看决定事项的跟踪与落实证据
+    - 访谈参会人员核实其对输出决定的理解与落实情况
+    typical_nc:
+    - 评审输入长期不更新，沿用上一年度数据
+    - 只做情况通报，不产生决策与资源承诺
+    - 最高管理者缺席或由他人代为主持
+    - 输出决定无跟踪，重复出现同类问题
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 管理评审计划与历次评审记录
+        priority: core
+      - id: w2
+        kind: written
+        text: 评审输入清单（内审结论、合规评价、绩效数据、目标达成、风险与机遇变化、相关方反馈、改进机会）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 评审输出与决定事项跟踪记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 最高管理者对输出的确认与资源承诺
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查一次评审记录核对输入要素是否齐备
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 确认评审由最高管理者主持并有决策输出
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查看决定事项的跟踪与落实证据
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 访谈参会人员核实其对输出决定的理解与落实情况
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '10.1'
+  title: 总则
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '10.1'
+    audit_question: 组织是否持续改进 EMS 的适宜性、充分性与有效性，并使改进成为体系运行的内生机制而非专项行动？
+    written_evidence:
+    - 改进机会识别与来源说明
+    - 改进项目清单与实施记录
+    - 改进效果的验证与评价记录
+    - 体系绩效趋势分析与适宜性评价报告
+    - 持续改进的管理机制说明
+    on_site_evidence:
+    - 访谈不同层级人员对改进来源与成效的认知
+    - 查看改进项目从提出到落地的闭环证据
+    - 核对改进结果是否反映在目标、程序与文件修订中
+    - 观察改进建议来自基层的比例与落地率
+    typical_nc:
+    - 改进仅来自审核不符合项，缺少主动改进来源
+    - 改进项目停留在提案与表彰，未进入体系修订
+    - 效果未验证，无法判断是否有效
+    - 改进只针对环境专业，未触及业务过程
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 改进机会识别与来源说明
+        priority: core
+      - id: w2
+        kind: written
+        text: 改进项目清单与实施记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 改进效果的验证与评价记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 体系绩效趋势分析与适宜性评价报告
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 持续改进的管理机制说明
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 访谈不同层级人员对改进来源与成效的认知
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看改进项目从提出到落地的闭环证据
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对改进结果是否反映在目标、程序与文件修订中
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 观察改进建议来自基层的比例与落地率
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '10.2'
+  title: 不符合和纠正措施
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-nonconformity
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '10.2'
+    audit_question: 组织是否对不符合（含投诉）作出响应、采取措施纠正并消除原因，必要时采取纠正行动以防止再发生，并保留证据？
+    written_evidence:
+    - 不符合与纠正措施处理程序
+    - 不符合项台账（含来源、责任人、时限、状态）
+    - 原因分析方法与根因分析记录
+    - 纠正措施有效性的验证证据
+    - 纠正行动实施与效果确认记录
+    on_site_evidence:
+    - 抽查一个已关闭的不符合项，核对根因是否追到体系层面而非停在"员工疏忽"
+    - 查看验证方式是否真实（如复发率、再培训效果）
+    - 确认重大不符合是否上报最高管理者
+    - 访谈责任部门对闭环标准的理解
+    typical_nc:
+    - 原因分析停留在表象，未触及体系缺陷
+    - 仅做纠正不做纠正措施，问题重复发生
+    - 验证仅凭经办人签字，无客观证据
+    - 重大不符合未升级报告，时限与响应流于形式
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 不符合与纠正措施处理程序
+        priority: core
+      - id: w2
+        kind: written
+        text: 不符合项台账（含来源、责任人、时限、状态）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 原因分析方法与根因分析记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 纠正措施有效性的验证证据
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 纠正行动实施与效果确认记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查一个已关闭的不符合项，核对根因是否追到体系层面而非停在"员工疏忽"
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看验证方式是否真实（如复发率、再培训效果）
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 确认重大不符合是否上报最高管理者
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 访谈责任部门对闭环标准的理解
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '10.3'
+  title: 持续改进
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '10.3'
+    audit_question: 组织是否持续改进 EMS 的适宜性、充分性与有效性，改进是否有明确的输入来源、推进机制与成效衡量？
+    written_evidence:
+    - 持续改进推进计划与责任分工
+    - 改进项目台账与阶段成果
+    - 改进与目标调整、文件修订的对应记录
+    - 改进成效的量化评价报告
+    - 来自审核、监视、投诉与日常管理的改进输入记录
+    on_site_evidence:
+    - 查看改进项目清单在现场的落地实物或流程变化
+    - 核对改进前后绩效数据对比是否真实
+    - 访谈员工提出的改进建议是否被采纳并反馈
+    - 确认改进未停留在口号层面
+    typical_nc:
+    - 改进项目与体系条款无挂靠，改完即结束
+    - 改进成效无数据支撑，只写定性描述
+    - 改进输入只来自审核，日常问题不进入改进池
+    - 改进要求未转化为对文件、目标的同步修订
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 持续改进推进计划与责任分工
+        priority: core
+      - id: w2
+        kind: written
+        text: 改进项目台账与阶段成果
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 改进与目标调整、文件修订的对应记录
+        priority: supporting
+      - id: w4
+        kind: written
+        text: 改进成效的量化评价报告
+        priority: supporting
+      - id: w5
+        kind: written
+        text: 来自审核、监视、投诉与日常管理的改进输入记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 查看改进项目清单在现场的落地实物或流程变化
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对改进前后绩效数据对比是否真实
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 访谈员工提出的改进建议是否被采纳并反馈
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 确认改进未停留在口号层面
+        priority: supporting
+    difficulty: null
+    apg_ref: []

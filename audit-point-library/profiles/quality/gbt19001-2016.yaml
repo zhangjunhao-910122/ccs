@@ -25,13 +25,11 @@ profile:
     - 行业扩展要求（IATF 16949、ISO 22163 等）
   version_meta:
     generated_from: docs/research/iso9001-clause-audit-baseline.md
-    verification_status: unverified
+    verification_status: toc_verified
     verified_by: null
     verified_at: null
     clause_tree_ref: clause_trees/qms-gbt19001-2016.yaml
-    snapshot_id: sha256:4e1cce777a6b209424cb50ea6cc914de8fb4e53f7385caabac04ffd1b0c4274d
-    consistency_warnings:
-    - 8.1 基线称 4 个内容块，条款树为 3 个子条款（版本口径疑点）
+    snapshot_id: sha256:7af62fd2983140312af3ba7bfb5f038a4c6d09137f13d7a56994f55d186c28c9
 clauses:
 - clause_no: '4.1'
   title: 组织环境
@@ -121,7 +119,7 @@ clauses:
         kind: on_site
         text: 核对相关方要求是否逐条落入合同评审与 8.2.2 要求的确定
         priority: supporting
-    difficulty: null
+    difficulty: low
     apg_ref: []
 - clause_no: '4.3'
   title: 确定质量管理体系的范围
@@ -176,7 +174,9 @@ clauses:
   - pdca-process-approach
   photo_evidence: not_applicable
   photo_note: null
-  aliases: []
+  aliases:
+  - 4.4.1
+  - 4.4.2
   points:
   - point_key: '4.4'
     audit_question: 组织是否按过程方法确定过程的输入输出、顺序和相互作用、准则和方法、资源、职责权限、风险和机遇、绩效指标与改进方式？成文信息如何支撑？哪些过程外包，外包如何受控？
@@ -207,9 +207,10 @@ clauses:
         priority: supporting
     difficulty: medium
     apg_ref: []
+  alias_note: 2026 版 4.4 的编号子条款；2015 版 4.4 无编号子条款
 - clause_no: '5.1'
   title: 领导作用和承诺
-  scope_note: 含 5.1.1 总则、5.1.2 相关方导向
+  scope_note: 含 5.1.1 总则、5.1.2 以顾客为关注焦点
   covers:
   - 5.1.1
   - 5.1.2
@@ -261,7 +262,7 @@ clauses:
     apg_ref: []
 - clause_no: '5.2'
   title: 方针
-  scope_note: 含 5.2.1 总则、5.2.2 方针的建立与沟通
+  scope_note: 含 5.2.1 制定方针、5.2.2 沟通方针
   covers:
   - 5.2.1
   - 5.2.2
@@ -303,7 +304,7 @@ clauses:
         kind: on_site
         text: 查看车间看板、看板、作业文件上的方针是否一致
         priority: supporting
-    difficulty: null
+    difficulty: low
     apg_ref: []
 - clause_no: '5.3'
   title: 组织的岗位、职责和权限
@@ -348,7 +349,7 @@ clauses:
     apg_ref: []
 - clause_no: '6.1'
   title: 应对风险和机遇的措施
-  scope_note: 含识别、策划、有效性评价与融入三个块
+  scope_note: 2015 版无编号子条款，本表按 3 个内容块覆盖：块①识别、块②策划、块③有效性评价与融入
   covers: []
   covers_mode: content_blocks
   covers_source: clause_tree
@@ -398,18 +399,18 @@ clauses:
     apg_ref: []
 - clause_no: '6.2'
   title: 质量目标及其实现的策划
-  scope_note: 含 6.2.1 确定目标、6.2.2 策划实现
+  scope_note: 2015 版无编号子条款，本表按 2 个内容块覆盖：块①确定质量目标、块②策划实现
   covers: []
-  covers_mode: single_clause
+  covers_mode: content_blocks
   covers_source: clause_tree
-  block_count: null
-  mentioned_units:
-  - 6.2.1
-  - 6.2.2
+  block_count: 2
+  mentioned_units: []
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
-  aliases: []
+  aliases:
+  - 6.2.1
+  - 6.2.2
   points:
   - point_key: '6.2'
     audit_question: 质量目标是否在相关职能、层次和过程上建立？是否与方针一致、考虑适用要求与法规、明确可测量（指标、计算方法、目标值、时限、资源、数据来源）？目标未达成时如何处置？
@@ -441,6 +442,7 @@ clauses:
         priority: supporting
     difficulty: high
     apg_ref: []
+  alias_note: 2026 版 6.2 的编号子条款；2015 版 6.2 无编号子条款，一律路由到 6.2
 - clause_no: '6.3'
   title: 变更的策划
   scope_note: null
@@ -485,7 +487,7 @@ clauses:
     apg_ref: []
 - clause_no: '7.1'
   title: 资源
-  scope_note: 含 7.1.1 总则与 7.1.2～7.1.6 五个资源分项
+  scope_note: 含 7.1.1 总则、7.1.2 人员、7.1.3 基础设施、7.1.4 过程环境、7.1.5 监视和测量资源、7.1.6 组织的知识
   covers:
   - 7.1.1
   - 7.1.2
@@ -499,6 +501,9 @@ clauses:
   mentioned_units:
   - 7.1.1
   - 7.1.2
+  - 7.1.3
+  - 7.1.4
+  - 7.1.5
   - 7.1.6
   blocks: []
   photo_evidence: not_applicable
@@ -544,7 +549,7 @@ clauses:
         kind: on_site
         text: 查经验教训库是否被实际调用
         priority: supporting
-    difficulty: null
+    difficulty: medium_high
     apg_ref: []
 - clause_no: '7.2'
   title: 能力
@@ -628,7 +633,7 @@ clauses:
         kind: on_site
         text: 现场随机访谈 5 至 8 名不同岗位人员，要求说出本岗位相关的顾客要求、法规要求与本岗位对质量目标的贡献
         priority: core
-    difficulty: null
+    difficulty: medium
     apg_ref: []
 - clause_no: '7.4'
   title: 沟通
@@ -641,7 +646,10 @@ clauses:
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
-  aliases: []
+  aliases:
+  - '5.4'
+  - 5.4.1
+  - 5.4.2
   points:
   - point_key: '7.4'
     audit_question: 组织如何确定内部与外部沟通的渠道、内容、时机、接收方与责任岗位？沟通是否与体系要求一致（含 8.2.1 顾客沟通）？
@@ -675,24 +683,31 @@ clauses:
         kind: on_site
         text: 查跨部门问题（返修、让步、变更）是否通过规定渠道升级
         priority: supporting
-    difficulty: null
+    difficulty: medium
     apg_ref: []
+  alias_note: 2008 版第 5.4「沟通」移入 2015 版 7.4「沟通」
 - clause_no: '7.5'
   title: 成文信息
-  scope_note: 2015 版未设编号子条款，本表按三个内容块覆盖：块①总则、块②创建与更新、块③控制
+  scope_note: 含 7.5.1 总则、7.5.2 创建和更新、7.5.3 成文信息的控制
   covers:
   - 7.5.1
   - 7.5.2
   - 7.5.3
   covers_mode: subclauses_named
   covers_source: clause_tree
-  block_count: 3
-  mentioned_units: []
+  block_count: null
+  mentioned_units:
+  - 7.5.1
+  - 7.5.2
+  - 7.5.3
   blocks:
   - common-documented-information
   photo_evidence: not_applicable
   photo_note: null
-  aliases: []
+  aliases:
+  - '5.5'
+  - 5.5.1
+  - 5.5.2
   points:
   - point_key: '7.5'
     audit_question: 组织如何确定需要控制的成文信息及其评审与批准？成文信息是否清晰、可读、适宜（含外来文件）？是否标识、检索、保护、备份、保留、处置？电子记录是否防篡改（CNCA 要求电子记录为不可编辑格式）？
@@ -730,21 +745,25 @@ clauses:
         priority: supporting
     difficulty: medium
     apg_ref: []
+  alias_note: 2008 版第 5.5「质量管理体系文件」移入 2015 版 7.5「成文信息」；命中 5.5/5.5.1/5.5.2 路由到 7.5
 - clause_no: '8.1'
   title: 运行策划和控制
-  scope_note: 2015 版未设编号子条款，本表按四个内容块覆盖：块①总则与策划、块②未预先策划的控制、块③未预先策划控制的需求与准备、块④监视测量资源控制与验证确认
-  covers:
-  - 8.1.1
-  - 8.1.2
-  - 8.1.3
-  covers_mode: subclauses_named
+  scope_note: 2015 版无编号子条款，本表按 4 个内容块覆盖：块①总则与策划、块②未预先策划的控制、块③未预先策划控制的需求与准备、块④监视测量资源控制与验证确认
+  covers: []
+  covers_mode: content_blocks
   covers_source: clause_tree
   block_count: 4
   mentioned_units: []
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
-  aliases: []
+  aliases:
+  - 8.1.1
+  - 8.1.2
+  - 8.1.3
+  - 8.1.4
+  - 8.1.5
+  - 8.1.6
   points:
   - point_key: '8.1'
     audit_question: 组织如何策划、实施和控制满足产品服务要求所需的过程（块①）？策划是否含准则、方法、资源、职责、风险机遇、绩效指标、顾客与供方要求？实际运行与策划不一致时如何处置（块②）？临时/非常规作业的需求与准备如何规定（块③）？监视测量资源在用于放行前是否处于可用状态（块④）？产品服务的验证与确认如何策划并在放行前完成（块④）？
@@ -760,7 +779,7 @@ clauses:
     - 先生产后补首件记录
     - 验证与确认缺失（尤其特种设备、强制认证产品）
     - 未预先策划的作业无审批即执行
-    - 过程失控后未按 8.6/10.2 处置即继续放行
+    - 过程失控后未按 8.7/10.2 处置即继续放行
     evidence_items:
       written:
       - id: w1
@@ -786,6 +805,7 @@ clauses:
         priority: supporting
     difficulty: high
     apg_ref: []
+  alias_note: 旧版块编号与 2026 版编号子条款；2015 版 8.1 无编号子条款，一律路由到 8.1
 - clause_no: '8.2'
   title: 产品和服务的要求
   scope_note: 含 8.2.1 顾客沟通、8.2.2 要求的确定、8.2.3 评审、8.2.4 更改
@@ -841,7 +861,7 @@ clauses:
         kind: on_site
         text: 查要求更改是否已通知生产与检验并重新评审
         priority: supporting
-    difficulty: null
+    difficulty: medium_high
     apg_ref: []
 - clause_no: '8.3'
   title: 设计和开发
@@ -907,7 +927,7 @@ clauses:
         kind: on_site
         text: 查设计输出是否真正转入生产/服务策划
         priority: supporting
-    difficulty: medium
+    difficulty: medium_high
     apg_ref: []
 - clause_no: '8.4'
   title: 外部提供的过程、产品和服务
@@ -926,7 +946,9 @@ clauses:
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
-  aliases: []
+  aliases:
+  - 8.4.4
+  - 8.4.5
   points:
   - point_key: '8.4'
     audit_question: 组织基于哪些准则决定外部提供的程度（策划、验证、确认、接收检验或不放行）？准则是否与外部供方对组织产品服务的影响相适应并有记录？是否对外部供方施加控制（沟通、技术交流、评审、验证活动）？向外部供方提供的信息是否完整（要求、过程、技术状态、审核权利、绩效反馈）？
@@ -968,11 +990,12 @@ clauses:
         kind: on_site
         text: 核对委外过程是否与 4.4 的外包过程识别一致
         priority: supporting
-    difficulty: null
+    difficulty: high
     apg_ref: []
+  alias_note: 2026 版 8.4 的编号子条款；2015 版 8.4 只设 8.4.1～8.4.3
 - clause_no: '8.5'
   title: 生产和服务提供
-  scope_note: 含 8.5.1 总则、8.5.2 策划、8.5.3 标识和可追溯性、8.5.4 顾客所有的财产、8.5.5 防护、8.5.6 放行
+  scope_note: 含 8.5.1 总则、8.5.2 标识和可追溯性、8.5.3 顾客或外部供方的财产、8.5.4 防护、8.5.5 交付、8.5.6 更新的控制
   covers:
   - 8.5.1
   - 8.5.2
@@ -996,28 +1019,28 @@ clauses:
   aliases: []
   points:
   - point_key: '8.5'
-    audit_question: 生产和服务提供的策划是否含可获得结果的准则、方法、环境、监视条件、适宜设备与资源？标识与可追溯性如何实现（产品状态、唯一性标识、追溯链条）？顾客或外部供方的财产如何识别、验证、保管与保护？防护措施（防损伤、防污染、防失效）如何执行？放行是否在策划安排之后、是否有授权人、是否在验证活动完成后？
+    audit_question: 已策划的生产和服务提供过程在实施中如何受控、执行证据如何保留（8.5.1，配合 8.1 策划输出）？产品状态如何标识、追溯链条如何建立并保持（8.5.2）？顾客或外部供方的财产如何识别、验证、保管与保护（8.5.3）？防护措施（防损伤、防污染、防失效、储存条件）如何执行（8.5.4）？交付活动如何策划、实施与记录（8.5.5）？生产和服务提供的更改如何识别、评审、授权、验证并更新成文信息（8.5.6）？
     written_evidence:
-    - 生产/服务作业指导与工艺参数、作业条件与设备清单、标识与追溯规则（编码规则、批次号、追溯矩阵）、顾客财产接收与返还记录、防护与储存维护记录（含温湿度、防护标识）、放行授权文件与检验合格证、特殊过程的确认记录与再确认周期
+    - 生产/服务作业指导与工艺参数、作业条件与设备清单、标识与追溯规则（编码规则、批次号、追溯矩阵）、顾客财产接收/验证/返还记录、防护与储存维护记录（含温湿度、防护标识）、交付策划与交付记录（发运清单、交付确认）、更改控制程序与更改申请/评审/授权/验证记录、特殊过程的确认记录与再确认周期
     on_site_evidence:
     - 现场查看一批产品的实物标识与台账一致性（抽 5～10 件核对批次与追溯链）
     - 查顾客财产（客户提供的模具、物料、图纸）在厂内的存放、标识与状态
-    - 查待检品、合格品、不合格品区域物理隔离与标识
-    - 核对放行签字人是否有授权且与检验记录对应
+    - 查防护与储存条件的实际执行（温湿度、防尘、防锈）
+    - 抽查一项近期的生产或服务更改，核对更改前评审、授权与更改后验证记录
     - 查特殊过程的工艺参数与定期再确认记录
     typical_nc:
     - 标识与追溯断链（无法从成品追到原料批次或工序记录）
     - 待检与合格品混放、标识褪色或手写无签
     - 顾客财产丢失或混用未追责
     - 防护条件（存储温湿度、防尘）无记录
-    - 未经检验或检验未合格即放行（先发后检）
-    - 放行记录代签
+    - 实际作业与 8.1 策划输出不一致且无变更评审
+    - 生产或服务更改未经评审即实施
     - 特殊过程参数波动无处置记录
     evidence_items:
       written:
       - id: w1
         kind: written
-        text: 生产/服务作业指导与工艺参数、作业条件与设备清单、标识与追溯规则（编码规则、批次号、追溯矩阵）、顾客财产接收与返还记录、防护与储存维护记录（含温湿度、防护标识）、放行授权文件与检验合格证、特殊过程的确认记录与再确认周期
+        text: 生产/服务作业指导与工艺参数、作业条件与设备清单、标识与追溯规则（编码规则、批次号、追溯矩阵）、顾客财产接收/验证/返还记录、防护与储存维护记录（含温湿度、防护标识）、交付策划与交付记录（发运清单、交付确认）、更改控制程序与更改申请/评审/授权/验证记录、特殊过程的确认记录与再确认周期
         priority: core
       on_site:
       - id: o1
@@ -1030,34 +1053,83 @@ clauses:
         priority: supporting
       - id: o3
         kind: on_site
-        text: 查待检品、合格品、不合格品区域物理隔离与标识
+        text: 查防护与储存条件的实际执行（温湿度、防尘、防锈）
         priority: supporting
       - id: o4
         kind: on_site
-        text: 核对放行签字人是否有授权且与检验记录对应
+        text: 抽查一项近期的生产或服务更改，核对更改前评审、授权与更改后验证记录
         priority: supporting
       - id: o5
         kind: on_site
         text: 查特殊过程的工艺参数与定期再确认记录
         priority: supporting
-    difficulty: null
+    difficulty: medium_high
     apg_ref: []
 - clause_no: '8.6'
-  title: 不合格输出的控制
-  scope_note: 编号口径见 5.5.1
+  title: 产品的放行
+  scope_note: null
   covers: []
   covers_mode: single_clause
   covers_source: clause_tree
   block_count: null
-  mentioned_units:
-  - 5.5.1
+  mentioned_units: []
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
   aliases:
-  - '8.7'
+  - 8.6.1
+  - 8.6.2
   points:
   - point_key: '8.6'
+    audit_question: 产品和服务在放行前是否已完成策划安排中规定的全部验证活动？放行是否由经授权的人员执行？外部供方提供的产品是否按 8.4 的接收准则评价后放行？当策划安排要求由外部机构完成验证活动时，组织是否在取得外部验证结果之前不放行？
+    written_evidence:
+    - 放行程序与授权放行人员名单、放行记录（签字放行单或系统放行记录）、检验与检测报告及合格判定、外部验证报告与外部供方产品的接收评价记录、暂扣（待检）产品的放行审批记录
+    on_site_evidence:
+    - 抽查已放行的产品与服务，核对放行签字人与授权文件一致、放行时间晚于检验/验证完成时间
+    - 查放行记录是否存在「先发后检」
+    - 核对外部供方产品的接收评价记录是否先于入库放行
+    typical_nc:
+    - 先发后检、未完成验证即放行
+    - 放行签字人无授权或代签
+    - 放行时间早于检验完成时间
+    - 外部验证报告未取得即放行
+    - 放行准则与检验规范判定限不一致
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 放行程序与授权放行人员名单、放行记录（签字放行单或系统放行记录）、检验与检测报告及合格判定、外部验证报告与外部供方产品的接收评价记录、暂扣（待检）产品的放行审批记录
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查已放行的产品与服务，核对放行签字人与授权文件一致、放行时间晚于检验/验证完成时间
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查放行记录是否存在「先发后检」
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对外部供方产品的接收评价记录是否先于入库放行
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+  alias_note: 2008 版 8.6「产品的放行」之下的验证子条款；2015 版 8.6 无编号子条款
+- clause_no: '8.7'
+  title: 不合格输出的控制
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '8.7'
     audit_question: 不合格输出如何判定、标识、记录与控制？处置方式（返工、返修、让步接收、报废、返给供方）如何选择并经授权？返工与返修是否等同于合格产品并需重新检验？让步接收是否经授权并告知顾客（必要时需顾客或法规批准）？不合格品是否被误用/误发？
     written_evidence:
     - 不合格品判定准则（检验规范中的判定限）、不合格品台账与处置单、返工返修作业指导与复检记录、让步接收审批单（含顾客/法规批准证据）、报废与退货记录、纠正措施记录（与 10.2 衔接）
@@ -1096,9 +1168,8 @@ clauses:
         kind: on_site
         text: 查有缺陷品是否被混入合格品库或已发运（通过现场盘点与记录比对）
         priority: supporting
-    difficulty: null
+    difficulty: medium
     apg_ref: []
-  alias_note: 部分公开资料与部分译本用 8.7 指"不合格输出的控制"，主键用 8.6，命中 8.7 路由到同一张条款卡
 - clause_no: '9.1'
   title: 监视、测量、分析和评价
   scope_note: 含 9.1.1 总则、9.1.2 顾客满意、9.1.3 分析和评价
@@ -1151,9 +1222,8 @@ clauses:
         kind: on_site
         text: 抽查分析结论是否改变了实际决策（有无后续行动）
         priority: supporting
-    difficulty: null
+    difficulty: high
     apg_ref: []
-  alias_note: 2008 版遗留的"8.7 数据分析"对应 2015 版 9.1.3 分析和评价
 - clause_no: '9.2'
   title: 内部审核
   scope_note: null
@@ -1268,7 +1338,7 @@ clauses:
         kind: on_site
         text: 确认最高管理者对体系有效性的评价结论
         priority: supporting
-    difficulty: medium
+    difficulty: medium_high
     apg_ref: []
 - clause_no: '10.1'
   title: 总则
@@ -1313,21 +1383,19 @@ clauses:
     apg_ref: []
 - clause_no: '10.2'
   title: 不合格和纠正措施
-  scope_note: 含 10.2.1 总则、10.2.2 不合格和纠正措施
-  covers:
-  - 10.2.1
-  - 10.2.2
-  covers_mode: subclauses_named
+  scope_note: 2015 版无编号子条款，本表按 2 个内容块覆盖：块①不合格的响应与处置、块②纠正措施与有效性验证
+  covers: []
+  covers_mode: content_blocks
   covers_source: clause_tree
-  block_count: null
-  mentioned_units:
-  - 10.2.1
-  - 10.2.2
+  block_count: 2
+  mentioned_units: []
   blocks:
   - common-nonconformity
   photo_evidence: not_applicable
   photo_note: null
-  aliases: []
+  aliases:
+  - 10.2.1
+  - 10.2.2
   points:
   - point_key: '10.2'
     audit_question: 不合格（含来自顾客投诉的）发生后如何响应：控制、纠正、处置、记录、处置后果（通报、停用、撤回）？是否评审根因（根因分析是否到原因层面而非停在「员工疏忽」）？纠正措施是否实施并验证有效（是否证明问题不再重复发生）？是否更新体系文件与风险评估、是否防止类似问题在他处发生？
@@ -1342,7 +1410,7 @@ clauses:
     - 根因停留在表面（人员培训不足、未按规程操作）而未改体系
     - 纠正措施只处理本产品未排查同批与类似产品
     - 有效性验证仅凭培训签到无客观证据
-    - 不合格与纠正措施未与 8.6 不合格输出控制联动（不合格品放行）
+    - 不合格与纠正措施未与 8.7 不合格输出的控制联动（不合格品被放行）
     - 问题重复发生
     - 改进后未更新风险评估与文件
     evidence_items:
@@ -1368,9 +1436,9 @@ clauses:
         kind: on_site
         text: 同类问题在其他部门是否排查
         priority: supporting
-    difficulty: null
+    difficulty: high
     apg_ref: []
-  alias_note: 需求文档中常见的"8.7 纠正措施"实为 10.2，不建 8.7 节点，避免同一要求两处取证
+  alias_note: 2026 版 10.2 的编号子条款；2015 版 10.2 无编号子条款
 - clause_no: '10.3'
   title: 持续改进
   scope_note: null

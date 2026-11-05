@@ -40,11 +40,13 @@ LIB = ROOT / "audit-point-library"
 FIELD_MAP = {
     "审核问题": "audit_question",
     "需索取的书面证据": "written_evidence",
+    "需索取书面证据": "written_evidence",  # 14001/45001 基线的写法（无「的」）
     "现场核查证据": "on_site_evidence",
     "常见不符合项": "typical_nc",
 }
 VALID_PHOTO = ("allowed", "conditional", "not_applicable")
-VALID_DIFFICULTY = ("high", "medium", "low")
+VALID_DIFFICULTY = ("high", "medium_high", "medium", "low")
+DIFF_ORDER = {"low": 0, "medium": 1, "medium_high": 2, "high": 3}
 VALID_COVERS_MODE = ("subclauses_named", "content_blocks", "single_clause", "not_in_clause_tree")
 CN_NUM = {"一": 1, "两": 2, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8, "九": 9, "十": 10}
 
@@ -81,13 +83,22 @@ def split_items(text: str):
 
 
 def norm_difficulty(text: str):
+    """把基线里的中文难度词归一到枚举。
+
+    「中高」必须先判：它同时含「中」和「高」，先判任何一边都会把一档丢掉。
+    """
     s = (text or "").strip()
-    if "低" in s:
-        return "low"
-    if "中" in s:
-        return "medium"
+    if not s:
+        return None
+    low = s.lower()
+    if "中高" in s or "medium-high" in low or "medium_high" in low:
+        return "medium_high"
     if "高" in s:
         return "high"
+    if "中" in s:
+        return "medium"
+    if "低" in s:
+        return "low"
     return None
 
 
@@ -134,33 +145,111 @@ def detect_mentioned(clause_no, scope_note, rest):
     return mentioned, block_count
 
 
+def resolve_baseline(arg: str) -> Path:
+    """基线路径按多种基准解析：库根、当前工作目录、仓库根。
+
+    只认一种基准会把命令写死在某个目录下，调用方换个地方跑就找不到文件。
+    """
+    p = Path(arg)
+    cands = [p] if p.is_absolute() else [ROOT / p, Path.cwd() / p, ROOT.parent.parent / p]
+    for c in cands:
+        if c.exists():
+            return c
+    raise SystemExit(f"找不到基线文件 {arg}；试过：{', '.join(str(c) for c in cands)}")
+
+
 # ---------------------------------------------------------------- 解析基线
 
+def _is_year(token: str) -> bool:
+    return len(token) == 4 and token[:2] in ("19", "20")
+
+
+def expand_clause_ref(text: str):
+    """从难度表的条款格里取出条款号列表。
+
+    基线有三种写法，转换器必须都认：
+      1. 单编号：4.1
+      2. 带标题：4.1 理解组织及其所处的环境（45001 基线）
+      3. 区间与并列：4.1～4.3、8.6 产品的放行 / 8.1 运行策划和控制（9001 基线）
+    区间只在「前缀相同、末段递增」时展开；展开不了就保留两个端点，不猜中间。
+    """
+    out = []
+    for frag in re.split(r"[、，,/；;]", text or ""):
+        frag = frag.strip()
+        if not frag:
+            continue
+        rng = re.search(r"(\d+(?:\.\d+)*)\s*[~～至\-—]\s*(\d+(?:\.\d+)*)", frag)
+        if rng:
+            a, b = rng.group(1), rng.group(2)
+            pa, pb = a.split("."), b.split(".")
+            expanded = None
+            if len(pa) == len(pb) and pa[:-1] == pb[:-1]:
+                try:
+                    sa, sb = int(pa[-1]), int(pb[-1])
+                except ValueError:
+                    sa = sb = 0
+                if 0 < sa <= sb and sb - sa <= 64:
+                    expanded = [".".join(pa[:-1] + [str(x)]) for x in range(sa, sb + 1)]
+            out.extend(expanded if expanded else [a, b])
+            continue
+        for token in re.findall(r"\d+(?:\.\d+)*", frag):
+            if _is_year(token):
+                continue
+            out.append(token)
+    return out
+
+
 def parse_difficulty(lines):
-    """从第 8.3 节「取证难度分级」表按条款号取难度，取不到留 None（不猜）。"""
+    """从「取证难度分级」表按条款号取难度，取不到留 None（不猜）。
+
+    定位靠标题含「取证难度分级」，不写死节号（9001 在 8.3 节，14001/45001 是独立章）。
+    列序靠表头自适应：9001 表头是「难度|条款|…」，14001/45001 是「条款号|难度|理由」。
+    同一编号出现在多行时取最高档，不取最后一行。
+    """
     table = {}
-    inside = False
-    for line in lines:
-        if re.match(r"^###\s*8\.3", line):
-            inside = True
+    start = None
+    for i, line in enumerate(lines):
+        m = re.match(r"^#{1,6}\s*(.*)$", line)
+        if not m:
             continue
-        if inside and re.match(r"^#{2,3}\s", line):
+        if "取证难度分级" in m.group(1):
+            start = i
             break
-        if not inside:
-            continue
+    if start is None:
+        return table
+    header = None
+    for line in lines[start + 1:]:
+        if re.match(r"^#{1,6}\s", line):
+            break
         m = re.match(r"^\|(.+)\|\s*$", line)
         if not m:
             continue
         cells = [c.strip() for c in m.group(1).split("|")]
-        if len(cells) != 4:
+        if len(cells) < 2:
             continue
-        level = norm_difficulty(cells[0])
-        if level is None:
+        if any("难度" in c for c in cells) and any("条款" in c for c in cells):
+            header = cells
+            break
+    if header is None:
+        return table
+    level_idx = next(i for i, c in enumerate(header) if "难度" in c)
+    clause_idx = next(i for i, c in enumerate(header) if "条款" in c)
+    for line in lines[start + 1:]:
+        if re.match(r"^#{1,6}\s", line):
+            break
+        m = re.match(r"^\|(.+)\|\s*$", line)
+        if not m:
             continue
-        for token in re.findall(r"\d+(?:\.\d+)*", cells[1]):
-            if len(token) == 4 and token[:2] in ("19", "20"):
-                continue  # 年份不是条款号
-            table[token] = level
+        cells = [c.strip() for c in m.group(1).split("|")]
+        if len(cells) != len(header):
+            continue
+        lv = norm_difficulty(cells[level_idx])
+        if lv is None:
+            continue
+        for token in expand_clause_ref(cells[clause_idx]):
+            prev = table.get(token)
+            if prev is None or DIFF_ORDER[lv] > DIFF_ORDER[prev]:
+                table[token] = lv
     return table
 
 
@@ -196,14 +285,22 @@ def new_clause(text: str):
 def parse_baseline(md_path: Path):
     lines = md_path.read_text(encoding="utf-8").splitlines()
     start = end = None
+    start_level = None
     for i, line in enumerate(lines):
-        if start is None and re.match(r"^##\s*5[.\s]", line):
+        m = re.match(r"^(#{1,6})\s*(.*)$", line)
+        if not m:
+            continue
+        if "条款级审核点基线" in m.group(2):
             start = i
-        elif start is not None and re.match(r"^##\s*6[.\s]", line):
-            end = i
+            start_level = len(m.group(1))
             break
     if start is None:
-        raise SystemExit(f"未在 {md_path} 找到第 5 节「条款级审核点基线」")
+        raise SystemExit(f"未在 {md_path} 找到「条款级审核点基线」章节")
+    for j in range(start + 1, len(lines)):
+        m = re.match(r"^(#{1,6})\s", lines[j])
+        if m and len(m.group(1)) <= start_level:
+            end = j
+            break
     if end is None:
         end = len(lines)
 
@@ -236,7 +333,23 @@ def parse_baseline(md_path: Path):
 
 # ---------------------------------------------------------------- 组装画像
 
-def build_points(clause, difficulty):
+def resolve_difficulty(clause_no, covers, table):
+    """审核点难度 = 该卡自身难度与其覆盖子条款难度中的最高档。
+
+    基线按子条款分档（如 8.5.2 标识和可追溯性为中高），而审核点按条款卡组织；
+    不向上聚合，这批子条款的难度会整段丢失。
+    """
+    best = table.get(clause_no)
+    for cv in covers or ():
+        lv = table.get(cv)
+        if lv is None:
+            continue
+        if best is None or DIFF_ORDER[lv] > DIFF_ORDER[best]:
+            best = lv
+    return best
+
+
+def build_points(clause, difficulty, covers=()):
     f = clause["_fields"]
     question = f.get("audit_question", "").strip()
     written = split_items(f.get("written_evidence", ""))
@@ -263,7 +376,7 @@ def build_points(clause, difficulty):
         "on_site_evidence": on_site,
         "typical_nc": typical,
         "evidence_items": items,
-        "difficulty": difficulty.get(clause["clause_no"]),
+        "difficulty": resolve_difficulty(clause["clause_no"], covers, difficulty),
         "apg_ref": [],
     }]
 
@@ -276,7 +389,7 @@ def cmd_parse(args):
     if args.domain and entry.get("domain") != args.domain:
         raise SystemExit(f"{args.profile_id} 的域是 {entry.get('domain')}，与 --domain {args.domain} 不符")
 
-    md = ROOT / args.baseline if not Path(args.baseline).is_absolute() else Path(args.baseline)
+    md = resolve_baseline(args.baseline)
     clauses, difficulty = parse_baseline(md)
 
     aliases_cfg = (read_yaml(LIB / "shared/aliases.yaml").get("profiles") or {}).get(args.profile_id, {})
@@ -304,13 +417,11 @@ def cmd_parse(args):
     out_clauses = []
     skipped = []
     conflicts = []
+    if tree_index:
+        for tok in sorted(difficulty.keys()):
+            if tok not in tree_index:
+                conflicts.append(f"难度表引用了条款树中不存在的编号 {tok}，该难度标注将落空（版本口径疑点）")
     for c in clauses:
-        pts = build_points(c, difficulty)
-        if not pts:
-            skipped.append(c["clause_no"])
-            continue
-        c["points"] = pts
-        c["blocks"] = block_of_clause.get(c["clause_no"], [])
         tinfo = tree_index.get(c["clause_no"]) if tree_index else None
         if tree_index and tinfo is None:
             c["covers_mode"] = "not_in_clause_tree"
@@ -326,6 +437,12 @@ def cmd_parse(args):
                 c["covers_mode"] = "single_clause"
         else:
             c["covers_mode"] = "single_clause"
+        pts = build_points(c, difficulty, c.get("covers") or [])
+        if not pts:
+            skipped.append(c["clause_no"])
+            continue
+        c["points"] = pts
+        c["blocks"] = block_of_clause.get(c["clause_no"], [])
         alias_entry = alias_map.get(c["clause_no"])
         c["aliases"] = list(alias_entry.get("aliases", [])) if alias_entry else []
         if alias_entry and alias_entry.get("note"):
@@ -466,7 +583,7 @@ def validate():
                         if u in known_alias or u in tree_index:
                             continue
                         warns.append(f"{pid}:{cn}: 基线提到 {u}，条款树与别名表中均无（V11 版本口径冲突，待 #16 R4 核定）")
-                    if c.get("block_count") is not None and c["block_count"] != len(tkids):
+                    if c.get("block_count") is not None and tkids and c["block_count"] != len(tkids):
                         warns.append(f"{pid}:{cn}: 基线称 {c['block_count']} 个内容块，条款树为 {len(tkids)} 个子条款（V11）")
             mode = c.get("covers_mode")
             if mode not in VALID_COVERS_MODE:
