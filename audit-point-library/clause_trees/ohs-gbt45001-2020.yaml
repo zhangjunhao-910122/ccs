@@ -1,0 +1,151 @@
+# 职业健康安全管理体系条款树 —— GB/T 45001-2020 / ISO 45001:2018
+# 对应 GitHub Issue #2（规格 S1）。条款树是客观结构（标准目录），审核点表是判断性内容，两者必须分开。
+# 条款号与层级来源：GB/T 45001-2020 官方目次（一手转录）+ ISO 45001:2018 英文标准目录（.research-tmp/iso45001_en.pdf 第 0-2 页）。
+# 中文条款标题按 GB/T 45001-2020 目次填写，未经正版正文逐条核定，由 #5 I8 核定后回填。
+#
+# 关键设计：审核点表的 covers（这张表覆盖哪些条款单元）只能来自本文件，
+# 不能从表格标题的自然语言括注里猜 —— 括注是描述，不是结构化事实。
+
+schema_version: 1
+profile_id: ohs-gbt45001-2020
+standard: GB/T 45001-2020
+iso_equivalent: ISO 45001:2018
+version_label: "ISO 45001:2018 / GB/T 45001-2020 条款结构"
+verification_status: toc_verified
+verified_by: null
+verified_at: null
+notes:
+  - "条款号与层级取自 GB/T 45001-2020 官方目次与 ISO 45001:2018 英文标准目录（一手来源）"
+  - "GB/T 45001-2020 目次只列到三级；ISO 45001:2018 英文目录另含 6.1.2.1~6.1.2.3 与 8.1.4.1~8.1.4.3 四个层级子条款，是否在国标中设编号待 #5 I8 核定"
+  - "中文条款标题待 #5 I8 用正版 GB/T 45001-2020 正文逐条核定"
+  - "本树是 covers 的唯一来源；审核点基线的自然语言括注不得用于推断覆盖范围"
+
+clause_tree:
+  - clause_no: "4"
+    title: 组织所处的环境
+    children:
+      - clause_no: "4.1"
+        title: 理解组织及其所处的环境
+      - clause_no: "4.2"
+        title: 理解工作人员和其他相关方的需求和期望
+      - clause_no: "4.3"
+        title: 确定职业健康安全管理体系的范围
+      - clause_no: "4.4"
+        title: 职业健康安全管理体系
+  - clause_no: "5"
+    title: 领导作用和工作人员参与
+    children:
+      - clause_no: "5.1"
+        title: 领导作用和承诺
+      - clause_no: "5.2"
+        title: 职业健康安全方针
+      - clause_no: "5.3"
+        title: 组织的角色、职责和权限
+      - clause_no: "5.4"
+        title: 工作人员的协商和参与
+  - clause_no: "6"
+    title: 策划
+    children:
+      - clause_no: "6.1"
+        title: 应对风险和机遇的措施
+        children:
+          - clause_no: "6.1.1"
+            title: 总则
+          - clause_no: "6.1.2"
+            title: 危险源辨识及风险和机遇的评价
+            children:
+              - clause_no: "6.1.2.1"
+                title: 危险源辨识
+              - clause_no: "6.1.2.2"
+                title: 职业健康安全风险和其他职业健康安全管理体系风险的评价
+              - clause_no: "6.1.2.3"
+                title: 职业健康安全机遇和其他机遇的评价
+          - clause_no: "6.1.3"
+            title: 法律法规要求和其他要求的确定
+          - clause_no: "6.1.4"
+            title: 措施的策划
+      - clause_no: "6.2"
+        title: 职业健康安全目标及其实现的策划
+        children:
+          - clause_no: "6.2.1"
+            title: 职业健康安全目标
+          - clause_no: "6.2.2"
+            title: 实现职业健康安全目标的策划
+  - clause_no: "7"
+    title: 支持
+    children:
+      - clause_no: "7.1"
+        title: 资源
+      - clause_no: "7.2"
+        title: 能力
+      - clause_no: "7.3"
+        title: 意识
+      - clause_no: "7.4"
+        title: 沟通
+        children:
+          - clause_no: "7.4.1"
+            title: 总则
+          - clause_no: "7.4.2"
+            title: 内部沟通
+          - clause_no: "7.4.3"
+            title: 外部沟通
+      - clause_no: "7.5"
+        title: 文件化信息
+        children:
+          - clause_no: "7.5.1"
+            title: 总则
+          - clause_no: "7.5.2"
+            title: 创建和更新
+          - clause_no: "7.5.3"
+            title: 文件化信息的控制
+  - clause_no: "8"
+    title: 运行
+    children:
+      - clause_no: "8.1"
+        title: 运行策划和控制
+        children:
+          - clause_no: "8.1.1"
+            title: 总则
+          - clause_no: "8.1.2"
+            title: 消除危险源和降低职业健康安全风险
+          - clause_no: "8.1.3"
+            title: 变更管理
+          - clause_no: "8.1.4"
+            title: 采购
+            children:
+              - clause_no: "8.1.4.1"
+                title: 总则
+              - clause_no: "8.1.4.2"
+                title: 承包方
+              - clause_no: "8.1.4.3"
+                title: 外包
+      - clause_no: "8.2"
+        title: 应急准备和响应
+  - clause_no: "9"
+    title: 绩效评价
+    children:
+      - clause_no: "9.1"
+        title: 监视、测量、分析和评价绩效
+        children:
+          - clause_no: "9.1.1"
+            title: 总则
+          - clause_no: "9.1.2"
+            title: 合规性评价
+      - clause_no: "9.2"
+        title: 内部审核
+        children:
+          - clause_no: "9.2.1"
+            title: 总则
+          - clause_no: "9.2.2"
+            title: 内部审核方案
+      - clause_no: "9.3"
+        title: 管理评审
+  - clause_no: "10"
+    title: 改进
+    children:
+      - clause_no: "10.1"
+        title: 总则
+      - clause_no: "10.2"
+        title: 事件、不符合和纠正措施
+      - clause_no: "10.3"
+        title: 持续改进
