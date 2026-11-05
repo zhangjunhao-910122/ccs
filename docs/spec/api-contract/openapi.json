@@ -1,0 +1,2971 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "湖北省售电公司训战一体化平台 · 对外 API 契约",
+    "version": "1.0.0",
+    "description": "票 #46。只读查询 + 建议生成 + 模拟；无写入真实交易系统路径。机器依据；人读解释见 SPEC.md。",
+    "x-ticket": "#46",
+    "x-parent-map": "#22"
+  },
+  "servers": [
+    {
+      "url": "https://{host}/api/v1",
+      "variables": {
+        "host": {
+          "default": "localhost"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "身份"
+    },
+    {
+      "name": "数据查询"
+    },
+    {
+      "name": "导出"
+    },
+    {
+      "name": "Agent"
+    },
+    {
+      "name": "页面"
+    },
+    {
+      "name": "输出"
+    }
+  ],
+  "paths": {
+    "/api/v1/me/capabilities": {
+      "get": {
+        "operationId": "getCapabilities",
+        "tags": [
+          "身份"
+        ],
+        "summary": "当前主体的能力投影",
+        "x-effect": "READ",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapabilitiesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "403": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "FORBIDDEN",
+              "WRITE_FORBIDDEN"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          }
+        }
+      }
+    },
+    "/api/v1/datasets": {
+      "get": {
+        "operationId": "listDatasets",
+        "tags": [
+          "数据查询"
+        ],
+        "summary": "16 类数据集目录",
+        "x-effect": "READ",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "403": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "FORBIDDEN",
+              "WRITE_FORBIDDEN"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          }
+        }
+      }
+    },
+    "/api/v1/datasets/{dataset}/schema": {
+      "get": {
+        "operationId": "getDatasetSchema",
+        "tags": [
+          "数据查询"
+        ],
+        "summary": "字段、单位、精度与可过滤性",
+        "x-effect": "READ",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "dataset",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^D(0[1-9]|1[0-6])$"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetSchemaResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "404": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DATASET_NOT_FOUND"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          }
+        }
+      }
+    },
+    "/api/v1/datasets/{dataset}/query": {
+      "post": {
+        "operationId": "queryDataset",
+        "tags": [
+          "数据查询"
+        ],
+        "summary": "只读查询：过滤/时间范围/粒度/as_of/分页",
+        "x-effect": "READ",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "dataset",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^D(0[1-9]|1[0-6])$"
+            },
+            "description": ""
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QueryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INVALID_ARGUMENT",
+              "UNKNOWN_FIELD",
+              "UNKNOWN_FILTER",
+              "CURSOR_INVALID",
+              "CURSOR_QUERY_MISMATCH"
+            ]
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "403": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "FORBIDDEN",
+              "NO_GRANT",
+              "OUT_OF_SETTLEMENT_SCOPE",
+              "FIELD_MASKED",
+              "HIGHLY_SENSITIVE_DENIED"
+            ]
+          },
+          "404": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DATASET_NOT_FOUND"
+            ]
+          },
+          "409": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "AMBIGUOUS_VERSION"
+            ]
+          },
+          "410": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "CURSOR_EXPIRED"
+            ]
+          },
+          "413": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "PAYLOAD_TOO_LARGE"
+            ]
+          },
+          "422": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "VALIDATION_FAILED",
+              "RANGE_TOO_LARGE"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          },
+          "504": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "TIMEOUT"
+            ]
+          }
+        }
+      }
+    },
+    "/api/v1/datasets/{dataset}/aggregate": {
+      "post": {
+        "operationId": "aggregateDataset",
+        "tags": [
+          "数据查询"
+        ],
+        "summary": "k≥5 聚合，供模型与看板",
+        "x-effect": "READ",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "dataset",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^D(0[1-9]|1[0-6])$"
+            },
+            "description": ""
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AggregateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AggregateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INVALID_ARGUMENT",
+              "UNKNOWN_FIELD",
+              "UNKNOWN_FILTER"
+            ]
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "403": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "FORBIDDEN",
+              "K_ANONYMITY_VIOLATION",
+              "HIGHLY_SENSITIVE_DENIED"
+            ]
+          },
+          "404": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DATASET_NOT_FOUND"
+            ]
+          },
+          "422": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "VALIDATION_FAILED",
+              "RANGE_TOO_LARGE"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          },
+          "504": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "TIMEOUT"
+            ]
+          }
+        }
+      }
+    },
+    "/api/v1/exports": {
+      "post": {
+        "operationId": "createExport",
+        "tags": [
+          "导出"
+        ],
+        "summary": "异步导出（过出域网关）",
+        "x-effect": "PROPOSE",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INVALID_ARGUMENT",
+              "UNKNOWN_FIELD",
+              "UNKNOWN_FILTER"
+            ]
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "403": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "FORBIDDEN",
+              "NO_GRANT",
+              "DATA_EXPORT_DENIED",
+              "HIGHLY_SENSITIVE_DENIED"
+            ]
+          },
+          "409": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "CONFLICT",
+              "IDEMPOTENCY_KEY_REUSED"
+            ]
+          },
+          "422": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "VALIDATION_FAILED",
+              "RANGE_TOO_LARGE"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          }
+        }
+      }
+    },
+    "/api/v1/exports/{export_id}": {
+      "get": {
+        "operationId": "getExport",
+        "tags": [
+          "导出"
+        ],
+        "summary": "导出任务状态与一次性下载票据",
+        "x-effect": "READ",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "export_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^exp_[A-Za-z0-9]{10,40}$"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "404": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "EXPORT_NOT_FOUND"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          }
+        }
+      }
+    },
+    "/api/v1/agents/{agent_id}/tools/{tool_id}/invocations": {
+      "post": {
+        "operationId": "invokeAgentTool",
+        "tags": [
+          "Agent"
+        ],
+        "summary": "调用已登记 Agent 工具",
+        "x-effect": "PROPOSE",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "agent_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z_]{2,40}$"
+            },
+            "description": ""
+          },
+          {
+            "name": "tool_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z_]{2,40}$"
+            },
+            "description": ""
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "UUID v4；24 小时内同键同输入重放首次结果"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentInvokeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "同步完成",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentRunResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "异步受理",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentRunResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INVALID_ARGUMENT"
+            ]
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "403": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "FORBIDDEN",
+              "MODEL_NOT_ALLOWED",
+              "WRITE_FORBIDDEN"
+            ]
+          },
+          "404": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "TOOL_NOT_FOUND"
+            ]
+          },
+          "409": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "IDEMPOTENCY_KEY_REUSED"
+            ]
+          },
+          "422": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "VALIDATION_FAILED",
+              "CITATION_REQUIRED",
+              "FORECAST_ORIGIN_REQUIRED",
+              "TOOL_OUTPUT_INVALID"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          },
+          "504": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "TIMEOUT"
+            ]
+          }
+        }
+      }
+    },
+    "/api/v1/agent-runs/{run_id}": {
+      "get": {
+        "operationId": "getAgentRun",
+        "tags": [
+          "Agent"
+        ],
+        "summary": "轮询 Agent 任务",
+        "x-effect": "READ",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^run_[A-Za-z0-9]{10,40}$"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentRunResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "403": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "FORBIDDEN",
+              "WRITE_FORBIDDEN"
+            ]
+          },
+          "404": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RUN_NOT_FOUND"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          }
+        }
+      }
+    },
+    "/api/v1/pages/{page_id}": {
+      "get": {
+        "operationId": "getPage",
+        "tags": [
+          "页面"
+        ],
+        "summary": "页面数据（块化）",
+        "x-effect": "READ",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "trader_home",
+                "supervisor_home",
+                "risk_audit_home",
+                "data_explorer"
+              ]
+            },
+            "description": ""
+          },
+          {
+            "name": "as_of",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "description": ""
+          },
+          {
+            "name": "params",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "页面参数 JSON 串（如日期范围）"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INVALID_ARGUMENT"
+            ]
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "403": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "FORBIDDEN"
+            ]
+          },
+          "404": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "PAGE_NOT_FOUND"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          }
+        }
+      }
+    },
+    "/api/v1/outputs/{output_id}": {
+      "get": {
+        "operationId": "getOutput",
+        "tags": [
+          "输出"
+        ],
+        "summary": "按 #39 输出契约取文档；未定稿时返回 PENDING_CONTRACT",
+        "x-effect": "READ",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "output_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutputResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "UNAUTHENTICATED"
+            ]
+          },
+          "403": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "FORBIDDEN"
+            ]
+          },
+          "404": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RUN_NOT_FOUND"
+            ]
+          },
+          "429": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "RATE_LIMITED"
+            ]
+          },
+          "500": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "INTERNAL_ERROR"
+            ]
+          },
+          "503": {
+            "description": "错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "x-error-codes": [
+              "DEPENDENCY_UNAVAILABLE"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "opaque",
+        "description": "不透明会话令牌（#29 AC5）；API 不使用 Cookie"
+      }
+    },
+    "schemas": {
+      "Meta": {
+        "type": "object",
+        "required": [
+          "request_id",
+          "api_version",
+          "contract_version",
+          "generated_at"
+        ],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "pattern": "^req_[A-Za-z0-9]{10,40}$"
+          },
+          "api_version": {
+            "type": "string",
+            "enum": [
+              "v1"
+            ]
+          },
+          "contract_version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "row_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "next_cursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "masked_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "quality": {
+            "$ref": "#/components/schemas/Quality"
+          },
+          "units": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Quality": {
+        "type": "object",
+        "properties": {
+          "valid": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "partial": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "missing": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "coverage_ratio": {
+            "type": "string",
+            "pattern": "^\\d\\.\\d{4}$"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "retryable"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "INVALID_ARGUMENT",
+              "UNKNOWN_FIELD",
+              "UNKNOWN_FILTER",
+              "CURSOR_INVALID",
+              "CURSOR_QUERY_MISMATCH",
+              "UNAUTHENTICATED",
+              "FORBIDDEN",
+              "NO_GRANT",
+              "OUT_OF_SETTLEMENT_SCOPE",
+              "FIELD_MASKED",
+              "K_ANONYMITY_VIOLATION",
+              "HIGHLY_SENSITIVE_DENIED",
+              "WRITE_FORBIDDEN",
+              "DATA_EXPORT_DENIED",
+              "MODEL_NOT_ALLOWED",
+              "DATASET_NOT_FOUND",
+              "RUN_NOT_FOUND",
+              "TOOL_NOT_FOUND",
+              "PAGE_NOT_FOUND",
+              "EXPORT_NOT_FOUND",
+              "CONFLICT",
+              "IDEMPOTENCY_KEY_REUSED",
+              "AMBIGUOUS_VERSION",
+              "CURSOR_EXPIRED",
+              "PAYLOAD_TOO_LARGE",
+              "VALIDATION_FAILED",
+              "RANGE_TOO_LARGE",
+              "CITATION_REQUIRED",
+              "FORECAST_ORIGIN_REQUIRED",
+              "TOOL_OUTPUT_INVALID",
+              "RATE_LIMITED",
+              "INTERNAL_ERROR",
+              "DEPENDENCY_UNAVAILABLE",
+              "TIMEOUT"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "details": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "retryable": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "error",
+          "meta"
+        ],
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Capability": {
+        "type": "object",
+        "required": [
+          "dimension",
+          "actions",
+          "scope",
+          "mask"
+        ],
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "RULE_LEARNING",
+              "DATA_IMPORT",
+              "SENSITIVE_DATA",
+              "SIM_TRADING",
+              "STRATEGY_ADVICE",
+              "APPROVAL",
+              "SETTLEMENT_REVIEW",
+              "SYSTEM_CONFIG",
+              "AUDIT"
+            ]
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "ALL",
+              "GRANT",
+              "SETTLEMENT",
+              "SELF",
+              "TEAM",
+              "RELATED",
+              "TECH",
+              "NONE"
+            ]
+          },
+          "mask": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "MASKED"
+            ]
+          },
+          "domain": {
+            "type": "string",
+            "enum": [
+              "ALL",
+              "RISK",
+              "SETTLEMENT"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "CapabilitiesData": {
+        "type": "object",
+        "required": [
+          "subject",
+          "capabilities",
+          "forbidden_actions"
+        ],
+        "properties": {
+          "subject": {
+            "type": "object",
+            "required": [
+              "account_id",
+              "roles"
+            ],
+            "properties": {
+              "account_id": {
+                "type": "string"
+              },
+              "roles": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "org_id": {
+                "type": "string"
+              }
+            }
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Capability"
+            }
+          },
+          "forbidden_actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CapabilitiesResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CapabilitiesData"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Dataset": {
+        "type": "object",
+        "required": [
+          "code",
+          "title",
+          "sensitivity",
+          "granularities"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^D(0[1-9]|1[0-6])$"
+          },
+          "title": {
+            "type": "string"
+          },
+          "sensitivity": {
+            "type": "string",
+            "enum": [
+              "PUBLIC",
+              "SENSITIVE",
+              "HIGHLY_SENSITIVE"
+            ]
+          },
+          "granularities": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "slot",
+                "day",
+                "month",
+                "year"
+              ]
+            }
+          },
+          "as_of_required": {
+            "type": "boolean"
+          },
+          "available": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatasetsData": {
+        "type": "object",
+        "required": [
+          "datasets"
+        ],
+        "properties": {
+          "datasets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Dataset"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatasetsResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DatasetsData"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Field": {
+        "type": "object",
+        "required": [
+          "name",
+          "type",
+          "filterable"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "string",
+              "date",
+              "datetime",
+              "int",
+              "decimal",
+              "bool",
+              "enum",
+              "array",
+              "json"
+            ]
+          },
+          "unit": {
+            "type": "string"
+          },
+          "scale": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          },
+          "enum": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "filterable": {
+            "type": "boolean"
+          },
+          "masked": {
+            "type": "boolean"
+          },
+          "tbd": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatasetSchemaData": {
+        "type": "object",
+        "required": [
+          "dataset",
+          "title",
+          "sensitivity",
+          "business_key",
+          "fields"
+        ],
+        "properties": {
+          "dataset": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "sensitivity": {
+            "type": "string",
+            "enum": [
+              "PUBLIC",
+              "SENSITIVE",
+              "HIGHLY_SENSITIVE"
+            ]
+          },
+          "business_key": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            }
+          },
+          "common_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatasetSchemaResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DatasetSchemaData"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TimeRange": {
+        "type": "object",
+        "required": [
+          "from",
+          "to"
+        ],
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date"
+          },
+          "to": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Filter": {
+        "type": "object",
+        "properties": {
+          "eq": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "in": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          },
+          "range": {
+            "type": "object",
+            "required": [
+              "from",
+              "to"
+            ],
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      },
+      "QueryRequest": {
+        "type": "object",
+        "required": [
+          "granularity",
+          "time_range"
+        ],
+        "properties": {
+          "select": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 64
+          },
+          "filter": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Filter"
+            }
+          },
+          "time_range": {
+            "$ref": "#/components/schemas/TimeRange"
+          },
+          "granularity": {
+            "type": "string",
+            "enum": [
+              "slot",
+              "day",
+              "month",
+              "year"
+            ]
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "default": 200
+          },
+          "cursor": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "Column": {
+        "type": "object",
+        "required": [
+          "name",
+          "type"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          },
+          "scale": {
+            "type": "integer"
+          },
+          "masked": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "QueryData": {
+        "type": "object",
+        "required": [
+          "dataset",
+          "granularity",
+          "columns",
+          "rows"
+        ],
+        "properties": {
+          "dataset": {
+            "type": "string"
+          },
+          "granularity": {
+            "type": "string",
+            "enum": [
+              "slot",
+              "day",
+              "month",
+              "year"
+            ]
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Column"
+            }
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "QueryResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/QueryData"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AggregateRequest": {
+        "type": "object",
+        "required": [
+          "group_by",
+          "granularity",
+          "time_range"
+        ],
+        "properties": {
+          "group_by": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "items": {
+              "type": "string"
+            }
+          },
+          "measures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "field",
+                "op"
+              ],
+              "properties": {
+                "field": {
+                  "type": "string"
+                },
+                "op": {
+                  "type": "string",
+                  "enum": [
+                    "sum",
+                    "avg",
+                    "min",
+                    "max",
+                    "count"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "time_range": {
+            "$ref": "#/components/schemas/TimeRange"
+          },
+          "granularity": {
+            "type": "string",
+            "enum": [
+              "slot",
+              "day",
+              "month",
+              "year"
+            ]
+          },
+          "filter": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Filter"
+            }
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "min_group_size": {
+            "type": "integer",
+            "minimum": 5,
+            "default": 5
+          }
+        },
+        "additionalProperties": false
+      },
+      "AggregateData": {
+        "type": "object",
+        "required": [
+          "dataset",
+          "group_by",
+          "rows",
+          "min_group_size"
+        ],
+        "properties": {
+          "dataset": {
+            "type": "string"
+          },
+          "group_by": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "min_group_size": {
+            "type": "integer",
+            "minimum": 5
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "AggregateResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AggregateData"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExportRequest": {
+        "type": "object",
+        "required": [
+          "dataset",
+          "time_range",
+          "format",
+          "reason"
+        ],
+        "properties": {
+          "dataset": {
+            "type": "string"
+          },
+          "select": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "filter": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Filter"
+            }
+          },
+          "time_range": {
+            "$ref": "#/components/schemas/TimeRange"
+          },
+          "granularity": {
+            "type": "string",
+            "enum": [
+              "slot",
+              "day",
+              "month",
+              "year"
+            ]
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "csv",
+              "xlsx"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 200
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExportTask": {
+        "type": "object",
+        "required": [
+          "export_id",
+          "status",
+          "dataset",
+          "created_at"
+        ],
+        "properties": {
+          "export_id": {
+            "type": "string",
+            "pattern": "^exp_[A-Za-z0-9]{10,40}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "QUEUED",
+              "RUNNING",
+              "SUCCEEDED",
+              "FAILED",
+              "DENIED",
+              "EXPIRED"
+            ]
+          },
+          "dataset": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "row_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "download_ticket": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "一次性短时票据；5 分钟内有效"
+          },
+          "error_code": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExportResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ExportTask"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgentContext": {
+        "type": "object",
+        "properties": {
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "forecast_origin": {
+            "type": "string",
+            "enum": [
+              "P_CURVE",
+              "P_BID",
+              "P_REVIEW"
+            ]
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "zh-CN"
+            ],
+            "default": "zh-CN"
+          },
+          "session_id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgentInvokeRequest": {
+        "type": "object",
+        "required": [
+          "input"
+        ],
+        "properties": {
+          "input": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "context": {
+            "$ref": "#/components/schemas/AgentContext"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Citation": {
+        "type": "object",
+        "required": [
+          "doc_id",
+          "doc_no",
+          "title",
+          "clause_no",
+          "version",
+          "effective_from",
+          "text_span"
+        ],
+        "properties": {
+          "doc_id": {
+            "type": "string"
+          },
+          "doc_no": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "clause_no": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "effective_from": {
+            "type": "string",
+            "format": "date"
+          },
+          "page_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "text_span": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgentAudit": {
+        "type": "object",
+        "required": [
+          "model",
+          "latency_ms",
+          "data_export_verdict"
+        ],
+        "properties": {
+          "model": {
+            "type": "string"
+          },
+          "prompt_tokens": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "completion_tokens": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "latency_ms": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "cost_cny": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d{4}$"
+          },
+          "data_export_verdict": {
+            "type": "string",
+            "enum": [
+              "ALLOW",
+              "DENY",
+              "MASKED"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgentRun": {
+        "type": "object",
+        "required": [
+          "run_id",
+          "status",
+          "audit"
+        ],
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "pattern": "^run_[A-Za-z0-9]{10,40}$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "QUEUED",
+              "RUNNING",
+              "SUCCEEDED",
+              "FAILED"
+            ]
+          },
+          "output": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "citations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Citation"
+            }
+          },
+          "audit": {
+            "$ref": "#/components/schemas/AgentAudit"
+          },
+          "error": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Error"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgentRunResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AgentRun"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PageSource": {
+        "type": "object",
+        "required": [
+          "operation_id"
+        ],
+        "properties": {
+          "operation_id": {
+            "type": "string"
+          },
+          "dataset": {
+            "type": "string"
+          },
+          "params_hash": {
+            "type": "string"
+          },
+          "output_ref": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/OutputRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "OutputRef": {
+        "type": "object",
+        "required": [
+          "output_id",
+          "contract",
+          "status"
+        ],
+        "properties": {
+          "output_id": {
+            "type": "string"
+          },
+          "contract": {
+            "type": "string",
+            "enum": [
+              "#39"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING_CONTRACT",
+              "READY"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "PageAction": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "capability"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "capability": {
+            "type": "string",
+            "pattern": "^[A-Z_]+:[A-Z_]+$"
+          },
+          "enabled": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PageBlock": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "title",
+          "source",
+          "state",
+          "freshness",
+          "quality",
+          "notes",
+          "actions"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "kpi",
+              "chart",
+              "table",
+              "quality",
+              "actions",
+              "output_ref"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/PageSource"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "empty",
+              "partial",
+              "error",
+              "forbidden"
+            ]
+          },
+          "freshness": {
+            "type": "object",
+            "required": [
+              "as_of",
+              "stale"
+            ],
+            "properties": {
+              "as_of": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "stale": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          },
+          "quality": {
+            "$ref": "#/components/schemas/Quality"
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageAction"
+            }
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PageData": {
+        "type": "object",
+        "required": [
+          "page_id",
+          "title",
+          "as_of",
+          "generated_at",
+          "capabilities",
+          "blocks"
+        ],
+        "properties": {
+          "page_id": {
+            "type": "string",
+            "enum": [
+              "trader_home",
+              "supervisor_home",
+              "risk_audit_home",
+              "data_explorer"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "blocks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageBlock"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PageResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/PageData"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OutputDocument": {
+        "type": "object",
+        "required": [
+          "output_id",
+          "contract",
+          "status"
+        ],
+        "properties": {
+          "output_id": {
+            "type": "string"
+          },
+          "contract": {
+            "type": "string",
+            "enum": [
+              "#39"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING_CONTRACT",
+              "READY"
+            ]
+          },
+          "payload": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": true
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "OutputResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/OutputDocument"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

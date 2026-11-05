@@ -1,0 +1,598 @@
+{
+  "name": "Agent 工具契约",
+  "version": "1.0.0",
+  "ticket": "#46",
+  "effects": [
+    "READ",
+    "PROPOSE",
+    "SIMULATE"
+  ],
+  "forbidden_effects": [
+    "EXECUTE"
+  ],
+  "note": "effect=EXECUTE 为编译期非法；工具输入/输出 schema 由本文件登记，运行时校验；must_cite 工具无引用即失败",
+  "agents": [
+    {
+      "id": "rule_coach",
+      "title": "规则教练Agent",
+      "duty": "规则问答、课程、考试和规则变更解释",
+      "dimension": "RULE_LEARNING",
+      "tools": [
+        {
+          "id": "answer_rule_question",
+          "title": "可追溯规则问答",
+          "effect": "READ",
+          "requires_context": [
+            "as_of"
+          ],
+          "must_cite": true,
+          "sensitive_datasets": [],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "question"
+            ],
+            "properties": {
+              "question": {
+                "type": "string",
+                "description": "自然语言问题，≤500 字"
+              },
+              "as_of": {
+                "type": "string",
+                "description": "规则时点；缺省取 context.as_of"
+              }
+            },
+            "additionalProperties": false
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "answer",
+              "citations"
+            ],
+            "properties": {
+              "answer": {
+                "type": "string",
+                "description": "结论句，须含适用条件"
+              },
+              "citations": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "id": "explain_change",
+          "title": "规则变更解释",
+          "effect": "READ",
+          "requires_context": [
+            "as_of"
+          ],
+          "must_cite": true,
+          "sensitive_datasets": [],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "doc_id"
+            ],
+            "properties": {
+              "doc_id": {
+                "type": "string",
+                "description": "规则文件"
+              },
+              "from_version": {
+                "type": "string",
+                "description": "对比起始版本"
+              },
+              "to_version": {
+                "type": "string",
+                "description": "对比目标版本"
+              }
+            },
+            "additionalProperties": false
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "changes",
+              "citations"
+            ],
+            "properties": {
+              "changes": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "citations": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "data_quality",
+      "title": "数据治理Agent",
+      "duty": "字段映射、质量检查、异常识别和导入报告",
+      "dimension": "DATA_IMPORT",
+      "tools": [
+        {
+          "id": "inspect_batch",
+          "title": "批次质量检查",
+          "effect": "READ",
+          "requires_context": [],
+          "must_cite": false,
+          "sensitive_datasets": [
+            "D02",
+            "D03",
+            "D04",
+            "D05",
+            "D06",
+            "D07",
+            "D08",
+            "D09",
+            "D10",
+            "D14"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "batch_id"
+            ],
+            "properties": {
+              "batch_id": {
+                "type": "string",
+                "description": "导入批次号"
+              }
+            },
+            "additionalProperties": false
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "batch_id",
+              "quality",
+              "issues"
+            ],
+            "properties": {
+              "batch_id": {
+                "type": "string",
+                "description": "批次"
+              },
+              "quality": {
+                "type": "object"
+              },
+              "issues": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "load_forecast",
+      "title": "负荷预测Agent",
+      "duty": "调用专业预测模型并解释结果",
+      "dimension": "STRATEGY_ADVICE",
+      "tools": [
+        {
+          "id": "predict_portfolio",
+          "title": "组合负荷预测",
+          "effect": "PROPOSE",
+          "requires_context": [
+            "as_of",
+            "forecast_origin"
+          ],
+          "must_cite": false,
+          "sensitive_datasets": [
+            "D04",
+            "D06"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "business_date"
+            ],
+            "properties": {
+              "business_date": {
+                "type": "string",
+                "description": "预测目标业务日"
+              },
+              "forecast_origin": {
+                "type": "string",
+                "description": "P_CURVE/P_BID/P_REVIEW"
+              }
+            },
+            "additionalProperties": false
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "business_date",
+              "forecast_origin",
+              "points"
+            ],
+            "properties": {
+              "business_date": {
+                "type": "string",
+                "description": "目标日"
+              },
+              "forecast_origin": {
+                "type": "string",
+                "description": "起点"
+              },
+              "points": {
+                "type": "array",
+                "minItems": 24,
+                "maxItems": 24,
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        {
+          "id": "explain_error",
+          "title": "预测误差归因",
+          "effect": "READ",
+          "requires_context": [
+            "as_of"
+          ],
+          "must_cite": false,
+          "sensitive_datasets": [
+            "D04"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "run_id"
+            ],
+            "properties": {
+              "run_id": {
+                "type": "string",
+                "description": "预测运行 ID"
+              }
+            },
+            "additionalProperties": false
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "run_id",
+              "mae",
+              "attributions"
+            ],
+            "properties": {
+              "run_id": {
+                "type": "string",
+                "description": "运行"
+              },
+              "mae": {
+                "type": "string",
+                "description": "MAE，定点数字符串"
+              },
+              "attributions": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "position_analysis",
+      "title": "头寸分析Agent",
+      "duty": "计算合同覆盖率、现货敞口和补仓需求",
+      "dimension": "STRATEGY_ADVICE",
+      "tools": [
+        {
+          "id": "compute_coverage",
+          "title": "合同覆盖率与敞口",
+          "effect": "READ",
+          "requires_context": [
+            "as_of"
+          ],
+          "must_cite": false,
+          "sensitive_datasets": [
+            "D05",
+            "D06",
+            "D08"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "energy_month"
+            ],
+            "properties": {
+              "energy_month": {
+                "type": "string",
+                "description": "YYYY-MM"
+              },
+              "granularity": {
+                "type": "string",
+                "description": "slot|day|month"
+              }
+            },
+            "additionalProperties": false
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "energy_month",
+              "coverage_ratio",
+              "open_position_mwh"
+            ],
+            "properties": {
+              "energy_month": {
+                "type": "string",
+                "description": "月份"
+              },
+              "coverage_ratio": {
+                "type": "string",
+                "description": "0..1，4 位"
+              },
+              "open_position_mwh": {
+                "type": "string",
+                "description": "敞口，3 位"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "strategy_coach",
+      "title": "策略教练Agent",
+      "duty": "生成保守、平衡、进取策略及成立/失效条件",
+      "dimension": "STRATEGY_ADVICE",
+      "tools": [
+        {
+          "id": "draft_strategies",
+          "title": "三策略草案",
+          "effect": "PROPOSE",
+          "requires_context": [
+            "as_of",
+            "forecast_origin"
+          ],
+          "must_cite": false,
+          "sensitive_datasets": [
+            "D04",
+            "D05",
+            "D06",
+            "D08"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "business_date",
+              "forecast_origin"
+            ],
+            "properties": {
+              "business_date": {
+                "type": "string",
+                "description": "目标日"
+              },
+              "forecast_origin": {
+                "type": "string",
+                "description": "预测起点"
+              }
+            },
+            "additionalProperties": false
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "strategies"
+            ],
+            "properties": {
+              "strategies": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "object"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "settlement_review",
+      "title": "结算复核Agent",
+      "duty": "复现日清月结并定位差异",
+      "dimension": "SETTLEMENT_REVIEW",
+      "tools": [
+        {
+          "id": "reproduce_day",
+          "title": "日清复现",
+          "effect": "SIMULATE",
+          "requires_context": [
+            "as_of"
+          ],
+          "must_cite": false,
+          "sensitive_datasets": [
+            "D09"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "energy_date"
+            ],
+            "properties": {
+              "energy_date": {
+                "type": "string",
+                "description": "电量归属日"
+              }
+            },
+            "additionalProperties": false
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "energy_date",
+              "differences",
+              "tolerance"
+            ],
+            "properties": {
+              "energy_date": {
+                "type": "string",
+                "description": "日期"
+              },
+              "differences": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "tolerance": {
+                "type": "string",
+                "description": "容差口径"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "risk_guard",
+      "title": "风控合规Agent",
+      "duty": "校验权限、额度、红线和数据出域",
+      "dimension": "APPROVAL",
+      "tools": [
+        {
+          "id": "check_limits",
+          "title": "额度与出域校验",
+          "effect": "READ",
+          "requires_context": [
+            "as_of"
+          ],
+          "must_cite": false,
+          "sensitive_datasets": [
+            "D14"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "subject_id"
+            ],
+            "properties": {
+              "subject_id": {
+                "type": "string",
+                "description": "交易主体编码"
+              },
+              "energy_month": {
+                "type": "string",
+                "description": "YYYY-MM"
+              }
+            },
+            "additionalProperties": false
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "subject_id",
+              "verdict",
+              "reasons"
+            ],
+            "properties": {
+              "subject_id": {
+                "type": "string",
+                "description": "主体"
+              },
+              "verdict": {
+                "type": "string",
+                "description": "ALLOW/VETO"
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "review_scoring",
+      "title": "复盘考评Agent",
+      "duty": "策略评分、能力画像和训练任务",
+      "dimension": "STRATEGY_ADVICE",
+      "tools": [
+        {
+          "id": "score_strategy",
+          "title": "策略复盘评分",
+          "effect": "READ",
+          "requires_context": [
+            "as_of"
+          ],
+          "must_cite": false,
+          "sensitive_datasets": [
+            "D07",
+            "D08"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "simulation_id"
+            ],
+            "properties": {
+              "simulation_id": {
+                "type": "string",
+                "description": "回放/仿真任务 ID"
+              }
+            },
+            "additionalProperties": false
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "simulation_id",
+              "scores"
+            ],
+            "properties": {
+              "simulation_id": {
+                "type": "string",
+                "description": "任务"
+              },
+              "scores": {
+                "type": "object"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      ]
+    }
+  ]
+}

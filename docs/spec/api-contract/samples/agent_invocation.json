@@ -1,0 +1,63 @@
+{
+  "request": {
+    "agent": "rule_coach",
+    "tool": "answer_rule_question",
+    "idempotency_key": "idem-sample-0001",
+    "body": {
+      "input": {
+        "question": "中长期交易按几个时段申报？"
+      },
+      "context": {
+        "as_of": "2026-11-05T12:00:00+08:00",
+        "locale": "zh-CN"
+      }
+    }
+  },
+  "response": {
+    "data": {
+      "run_id": "run_0123456789ab",
+      "status": "SUCCEEDED",
+      "output": {
+        "answer": "按现行细则，中长期交易按 24 时段组织申报。",
+        "citations": [
+          {
+            "doc_id": "DOC-HB-2026-001",
+            "doc_no": "华中监能市场〔2026〕1号",
+            "title": "湖北省电力中长期交易实施细则",
+            "clause_no": "第二十五条",
+            "version": "V1.0",
+            "effective_from": "2026-01-01",
+            "page_ref": "p.12",
+            "text_span": "中长期交易按 24 时段组织申报。"
+          }
+        ]
+      },
+      "citations": [
+        {
+          "doc_id": "DOC-HB-2026-001",
+          "doc_no": "华中监能市场〔2026〕1号",
+          "title": "湖北省电力中长期交易实施细则",
+          "clause_no": "第二十五条",
+          "version": "V1.0",
+          "effective_from": "2026-01-01",
+          "page_ref": "p.12",
+          "text_span": "中长期交易按 24 时段组织申报。"
+        }
+      ],
+      "audit": {
+        "model": "deepseek-chat",
+        "prompt_tokens": 100,
+        "completion_tokens": 50,
+        "latency_ms": 1200,
+        "cost_cny": "0.0100",
+        "data_export_verdict": "MASKED"
+      }
+    },
+    "meta": {
+      "request_id": "req_20261105sample",
+      "api_version": "v1",
+      "contract_version": "1.0.0",
+      "generated_at": "2026-11-05T12:00:00+08:00"
+    }
+  }
+}

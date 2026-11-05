@@ -1,0 +1,280 @@
+{
+  "name": "对外 API 错误码目录",
+  "version": "1.0.0",
+  "ticket": "#46",
+  "note": "code 稳定；HTTP 与 retryable 固定；message 可变，机器判定只认 code",
+  "codes": [
+    {
+      "code": "INVALID_ARGUMENT",
+      "http": 400,
+      "retryable": false,
+      "message": "请求格式或参数名不合法",
+      "when": "未知参数、类型错误、游标被篡改",
+      "user_action": "按接口文档修正参数"
+    },
+    {
+      "code": "UNKNOWN_FIELD",
+      "http": 400,
+      "retryable": false,
+      "message": "请求了契约中不存在的字段",
+      "when": "select 含未声明字段",
+      "user_action": "查 /datasets/{dataset}/schema"
+    },
+    {
+      "code": "UNKNOWN_FILTER",
+      "http": 400,
+      "retryable": false,
+      "message": "过滤字段不在可过滤白名单",
+      "when": "对 TBD/内部字段/未声明字段过滤",
+      "user_action": "改用契约字段或去除非白名单字段"
+    },
+    {
+      "code": "CURSOR_INVALID",
+      "http": 400,
+      "retryable": false,
+      "message": "分页游标无效",
+      "when": "游标签名不匹配或格式损坏",
+      "user_action": "从第一页重新查询"
+    },
+    {
+      "code": "CURSOR_QUERY_MISMATCH",
+      "http": 400,
+      "retryable": false,
+      "message": "游标不属于当前查询",
+      "when": "把 A 查询的游标用于 B 查询",
+      "user_action": "丢弃游标重新查询"
+    },
+    {
+      "code": "UNAUTHENTICATED",
+      "http": 401,
+      "retryable": false,
+      "message": "未认证或令牌失效",
+      "when": "缺 Bearer、令牌过期、账号停用",
+      "user_action": "重新登录获取令牌"
+    },
+    {
+      "code": "FORBIDDEN",
+      "http": 403,
+      "retryable": false,
+      "message": "当前角色无此维度/动作权限",
+      "when": "矩阵未授予该动作",
+      "user_action": "申请对应角色或授权"
+    },
+    {
+      "code": "NO_GRANT",
+      "http": 403,
+      "retryable": false,
+      "message": "需要显式授权但无有效授权记录",
+      "when": "GRANT 范围读取敏感数据但未授权/已过期",
+      "user_action": "走授权流程（≤90 天、理由≥10 字）"
+    },
+    {
+      "code": "OUT_OF_SETTLEMENT_SCOPE",
+      "http": 403,
+      "retryable": false,
+      "message": "超出结算人员的数据范围",
+      "when": "非 D06/D09/D10 或月份不在近 12 个月",
+      "user_action": "在结算范围内查询"
+    },
+    {
+      "code": "FIELD_MASKED",
+      "http": 403,
+      "retryable": false,
+      "message": "被掩码字段不能作为过滤条件",
+      "when": "用 HIGHLY 字段过滤试图反推",
+      "user_action": "改用未掩码字段"
+    },
+    {
+      "code": "K_ANONYMITY_VIOLATION",
+      "http": 403,
+      "retryable": false,
+      "message": "聚合结果主体数少于 5",
+      "when": "分组过细或样本过小",
+      "user_action": "放宽分组或改用明细授权"
+    },
+    {
+      "code": "HIGHLY_SENSITIVE_DENIED",
+      "http": 403,
+      "retryable": false,
+      "message": "高度敏感数据无暴露授权",
+      "when": "无 GRANT+expose=HIGHLY+双人会签",
+      "user_action": "申请双人会签授权"
+    },
+    {
+      "code": "WRITE_FORBIDDEN",
+      "http": 403,
+      "retryable": false,
+      "message": "平台不提供写入真实交易系统的能力",
+      "when": "任何写申报/成交/账户的尝试",
+      "user_action": "走人工执行流程"
+    },
+    {
+      "code": "DATA_EXPORT_DENIED",
+      "http": 403,
+      "retryable": false,
+      "message": "导出被出域网关拒绝",
+      "when": "HIGHLY 数据导出或未过脱敏",
+      "user_action": "改用聚合结果或申请出域审批"
+    },
+    {
+      "code": "MODEL_NOT_ALLOWED",
+      "http": 403,
+      "retryable": false,
+      "message": "模型不在 LinkAI 白名单",
+      "when": "Agent 指定了未登记模型",
+      "user_action": "改用白名单模型"
+    },
+    {
+      "code": "DATASET_NOT_FOUND",
+      "http": 404,
+      "retryable": false,
+      "message": "数据集编码不存在",
+      "when": "D17 或拼写错误",
+      "user_action": "查 /datasets"
+    },
+    {
+      "code": "RUN_NOT_FOUND",
+      "http": 404,
+      "retryable": false,
+      "message": "Agent/导出任务不存在",
+      "when": "run_id 错误或已过期",
+      "user_action": "检查 run_id"
+    },
+    {
+      "code": "TOOL_NOT_FOUND",
+      "http": 404,
+      "retryable": false,
+      "message": "Agent 工具未登记",
+      "when": "agent_id/tool_id 错误",
+      "user_action": "查 agents.json 或工具目录"
+    },
+    {
+      "code": "PAGE_NOT_FOUND",
+      "http": 404,
+      "retryable": false,
+      "message": "页面不存在",
+      "when": "page_id 未登记",
+      "user_action": "查已登记页面清单"
+    },
+    {
+      "code": "EXPORT_NOT_FOUND",
+      "http": 404,
+      "retryable": false,
+      "message": "导出任务不存在",
+      "when": "export_id 错误或已过期",
+      "user_action": "重新发起导出"
+    },
+    {
+      "code": "CONFLICT",
+      "http": 409,
+      "retryable": false,
+      "message": "请求与当前状态冲突",
+      "when": "并发修改/重复提交",
+      "user_action": "读取最新状态后重试"
+    },
+    {
+      "code": "IDEMPOTENCY_KEY_REUSED",
+      "http": 409,
+      "retryable": false,
+      "message": "同一幂等键用于不同输入",
+      "when": "重放时 body 变了",
+      "user_action": "换新键或恢复原输入"
+    },
+    {
+      "code": "AMBIGUOUS_VERSION",
+      "http": 409,
+      "retryable": false,
+      "message": "同一 as_of 命中两个版本",
+      "when": "双时态数据配置错误",
+      "user_action": "修数据版本区间，不自动取最新"
+    },
+    {
+      "code": "CURSOR_EXPIRED",
+      "http": 410,
+      "retryable": false,
+      "message": "游标已过期（15 分钟）",
+      "when": "长时间未翻页",
+      "user_action": "重新从第一页查询"
+    },
+    {
+      "code": "PAYLOAD_TOO_LARGE",
+      "http": 413,
+      "retryable": false,
+      "message": "请求体过大",
+      "when": "filter in 值超过 100 或导出参数过大",
+      "user_action": "缩小请求"
+    },
+    {
+      "code": "VALIDATION_FAILED",
+      "http": 422,
+      "retryable": false,
+      "message": "参数值语义不合法",
+      "when": "枚举、日期、精度、引用缺失",
+      "user_action": "按 message 修正"
+    },
+    {
+      "code": "RANGE_TOO_LARGE",
+      "http": 422,
+      "retryable": false,
+      "message": "查询范围超过粒度上限",
+      "when": "slot>31 天、day>366 天等",
+      "user_action": "缩小范围或换粒度"
+    },
+    {
+      "code": "CITATION_REQUIRED",
+      "http": 422,
+      "retryable": false,
+      "message": "需引用的工具没有返回引用",
+      "when": "规则问答/变更解释缺五要素",
+      "user_action": "重试或转人工核查"
+    },
+    {
+      "code": "FORECAST_ORIGIN_REQUIRED",
+      "http": 422,
+      "retryable": false,
+      "message": "预测工具缺少预测起点",
+      "when": "未传 P_CURVE/P_BID/P_REVIEW",
+      "user_action": "补 forecast_origin"
+    },
+    {
+      "code": "TOOL_OUTPUT_INVALID",
+      "http": 422,
+      "retryable": false,
+      "message": "工具输出不符合登记的输出 schema",
+      "when": "模型返回缺字段/类型错",
+      "user_action": "记录 run_id 并转人工"
+    },
+    {
+      "code": "RATE_LIMITED",
+      "http": 429,
+      "retryable": true,
+      "message": "超出限流配额",
+      "when": "账号 120/分钟、查询 30/分钟、导出 5/小时",
+      "user_action": "按 Retry-After 重试"
+    },
+    {
+      "code": "INTERNAL_ERROR",
+      "http": 500,
+      "retryable": false,
+      "message": "服务内部错误",
+      "when": "未预期异常",
+      "user_action": "带 request_id 报障"
+    },
+    {
+      "code": "DEPENDENCY_UNAVAILABLE",
+      "http": 503,
+      "retryable": true,
+      "message": "依赖（存储/模型网关）不可用",
+      "when": "下游超时或熔断",
+      "user_action": "按 Retry-After 重试"
+    },
+    {
+      "code": "TIMEOUT",
+      "http": 504,
+      "retryable": true,
+      "message": "请求超时",
+      "when": "查询超 10 秒或任务超 30 分钟",
+      "user_action": "缩小范围或异步执行"
+    }
+  ]
+}

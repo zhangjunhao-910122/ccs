@@ -1,0 +1,490 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ccs.local/spec/api-contract/page-data.schema.json",
+  "title": "页面数据契约 v1.0（票 #46）",
+  "type": "object",
+  "required": [
+    "page_id",
+    "title",
+    "as_of",
+    "generated_at",
+    "capabilities",
+    "blocks"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "page_id": {
+      "enum": [
+        "trader_home",
+        "supervisor_home",
+        "risk_audit_home",
+        "data_explorer"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Z_]+:[A-Z_]+$"
+      }
+    },
+    "blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/PageBlock"
+      }
+    }
+  },
+  "$defs": {
+    "Quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "valid": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "partial": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "missing": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_ratio": {
+          "type": "string",
+          "pattern": "^\\d\\.\\d{4}$"
+        }
+      }
+    },
+    "OutputRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "output_id",
+        "contract",
+        "status"
+      ],
+      "properties": {
+        "output_id": {
+          "type": "string"
+        },
+        "contract": {
+          "const": "#39"
+        },
+        "status": {
+          "enum": [
+            "PENDING_CONTRACT",
+            "READY"
+          ]
+        }
+      }
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation_id"
+      ],
+      "properties": {
+        "operation_id": {
+          "type": "string"
+        },
+        "dataset": {
+          "type": "string",
+          "pattern": "^D(0[1-9]|1[0-6])$"
+        },
+        "params_hash": {
+          "type": "string"
+        },
+        "output_ref": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/OutputRef"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "Action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "capability"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "capability": {
+          "type": "string",
+          "pattern": "^[A-Z_]+:[A-Z_]+$"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "params": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "PageBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "title",
+        "source",
+        "state",
+        "freshness",
+        "quality",
+        "notes",
+        "actions"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "kpi",
+            "chart",
+            "table",
+            "quality",
+            "actions",
+            "output_ref"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "state": {
+          "enum": [
+            "ok",
+            "empty",
+            "partial",
+            "error",
+            "forbidden"
+          ]
+        },
+        "freshness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "as_of",
+            "stale"
+          ],
+          "properties": {
+            "as_of": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "stale": {
+              "type": "boolean"
+            }
+          }
+        },
+        "quality": {
+          "$ref": "#/$defs/Quality"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "state≠ok 时必须至少一条说明；禁止用 0 填充空态"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Action"
+          }
+        },
+        "data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "empty",
+                  "partial",
+                  "error",
+                  "forbidden"
+                ]
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "notes": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "empty"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "output_ref"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "output_ref": {
+                    "$ref": "#/$defs/OutputRef"
+                  }
+                },
+                "required": [
+                  "output_ref"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "x-page-catalog": {
+    "trader_home": {
+      "title": "交易员工作台",
+      "required_blocks": [
+        "today_load",
+        "tomorrow_forecast",
+        "open_position",
+        "rule_alerts"
+      ],
+      "blocks": {
+        "today_load": {
+          "type": "chart",
+          "source": "queryDataset",
+          "dataset": "D04",
+          "capabilities": []
+        },
+        "tomorrow_forecast": {
+          "type": "output_ref",
+          "source": "getOutput",
+          "output_contract": "#39",
+          "capabilities": []
+        },
+        "open_position": {
+          "type": "kpi",
+          "source": "aggregateDataset",
+          "dataset": "D05",
+          "capabilities": [
+            "STRATEGY_ADVICE:VIEW"
+          ]
+        },
+        "rule_alerts": {
+          "type": "table",
+          "source": "queryDataset",
+          "dataset": "D01",
+          "capabilities": [
+            "RULE_LEARNING:VIEW"
+          ]
+        }
+      }
+    },
+    "supervisor_home": {
+      "title": "交易主管工作台",
+      "required_blocks": [
+        "team_position",
+        "approval_queue",
+        "risk_alerts",
+        "strategy_inbox"
+      ],
+      "blocks": {
+        "team_position": {
+          "type": "kpi",
+          "source": "aggregateDataset",
+          "dataset": "D05",
+          "capabilities": [
+            "STRATEGY_ADVICE:VIEW"
+          ]
+        },
+        "approval_queue": {
+          "type": "table",
+          "source": "queryDataset",
+          "dataset": "D07",
+          "capabilities": [
+            "APPROVAL:VIEW",
+            "APPROVAL:APPROVE"
+          ]
+        },
+        "risk_alerts": {
+          "type": "table",
+          "source": "queryDataset",
+          "dataset": "D14",
+          "capabilities": [
+            "SENSITIVE_DATA:VIEW"
+          ]
+        },
+        "strategy_inbox": {
+          "type": "table",
+          "source": "queryDataset",
+          "dataset": "D05",
+          "capabilities": [
+            "STRATEGY_ADVICE:VIEW"
+          ]
+        }
+      }
+    },
+    "risk_audit_home": {
+      "title": "风控审计工作台",
+      "required_blocks": [
+        "limit_usage",
+        "anomaly_events",
+        "export_attempts",
+        "audit_chain"
+      ],
+      "blocks": {
+        "limit_usage": {
+          "type": "kpi",
+          "source": "aggregateDataset",
+          "dataset": "D14",
+          "capabilities": [
+            "SENSITIVE_DATA:VIEW"
+          ]
+        },
+        "anomaly_events": {
+          "type": "table",
+          "source": "queryDataset",
+          "dataset": "D07",
+          "capabilities": [
+            "SENSITIVE_DATA:VIEW"
+          ]
+        },
+        "export_attempts": {
+          "type": "table",
+          "source": "queryDataset",
+          "dataset": "D16",
+          "capabilities": [
+            "AUDIT:VIEW"
+          ]
+        },
+        "audit_chain": {
+          "type": "quality",
+          "source": "queryDataset",
+          "dataset": "D16",
+          "capabilities": [
+            "AUDIT:VIEW"
+          ]
+        }
+      }
+    },
+    "data_explorer": {
+      "title": "数据查询预览",
+      "required_blocks": [
+        "dataset_picker",
+        "time_series",
+        "rows",
+        "quality_summary",
+        "source_meta"
+      ],
+      "blocks": {
+        "dataset_picker": {
+          "type": "actions",
+          "source": "listDatasets",
+          "capabilities": []
+        },
+        "time_series": {
+          "type": "chart",
+          "source": "queryDataset",
+          "dataset": "D04",
+          "capabilities": [
+            "SENSITIVE_DATA:VIEW"
+          ]
+        },
+        "rows": {
+          "type": "table",
+          "source": "queryDataset",
+          "dataset": "D04",
+          "capabilities": [
+            "SENSITIVE_DATA:VIEW"
+          ]
+        },
+        "quality_summary": {
+          "type": "quality",
+          "source": "queryDataset",
+          "dataset": "D04",
+          "capabilities": [
+            "SENSITIVE_DATA:VIEW"
+          ]
+        },
+        "source_meta": {
+          "type": "table",
+          "source": "queryDataset",
+          "dataset": "D04",
+          "capabilities": [
+            "SENSITIVE_DATA:VIEW"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "data": {
+    "dataset": "D04",
+    "granularity": "slot",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "string",
+        "masked": false
+      },
+      {
+        "name": "business_date",
+        "type": "date",
+        "masked": false
+      },
+      {
+        "name": "slot_no",
+        "type": "int",
+        "masked": false
+      },
+      {
+        "name": "energy_mwh",
+        "type": "decimal",
+        "unit": "MWh",
+        "scale": 3,
+        "masked": true
+      },
+      {
+        "name": "quality_flag",
+        "type": "enum",
+        "masked": false
+      }
+    ],
+    "rows": [
+      {
+        "user_id": "U-0001",
+        "business_date": "2026-11-04",
+        "slot_no": 1,
+        "energy_mwh": "MASK-H1a2b",
+        "quality_flag": "OK"
+      },
+      {
+        "user_id": "U-0002",
+        "business_date": "2026-11-04",
+        "slot_no": 1,
+        "energy_mwh": "MASK-H3c4d",
+        "quality_flag": "OK"
+      }
+    ]
+  },
+  "meta": {
+    "request_id": "req_20261105sample",
+    "api_version": "v1",
+    "contract_version": "1.0.0",
+    "generated_at": "2026-11-05T12:00:00+08:00",
+    "as_of": "2026-11-05T12:00:00+08:00",
+    "row_count": 2,
+    "next_cursor": null,
+    "masked_fields": [
+      "energy_mwh"
+    ],
+    "units": {
+      "energy_mwh": "MWh"
+    },
+    "quality": {
+      "valid": 2,
+      "partial": 0,
+      "missing": 0,
+      "coverage_ratio": "1.0000"
+    }
+  }
+}

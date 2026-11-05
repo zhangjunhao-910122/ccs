@@ -1,0 +1,176 @@
+{
+  "page_id": "data_explorer",
+  "title": "数据查询预览",
+  "as_of": "2026-11-05T12:00:00+08:00",
+  "generated_at": "2026-11-05T12:00:00+08:00",
+  "capabilities": [
+    "SENSITIVE_DATA:VIEW",
+    "DATA_EXPORT:EXPORT"
+  ],
+  "blocks": [
+    {
+      "id": "dataset_picker",
+      "type": "actions",
+      "title": "选择数据集",
+      "source": {
+        "operation_id": "listDatasets"
+      },
+      "state": "ok",
+      "freshness": {
+        "as_of": "2026-11-05T12:00:00+08:00",
+        "stale": false
+      },
+      "quality": {
+        "valid": 16,
+        "partial": 0,
+        "missing": 0,
+        "coverage_ratio": "1.0000"
+      },
+      "notes": [],
+      "actions": [],
+      "data": {
+        "datasets": [
+          {
+            "code": "D04",
+            "title": "用户负荷曲线",
+            "sensitivity": "HIGHLY_SENSITIVE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "time_series",
+      "type": "chart",
+      "title": "96 点聚合小时曲线",
+      "source": {
+        "operation_id": "queryDataset",
+        "dataset": "D04"
+      },
+      "state": "ok",
+      "freshness": {
+        "as_of": "2026-11-05T12:00:00+08:00",
+        "stale": false
+      },
+      "quality": {
+        "valid": 3,
+        "partial": 0,
+        "missing": 0,
+        "coverage_ratio": "1.0000"
+      },
+      "notes": [],
+      "actions": [
+        {
+          "id": "refresh",
+          "label": "刷新",
+          "capability": "SENSITIVE_DATA:VIEW",
+          "enabled": true
+        }
+      ],
+      "data": {
+        "points": [
+          {
+            "slot_no": 1,
+            "energy_mwh": "12.345"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rows",
+      "type": "table",
+      "title": "明细行",
+      "source": {
+        "operation_id": "queryDataset",
+        "dataset": "D04"
+      },
+      "state": "ok",
+      "freshness": {
+        "as_of": "2026-11-05T12:00:00+08:00",
+        "stale": false
+      },
+      "quality": {
+        "valid": 3,
+        "partial": 0,
+        "missing": 0,
+        "coverage_ratio": "1.0000"
+      },
+      "notes": [],
+      "actions": [
+        {
+          "id": "export",
+          "label": "导出",
+          "capability": "DATA_EXPORT:EXPORT",
+          "enabled": false
+        }
+      ],
+      "data": {
+        "rows": [
+          {
+            "user_id": "U-0001",
+            "slot_no": 1,
+            "energy_mwh": "MASK-H1a2b"
+          }
+        ],
+        "masked_fields": [
+          "energy_mwh"
+        ]
+      }
+    },
+    {
+      "id": "quality_summary",
+      "type": "quality",
+      "title": "质量摘要",
+      "source": {
+        "operation_id": "queryDataset",
+        "dataset": "D04"
+      },
+      "state": "ok",
+      "freshness": {
+        "as_of": "2026-11-05T12:00:00+08:00",
+        "stale": false
+      },
+      "quality": {
+        "valid": 3,
+        "partial": 0,
+        "missing": 0,
+        "coverage_ratio": "1.0000"
+      },
+      "notes": [],
+      "actions": [],
+      "data": {
+        "quality_flag": {
+          "OK": 3,
+          "MISSING": 0
+        },
+        "coverage_ratio": "1.0000"
+      }
+    },
+    {
+      "id": "source_meta",
+      "type": "table",
+      "title": "来源批次",
+      "source": {
+        "operation_id": "queryDataset",
+        "dataset": "D04"
+      },
+      "state": "ok",
+      "freshness": {
+        "as_of": "2026-11-05T12:00:00+08:00",
+        "stale": false
+      },
+      "quality": {
+        "valid": 3,
+        "partial": 0,
+        "missing": 0,
+        "coverage_ratio": "1.0000"
+      },
+      "notes": [],
+      "actions": [],
+      "data": {
+        "batch_ids": [
+          "IMP-20261104-0001"
+        ]
+      }
+    }
+  ]
+}
