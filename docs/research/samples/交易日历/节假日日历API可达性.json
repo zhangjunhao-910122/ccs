@@ -1,0 +1,68 @@
+[
+  {
+    "name": "timor-holiday-2026",
+    "url": "https://timor.tech/api/holiday/year/2026",
+    "http_status": 200,
+    "bytes": 3428,
+    "content_type": "application/json; charset=utf-8",
+    "final_url": "https://timor.tech/api/holiday/year/2026",
+    "sha256_16": "f973026db0f9a546",
+    "json_ok": true,
+    "json_type": "dict",
+    "json_keys": [
+      "code",
+      "holiday"
+    ],
+    "json_len": 2,
+    "sample": "samples/交易日历/timor-holiday-2026.json",
+    "sample_bytes": 3428
+  },
+  {
+    "name": "timor-holiday-2025",
+    "url": "https://timor.tech/api/holiday/year/2025",
+    "http_status": 200,
+    "bytes": 2909,
+    "content_type": "application/json; charset=utf-8",
+    "final_url": "https://timor.tech/api/holiday/year/2025",
+    "sha256_16": "86424513ca28b57b",
+    "json_ok": true,
+    "json_type": "dict",
+    "json_keys": [
+      "code",
+      "holiday"
+    ],
+    "json_len": 2,
+    "sample": "samples/交易日历/timor-holiday-2025.json",
+    "sample_bytes": 2909
+  },
+  {
+    "name": "github-chinese-calendar-raw",
+    "url": "https://raw.githubusercontent.com/LKI/chinese-calendar/master/holidays.json",
+    "http_status": 404,
+    "bytes": 14,
+    "content_type": "text/plain; charset=utf-8",
+    "final_url": "https://raw.githubusercontent.com/LKI/chinese-calendar/master/holidays.json",
+    "sha256_16": "d5558cd419c8d46b",
+    "json_ok": false
+  },
+  {
+    "name": "github-chinese-calendar-data",
+    "url": "https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/src/data/2026.json",
+    "http_status": 404,
+    "bytes": 14,
+    "content_type": "text/plain; charset=utf-8",
+    "final_url": "https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/src/data/2026.json",
+    "sha256_16": "d5558cd419c8d46b",
+    "json_ok": false
+  },
+  {
+    "name": "github-chinese-calendar-data-2025",
+    "url": "https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/src/data/2025.json",
+    "http_status": 404,
+    "bytes": 14,
+    "content_type": "text/plain; charset=utf-8",
+    "final_url": "https://raw.githubusercontent.com/NateScarlet/holiday-cn/master/src/data/2025.json",
+    "sha256_16": "d5558cd419c8d46b",
+    "json_ok": false
+  }
+]

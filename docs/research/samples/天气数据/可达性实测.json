@@ -1,0 +1,111 @@
+[
+  {
+    "name": "open-meteo-forecast",
+    "url": "https://api.open-meteo.com/v1/forecast",
+    "params": {
+      "latitude": 30.5928,
+      "longitude": 114.3055,
+      "daily": "temperature_2m_max,temperature_2m_min,precipitation_sum",
+      "timezone": "Asia/Shanghai",
+      "start_date": "2026-11-01",
+      "end_date": "2026-11-07"
+    },
+    "http_status": 200,
+    "bytes": 584,
+    "content_type": "application/json; charset=utf-8",
+    "final_url": "https://api.open-meteo.com/v1/forecast?latitude=30.5928&longitude=114.3055&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum&timezone=Asia%2FShanghai&start_date=2026-11-01&end_date=2026-11-07",
+    "sha256_16": "23e90f0df2188d7b",
+    "json_ok": true,
+    "json_keys": [
+      "latitude",
+      "longitude",
+      "generationtime_ms",
+      "utc_offset_seconds",
+      "timezone",
+      "timezone_abbreviation",
+      "elevation",
+      "daily_units",
+      "daily"
+    ],
+    "sample": "samples/天气数据/open-meteo-forecast.json",
+    "sample_bytes": 584
+  },
+  {
+    "name": "open-meteo-archive",
+    "url": "https://archive-api.open-meteo.com/v1/archive",
+    "params": {
+      "latitude": 30.5928,
+      "longitude": 114.3055,
+      "start_date": "2025-11-01",
+      "end_date": "2025-11-07",
+      "daily": "temperature_2m_max,temperature_2m_min,precipitation_sum",
+      "timezone": "Asia/Shanghai"
+    },
+    "http_status": 200,
+    "bytes": 582,
+    "content_type": "application/json; charset=utf-8",
+    "final_url": "https://archive-api.open-meteo.com/v1/archive?latitude=30.5928&longitude=114.3055&start_date=2025-11-01&end_date=2025-11-07&daily=temperature_2m_max%2Ctemperature_2m_min%2Cprecipitation_sum&timezone=Asia%2FShanghai",
+    "sha256_16": "e4a5c8df4aa28918",
+    "json_ok": true,
+    "json_keys": [
+      "latitude",
+      "longitude",
+      "generationtime_ms",
+      "utc_offset_seconds",
+      "timezone",
+      "timezone_abbreviation",
+      "elevation",
+      "daily_units",
+      "daily"
+    ],
+    "sample": "samples/天气数据/open-meteo-archive.json",
+    "sample_bytes": 582
+  },
+  {
+    "name": "wttr-in-plain",
+    "url": "https://wttr.in/Wuhan?format=j1",
+    "params": {},
+    "http_status": 200,
+    "bytes": 39428,
+    "content_type": "text/plain; charset=utf-8",
+    "final_url": "https://wttr.in/Wuhan?format=j1",
+    "sha256_16": "6c5896045591bcef",
+    "json_ok": true,
+    "json_keys": [
+      "current_condition",
+      "nearest_area",
+      "request",
+      "weather"
+    ],
+    "sample": "samples/天气数据/wttr-in-plain.json",
+    "sample_bytes": 39428
+  },
+  {
+    "name": "qweather-keyless",
+    "url": "https://devapi.qweather.com/v7/weather/7d?location=42023",
+    "params": {},
+    "http_status": 403,
+    "bytes": 168,
+    "content_type": "application/problem+json",
+    "final_url": "https://devapi.qweather.com/v7/weather/7d?location=42023",
+    "sha256_16": "7c9a1e1d38e0ec21",
+    "json_ok": true,
+    "json_keys": [
+      "error"
+    ],
+    "body_head": "{\"error\":{\"status\":403,\"type\":\"https://dev.qweather.com/docs/resource/error-code/#invalid-host\",\"title\":\"Invalid Host\",\"detail\":\"An invalid or unauthorized API Host.\"}}"
+  },
+  {
+    "name": "caiyun-token",
+    "url": "https://api.caiyunapp.com/v2.5/forecast/daily?location=116.4,39.9",
+    "params": {},
+    "http_status": 404,
+    "bytes": 207,
+    "content_type": "text/html; charset=utf-8",
+    "final_url": "https://api.caiyunapp.com/v2.5/forecast/daily?location=116.4,39.9",
+    "sha256_16": "e9639e3c4681ce85",
+    "json_ok": false,
+    "json_keys": [],
+    "body_head": "<!doctype html>\n<html lang=en>\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try agai"
+  }
+]

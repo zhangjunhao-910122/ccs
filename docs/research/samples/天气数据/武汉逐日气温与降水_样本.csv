@@ -1,0 +1,15 @@
+日期,地点,数据类型,最高温(℃),最低温(℃),降水量(mm),来源,接口URL
+2026-11-01,"武汉(30.5928N,114.3055E)",预报,21.1,13.9,11.5,open-meteo,https://api.open-meteo.com/v1/forecast
+2026-11-02,"武汉(30.5928N,114.3055E)",预报,20.3,12.0,0.0,open-meteo,https://api.open-meteo.com/v1/forecast
+2026-11-03,"武汉(30.5928N,114.3055E)",预报,16.9,13.8,17.1,open-meteo,https://api.open-meteo.com/v1/forecast
+2026-11-04,"武汉(30.5928N,114.3055E)",预报,17.9,13.8,6.8,open-meteo,https://api.open-meteo.com/v1/forecast
+2026-11-05,"武汉(30.5928N,114.3055E)",预报,20.0,11.4,0.0,open-meteo,https://api.open-meteo.com/v1/forecast
+2026-11-06,"武汉(30.5928N,114.3055E)",预报,22.7,14.3,0.0,open-meteo,https://api.open-meteo.com/v1/forecast
+2026-11-07,"武汉(30.5928N,114.3055E)",预报,17.2,14.2,28.7,open-meteo,https://api.open-meteo.com/v1/forecast
+2025-11-01,"武汉(30.5928N,114.3055E)",历史实测,21.8,14.3,0.0,open-meteo,https://archive-api.open-meteo.com/v1/archive
+2025-11-02,"武汉(30.5928N,114.3055E)",历史实测,21.6,14.8,0.0,open-meteo,https://archive-api.open-meteo.com/v1/archive
+2025-11-03,"武汉(30.5928N,114.3055E)",历史实测,21.1,15.4,0.0,open-meteo,https://archive-api.open-meteo.com/v1/archive
+2025-11-04,"武汉(30.5928N,114.3055E)",历史实测,20.6,14.3,0.0,open-meteo,https://archive-api.open-meteo.com/v1/archive
+2025-11-05,"武汉(30.5928N,114.3055E)",历史实测,20.3,12.5,0.1,open-meteo,https://archive-api.open-meteo.com/v1/archive
+2025-11-06,"武汉(30.5928N,114.3055E)",历史实测,17.0,15.2,23.0,open-meteo,https://archive-api.open-meteo.com/v1/archive
+2025-11-07,"武汉(30.5928N,114.3055E)",历史实测,19.1,16.1,7.3,open-meteo,https://archive-api.open-meteo.com/v1/archive

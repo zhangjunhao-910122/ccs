@@ -1,0 +1,46 @@
+host	code	size	ctype	verdict	rules	groups	sha16	final_url	error
+www.ndrc.gov.cn	403	546	text/html	NO_ROBOTS_OR_EMPTY		0	03cb1a90b790ce7f	https://www.ndrc.gov.cn/robots.txt	
+www.nea.gov.cn	404	548	text/html	NO_ROBOTS_OR_EMPTY		0	d465172175d35d49	https://www.nea.gov.cn/robots.txt	
+zfxxgk.nea.gov.cn	404	548	text/html	NO_ROBOTS_OR_EMPTY		0	d465172175d35d49	https://zfxxgk.nea.gov.cn/robots.txt	
+zfxxgk.ndrc.gov.cn	403	546	text/html	NO_ROBOTS_OR_EMPTY		0	03cb1a90b790ce7f	https://zfxxgk.ndrc.gov.cn/robots.txt	
+www.gov.cn	200	811	text/plain	PARTIAL	allow=/1; disallow=/2016gov/; disallow=/2016shuju/; disallow=/2016guoqing/; disallow=/2016zhengce/; disallow=/2016hudong/; disallow=/2016fuwu/; disallow=/2016xinwen/; disallow=/premier/; disallow=/2016guowuyuan/; disallow=/2016public/; disallow=/2016ducha/	1	5291b88da747d048	https://www.gov.cn/robots.txt	
+www.gzpec.cn	200	35	text/plain; charset=utf-8	NO_ROBOTS_OR_EMPTY		1	64239c268ebcfdfb	https://www.gzpec.cn/robots.txt	
+hzj.nea.gov.cn	404	555	text/html	NO_ROBOTS_OR_EMPTY		0	8bd722519e882bc1	https://hzj.nea.gov.cn/robots.txt	
+newpmos.hb.sgcc.com.cn	200	8942	text/html	NO_ROBOTS_OR_EMPTY		0	6827d69fffc06c92	https://newpmos.hb.sgcc.com.cn/robots.txt	
+fgw.hubei.gov.cn	404	548	text/html	NO_ROBOTS_OR_EMPTY		0	d465172175d35d49	https://fgw.hubei.gov.cn/robots.txt	
+tjj.hubei.gov.cn	404	548	text/html	NO_ROBOTS_OR_EMPTY		0	d465172175d35d49	https://tjj.hubei.gov.cn/robots.txt	
+www.hb.sgcc.com.cn	0	0				0			ConnectTimeout: HTTPSConnectionPool(host='www.hb.sgcc.com.cn', port=443): Max retries exceeded with url: /robots.txt (Caused by ConnectT
+www.stats.gov.cn	404	555	text/html	NO_ROBOTS_OR_EMPTY		0	338e171ecd2e7b7b	https://www.stats.gov.cn/robots.txt	
+data.stats.gov.cn	404	147	application/json	NO_ROBOTS_OR_EMPTY		0	47f481b640e1a2b3	https://data.stats.gov.cn/robots.txt	
+www.cma.gov.cn	200	139024	text/html	NO_ROBOTS_OR_EMPTY		0	7cc96d2607fc4950	https://www.cma.gov.cn	
+data.cma.cn	200	534	text/html	NO_ROBOTS_OR_EMPTY		0	e51e486caaa25b5a	https://data.cma.cn/robots.txt	
+www.nmc.cn	404	16216	text/html;charset=utf-8	NO_ROBOTS_OR_EMPTY		0	7578636531bb2f59	https://www.nmc.cn/robots.txt	
+ifdl.poweremarket.com	200	2248	text/html	NO_ROBOTS_OR_EMPTY		0	ed08a11fd9414936	https://ifdl.poweremarket.com/supt/sr/dmz/mm/info/infoDisclosureAppMain.html	
+spot.poweremarket.com	200	23290	text/html	NO_ROBOTS_OR_EMPTY		0	3cb44c07e4458638	https://spot.poweremarket.com/uptspot/sr/pt/	
+sso.poweremarket.com	200	56896	text/html	NO_ROBOTS_OR_EMPTY		0	3ba535378800c407	https://sso.poweremarket.com/supt/sr/pt/index.html	
+pmos.sgcc.com.cn	0	0				0			ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+pmos.sd.sgcc.com.cn	0	0				0			ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+pmos.sx.sgcc.com.cn	200	6501	text/html	NO_ROBOTS_OR_EMPTY		0	d113c6115789c6d5	https://pmos.sx.sgcc.com.cn/robots.txt	
+pmos.gs.sgcc.com.cn	200	6501	text/html	NO_ROBOTS_OR_EMPTY		0	d113c6115789c6d5	https://pmos.gs.sgcc.com.cn/robots.txt	
+www.jspec.com.cn	200	6501	text/html	NO_ROBOTS_OR_EMPTY		0	d113c6115789c6d5	https://www.jspec.com.cn/robots.txt	
+pm.gd.csg.cn	502	6	text/html	NO_ROBOTS_OR_EMPTY		0	aea52d27230b89ca	https://pm.gd.csg.cn/robots.txt	
+www.bjpx.com.cn	0	0				0			ConnectTimeout: HTTPSConnectionPool(host='www.bjpx.com.cn', port=443): Max retries exceeded with url: /robots.txt (Caused by ConnectTime
+www.cec.org.cn	200	25	text/plain	DISALLOW_ALL	disallow=/	1	efdb5938a9736727	https://www.cec.org.cn/robots.txt	
+cec.org.cn	200	25	text/plain	DISALLOW_ALL	disallow=/	1	efdb5938a9736727	https://cec.org.cn/robots.txt	
+drc.gd.gov.cn	404	548	text/html; charset=utf-8	NO_ROBOTS_OR_EMPTY		0	d465172175d35d49	https://drc.gd.gov.cn/robots.txt	
+energy.gd.gov.cn	0	0				0			ConnectionError: HTTPSConnectionPool(host='energy.gd.gov.cn', port=443): Max retries exceeded with url: /robots.txt (Caused by NameResolu
+nyj.shandong.gov.cn	403	546	text/html	NO_ROBOTS_OR_EMPTY		0	f10009c94dd5ab70	https://nyj.shandong.gov.cn/robots.txt	
+sxnyj.shanxi.gov.cn	0	0				0			ConnectionError: HTTPSConnectionPool(host='sxnyj.shanxi.gov.cn', port=443): Max retries exceeded with url: /robots.txt (Caused by NameRes
+nyj.zj.gov.cn	0	0				0			ConnectionError: HTTPSConnectionPool(host='nyj.zj.gov.cn', port=443): Max retries exceeded with url: /robots.txt (Caused by NameResolutio
+nyj.gansu.gov.cn	0	0				0			ConnectionError: HTTPSConnectionPool(host='nyj.gansu.gov.cn', port=443): Max retries exceeded with url: /robots.txt (Caused by NameResolu
+nyj.hubei.gov.cn	0	0				0			ConnectionError: HTTPSConnectionPool(host='nyj.hubei.gov.cn', port=443): Max retries exceeded with url: /robots.txt (Caused by NameResolu
+data.gov.cn	0	0				0			ConnectionError: HTTPSConnectionPool(host='data.gov.cn', port=443): Max retries exceeded with url: /robots.txt (Caused by NameResolutionE
+fzggw.zj.gov.cn	404	552	text/html; charset=utf-8	NO_ROBOTS_OR_EMPTY		0	a980b60a8922f510	https://fzggw.zj.gov.cn/robots.txt	
+fgw.yichang.gov.cn	404	236	text/html; charset=iso-8859-1	NO_ROBOTS_OR_EMPTY		0	9448f8a1159c9b14	http://fgw.yichang.gov.cn/robots.txt	
+fgw.huangshi.gov.cn	404	555	text/html	NO_ROBOTS_OR_EMPTY		0	5dfb7261eb66c520	https://fgw.huangshi.gov.cn/robots.txt	
+arxiv.org	200	5854	text/plain; charset=utf-8	PARTIAL	crawl-delay:15; allow=/archive; allow=/year; allow=/list; allow=/abs; allow=/pdf; allow=/html; allow=/catchup; disallow=/user; disallow=/e-print; disallow=/src; disallow=/ps	10	eda2bc852443f3f2	https://arxiv.org/robots.txt	
+www.yuandian.space	200	402	text/plain	PARTIAL	allow=/; disallow=/login/; disallow=/account/; disallow=/admin/; disallow=/ops/; disallow=/runs/share/	7	55248bc0aa178f0b	https://yuandian.space/robots.txt	
+cdn.iesplaza.com	404	432	application/xml	NO_ROBOTS_OR_EMPTY		0	36779cf650a79e62	https://cdn.iesplaza.com/robots.txt	
+eesia.cn	404	16693	text/html	NO_ROBOTS_OR_EMPTY		0	4a448d3f19587f41	https://eesia.cn/robots.txt	
+www.xinhuanet.com	200	74	text/plain; charset=utf-8	PARTIAL	allow=/	1	9d55187a6fdfb140	https://www.xinhuanet.com/robots.txt	
+www.hbqj.gov.cn	404	548	text/html	NO_ROBOTS_OR_EMPTY		0	d465172175d35d49	https://www.hbqj.gov.cn/robots.txt	

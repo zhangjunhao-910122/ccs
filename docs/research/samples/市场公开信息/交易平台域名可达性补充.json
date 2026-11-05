@@ -1,0 +1,52 @@
+[
+  {
+    "name": "gp-poweremarket",
+    "url": "https://gp.poweremarket.com/",
+    "http_status": 200,
+    "bytes": 11228,
+    "content_type": "text/html; charset=utf-8",
+    "final_url": "https://gp.poweremarket.com/rept/sr/mp/portaladmin/login.html",
+    "sha256_16": "d876267669453cf2",
+    "head": "<!DOCTYPE html><html><head><script type=\"text/javascript\">(function(d,s,id){function loadAgent(){var js,tjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;"
+  },
+  {
+    "name": "spot-pt",
+    "url": "https://spot.poweremarket.com/uptspot/sr/pt/",
+    "http_status": 200,
+    "bytes": 23290,
+    "content_type": "text/html",
+    "final_url": "https://spot.poweremarket.com/uptspot/sr/pt/",
+    "sha256_16": "3cb44c07e4458638",
+    "head": "<!DOCTYPE html><html><head><script type=\"text/javascript\">(function(d,s,id){function loadAgent(){var js,tjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;"
+  },
+  {
+    "name": "ifdl",
+    "url": "https://ifdl.poweremarket.com/",
+    "http_status": 200,
+    "bytes": 2248,
+    "content_type": "text/html",
+    "final_url": "https://ifdl.poweremarket.com/supt/sr/dmz/mm/info/infoDisclosureAppMain.html",
+    "sha256_16": "ed08a11fd9414936",
+    "head": "<!DOCTYPE html><html><head><script type=\"text/javascript\">(function(d,s,id){function loadAgent(){var js,tjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;"
+  },
+  {
+    "name": "hbj-nea",
+    "url": "https://hbj.nea.gov.cn/",
+    "http_status": 200,
+    "bytes": 55690,
+    "content_type": "text/html",
+    "final_url": "https://hbj.nea.gov.cn/",
+    "sha256_16": "0ccaf3a668f378c0",
+    "head": "<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+  },
+  {
+    "name": "hb-sgcc-www",
+    "url": "https://www.hb.sgcc.com.cn/",
+    "error": "ConnectTimeout: HTTPSConnectionPool(host='www.hb.sgcc.com.cn', port=443): Max retries exceeded with url: / (Caused by ConnectTimeoutErro"
+  },
+  {
+    "name": "nea-hubei-energy",
+    "url": "http://nyj.hubei.gov.cn/",
+    "error": "ConnectionError: HTTPConnectionPool(host='nyj.hubei.gov.cn', port=80): Max retries exceeded with url: / (Caused by NameResolutionError(\"H"
+  }
+]

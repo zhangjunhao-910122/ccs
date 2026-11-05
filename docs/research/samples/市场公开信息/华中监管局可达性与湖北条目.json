@@ -1,0 +1,126 @@
+{
+  "name": "hzj.nea.gov.cn（国家能源局华中监管局）",
+  "url": "https://hzj.nea.gov.cn/",
+  "http_status": 200,
+  "bytes": 50075,
+  "title": "国家能源局华中监管局",
+  "scope": "国家能源局华中监管局（覆盖湖北/河南/湖南/江西）",
+  "hubei_related_links": [
+    [
+      "华中能源监管局与湖北能源董事长、党委书记 张龙一行座谈交流",
+      "./lbt/202610/t20261019_310529.html"
+    ],
+    [
+      "华中能源监管局与国网湖北省电力公司董事长、党委书记吴英姿一行座谈交流",
+      "./lbt/202608/t20260821_307146.html"
+    ],
+    [
+      "国家能源局华中监管局关于注销湖北网翔电气有限责任公司等...10-10",
+      "./dtyw/xzxk/202610/t20261010_310105.html"
+    ]
+  ],
+  "nav_links_sample": [
+    [
+      "信息公开",
+      "./xxgk/"
+    ],
+    [
+      "监管动态",
+      "./dtyw/jgdt/"
+    ],
+    [
+      "重要信息",
+      "./dtyw/zyxx/"
+    ],
+    [
+      "行政许可",
+      "./dtyw/xzxk/"
+    ],
+    [
+      "重要信息",
+      "javascript:void(0)"
+    ],
+    [
+      "行政许可",
+      "javascript:void(0)"
+    ],
+    [
+      "通知公告",
+      "./dtyw/tzgg/"
+    ],
+    [
+      "信息公开",
+      "./xxgk/"
+    ],
+    [
+      "政府信息公开指南",
+      "./xxgk/gkzn/"
+    ],
+    [
+      "政策解读",
+      "./xxgk/zcjd/"
+    ],
+    [
+      "政府信息公开年报",
+      "./xxgk/gknb/"
+    ],
+    [
+      "法定主动 公开内容",
+      "./xxgk/fdzdgknr/"
+    ],
+    [
+      "华北能源监管局",
+      "https://hbj.nea.gov.cn"
+    ],
+    [
+      "东北能源监管局",
+      "https://dbj.nea.gov.cn"
+    ],
+    [
+      "西北能源监管局",
+      "https://xbj.nea.gov.cn/"
+    ],
+    [
+      "华东能源监管局",
+      "https://hdj.nea.gov.cn"
+    ],
+    [
+      "南方能源监管局",
+      "https://nfj.nea.gov.cn/"
+    ],
+    [
+      "山西能源监管办",
+      "https://sxb.nea.gov.cn"
+    ],
+    [
+      "山东能源监管办",
+      "https://sdb.nea.gov.cn"
+    ],
+    [
+      "甘肃能源监管办",
+      "https://gsb.nea.gov.cn"
+    ],
+    [
+      "新疆能源监管办",
+      "https://xjb.nea.gov.cn"
+    ],
+    [
+      "浙江能源监管办",
+      "https://zjb.nea.gov.cn"
+    ],
+    [
+      "江苏能源监管办",
+      "https://jsb.nea.gov.cn"
+    ],
+    [
+      "福建能源监管办",
+      "https://fjb.nea.gov.cn"
+    ],
+    [
+      "河南能源监管办",
+      "https://henb.nea.gov.cn"
+    ]
+  ],
+  "fetched": "2026-11-05",
+  "note": "首页静态 HTML 可解析；栏目正文需按栏目页再取"
+}

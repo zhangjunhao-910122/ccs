@@ -1,0 +1,29 @@
+[
+  {
+    "name": "gzpec-2026-daily-trading",
+    "url": "http://www.gzpec.cn/information/zxtz/202608/t20260828_36854.html",
+    "http_status": 200,
+    "bytes": 18405,
+    "sha256_16": "1060e81f5376d578",
+    "text_chars": 945,
+    "attachments": []
+  },
+  {
+    "name": "gzpec-2026-green-cert",
+    "url": "http://www.gzpec.cn/information/zxtz/202609/t20260904_37032.html",
+    "http_status": 200,
+    "bytes": 18367,
+    "sha256_16": "02442fe8c7234d68",
+    "text_chars": 916,
+    "attachments": []
+  },
+  {
+    "name": "gzpec-2026-yw-forecast",
+    "url": "http://www.gzpec.cn/information/zxtz/202611/t20261103_37329.html",
+    "http_status": 200,
+    "bytes": 21946,
+    "sha256_16": "691f12f568b987d3",
+    "text_chars": 1426,
+    "attachments": []
+  }
+]

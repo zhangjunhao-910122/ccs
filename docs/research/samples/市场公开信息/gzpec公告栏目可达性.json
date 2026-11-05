@@ -1,0 +1,182 @@
+[
+  {
+    "name": "gzpec-gsgg",
+    "url": "http://www.gzpec.cn/information/gsgg/",
+    "http_status": 200,
+    "bytes": 172,
+    "content_type": "text/html; charset=utf-8",
+    "final_url": "http://www.gzpec.cn/information/gsgg/",
+    "sha256_16": "7fb4dd8a073f3aa9",
+    "detected_encoding": "ascii",
+    "title": "",
+    "text_chars": 0,
+    "links_count": 0,
+    "links_sample": []
+  },
+  {
+    "name": "gzpec-gsgg-page2",
+    "url": "http://www.gzpec.cn/information/gsgg/index_1.html",
+    "http_status": 200,
+    "bytes": 14424,
+    "content_type": "text/html; charset=utf-8",
+    "final_url": "http://www.gzpec.cn/information/gsgg/index_1.html",
+    "sha256_16": "ed2def7364fd9950",
+    "detected_encoding": "utf-8",
+    "title": "广州电力交易中心",
+    "text_chars": 606,
+    "links_count": 6,
+    "links_sample": [
+      {
+        "label": "南方区域统一电力交易平台",
+        "href": "https://sso.poweremarket.com/supt/sr/pt/#/SecureUnisignon"
+      },
+      {
+        "label": "南方区域现货电能量交易系统",
+        "href": "https://spot.poweremarket.com/uptspot"
+      },
+      {
+        "label": "南方区域绿色电力交易系统",
+        "href": "https://gp.poweremarket.com"
+      },
+      {
+        "label": "南方区域可再生能源电力消纳量交易系统",
+        "href": "https://rect.poweremarket.com"
+      },
+      {
+        "label": "关于国投盘江发电有限公司完成南方区域跨区跨省电力市场注册的公告",
+        "href": "./202310/t20231025_32436.html"
+      },
+      {
+        "label": "关于广东大唐国际雷州发电有限责任公司完成南方区域跨区跨省电力市场注册的公告",
+        "href": "./202310/t20231025_32435.html"
+      }
+    ]
+  },
+  {
+    "name": "gzpec-jyxx",
+    "url": "http://www.gzpec.cn/information/jyxx/",
+    "http_status": 404,
+    "bytes": 134,
+    "content_type": "text/html; charset=utf-8",
+    "final_url": "http://www.gzpec.cn/information/jyxx/",
+    "sha256_16": "68b917f7fa28afec",
+    "detected_encoding": "ascii",
+    "title": "404 Not Found",
+    "text_chars": 27,
+    "links_count": 0,
+    "links_sample": []
+  },
+  {
+    "name": "gzpec-jygg",
+    "url": "http://www.gzpec.cn/information/gsgg/index_2.html",
+    "http_status": 404,
+    "bytes": 134,
+    "content_type": "text/html; charset=utf-8",
+    "final_url": "http://www.gzpec.cn/information/gsgg/index_2.html",
+    "sha256_16": "68b917f7fa28afec",
+    "detected_encoding": "ascii",
+    "title": "404 Not Found",
+    "text_chars": 27,
+    "links_count": 0,
+    "links_sample": []
+  },
+  {
+    "name": "gzpec-root",
+    "url": "http://www.gzpec.cn/",
+    "http_status": 200,
+    "bytes": 23575,
+    "content_type": "text/html; charset=utf-8",
+    "final_url": "http://www.gzpec.cn/",
+    "sha256_16": "adbae75f612e33ea",
+    "detected_encoding": "utf-8",
+    "title": "广州电力交易中心",
+    "text_chars": 1230,
+    "links_count": 21,
+    "links_sample": [
+      {
+        "label": "南方区域统一电力交易平台",
+        "href": "https://sso.poweremarket.com/supt/sr/pt/#/SecureUnisignon"
+      },
+      {
+        "label": "南方区域现货电能量交易系统",
+        "href": "https://spot.poweremarket.com/uptspot"
+      },
+      {
+        "label": "南方区域绿色电力交易系统",
+        "href": "https://gp.poweremarket.com"
+      },
+      {
+        "label": "央视频 | 南方区域电力市场转入正式运行 2026-10-27",
+        "href": "./news/gsdt/202610/t20261030_37271.html"
+      },
+      {
+        "label": "2027年西电东送省间协商工作小组会在广州召开 2026-10-16",
+        "href": "./news/gsdt/202610/t20261016_37221.html"
+      },
+      {
+        "label": "全国首批绿证跨境集中交易达成——绿证联通香港国际绿色市场 2026-10-14",
+        "href": "./news/gsdt/202610/t20261016_37218.html"
+      },
+      {
+        "label": "南方区域电力市场2026年第七批次宣贯培训顺利开展 2026-09-18",
+        "href": "./news/gsdt/202609/t20260922_37099.html"
+      },
+      {
+        "label": "上半年南方区域核发绿证3.32亿个 2026-08-18",
+        "href": "./news/gsdt/202608/t20260818_36743.html"
+      },
+      {
+        "label": "央视网 | 我国首次完成绿证跨境集中交易 2026-10-19",
+        "href": "./news/mtgz/202610/t20261020_37227.html"
+      },
+      {
+        "label": "南方区域电力市场管理委员会2026年第三次会议顺利召开 2026-08-19",
+        "href": "./news/mtgz/202608/t20260821_36789.html"
+      },
+      {
+        "label": "学会动态|中国能源研究会绿证绿电专业委员会在京成立 2026-07-31",
+        "href": "./news/mtgz/202607/t20260731_36674.html"
+      },
+      {
+        "label": "中国能源研究会绿证绿电专业委员会在京成立 2026-07-31",
+        "href": "./news/mtgz/202608/t20260804_36683.html"
+      },
+      {
+        "label": "南方区域电力交易机构廉洁文化理念（2026年版） 2026-07-18",
+        "href": "./news/mtgz/202607/t20260728_36663.html"
+      },
+      {
+        "label": "关于近期南方区域市场交易申报相关工作的提醒 2026-11-01",
+        "href": "./information/zxtz/202611/t20261103_37332.html"
+      },
+      {
+        "label": "关于2027年南方区域跨省跨区年度交易开市预安排的通知 2026-10-31",
+        "href": "./information/zxtz/202611/t20261103_37329.html"
+      },
+      {
+        "label": "关于征求《广州电力交易中心可再生能源绿色电力证书交易实施细则（征求意见稿）》意见的函 2026-09-01",
+        "href": "./information/zxtz/202609/t20260904_37032.html"
+      },
+      {
+        "label": "关于按自然日连续组织南方区域跨省跨区电力中长期交易的公告 2026-08-26",
+        "href": "./information/zxtz/202608/t20260828_36854.html"
+      },
+      {
+        "label": "关于征集可再生能源绿色电力证书交易实施细则修编建议的通知 2026-07-15",
+        "href": "./information/zxtz/202607/t20260717_36645.html"
+      },
+      {
+        "label": "关于2026年南方区域跨省跨区年度交易开市预安排的通知 2025-11-06",
+        "href": "./information/zxtz/202511/t20251107_35578.html"
+      },
+      {
+        "label": "12398能源监管热线网站",
+        "href": "http://www.nea.gov.cn/ztzl/12398nyjgrx/index.htm"
+      },
+      {
+        "label": "粤ICP备20027641号-2",
+        "href": "https://beian.miit.gov.cn"
+      }
+    ]
+  }
+]
