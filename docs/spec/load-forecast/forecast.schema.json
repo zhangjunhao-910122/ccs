@@ -1,0 +1,491 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ccs.local/spec/load-forecast/forecast.schema.json",
+  "title": "组合负荷预测记录契约 v1.0",
+  "description": "预测运行、点预测/区间、归因与模型注册表的表结构；预测记录只追加，不原地更新。",
+  "type": "object",
+  "required": [
+    "tables"
+  ],
+  "properties": {
+    "tables": {
+      "type": "object",
+      "required": [
+        "model_registry",
+        "forecast_run",
+        "forecast_prediction",
+        "forecast_attribution"
+      ],
+      "properties": {
+        "model_registry": {
+          "type": "object",
+          "required": [
+            "primary_key",
+            "fields"
+          ],
+          "properties": {
+            "primary_key": {
+              "const": [
+                "model_id",
+                "version"
+              ]
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/field"
+              }
+            }
+          }
+        },
+        "forecast_run": {
+          "type": "object",
+          "required": [
+            "primary_key",
+            "fields"
+          ],
+          "properties": {
+            "primary_key": {
+              "const": [
+                "run_id"
+              ]
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/field"
+              }
+            }
+          }
+        },
+        "forecast_prediction": {
+          "type": "object",
+          "required": [
+            "primary_key",
+            "fields"
+          ],
+          "properties": {
+            "primary_key": {
+              "const": [
+                "run_id",
+                "entity_type",
+                "entity_id",
+                "slot_no"
+              ]
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/field"
+              }
+            }
+          }
+        },
+        "forecast_attribution": {
+          "type": "object",
+          "required": [
+            "primary_key",
+            "fields"
+          ],
+          "properties": {
+            "primary_key": {
+              "const": [
+                "run_id",
+                "entity_type",
+                "entity_id",
+                "slot_no",
+                "feature_id"
+              ]
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/field"
+              }
+            }
+          }
+        }
+      }
+    },
+    "enums": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "required": [
+        "name",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "string",
+            "int",
+            "decimal",
+            "datetime",
+            "bool",
+            "enum",
+            "json"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "enum": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tables": {
+    "model_registry": {
+      "primary_key": [
+        "model_id",
+        "version"
+      ],
+      "fields": [
+        {
+          "name": "model_id",
+          "type": "string",
+          "required": true,
+          "desc": "模型标识，如 naive_n3 / gbdt_v1"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": true,
+          "desc": "语义化版本，特征集变化必须升版本"
+        },
+        {
+          "name": "family",
+          "type": "enum",
+          "enum": "MODEL_FAMILY",
+          "required": true
+        },
+        {
+          "name": "feature_set_hash",
+          "type": "string",
+          "required": true,
+          "desc": "实际使用特征子集的 sha256 前 16 位"
+        },
+        {
+          "name": "training_window",
+          "type": "json",
+          "required": true,
+          "desc": "{start,end}，两端含"
+        },
+        {
+          "name": "hyperparams",
+          "type": "json",
+          "required": false
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "MODEL_STATUS",
+          "required": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "required": true
+        }
+      ]
+    },
+    "forecast_run": {
+      "primary_key": [
+        "run_id"
+      ],
+      "fields": [
+        {
+          "name": "run_id",
+          "type": "string",
+          "required": true,
+          "desc": "sha256(origin_type|forecast_origin|target_date|model_id|version|created_at) 前 16 位"
+        },
+        {
+          "name": "origin_type",
+          "type": "enum",
+          "enum": "ORIGIN_TYPE",
+          "required": true
+        },
+        {
+          "name": "forecast_origin",
+          "type": "datetime",
+          "required": true,
+          "desc": "信息截止时刻，Asia/Shanghai"
+        },
+        {
+          "name": "target_date",
+          "type": "string",
+          "required": true,
+          "desc": "YYYY-MM-DD，目标自然日"
+        },
+        {
+          "name": "model_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "model_version",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "feature_set_hash",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "degraded_features",
+          "type": "json",
+          "required": false,
+          "desc": "[{feature_id, action, missing_reason}]"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "RUN_STATUS",
+          "required": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "required": true
+        }
+      ]
+    },
+    "forecast_prediction": {
+      "primary_key": [
+        "run_id",
+        "entity_type",
+        "entity_id",
+        "slot_no"
+      ],
+      "fields": [
+        {
+          "name": "run_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "entity_type",
+          "type": "enum",
+          "enum": "ENTITY_TYPE",
+          "required": true
+        },
+        {
+          "name": "entity_id",
+          "type": "string",
+          "required": true,
+          "desc": "USER 时为 user_id；PORTFOLIO 时为组合标识"
+        },
+        {
+          "name": "slot_no",
+          "type": "int",
+          "unit": "1..24",
+          "required": true
+        },
+        {
+          "name": "point",
+          "type": "decimal",
+          "unit": "MWh",
+          "required": false
+        },
+        {
+          "name": "p10",
+          "type": "decimal",
+          "unit": "MWh",
+          "required": false
+        },
+        {
+          "name": "p50",
+          "type": "decimal",
+          "unit": "MWh",
+          "required": false
+        },
+        {
+          "name": "p90",
+          "type": "decimal",
+          "unit": "MWh",
+          "required": false
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "PRED_STATUS",
+          "required": true,
+          "desc": "OK / PARTIAL（组合有缺口）"
+        },
+        {
+          "name": "missing_features",
+          "type": "json",
+          "required": false
+        },
+        {
+          "name": "tariff_segment",
+          "type": "enum",
+          "enum": "TARIFF_SEGMENT",
+          "required": false
+        },
+        {
+          "name": "observed_users",
+          "type": "int",
+          "required": false,
+          "desc": "组合口径：有值用户数"
+        },
+        {
+          "name": "expected_users",
+          "type": "int",
+          "required": false,
+          "desc": "组合口径：应含用户数"
+        },
+        {
+          "name": "coverage",
+          "type": "decimal",
+          "unit": "0..1",
+          "required": false
+        }
+      ]
+    },
+    "forecast_attribution": {
+      "primary_key": [
+        "run_id",
+        "entity_type",
+        "entity_id",
+        "slot_no",
+        "feature_id"
+      ],
+      "fields": [
+        {
+          "name": "run_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "entity_type",
+          "type": "enum",
+          "enum": "ENTITY_TYPE",
+          "required": true
+        },
+        {
+          "name": "entity_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "slot_no",
+          "type": "int",
+          "required": true
+        },
+        {
+          "name": "feature_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "contribution",
+          "type": "decimal",
+          "unit": "MWh",
+          "required": true
+        },
+        {
+          "name": "direction",
+          "type": "enum",
+          "enum": "DIRECTION",
+          "required": true
+        },
+        {
+          "name": "text",
+          "type": "string",
+          "required": true,
+          "desc": "必须含四项要素且过 G2 禁用词；无法归因时写固定句"
+        },
+        {
+          "name": "evidence",
+          "type": "json",
+          "required": true,
+          "desc": "{source,verified,window,confidence,calibrated}"
+        }
+      ]
+    }
+  },
+  "enums": {
+    "ORIGIN_TYPE": [
+      "P_CURVE",
+      "P_BID",
+      "P_REVIEW"
+    ],
+    "ENTITY_TYPE": [
+      "USER",
+      "PORTFOLIO"
+    ],
+    "MODEL_FAMILY": [
+      "NAIVE",
+      "LINEAR",
+      "GBDT",
+      "QUANTILE",
+      "ENSEMBLE"
+    ],
+    "MODEL_STATUS": [
+      "DRAFT",
+      "ACTIVE",
+      "RETIRED"
+    ],
+    "RUN_STATUS": [
+      "OK",
+      "DEGRADED",
+      "PARTIAL",
+      "REFUSED"
+    ],
+    "PRED_STATUS": [
+      "OK",
+      "PARTIAL",
+      "REFUSED"
+    ],
+    "TARIFF_SEGMENT": [
+      "SHARP_PEAK",
+      "PEAK",
+      "FLAT",
+      "VALLEY",
+      "DEEP_VALLEY"
+    ],
+    "DIRECTION": [
+      "UP",
+      "DOWN",
+      "NONE"
+    ]
+  },
+  "invariants": [
+    "预测记录只追加：同 (run_id, entity, slot) 重复写入即冲突，不得 UPSERT。",
+    "forecast_origin 必须等于 origin_type 对应时刻：P_CURVE=D-2 12:00、P_BID=D-1 08:00、P_REVIEW=D-1 20:00。",
+    "model_registry.feature_set_hash 必须等于该 run 实际使用特征子集重新计算的 hash，否则拒绝。",
+    "组合口径当 status=PARTIAL 时 coverage<0.99 且 observed_users<expected_users，禁止补零。",
+    "p10 <= p50 <= p90（存在时）；point 缺失时至少 p50 存在。",
+    "attribution.text 必须通过 check_attribution()，禁用词命中即拒绝入库。",
+    "tariff_segment 仅 100 kVA 及以上工商业用户非空，范围外为 null 且 reason=OUT_OF_SCOPE。"
+  ]
+}

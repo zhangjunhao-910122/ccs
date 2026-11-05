@@ -1,0 +1,22 @@
+[PASS] E1
+      {"features": 22, "never": ["f_rt_price", "f_monthly_settlement"], "errors": []}
+[PASS] E2
+      {"leak": "FeatureLeakageError", "allowed": "FeatureNotAllowed"}
+[PASS] E3
+      {"load_as_of": {"P_CURVE": "2026-10-17", "P_BID": "2026-10-18", "P_REVIEW": "2026-10-18"}, "settle_as_of": {"P_CURVE": "2026-10-16", "P_BID": "2026-10-17", "P_REVIEW": "2026-10-17"}, "origins": {"P_CURVE": "2026-10-18T12:00:00", "P_BID": "2026-10-19T08:00:00", "P_REVIEW": "2026-10-19T20:00:00"}}
+[PASS] E4
+      {"slot5": {"slot_no": 5, "value": 20.0, "observed_users": 2, "expected_users": 3, "coverage": 0.666667, "status": "PARTIAL", "missing_users": ["U3"]}, "slot4": {"slot_no": 4, "value": 30.0, "observed_users": 3, "expected_users": 3, "coverage": 1.0, "status": "OK", "missing_users": []}}
+[PASS] E5
+      {"N1": 50.0, "N2": 103.0, "N3": 100.0}
+[PASS] E6
+      {"degraded": {"feature_id": "f_weather_forecast_temp", "action": "DROP_FEATURE", "missing_reason": "FORECAST_NOT_ARCHIVED"}, "required": "CannotForecast"}
+[PASS] E7
+      {"good": {"ok": true, "issues": []}, "bad": ["FORBIDDEN_WORD:因为", "FORBIDDEN_WORD:导致", "FORBIDDEN_WORD:因"], "missing": ["MISSING_EVIDENCE:source", "MISSING_EVIDENCE:verified", "MISSING_EVIDENCE:window", "MISSING_EVIDENCE:confidence", "BAD_VERIFIED_STATE"], "unable": {"unable": true, "reasons": ["MISSING_FEATURE_RATIO"]}}
+[PASS] E8
+      {"metrics": {"n": 10, "mae": 2.26, "rmse": 2.415781, "nmae": 0.050178, "mape": 0.070891, "mape_applicable": true, "mape_excluded": 1, "mape_excluded_ratio": 0.1}, "picp": {"picp": 1.0, "avg_width": 7.7, "n": 10}}
+[PASS] E9
+      {"july": {"SHARP_PEAK": 2, "VALLEY": 8, "PEAK": 6, "FLAT": 8}, "march": {"SHARP_PEAK": 2, "VALLEY": 8, "PEAK": 6, "FLAT": 8}, "ratio_7_sharp": 2.0, "ratio_3_sharp": 1.8}
+[PASS] E10
+      {"first": 2.5, "last": 94.5, "tags": ["15min", "hourly"]}
+samples: {"users": 3, "rows": 4032}
+10/10 PASS

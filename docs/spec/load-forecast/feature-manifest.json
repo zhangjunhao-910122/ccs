@@ -1,0 +1,467 @@
+{
+  "version": "1.0.0",
+  "ticket": 45,
+  "parent_map": 22,
+  "origins": {
+    "P_CURVE": {
+      "origin_time": "D-2T12:00:00",
+      "lead_hours": 36,
+      "label": "曲线分解（默认）",
+      "business_use": "D-2 17:00 前提交调度"
+    },
+    "P_BID": {
+      "origin_time": "D-1T08:00:00",
+      "lead_hours": 16,
+      "label": "报量报价",
+      "business_use": "D-1 08:30 报量报价前"
+    },
+    "P_REVIEW": {
+      "origin_time": "D-1T20:00:00",
+      "lead_hours": 4,
+      "label": "复盘/影子运行",
+      "business_use": "日前出清后复盘、教学回放"
+    }
+  },
+  "columns": [
+    "feature_id",
+    "family",
+    "definition",
+    "source_dataset",
+    "source_system",
+    "availability",
+    "shift_days",
+    "allowed_origins",
+    "required"
+  ],
+  "shift_rules": {
+    "D04": {
+      "min_shift_days": 1,
+      "reason": "实测负荷 D+1 才推送"
+    },
+    "D09": {
+      "min_shift_days": 2,
+      "reason": "分时结算电量 D+2 才发布"
+    },
+    "D10": {
+      "min_shift_days": 2,
+      "reason": "月结事后修正"
+    }
+  },
+  "tariff": {
+    "regulation": "鄂发改价管〔2024〕77 号",
+    "note": "时段按月份类别 × slot 决定；仅 100 kVA 及以上工商业用户在范围内",
+    "deep_valley": {
+      "exists": false,
+      "note": "湖北现行文件无深谷时段，枚举保留不用"
+    }
+  },
+  "features": [
+    {
+      "feature_id": "f_load_same_hour_lag1",
+      "family": "F1",
+      "definition": "最近可得日的同一时段小时电量（as_of 同刻，lag=1 个可得日）",
+      "source_dataset": "D04",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "OBS_LAG",
+        "lag_days": 1,
+        "cutoff": "00:00",
+        "as_of": "LATEST_LOAD_DAY"
+      },
+      "shift_days": 1,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": true
+    },
+    {
+      "feature_id": "f_load_med7",
+      "family": "F1",
+      "definition": "最近 7 个可得日同刻小时电量的中位数",
+      "source_dataset": "D04",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "OBS_LAG",
+        "lag_days": 1,
+        "cutoff": "00:00",
+        "as_of": "LATEST_LOAD_DAY"
+      },
+      "shift_days": 1,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_load_med_weekday8",
+      "family": "F1",
+      "definition": "同星期几最近 8 周同刻小时电量的中位数",
+      "source_dataset": "D04",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "OBS_LAG",
+        "lag_days": 1,
+        "cutoff": "00:00",
+        "as_of": "LATEST_LOAD_DAY"
+      },
+      "shift_days": 1,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_load_peak_stats",
+      "family": "F1",
+      "definition": "最近 7 个可得日的日峰/日谷/日均负荷统计",
+      "source_dataset": "D04",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "OBS_LAG",
+        "lag_days": 1,
+        "cutoff": "00:00",
+        "as_of": "LATEST_LOAD_DAY"
+      },
+      "shift_days": 1,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_agency_user_set",
+      "family": "F2",
+      "definition": "目标日有效的代理用户集合（D06 合同 term_start ≤ D ≤ term_end，as-of 版本）",
+      "source_dataset": "D06",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "STATIC",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": true
+    },
+    {
+      "feature_id": "f_contract_energy",
+      "family": "F2",
+      "definition": "代理用户合同电量（批发 D05 / 零售 D06，按目标日有效版本）",
+      "source_dataset": "D05,D06",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "STATIC",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": true
+    },
+    {
+      "feature_id": "f_retail_package",
+      "family": "F2",
+      "definition": "代理用户零售套餐类型与价格条款（D06）",
+      "source_dataset": "D06",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "STATIC",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_declared_energy",
+      "family": "F2",
+      "definition": "目标日用户侧申报电量（D07，按 submitted_at ≤ origin 的最近一次版本）",
+      "source_dataset": "D07",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "EVENT",
+        "event_time": "submitted_at",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_deviation_assessment",
+      "family": "F2",
+      "definition": "历史偏差考核电量/费用（D09 日清，lag 2 个可得日）",
+      "source_dataset": "D09",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "OBS_LAG",
+        "lag_days": 2,
+        "cutoff": "00:00",
+        "as_of": "LATEST_LOAD_DAY"
+      },
+      "shift_days": 2,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_weather_forecast_temp",
+      "family": "F3",
+      "definition": "目标日逐时气温预报值（D11，仅预报序列，实况/再分析不得替代）",
+      "source_dataset": "D11",
+      "source_system": "EXTERNAL_WEATHER",
+      "availability": {
+        "kind": "EVENT",
+        "event_time": "forecast_published_at",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_weather_forecast_humidity",
+      "family": "F3",
+      "definition": "目标日逐时相对湿度预报值（D11）",
+      "source_dataset": "D11",
+      "source_system": "EXTERNAL_WEATHER",
+      "availability": {
+        "kind": "EVENT",
+        "event_time": "forecast_published_at",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_calendar_day_type",
+      "family": "F4",
+      "definition": "目标日日类型（D12：工作日/周末/法定节假日/调休工作日）",
+      "source_dataset": "D12",
+      "source_system": "EXTERNAL_CALENDAR",
+      "availability": {
+        "kind": "STATIC",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": true
+    },
+    {
+      "feature_id": "f_calendar_position",
+      "family": "F4",
+      "definition": "目标日在月/季内的位置（月末、季末、节前节后第 n 天）",
+      "source_dataset": "D12",
+      "source_system": "EXTERNAL_CALENDAR",
+      "availability": {
+        "kind": "STATIC",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_production_correction",
+      "family": "F5",
+      "definition": "用户生产计划修正（D13：停产/增产及影响比例，按 submitted_at ≤ origin 的版本）",
+      "source_dataset": "D13",
+      "source_system": "CUSTOMER",
+      "availability": {
+        "kind": "EVENT",
+        "event_time": "submitted_at",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_agency_change",
+      "family": "F6",
+      "definition": "目标日新增/退网代理关系变更（D06 生效日落在目标日）",
+      "source_dataset": "D06",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "STATIC",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": true
+    },
+    {
+      "feature_id": "f_system_load_forecast",
+      "family": "F7",
+      "definition": "湖北电网系统负荷预测 96 点（降采样到 24 点，仅参考校验，不作目标量）",
+      "source_dataset": "EXTERNAL_HUBEI",
+      "source_system": "EXTERNAL_HUBEI",
+      "availability": {
+        "kind": "EVENT",
+        "offset_days": -1,
+        "time": "07:30",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_renewable_forecast",
+      "family": "F8",
+      "definition": "湖北新能源出力预测（事前/日前边界，带发布时刻）",
+      "source_dataset": "EXTERNAL_HUBEI",
+      "source_system": "EXTERNAL_HUBEI",
+      "availability": {
+        "kind": "EVENT",
+        "offset_days": -1,
+        "time": "07:30",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_tie_line_plan",
+      "family": "F8",
+      "definition": "省间联络线计划（D-2 17:00 后发布的边界）",
+      "source_dataset": "EXTERNAL_HUBEI",
+      "source_system": "EXTERNAL_HUBEI",
+      "availability": {
+        "kind": "EVENT",
+        "offset_days": -2,
+        "time": "17:00",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_da_price",
+      "family": "F9",
+      "definition": "目标日日前节点电价（D-1 20:00 后可得，仅 P_REVIEW 起点可用）",
+      "source_dataset": "EXTERNAL_MARKET",
+      "source_system": "EXTERNAL_MARKET",
+      "availability": {
+        "kind": "EVENT",
+        "offset_days": -1,
+        "time": "20:00",
+        "as_of": "TARGET_DAY"
+      },
+      "shift_days": 0,
+      "allowed_origins": [
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_rt_price",
+      "family": "F9",
+      "definition": "实时节点电价（T-15 发布，日前预测一律禁用）",
+      "source_dataset": "EXTERNAL_MARKET",
+      "source_system": "EXTERNAL_MARKET",
+      "availability": {
+        "kind": "NEVER",
+        "reason": "实时价在预测起点之后才发布，属同时段结果"
+      },
+      "shift_days": 0,
+      "allowed_origins": [],
+      "required": false
+    },
+    {
+      "feature_id": "f_settlement_energy",
+      "family": "F10",
+      "definition": "历史分时结算电量（D09，lag 2 个可得日）",
+      "source_dataset": "D09",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "OBS_LAG",
+        "lag_days": 2,
+        "cutoff": "00:00",
+        "as_of": "LATEST_LOAD_DAY"
+      },
+      "shift_days": 2,
+      "allowed_origins": [
+        "P_CURVE",
+        "P_BID",
+        "P_REVIEW"
+      ],
+      "required": false
+    },
+    {
+      "feature_id": "f_monthly_settlement",
+      "family": "F10",
+      "definition": "事后修正的月度/年度结算数据（D10，任何模型一律禁用）",
+      "source_dataset": "D10",
+      "source_system": "INTERNAL",
+      "availability": {
+        "kind": "NEVER",
+        "reason": "事后修正数据，含未来信息"
+      },
+      "shift_days": 0,
+      "allowed_origins": [],
+      "required": false
+    }
+  ]
+}
