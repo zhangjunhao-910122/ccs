@@ -1,0 +1,600 @@
+{
+  "name": "ccs-rbac-matrix",
+  "version": "1.0.0",
+  "generated_for": "#29 规格：认证与六角色权限矩阵",
+  "source": "implementation.xlsx / 06-角色权限",
+  "roles": {
+    "TRADER": {
+      "title": "交易员",
+      "source": "交易员"
+    },
+    "SUPERVISOR": {
+      "title": "交易主管",
+      "source": "交易主管"
+    },
+    "RISK": {
+      "title": "风控人员",
+      "source": "风控人员"
+    },
+    "SETTLEMENT": {
+      "title": "结算人员",
+      "source": "结算人员"
+    },
+    "ADMIN": {
+      "title": "系统管理员",
+      "source": "系统管理员"
+    },
+    "AUDITOR": {
+      "title": "审计人员",
+      "source": "审计人员"
+    }
+  },
+  "dimensions": {
+    "RULE_LEARNING": {
+      "title": "规则学习",
+      "actions": [
+        "VIEW"
+      ]
+    },
+    "DATA_IMPORT": {
+      "title": "数据导入",
+      "actions": [
+        "VIEW",
+        "IMPORT",
+        "CONFIGURE"
+      ]
+    },
+    "SENSITIVE_DATA": {
+      "title": "敏感数据",
+      "actions": [
+        "VIEW"
+      ]
+    },
+    "SIM_TRADING": {
+      "title": "模拟交易",
+      "actions": [
+        "VIEW",
+        "SUBMIT"
+      ]
+    },
+    "STRATEGY_ADVICE": {
+      "title": "策略建议",
+      "actions": [
+        "VIEW",
+        "GENERATE"
+      ]
+    },
+    "APPROVAL": {
+      "title": "审批建议",
+      "actions": [
+        "VIEW",
+        "APPROVE",
+        "VETO"
+      ]
+    },
+    "SETTLEMENT_REVIEW": {
+      "title": "结算复核",
+      "actions": [
+        "VIEW",
+        "REVIEW"
+      ]
+    },
+    "SYSTEM_CONFIG": {
+      "title": "系统配置",
+      "actions": [
+        "CONFIGURE"
+      ],
+      "domains": [
+        "ALL",
+        "RISK",
+        "SETTLEMENT"
+      ]
+    },
+    "AUDIT": {
+      "title": "审计",
+      "actions": [
+        "VIEW"
+      ],
+      "scopes": [
+        "SELF",
+        "TEAM",
+        "RELATED",
+        "TECH",
+        "ALL"
+      ]
+    }
+  },
+  "cells": [
+    {
+      "role": "TRADER",
+      "dimension": "RULE_LEARNING",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "TRADER",
+      "dimension": "DATA_IMPORT",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "TRADER",
+      "dimension": "SENSITIVE_DATA",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "GRANT",
+      "mask": "NONE"
+    },
+    {
+      "role": "TRADER",
+      "dimension": "SIM_TRADING",
+      "actions": [
+        "VIEW",
+        "SUBMIT"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "TRADER",
+      "dimension": "STRATEGY_ADVICE",
+      "actions": [
+        "VIEW",
+        "GENERATE"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "TRADER",
+      "dimension": "APPROVAL",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "TRADER",
+      "dimension": "SETTLEMENT_REVIEW",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "TRADER",
+      "dimension": "SYSTEM_CONFIG",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "TRADER",
+      "dimension": "AUDIT",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "SELF",
+      "mask": "NONE"
+    },
+    {
+      "role": "SUPERVISOR",
+      "dimension": "RULE_LEARNING",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SUPERVISOR",
+      "dimension": "DATA_IMPORT",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SUPERVISOR",
+      "dimension": "SENSITIVE_DATA",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "GRANT",
+      "mask": "NONE"
+    },
+    {
+      "role": "SUPERVISOR",
+      "dimension": "SIM_TRADING",
+      "actions": [
+        "VIEW",
+        "SUBMIT"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SUPERVISOR",
+      "dimension": "STRATEGY_ADVICE",
+      "actions": [
+        "VIEW",
+        "GENERATE"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SUPERVISOR",
+      "dimension": "APPROVAL",
+      "actions": [
+        "VIEW",
+        "APPROVE"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SUPERVISOR",
+      "dimension": "SETTLEMENT_REVIEW",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SUPERVISOR",
+      "dimension": "SYSTEM_CONFIG",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "SUPERVISOR",
+      "dimension": "AUDIT",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "TEAM",
+      "mask": "NONE"
+    },
+    {
+      "role": "RISK",
+      "dimension": "RULE_LEARNING",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "RISK",
+      "dimension": "DATA_IMPORT",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "RISK",
+      "dimension": "SENSITIVE_DATA",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "GRANT",
+      "mask": "NONE"
+    },
+    {
+      "role": "RISK",
+      "dimension": "SIM_TRADING",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "RISK",
+      "dimension": "STRATEGY_ADVICE",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "RISK",
+      "dimension": "APPROVAL",
+      "actions": [
+        "VIEW",
+        "VETO"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "RISK",
+      "dimension": "SETTLEMENT_REVIEW",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "RISK",
+      "dimension": "SYSTEM_CONFIG",
+      "actions": [
+        "CONFIGURE"
+      ],
+      "scope": "ALL",
+      "mask": "NONE",
+      "domain": "RISK"
+    },
+    {
+      "role": "RISK",
+      "dimension": "AUDIT",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SETTLEMENT",
+      "dimension": "RULE_LEARNING",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SETTLEMENT",
+      "dimension": "DATA_IMPORT",
+      "actions": [
+        "VIEW",
+        "IMPORT"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SETTLEMENT",
+      "dimension": "SENSITIVE_DATA",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "SETTLEMENT",
+      "mask": "NONE"
+    },
+    {
+      "role": "SETTLEMENT",
+      "dimension": "SIM_TRADING",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "SETTLEMENT",
+      "dimension": "STRATEGY_ADVICE",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SETTLEMENT",
+      "dimension": "APPROVAL",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "SETTLEMENT",
+      "dimension": "SETTLEMENT_REVIEW",
+      "actions": [
+        "VIEW",
+        "REVIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "SETTLEMENT",
+      "dimension": "SYSTEM_CONFIG",
+      "actions": [
+        "CONFIGURE"
+      ],
+      "scope": "ALL",
+      "mask": "NONE",
+      "domain": "SETTLEMENT"
+    },
+    {
+      "role": "SETTLEMENT",
+      "dimension": "AUDIT",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "RELATED",
+      "mask": "NONE"
+    },
+    {
+      "role": "ADMIN",
+      "dimension": "RULE_LEARNING",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "ADMIN",
+      "dimension": "DATA_IMPORT",
+      "actions": [
+        "VIEW",
+        "CONFIGURE"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "ADMIN",
+      "dimension": "SENSITIVE_DATA",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "ADMIN",
+      "dimension": "SIM_TRADING",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "ADMIN",
+      "dimension": "STRATEGY_ADVICE",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "ADMIN",
+      "dimension": "APPROVAL",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "ADMIN",
+      "dimension": "SETTLEMENT_REVIEW",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "ADMIN",
+      "dimension": "SYSTEM_CONFIG",
+      "actions": [
+        "CONFIGURE"
+      ],
+      "scope": "ALL",
+      "mask": "NONE",
+      "domain": "ALL"
+    },
+    {
+      "role": "ADMIN",
+      "dimension": "AUDIT",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "TECH",
+      "mask": "NONE"
+    },
+    {
+      "role": "AUDITOR",
+      "dimension": "RULE_LEARNING",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "AUDITOR",
+      "dimension": "DATA_IMPORT",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "AUDITOR",
+      "dimension": "SENSITIVE_DATA",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "GRANT",
+      "mask": "MASKED"
+    },
+    {
+      "role": "AUDITOR",
+      "dimension": "SIM_TRADING",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "AUDITOR",
+      "dimension": "STRATEGY_ADVICE",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "AUDITOR",
+      "dimension": "APPROVAL",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "AUDITOR",
+      "dimension": "SETTLEMENT_REVIEW",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    },
+    {
+      "role": "AUDITOR",
+      "dimension": "SYSTEM_CONFIG",
+      "actions": [],
+      "scope": "NONE",
+      "mask": "NONE"
+    },
+    {
+      "role": "AUDITOR",
+      "dimension": "AUDIT",
+      "actions": [
+        "VIEW"
+      ],
+      "scope": "ALL",
+      "mask": "NONE"
+    }
+  ],
+  "forbidden_actions": [
+    "TRADE_SUBMIT_REAL",
+    "TRADE_CANCEL_REAL",
+    "TRADE_ACCOUNT_WRITE"
+  ],
+  "grant": {
+    "max_ttl_days": 90,
+    "reason_min_chars": 10,
+    "highly_expose_requires": 2
+  },
+  "session": {
+    "idle_timeout_minutes": 30,
+    "absolute_timeout_hours": 12,
+    "max_failed_logins": 5,
+    "lockout_minutes": 15
+  },
+  "sensitivity_rule": {
+    "PUBLIC": "NONE",
+    "SENSITIVE": "BY_CELL",
+    "HIGHLY": "ALWAYS_UNLESS_EXPOSE"
+  }
+}

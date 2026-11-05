@@ -1,0 +1,11 @@
+[PASS] E1 矩阵完整性：54/54 格、6 角色、9 维度、0 个校验错误
+[PASS] E2 默认拒绝：未知角色 NO_ROLE / 未知维度 UNKNOWN_DIMENSION / 未声明动作 UNKNOWN_ACTION
+[PASS] E3 越权探针全拒绝：ADMIN_VS_SENSITIVE=False(NOT_GRANTED)；TRADER_VS_IMPORT=False(NOT_GRANTED)；SETTLEMENT_VS_SUBMIT=False(NOT_GRANTED)；AUDITOR_VS_CONFIG=False(NOT_GRANTED)；TRADER_VS_APPROVE=False(TRADER_CANNOT_APPROVE)；RISK_VS_REVIEW=False(NOT_GRANTED)
+[PASS] E4 掩码确定性：HIGHLY 掩码 2 字段、PUBLIC 不掩码、同值掩码稳定 MASK-H61ef
+[PASS] E5 真实交易写被禁止：54 格无禁止动作；六角色 TRADE_SUBMIT_REAL 均 FORBIDDEN_ACTION
+[PASS] E6 职责分离：自提自批 DENY、批他人 ALLOW、风控否决 ALLOW
+[PASS] E7 授权边界：无授权/过期均 NO_GRANT；自授与单人会签被拒
+[PASS] E8 审计链与会话：链长 22 校验通过、篡改即断链、拒绝事件均有 reason_code
+[PASS] E8b 会话超时与锁定：空闲 30 分钟失效、5 次失败锁定
+
+Summary: 9/9 PASS
