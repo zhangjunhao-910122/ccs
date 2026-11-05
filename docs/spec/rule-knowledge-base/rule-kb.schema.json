@@ -1,0 +1,847 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ccs.local/spec/rule-knowledge-base/1.0.0",
+  "title": "市场规则知识库数据字典 v1.0",
+  "description": "D01 规则文件的条款级扩展。机器可读部分是执行依据；人读解释见 SPEC.md。",
+  "version": "1.0.0",
+  "upstream": {
+    "contract": "#33 统一数据契约 v1.0（D01 d01_rule_doc 为本字典的父表）",
+    "time_grid": "#26 T1–T15",
+    "research": "#53 docs/research/rule-validity-check.md 第五节"
+  },
+  "enums": {
+    "doc_type": [
+      "NATIONAL",
+      "REGIONAL",
+      "PROVINCIAL",
+      "COMPANY"
+    ],
+    "status": [
+      "DRAFT",
+      "ACTIVE",
+      "SUPERSEDED",
+      "EXPIRED"
+    ],
+    "evidence_status": [
+      "VERIFIED",
+      "PARTIAL",
+      "UNVERIFIED"
+    ],
+    "source_kind": [
+      "PRIMARY",
+      "MIRROR"
+    ],
+    "text_status": [
+      "VERBATIM",
+      "PENDING_TRANSCRIPTION",
+      "OCR_UNVERIFIED"
+    ],
+    "clause_topic": [
+      "SETTLEMENT_PERIOD",
+      "SETTLEMENT_ENERGY",
+      "SETTLEMENT_PRICE",
+      "RETAIL_MARGIN",
+      "DEVIATION_ASSESSMENT",
+      "RETRO_ADJUSTMENT",
+      "OPERATION_COMPENSATION",
+      "DEVIATION_REFUND",
+      "PEAK_PERIOD",
+      "PEAK_UPLIFT",
+      "PRICE_CAP_FLOOR",
+      "NEGATIVE_PRICE",
+      "GREEN_ENV_VALUE",
+      "PERFORMANCE_GUARANTEE",
+      "INFORMATION_DISCLOSURE",
+      "TRADING_CALENDAR",
+      "VALIDITY",
+      "REGISTRATION",
+      "BACKSTOP_RETAIL",
+      "OTHER"
+    ],
+    "impact_area": [
+      "TRADE",
+      "SETTLEMENT",
+      "RETAIL",
+      "CREDIT",
+      "DISCLOSURE"
+    ],
+    "applicable_subject": [
+      "SALE_COMPANY",
+      "GENERATOR",
+      "USER",
+      "TRADING_ORG",
+      "DISPATCH_ORG",
+      "MARKET_OPERATOR"
+    ],
+    "change_type": [
+      "ADDED",
+      "MODIFIED",
+      "REPEALED"
+    ],
+    "change_reason": [
+      "NEW_CLAUSE",
+      "TEXT_EDIT",
+      "RENUMBERED",
+      "SPLIT",
+      "MERGED",
+      "OMITTED",
+      "DOC_REPEALED"
+    ],
+    "alert_trigger": [
+      "NEW_ACTIVE_DOC",
+      "STATUS_CHANGED",
+      "EFFECTIVE_SOON",
+      "EXPIRING_SOON",
+      "DIFF_IMPACT"
+    ],
+    "severity": [
+      "INFO",
+      "WARN",
+      "CRITICAL"
+    ],
+    "answer_status": [
+      "ANSWERED",
+      "PARTIAL",
+      "INSUFFICIENT_EVIDENCE",
+      "OUT_OF_SCOPE"
+    ]
+  },
+  "tables": {
+    "d01_rule_doc": {
+      "title": "规则文件（D01 主表，含本规格扩展列）",
+      "primary_key": [
+        "doc_id"
+      ],
+      "extends": "#33 D01 d01_rule_doc",
+      "fields": [
+        {
+          "name": "doc_id",
+          "type": "string",
+          "required": true,
+          "pattern": "^RULE-[0-9]{4}-[0-9]{4}-[0-9]{3}$",
+          "desc": "RULE-<发布机构码4位>-<年4位>-<序号3位>；一个版本一行，不改写"
+        },
+        {
+          "name": "doc_no",
+          "type": "string",
+          "required": false,
+          "desc": "文号，如 鄂电交易〔2025〕9号；未查到时为 null 且 evidence_status=PARTIAL"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "desc": "文件全称"
+        },
+        {
+          "name": "issuer",
+          "type": "string",
+          "required": true,
+          "desc": "发布机构全称"
+        },
+        {
+          "name": "issuer_code",
+          "type": "string",
+          "required": true,
+          "pattern": "^[0-9]{4}$",
+          "desc": "机构码：1000 国家发展改革委 / 2000 国家能源局 / 3000 华中监管局 / 4200 湖北省发改委、省能源局 / 4210 湖北电力交易中心 / 4800 南方区域交易平台 / 9000 合成样例"
+        },
+        {
+          "name": "doc_type",
+          "type": "enum",
+          "enum": "doc_type",
+          "required": true,
+          "desc": "层级；同一天同一主题多份 ACTIVE 时按 NATIONAL > REGIONAL > PROVINCIAL > COMPANY 取上位，同级重叠记歧义"
+        },
+        {
+          "name": "version_label",
+          "type": "string",
+          "required": true,
+          "desc": "版本标签，如 V1.0 / 2026年V1.0 / 2026-04-03正式稿；引用五要素之一"
+        },
+        {
+          "name": "publish_date",
+          "type": "date",
+          "required": true,
+          "desc": "发布日期；DRAFT 也必须有"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "required": false,
+          "desc": "施行日；DRAFT 为 null，ACTIVE 必填"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "required": false,
+          "desc": "最后有效日（含当日）；null=未见失效条款；由有效期条款推算时须在 validity_text 写明依据"
+        },
+        {
+          "name": "validity_text",
+          "type": "string",
+          "required": false,
+          "desc": "原文有效期表述，如「自发布之日起施行，有效期 5 年」；推算结果写进 effective_to"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "status",
+          "required": true,
+          "desc": "最近一次人工核验的状态；运行时状态一律由 resolve_status(doc, as_of) 重算，不直接信本列"
+        },
+        {
+          "name": "status_evidence",
+          "type": "string",
+          "required": true,
+          "desc": "状态证据：链接/公告/到期推算依据，一句话"
+        },
+        {
+          "name": "evidence_status",
+          "type": "enum",
+          "enum": "evidence_status",
+          "required": true,
+          "desc": "VERIFIED=原文与文号均已核；PARTIAL=有原文但文号/附件缺；UNVERIFIED=仅二手"
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "required": true,
+          "desc": "官方正文 URL；仅镜像可达时仍填官方入口，镜像写 mirror_note"
+        },
+        {
+          "name": "source_kind",
+          "type": "enum",
+          "enum": "source_kind",
+          "required": true,
+          "desc": "PRIMARY 一手 / MIRROR 镜像"
+        },
+        {
+          "name": "mirror_note",
+          "type": "string",
+          "required": false,
+          "desc": "镜像渠道与差异风险（source_kind=MIRROR 时必填）"
+        },
+        {
+          "name": "accessed_date",
+          "type": "date",
+          "required": true,
+          "desc": "取证访问日期"
+        },
+        {
+          "name": "file_hash",
+          "type": "string",
+          "required": true,
+          "pattern": "^[0-9a-f]{64}$",
+          "desc": "正文/附件 SHA-256；原件不可变"
+        },
+        {
+          "name": "clause_count",
+          "type": "int",
+          "required": true,
+          "desc": "已结构化条款数；必须等于 d01_rule_clause 中的实际行数"
+        },
+        {
+          "name": "supersedes_doc_id",
+          "type": "string",
+          "required": false,
+          "desc": "被本版本替代的旧 doc_id；链必须无环"
+        },
+        {
+          "name": "repeals",
+          "type": "array",
+          "type_item": "string",
+          "required": false,
+          "desc": "本文件明文废止的旧 doc_id 列表（废止公告条款）"
+        },
+        {
+          "name": "is_synthetic",
+          "type": "bool",
+          "required": false,
+          "desc": "true=仅用于自检的合成样例，禁止进入生产库；默认 false"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "required": false,
+          "desc": "待办与缺口，如「文号未查到，待客户确认（Q01）」"
+        }
+      ]
+    },
+    "d01_rule_clause": {
+      "title": "规则条款（条款级索引）",
+      "primary_key": [
+        "clause_uid"
+      ],
+      "fields": [
+        {
+          "name": "clause_uid",
+          "type": "string",
+          "required": true,
+          "pattern": "^RULE-[0-9]{4}-[0-9]{4}-[0-9]{3}#.+$",
+          "desc": "doc_id + '#' + clause_key；跨版本不重复"
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "required": true,
+          "desc": "所属文件版本"
+        },
+        {
+          "name": "chapter_path",
+          "type": "string",
+          "required": false,
+          "desc": "章节路径，如 第六章 零售结算 / 附件6"
+        },
+        {
+          "name": "clause_no",
+          "type": "string",
+          "required": true,
+          "desc": "条款号原样：第三十六条 / 2.7.1.1 / 附件6-3"
+        },
+        {
+          "name": "clause_key",
+          "type": "string",
+          "required": true,
+          "desc": "文件内稳定键，默认 chapter_path + '/' + clause_no；同文件内唯一"
+        },
+        {
+          "name": "clause_seq",
+          "type": "int",
+          "required": true,
+          "desc": "原文顺序号，从 1 起；用于 SPLIT/MERGED 判定与展示排序"
+        },
+        {
+          "name": "clause_topic",
+          "type": "enum",
+          "enum": "clause_topic",
+          "required": true,
+          "desc": "受控主题；OTHER 须在 notes 写理由"
+        },
+        {
+          "name": "applicable_subject",
+          "type": "array",
+          "type_item": "enum:applicable_subject",
+          "required": true,
+          "desc": "适用主体；空数组=未限定"
+        },
+        {
+          "name": "trade_type",
+          "type": "array",
+          "type_item": "string",
+          "required": false,
+          "desc": "交易品种：SPOT / MEDIUM_LONG / RETAIL / GREEN / CAPACITY"
+        },
+        {
+          "name": "time_scope_from",
+          "type": "date",
+          "required": false,
+          "desc": "条款生效区间起点（默认继承文件）"
+        },
+        {
+          "name": "time_scope_to",
+          "type": "date",
+          "required": false,
+          "desc": "条款生效区间终点（默认继承文件）"
+        },
+        {
+          "name": "text_raw",
+          "type": "string",
+          "required": true,
+          "desc": "原文逐字片段（不改写、不补标点）；PENDING_TRANSCRIPTION 时为空串"
+        },
+        {
+          "name": "text_norm",
+          "type": "string",
+          "required": true,
+          "desc": "NFKC + 空白折叠 + 全半角统一后的文本，仅供哈希与检索"
+        },
+        {
+          "name": "text_hash",
+          "type": "string",
+          "required": true,
+          "pattern": "^[0-9a-f]{64}$",
+          "desc": "sha256(text_norm)；改一个字即变"
+        },
+        {
+          "name": "char_count",
+          "type": "int",
+          "required": true,
+          "desc": "text_raw 字数"
+        },
+        {
+          "name": "page_ref",
+          "type": "string",
+          "required": false,
+          "desc": "页码/段落锚点，如 p.37 §2.7.1.1"
+        },
+        {
+          "name": "text_status",
+          "type": "enum",
+          "enum": "text_status",
+          "required": true,
+          "desc": "VERBATIM 才可被引用；PENDING_TRANSCRIPTION 只能出现在缺口清单"
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "required": false,
+          "desc": "缺口说明（如「原文待补，见 #53 U2」）"
+        }
+      ]
+    },
+    "d01_rule_clause_equiv": {
+      "title": "跨版本条款等价（人工确认后写）",
+      "primary_key": [
+        "old_clause_uid",
+        "new_clause_uid"
+      ],
+      "fields": [
+        {
+          "name": "old_clause_uid",
+          "type": "string",
+          "required": true,
+          "desc": "旧版本条款"
+        },
+        {
+          "name": "new_clause_uid",
+          "type": "string",
+          "required": true,
+          "desc": "新版本条款"
+        },
+        {
+          "name": "method",
+          "type": "enum",
+          "enum": [
+            "EXACT_TEXT",
+            "MANUAL"
+          ],
+          "required": true,
+          "desc": "EXACT_TEXT=系统按 text_hash 认定；MANUAL=人工确认"
+        },
+        {
+          "name": "confidence",
+          "type": "decimal",
+          "required": true,
+          "desc": "0–1；MANUAL 必须为 1"
+        },
+        {
+          "name": "approved_by",
+          "type": "string",
+          "required": false,
+          "desc": "人工确认人（MANUAL 必填）"
+        },
+        {
+          "name": "approved_at",
+          "type": "datetime",
+          "required": false,
+          "desc": "人工确认时间（MANUAL 必填）"
+        }
+      ]
+    },
+    "d01_rule_diff": {
+      "title": "规则版本差异（一次比对一行变化）",
+      "primary_key": [
+        "diff_id"
+      ],
+      "fields": [
+        {
+          "name": "diff_id",
+          "type": "string",
+          "required": true,
+          "desc": "sha256(old_doc_id|new_doc_id|clause_uid|change_type) 前 16 位"
+        },
+        {
+          "name": "old_doc_id",
+          "type": "string",
+          "required": true,
+          "desc": "旧版本"
+        },
+        {
+          "name": "new_doc_id",
+          "type": "string",
+          "required": true,
+          "desc": "新版本"
+        },
+        {
+          "name": "clause_uid",
+          "type": "string",
+          "required": true,
+          "desc": "变化条款（REPEALED 用旧版本 uid，ADDED 用新版本 uid）"
+        },
+        {
+          "name": "change_type",
+          "type": "enum",
+          "enum": "change_type",
+          "required": true,
+          "desc": "新增/修改/废止三类"
+        },
+        {
+          "name": "reason",
+          "type": "enum",
+          "enum": "change_reason",
+          "required": true,
+          "desc": "次级原因；DOC_REPEALED 表示整份文件被明文废止"
+        },
+        {
+          "name": "impact_areas",
+          "type": "array",
+          "type_item": "enum:impact_area",
+          "required": true,
+          "desc": "由 clause_topic 映射得到的业务影响域"
+        },
+        {
+          "name": "old_text_hash",
+          "type": "string",
+          "required": false,
+          "desc": "旧文本哈希（ADDED 为空）"
+        },
+        {
+          "name": "new_text_hash",
+          "type": "string",
+          "required": false,
+          "desc": "新文本哈希（REPEALED 为空）"
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "required": true,
+          "desc": "生成时间"
+        }
+      ]
+    },
+    "d01_rule_alert": {
+      "title": "规则变更提醒",
+      "primary_key": [
+        "alert_id"
+      ],
+      "fields": [
+        {
+          "name": "alert_id",
+          "type": "string",
+          "required": true,
+          "desc": "uuid/顺序号；一次性写入，不改"
+        },
+        {
+          "name": "trigger",
+          "type": "enum",
+          "enum": "alert_trigger",
+          "required": true,
+          "desc": "触发条件"
+        },
+        {
+          "name": "severity",
+          "type": "enum",
+          "enum": "severity",
+          "required": true,
+          "desc": "CRITICAL 必须人工确认"
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "required": true,
+          "desc": "相关文件版本"
+        },
+        {
+          "name": "due_date",
+          "type": "date",
+          "required": false,
+          "desc": "到期/生效日"
+        },
+        {
+          "name": "impact_areas",
+          "type": "array",
+          "type_item": "enum:impact_area",
+          "required": false,
+          "desc": "受影响业务域"
+        },
+        {
+          "name": "fingerprint",
+          "type": "string",
+          "required": true,
+          "desc": "sha256(trigger|doc_id|window|payload_hash)；同一指纹只提醒一次"
+        },
+        {
+          "name": "payload",
+          "type": "json",
+          "required": true,
+          "desc": "提醒正文所需最小事实（标题/文号/条款/链接）"
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "required": true,
+          "desc": "生成时间"
+        },
+        {
+          "name": "acked_by",
+          "type": "string",
+          "required": false,
+          "desc": "确认人"
+        },
+        {
+          "name": "acked_at",
+          "type": "datetime",
+          "required": false,
+          "desc": "确认时间"
+        }
+      ]
+    },
+    "d01_rule_qa_log": {
+      "title": "可追溯问答审计",
+      "primary_key": [
+        "qa_id"
+      ],
+      "fields": [
+        {
+          "name": "qa_id",
+          "type": "string",
+          "required": true,
+          "desc": "顺序号"
+        },
+        {
+          "name": "question",
+          "type": "string",
+          "required": true,
+          "desc": "原始问题"
+        },
+        {
+          "name": "as_of",
+          "type": "date",
+          "required": true,
+          "desc": "以哪一天为现行基准"
+        },
+        {
+          "name": "answer_status",
+          "type": "enum",
+          "enum": "answer_status",
+          "required": true,
+          "desc": "ANSWERED 必须有引用；其余必须写 refused_reason"
+        },
+        {
+          "name": "citation_uids",
+          "type": "array",
+          "type_item": "string",
+          "required": true,
+          "desc": "citation 的 clause_uid 列表"
+        },
+        {
+          "name": "refused_reason",
+          "type": "string",
+          "required": false,
+          "desc": "拒答/部分回答原因"
+        },
+        {
+          "name": "index_version",
+          "type": "string",
+          "required": true,
+          "desc": "检索索引版本"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "required": false,
+          "desc": "生成摘要所用模型；纯抽取时为 extractive"
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "required": true,
+          "desc": "记录时间"
+        }
+      ]
+    },
+    "d01_rule_index": {
+      "title": "检索索引元数据",
+      "primary_key": [
+        "index_version"
+      ],
+      "fields": [
+        {
+          "name": "index_version",
+          "type": "string",
+          "required": true,
+          "desc": "每次重建 +1"
+        },
+        {
+          "name": "built_at",
+          "type": "datetime",
+          "required": true,
+          "desc": "构建时间"
+        },
+        {
+          "name": "clause_count",
+          "type": "int",
+          "required": true,
+          "desc": "收录条款数（只收 VERBATIM）"
+        },
+        {
+          "name": "embedding_model",
+          "type": "string",
+          "required": false,
+          "desc": "向量模型；关键词检索为 null"
+        },
+        {
+          "name": "as_of_policy",
+          "type": "string",
+          "required": true,
+          "desc": "固定为 filter_by_status_at_query_time"
+        }
+      ]
+    }
+  },
+  "invariants": [
+    "doc_id 一版本一行；任何字段变更产生新 doc_id，旧行永久保留",
+    "status 列只是最近核验值；一切对外状态由 resolve_status(doc, as_of) 计算：DRAFT（尚未施行）→ ACTIVE（effective_from ≤ as_of ≤ effective_to 或未设终点）→ EXPIRED（as_of > effective_to）→ SUPERSEDED（superseded_by 已生效）",
+    "status=ACTIVE/SUPERSEDED/EXPIRED 时 url、accessed_date 必填且 evidence_status≠UNVERIFIED",
+    "doc_no 为空时 evidence_status 必须为 PARTIAL 且 notes 写明「待客户确认（Q01）」",
+    "effective_to ≥ effective_from；effective_to 为最后有效日（含当日）",
+    "clause_uid 全局唯一；clause_key 在同一 doc_id 内唯一",
+    "text_hash = sha256(text_norm)；text_norm = NFKC(text_raw) 去零宽字符、空白折叠为单空格、去首尾空白",
+    "text_status=VERBATIM 时 text_raw 非空且 page_ref 非空；PENDING_TRANSCRIPTION 时 text_raw 必须为空串，且不得被引用/检索",
+    "clause_count = 该 doc_id 的 clause 行数",
+    "supersedes_doc_id 链无环；repeals 中的 doc_id 必须存在且不得自指",
+    "diff 的 change_type 只有 ADDED/MODIFIED/REPEALED；文档级废止用 REPEALED+DOC_REPEALED",
+    "alert fingerprint 相同则不重复写；CRITICAL 未确认前不得静默消失"
+  ],
+  "qa_contract": {
+    "required_citation_fields": [
+      "title",
+      "clause_no",
+      "version_label",
+      "effective_from",
+      "quote"
+    ],
+    "additional_citation_fields": [
+      "doc_no",
+      "doc_id",
+      "clause_uid",
+      "text_hash",
+      "source_url",
+      "accessed_date",
+      "evidence_status",
+      "status_at_as_of"
+    ],
+    "citation_string": "〔{title}〕{doc_no_or_文号待补} {chapter_path}{clause_no}（{version_label}，{effective_from}）",
+    "rules": [
+      "ANSWERED 至少一条 citation；citation.quote 必须逐字出现在 clause.text_raw 中",
+      "PENDING_TRANSCRIPTION / DRAFT / EXPIRED 条款不得出现在 citation 中（历史模式除外）",
+      "answer_text 只能是引用原文的抽取拼接，或明确标注「摘要」且与 quote 分栏展示",
+      "无匹配条款时返回 INSUFFICIENT_EVIDENCE，不得给出条款号或文号",
+      "问题超出规则库主题时返回 OUT_OF_SCOPE"
+    ]
+  },
+  "diff_contract": {
+    "match_order": [
+      "同键同文：未变化，直接配对",
+      "跨键同文：RENUMBERED（改序号/搬章节），人工等价表优先",
+      "同键但文本不同：相似度 ≥0.45 判 TEXT_EDIT，否则不配对",
+      "剩余旧条款 REPEALED / 剩余新条款 ADDED"
+    ],
+    "doc_repeal": "new.repeals 含 old.doc_id 时，所有未匹配旧条款 reason=DOC_REPEALED；否则 reason=OMITTED",
+    "impact_map": {
+      "SETTLEMENT_PERIOD": [
+        "SETTLEMENT"
+      ],
+      "SETTLEMENT_ENERGY": [
+        "SETTLEMENT"
+      ],
+      "SETTLEMENT_PRICE": [
+        "SETTLEMENT",
+        "TRADE"
+      ],
+      "RETAIL_MARGIN": [
+        "RETAIL",
+        "SETTLEMENT"
+      ],
+      "DEVIATION_ASSESSMENT": [
+        "RETAIL",
+        "SETTLEMENT"
+      ],
+      "RETRO_ADJUSTMENT": [
+        "SETTLEMENT"
+      ],
+      "OPERATION_COMPENSATION": [
+        "SETTLEMENT"
+      ],
+      "DEVIATION_REFUND": [
+        "SETTLEMENT"
+      ],
+      "PEAK_PERIOD": [
+        "TRADE",
+        "SETTLEMENT"
+      ],
+      "PEAK_UPLIFT": [
+        "TRADE",
+        "SETTLEMENT"
+      ],
+      "PRICE_CAP_FLOOR": [
+        "TRADE",
+        "SETTLEMENT"
+      ],
+      "NEGATIVE_PRICE": [
+        "TRADE",
+        "SETTLEMENT"
+      ],
+      "GREEN_ENV_VALUE": [
+        "TRADE",
+        "RETAIL"
+      ],
+      "PERFORMANCE_GUARANTEE": [
+        "CREDIT"
+      ],
+      "INFORMATION_DISCLOSURE": [
+        "DISCLOSURE"
+      ],
+      "TRADING_CALENDAR": [
+        "TRADE"
+      ],
+      "VALIDITY": [
+        "DISCLOSURE"
+      ],
+      "REGISTRATION": [
+        "CREDIT"
+      ],
+      "BACKSTOP_RETAIL": [
+        "RETAIL"
+      ],
+      "OTHER": []
+    }
+  },
+  "alert_contract": {
+    "windows": {
+      "EXPIRING_SOON": [
+        "8-30 天=T30",
+        "2-7 天=T7",
+        "0-1 天=T1"
+      ],
+      "EFFECTIVE_SOON": [
+        "8-30 天=T30",
+        "2-7 天=T7",
+        "0-1 天=T1"
+      ]
+    },
+    "severity": {
+      "EXPIRING_SOON": {
+        "T30": "WARN",
+        "T7": "CRITICAL",
+        "T1": "CRITICAL"
+      },
+      "EFFECTIVE_SOON": {
+        "T30": "INFO",
+        "T7": "WARN",
+        "T1": "WARN"
+      },
+      "NEW_ACTIVE_DOC": "INFO",
+      "STATUS_CHANGED": "WARN",
+      "DIFF_IMPACT": "WARN"
+    },
+    "channels": [
+      "规则中心收件箱",
+      "交易主管",
+      "风控人员",
+      "结算人员"
+    ],
+    "dedupe": "fingerprint = sha256(trigger|doc_id|window|stable_payload)；时间窗口类 stable_payload 只取 title/doc_no/version，避免 days_left 变化导致重复；同一指纹只投递一次"
+  }
+}

@@ -1,0 +1,14 @@
+规则知识库参考实现自检（#54）
+命令: python -X utf8 reference_rulekb.py --verify
+样例: 8 份文件 / 16 条条款
+
+E1 PASS schema 与不变量校验：
+E2 PASS 引用五要素可往返：
+E3 PASS as-of 现行版本判定：
+E4 PASS 差异三类齐全：
+E5 PASS 改序号识别：
+E6 PASS 问答拒答/逐字/篡改拦截：
+E7 PASS 提醒窗口与去重：
+E8 PASS Q01 缺口标注且不引用：
+
+结论: 8 / 8 项 PASS
