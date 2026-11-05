@@ -1,0 +1,14 @@
+settlement-replay 自检 v1.0.0  schema=ACTIVE
+E1 PASS  19 科目 / 9 公式族 / 14 差异类
+E2 PASS  CURVE 5376 / EQUAL_MONTH_DAY 1200 / 最大余数 0.334+0.333+0.333
+E3 PASS  2026-02-01 合同 192MWh/76800 元；合同外 48MWh/16800 元
+E4 PASS  13 科目；批发 3793290.28 / 零售 3360000.00 / 毛利 -433290.28
+E5 PASS  官方样例 0 差异；双方合计 7489290.28；覆盖 28/28
+E6 PASS  空 CONFIRMED 拒绝；零容差 PASS；超差 FAIL
+E7 PASS  数量/价格/公式/一致/未映射/缺失六类均可判定
+E8 PASS  25% 偏差 ±6500；10% 免考核；零合同 BLOCK
+E9 PASS  线损 108186.28；绿电 336000 为 R_ENERGY 子集；毛利恒等式残差 0
+E10 PASS  两次运行 input/output digest 相同；报告合计自洽
+E11 PASS  缺日 27/28 → DATA_INCOMPLETE；未映射科目 → FAIL
+E12 PASS  唯一有效/as_of 边界/缺失/重叠/可选缺失均符合
+RESULT ALL PASS  (12/12)

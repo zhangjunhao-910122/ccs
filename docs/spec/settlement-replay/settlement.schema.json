@@ -1,0 +1,695 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ccs.local/spec/settlement-replay/settlement.schema.json",
+  "title": "结算复现与对账口径 v1.0",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "date": "2026-11-05",
+  "ticket": "55",
+  "map": "22",
+  "description": "M03 结算复现中心的机器可读执行口径：科目目录、公式族、曲线分解、匹配、容差、差异分类、报告结构与参数注册表。",
+  "principles": [
+    "复现不是重新定价：用当时有效的规则参数重算同一批事实。",
+    "每一分钱必须落到科目、时段、数量、价格、规则出处五项；落不进去的钱不进报表。",
+    "数量守恒、金额守恒、符号一致；分项之和必须等于总额。",
+    "缺失不补零、不插值；无法解释的差异不是容差，是缺陷。",
+    "容差是双方确认的验收参数，不是系统可调的误差吸收器。",
+    "同一输入必须得到同一输出：Decimal、固定排序、幂等、可哈希。"
+  ],
+  "axioms": {
+    "S-A1": "单一账本：同一主体同一期间只有一套复现账；内部科目与官方科目通过显式映射表连接。",
+    "S-A2": "时间切片：规则参数、合同版本、账单版本都按 as_of 解析，禁止用未来版本重算历史。",
+    "S-A3": "守恒：分项金额之和等于总额；合同曲线分解前后电量相等；批零毛利分解残差为零。",
+    "S-A4": "可追溯：每条结算行可回到规则文件+条款+版本+参数集+原始批次。",
+    "S-A5": "差异必分类：UNEXPLAINED 数量必须为 0 才可能 PASS。",
+    "S-A6": "只读复现：引擎不写回 D09/D10 历史数据，只产出派生结果与报告。"
+  },
+  "scope": {
+    "subject_scope": "COMPANY",
+    "subject_scope_note": "官方日清/月结按单一售电公司口径复现；用户/合同层为内部推导层，不假设官方账单提供用户维度。Q02 样本若显示官方分用户，按扩展票处理。",
+    "period": {
+      "daily": "自然日 00:00–24:00，24 个小时时段（#26）",
+      "monthly": "自然月；结算周期可由 settlement_period 参数化，但默认自然月（#26 T10）",
+      "energy_date": "按 interval_start 归属（#26 T9）",
+      "settle_date": "不用于反推 energy_date（#26 T10）"
+    },
+    "out_of_scope": [
+      "年度清算（次年 2 月底前）不在首期；只做日清与月结。",
+      "发票、税务申报、资金支付不进入复现账。",
+      "自动申报与真实交易写入不进入本规格（A12）。"
+    ]
+  },
+  "item_catalog": [
+    {
+      "code": "W_CONTRACT",
+      "title": "中长期合同电能量电费",
+      "direction": "BUY",
+      "cadence": "DAILY",
+      "family": "DIRECT",
+      "inputs": [
+        "q_contract",
+        "p_contract"
+      ],
+      "expression": "q_contract × p_contract",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "notes": "按合同曲线分解后的日/时段电量与合同价计算；购电成本为正。"
+    },
+    {
+      "code": "W_SPOT_REF",
+      "title": "现货参考价电费（合同外电量）",
+      "direction": "BUY",
+      "cadence": "DAILY",
+      "family": "SPOT_RESIDUAL",
+      "inputs": [
+        "q_actual",
+        "q_contract",
+        "p_ref"
+      ],
+      "expression": "(q_actual − q_contract) × p_ref",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "exclusive_group": "SPOT_BASIS",
+      "notes": "合同外电量按结算参考点价结算；与 W_SPOT_DA + W_SPOT_RT 互斥。"
+    },
+    {
+      "code": "W_SPOT_DA",
+      "title": "日前市场电费",
+      "direction": "BUY",
+      "cadence": "DAILY",
+      "family": "DIRECT",
+      "inputs": [
+        "q_da",
+        "p_da"
+      ],
+      "expression": "q_da × p_da",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "exclusive_group": "SPOT_BASIS",
+      "notes": "两结算制选项；使用后必须同时使用 W_SPOT_RT。"
+    },
+    {
+      "code": "W_SPOT_RT",
+      "title": "实时偏差电费",
+      "direction": "BUY",
+      "cadence": "DAILY",
+      "family": "SPOT_RT",
+      "inputs": [
+        "q_actual",
+        "q_da",
+        "p_rt"
+      ],
+      "expression": "(q_actual − q_da) × p_rt",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "exclusive_group": "SPOT_BASIS",
+      "notes": "两结算制的实时偏差；与 W_SPOT_REF 互斥。"
+    },
+    {
+      "code": "W_CONTRACT_DIFF",
+      "title": "中长期差价电费",
+      "direction": "BUY",
+      "cadence": "DAILY",
+      "family": "CONTRACT_DIFF",
+      "inputs": [
+        "q_contract",
+        "p_contract",
+        "p_ref"
+      ],
+      "expression": "q_contract × (p_contract − p_ref)",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "exclusive_group": "SPOT_BASIS",
+      "notes": "差价结算选项；与 W_CONTRACT + W_SPOT_REF 的组合等价，二者只能选一组。"
+    },
+    {
+      "code": "W_LOSS",
+      "title": "上网环节线损费用",
+      "direction": "BUY",
+      "cadence": "MONTHLY",
+      "family": "DIRECT",
+      "inputs": [
+        "q_contract",
+        "p_contract",
+        "loss_rate"
+      ],
+      "expression": "q_contract × p_contract × loss_rate ÷ (1 − loss_rate)",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "notes": "线损率必须来自当期有效规则/价格文件；2024 年 4.79% 仅作样例，不得默认使用。"
+    },
+    {
+      "code": "W_TRANSMISSION",
+      "title": "输配电费",
+      "direction": "BUY",
+      "cadence": "MONTHLY",
+      "family": "DIRECT",
+      "inputs": [
+        "q_actual",
+        "transmission_price"
+      ],
+      "expression": "q_actual × transmission_price",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "notes": "按用户电压等级/用电类别取价；参数集按类别拆分。"
+    },
+    {
+      "code": "W_SYSTEM",
+      "title": "系统运行费",
+      "direction": "BUY",
+      "cadence": "MONTHLY",
+      "family": "DIRECT",
+      "inputs": [
+        "q_actual",
+        "system_price"
+      ],
+      "expression": "q_actual × system_price",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true
+    },
+    {
+      "code": "W_GOV_FUND",
+      "title": "政府性基金及附加",
+      "direction": "BUY",
+      "cadence": "MONTHLY",
+      "family": "DIRECT",
+      "inputs": [
+        "q_actual",
+        "gov_fund_price"
+      ],
+      "expression": "q_actual × gov_fund_price",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true
+    },
+    {
+      "code": "W_SHARE",
+      "title": "保障居民农业用电新增损益分摊或分享",
+      "direction": "BUY",
+      "cadence": "MONTHLY",
+      "family": "ALLOCATION",
+      "inputs": [
+        "pool_amount",
+        "share_ratio"
+      ],
+      "expression": "pool_amount × share_ratio（可正可负）",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "notes": "分摊池、比例与正负号由规则/结算依据给出；单行表示本公司占比时 0≤ratio≤1，同一分摊池拆给多个收款方时各比例合计必须为 1（容差 1e-6）。"
+    },
+    {
+      "code": "W_DEVIATION",
+      "title": "偏差考核费",
+      "direction": "BUY",
+      "cadence": "MONTHLY",
+      "family": "TIERED",
+      "inputs": [
+        "q_actual",
+        "q_contract",
+        "tiers",
+        "basis"
+      ],
+      "expression": "Σ tier_energy × tier_rate，偏差率=(q_actual−q_contract)/q_contract",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "notes": "分段阈值与费率全部来自当期规则；q_contract=0 时不得猜分母，必须 BLOCK。现货期间可能叠加总电量与分时段考核，按 basis 参数化。"
+    },
+    {
+      "code": "W_ANCILLARY",
+      "title": "辅助服务费",
+      "direction": "BUY",
+      "cadence": "MONTHLY",
+      "family": "DIRECT",
+      "inputs": [
+        "q_actual",
+        "ancillary_price"
+      ],
+      "expression": "q_actual × ancillary_price",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true
+    },
+    {
+      "code": "W_MARKET_FEE",
+      "title": "市场运营费",
+      "direction": "BUY",
+      "cadence": "MONTHLY",
+      "family": "DIRECT",
+      "inputs": [
+        "q_actual",
+        "market_fee_price"
+      ],
+      "expression": "q_actual × market_fee_price",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true
+    },
+    {
+      "code": "R_ENERGY",
+      "title": "零售电能量收入",
+      "direction": "SELL",
+      "cadence": "MONTHLY",
+      "family": "DIRECT",
+      "inputs": [
+        "q_user_month",
+        "retail_price"
+      ],
+      "expression": "Σ_user q_user_month × retail_price_user",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true
+    },
+    {
+      "code": "R_RETAIL_DEVIATION",
+      "title": "零售偏差考核收入",
+      "direction": "SELL",
+      "cadence": "MONTHLY",
+      "family": "TIERED",
+      "inputs": [
+        "q_user_month",
+        "q_user_contract",
+        "tiers"
+      ],
+      "expression": "Σ_user Σ_tier tier_energy × tier_rate",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "notes": "零售套餐自约偏差条款；未约定则不计算，不得套用批发偏差阈值。"
+    },
+    {
+      "code": "R_GREEN_ENERGY",
+      "title": "绿电电能量收入（分解项）",
+      "direction": "SELL",
+      "cadence": "MONTHLY",
+      "family": "GREEN_SPLIT",
+      "inputs": [
+        "q_green",
+        "p_green_energy"
+      ],
+      "expression": "q_green × p_green_energy",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": false,
+      "memo_of": "R_ENERGY",
+      "notes": "R_ENERGY 的分解项，不重复计入总收入；环境价值单列。"
+    },
+    {
+      "code": "R_GREEN_ENV",
+      "title": "绿电环境价值收入（分解项）",
+      "direction": "SELL",
+      "cadence": "MONTHLY",
+      "family": "GREEN_SPLIT",
+      "inputs": [
+        "q_green",
+        "p_green_env"
+      ],
+      "expression": "q_green × p_green_env",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": false,
+      "memo_of": "R_ENERGY",
+      "notes": "环境价值不纳入峰谷分时电价与力调电费计算（1656 号文第三十三条）。"
+    },
+    {
+      "code": "A_RETRO",
+      "title": "追退补",
+      "direction": "SIGNED",
+      "cadence": "MONTHLY",
+      "family": "RETRO",
+      "inputs": [
+        "recomputed_amount",
+        "settled_amount"
+      ],
+      "expression": "recomputed_amount − settled_amount",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true,
+      "notes": "必须带 related_month 与 retro_seq；电量差错追溯期原则上不跨年。"
+    },
+    {
+      "code": "A_OTHER_ALLOC",
+      "title": "其他分摊/返还",
+      "direction": "SIGNED",
+      "cadence": "MONTHLY",
+      "family": "ALLOCATION",
+      "inputs": [
+        "pool_amount",
+        "share_ratio"
+      ],
+      "expression": "pool_amount × share_ratio（正=成本，负=返还）",
+      "official_map_status": "PENDING_Q02",
+      "included_in_totals": true
+    }
+  ],
+  "exclusive_groups": {
+    "SPOT_BASIS": {
+      "choose": [
+        "W_SPOT_REF",
+        "W_SPOT_DA+W_SPOT_RT",
+        "W_CONTRACT_DIFF"
+      ],
+      "rule": "同一期间只能启用一组现货结算口径；混用即 BLOCK。W_CONTRACT_DIFF 与 W_CONTRACT 不可同时启用。"
+    }
+  },
+  "formula_families": {
+    "DIRECT": {
+      "expression": "amount = q × p",
+      "inputs": [
+        "q",
+        "p"
+      ],
+      "notes": "数量×价格；q 与 p 必须同期间、同主体、同科目。"
+    },
+    "SPOT_RESIDUAL": {
+      "expression": "amount = (q_actual − q_contract) × p_ref",
+      "inputs": [
+        "q_actual",
+        "q_contract",
+        "p_ref"
+      ],
+      "notes": "合同外电量按参考点价；允许 q_actual < q_contract 产生负电量（回购），符号保留。"
+    },
+    "SPOT_RT": {
+      "expression": "amount = (q_actual − q_da) × p_rt",
+      "inputs": [
+        "q_actual",
+        "q_da",
+        "p_rt"
+      ]
+    },
+    "CONTRACT_DIFF": {
+      "expression": "amount = q_contract × (p_contract − p_ref)",
+      "inputs": [
+        "q_contract",
+        "p_contract",
+        "p_ref"
+      ]
+    },
+    "TIERED": {
+      "expression": "r = (q_actual − q_contract) / q_contract; amount = Σ tier_energy × tier_rate",
+      "inputs": [
+        "q_actual",
+        "q_contract",
+        "tiers",
+        "basis"
+      ],
+      "tier_shape": {
+        "lower": "比率下界（含）",
+        "upper": "比率上界（不含；null=无上界）",
+        "rate": "元/MWh"
+      },
+      "rules": [
+        "q_contract = 0 且 q_actual ≠ 0 → BLOCK ZERO_CONTRACT_DENOMINATOR，不猜。",
+        "r < 0 时按绝对值查分段，费率符号由规则给出；不默认对称。",
+        "分段电量按边界计算，最后一段吸收全部剩余；分段金额不中间舍入。"
+      ]
+    },
+    "ALLOCATION": {
+      "expression": "amount = pool_amount × share_ratio",
+      "inputs": [
+        "pool_amount",
+        "share_ratio"
+      ],
+      "rules": [
+        "同一分摊池的多行分摊比例合计必须为 1（1e-6 容差），单行表示本公司占比时 0≤ratio≤1；残差按最大余数法归到 0.01 元。"
+      ]
+    },
+    "GREEN_SPLIT": {
+      "expression": "green_total = q_green × (p_energy + p_env)",
+      "inputs": [
+        "q_green",
+        "p_green_energy",
+        "p_green_env"
+      ],
+      "rules": [
+        "green_total 必须已包含在 R_ENERGY 中；环境价值单列，不重复计入总收入。"
+      ]
+    },
+    "RETRO": {
+      "expression": "amount = recomputed_amount − settled_amount",
+      "inputs": [
+        "recomputed_amount",
+        "settled_amount",
+        "related_month",
+        "retro_seq"
+      ],
+      "rules": [
+        "related_month 必填；跨自然年原则上 BLOCK（规则例外需审批记录）。",
+        "retro_seq=0 为原单，>0 为调整；不得覆盖原单。"
+      ]
+    },
+    "MARGIN": {
+      "expression": "gross_margin = retail_revenue − wholesale_cost + adjustment",
+      "inputs": [
+        "retail_revenue",
+        "wholesale_cost",
+        "adjustment"
+      ],
+      "rules": [
+        "按用户/科目分解的毛利之和必须等于总额，残差 0.00 元。"
+      ]
+    }
+  },
+  "totals": {
+    "T_WHOLESALE_COST": {
+      "include_direction": "BUY",
+      "exclude_memo": true,
+      "formula": "Σ item.amount (direction=BUY, included_in_totals=true)"
+    },
+    "T_RETAIL_REVENUE": {
+      "include_direction": "SELL",
+      "exclude_memo": true,
+      "formula": "Σ item.amount (direction=SELL, included_in_totals=true)"
+    },
+    "T_ADJUSTMENT": {
+      "include_codes": [
+        "A_RETRO",
+        "A_OTHER_ALLOC"
+      ],
+      "formula": "Σ signed amounts"
+    },
+    "T_GROSS_MARGIN": {
+      "formula": "T_RETAIL_REVENUE − T_WHOLESALE_COST + T_ADJUSTMENT"
+    }
+  },
+  "contract_decomposition": {
+    "modes": [
+      {
+        "code": "CURVE",
+        "priority": 1,
+        "rule": "D05.curve_json 显式给出日/时段电量时直接使用；曲线合计必须等于合同总电量（0.001 MWh 容差）。"
+      },
+      {
+        "code": "EQUAL_MONTH_DAY",
+        "priority": 2,
+        "rule": "只有月度电量时，按自然月天数均分到日；余数按最大余数法（0.001 MWh）分配，日期升序破平。"
+      },
+      {
+        "code": "EQUAL_SLOT",
+        "priority": 3,
+        "rule": "只有日电量时，按 24 时段均分；余数按最大余数法分配，slot_no 升序破平。必须置 assumption=EQUAL_SLOT、quality=ESTIMATED。"
+      }
+    ],
+    "conservation": "分解前后电量必须相等，误差 ≤ 0.001 MWh；否则 BLOCK CURVE_NOT_CONSERVED。",
+    "quantum_mwh": "0.001",
+    "tie_break": [
+      "business_date ASC",
+      "slot_no ASC"
+    ],
+    "no_negative_energy": true
+  },
+  "matching": {
+    "wholesale_basis": "CONTRACT_ONLY",
+    "wholesale_basis_enum": [
+      "CONTRACT_ONLY",
+      "TRADE_ONLY",
+      "CONTRACT_PLUS_UNLINKED_TRADES"
+    ],
+    "trade_contract_link": {
+      "table": "position_link",
+      "key": [
+        "contract_id",
+        "version",
+        "trade_id"
+      ],
+      "link_type_enum": [
+        "EXECUTION",
+        "OFFSET",
+        "NONE"
+      ],
+      "rule": "D05 合同与 D08 成交只能显式链接；禁止按日期/电量/对手方隐式匹配。未链接的成交进入差异报告 UNLINKED_TRADE，不静默净额。"
+    },
+    "user_allocation": {
+      "rule": "D04 用户负荷按 D03 计量点归属汇总；同一计量点跨用户必须唯一；重复归属 BLOCK。",
+      "loss_boundary": "默认按零售用户计量边界；若官方按关口结算，需 loss_boundary=GATEWAY 并显式做线损毛增，Q02 确认前不得切换。"
+    },
+    "unmatched_policy": "BLOCK"
+  },
+  "rounding": {
+    "decimal_context": {
+      "prec": 28,
+      "rounding": "ROUND_HALF_UP"
+    },
+    "energy_mwh": "0.001",
+    "price": "0.0001",
+    "amount": "0.01",
+    "ratio": "0.000001",
+    "policy": "中间计算不舍入；科目行金额最后舍入到 0.01；总额由已舍入行相加，不二次舍入。",
+    "allocation_remainder": "最大余数法，按 key 升序破平；残差必须为 0.00。"
+  },
+  "tolerance": {
+    "status": "PENDING_Q03",
+    "representative_months": [],
+    "confirmed_by": [],
+    "profiles": {
+      "EXACT": {
+        "status": "EXACT",
+        "energy_mwh": "0.000",
+        "amount": "0.00",
+        "ratio": "0.000000",
+        "rule": "零容差；用于自检与公式单测，不用于 A03 验收。"
+      },
+      "PROVISIONAL": {
+        "status": "PROVISIONAL",
+        "energy_mwh": "0.001",
+        "amount": "0.01",
+        "ratio": "0.0001",
+        "rule": "系统建议值，仅用于内部预检；不得据此宣布 A03 通过。"
+      },
+      "CONFIRMED": {
+        "status": "PENDING_Q03",
+        "energy_mwh": null,
+        "amount": null,
+        "ratio": null,
+        "confirmed_by": [],
+        "effective_from": null,
+        "rule": "由双方在 Q03 中书面确认后写入；系统不得自行放宽。"
+      }
+    },
+    "pass_rule": "只有 profile=CONFIRMED、representative_month_confirmed=true 且 unexplained_count=0 时，A03 才可为 PASS；PROVISIONAL 最多 PROVISIONAL_PASS。"
+  },
+  "diff_categories": {
+    "MISSING_OFFICIAL": "内部有、官方无该科目/时段行",
+    "MISSING_INTERNAL": "官方有、内部无该科目/时段行",
+    "QUANTITY_DIFF": "数量差异（电量/计量）",
+    "PRICE_DIFF": "价格差异（合同价/参考价/单价）",
+    "PARAMETER_VERSION": "参数版本或生效期错配",
+    "FORMULA_DIFF": "公式族/结算方式选择错配",
+    "ROUNDING": "舍入差异（≤ 最小货币单位×行数）",
+    "TIMING": "归属日/时段/结算日错配",
+    "ALLOCATION": "分摊比例或分摊池差异",
+    "UNMAPPED_ITEM": "官方科目未映射到内部科目",
+    "OFFICIAL_ADJUSTMENT": "官方追退补/更正导致",
+    "UNLINKED_TRADE": "成交未与合同显式链接",
+    "OFFICIAL_QUALITY": "官方行质量标识非 OK/ESTIMATED",
+    "UNEXPLAINED": "无法归类（必须为 0）"
+  },
+  "official_subject_map": {
+    "status": "PENDING_Q02",
+    "rule": "官方 subject_code 与内部 item_code 的映射必须逐条确认；未映射的官方科目产生 UNMAPPED_ITEM 差异并阻止 PASS，不得忽略或丢行。",
+    "entries": []
+  },
+  "parameter_registry": {
+    "as_of_rule": "按 (code, as_of) 解析唯一有效版本；valid_from ≤ as_of ≤ valid_to（两端均含当日），生效期重叠即 BLOCK。",
+    "required_fields": [
+      "code",
+      "value",
+      "unit",
+      "rule_doc_id",
+      "clause_no",
+      "doc_version",
+      "effective_from",
+      "effective_to",
+      "source_url"
+    ],
+    "missing_policy": "BLOCK MISSING_PARAMETER；禁止默认值。",
+    "overlap_policy": "BLOCK PARAMETER_OVERLAP。",
+    "synthetic_policy": "样例/演示参数必须标 evidence=SYNTHETIC，不得进入生产参数集。"
+  },
+  "quality_gate": {
+    "usable_quality": [
+      "OK",
+      "ESTIMATED"
+    ],
+    "blocked_quality": [
+      "PARTIAL",
+      "SUSPECT",
+      "MISSING"
+    ],
+    "coverage_threshold": "0.99",
+    "rule": "可用行覆盖率 < 99% 时 run_status=DATA_INCOMPLETE，不进入容差判定；官方行质量非可用时记 OFFICIAL_QUALITY。"
+  },
+  "run_artifact": {
+    "required_fields": [
+      "run_id",
+      "subject_scope",
+      "period_start",
+      "period_end",
+      "energy_month",
+      "engine_version",
+      "schema_version",
+      "parameter_set_id",
+      "parameter_set_digest",
+      "input_digest",
+      "output_digest",
+      "tolerance_profile",
+      "representative_month_confirmed",
+      "run_status",
+      "summary",
+      "diffs",
+      "totals",
+      "margin",
+      "green",
+      "reproducibility"
+    ],
+    "run_status_enum": [
+      "PASS",
+      "PROVISIONAL_PASS",
+      "FAIL",
+      "BLOCKED",
+      "DATA_INCOMPLETE"
+    ],
+    "summary_required": [
+      "internal_total",
+      "official_total",
+      "delta",
+      "diff_count",
+      "explained_count",
+      "unexplained_count",
+      "within_tolerance",
+      "max_abs_delta"
+    ],
+    "diff_required": [
+      "period",
+      "slot_no",
+      "item_code",
+      "official_subject_code",
+      "internal_amount",
+      "official_amount",
+      "delta",
+      "category",
+      "evidence",
+      "action"
+    ],
+    "report_sections": [
+      "差异项",
+      "原因",
+      "影响",
+      "处理建议"
+    ],
+    "no_writeback": true
+  },
+  "interfaces": {
+    "storage": "#25 的 d09_daily_settlement/d10_monthly_settlement 只读；复现结果写派生表 settlement_run/settlement_line/settlement_diff。",
+    "api": "#46 查询与导出；复现触发走 Agent 工具 settlement_review.reproduce_day/reproduce_month（SIMULATE），不新增写业务数据的 API。",
+    "downstream": {
+      "56": "头寸/覆盖率用合同曲线与结算电量复算，不另造口径。",
+      "57": "自动结算复用本引擎，仅替换参数集与场景输入。",
+      "59": "毛利分解与 R_* 科目对齐；零售月度口径不与 15 分钟现货混算。",
+      "61": "A03 判定读 run_artifact：CONFIRMED 容差 + 代表月 + unexplained=0。",
+      "64": "按本规格实现引擎与报告。"
+    }
+  },
+  "fog": [
+    "Q03：容差数值与代表月份未确认；CONFIRMED 档位空着。",
+    "Q02：官方账单科目表、账单格式、价税口径、是否分用户/计量点未确认。",
+    "2026 年现行偏差考核阈值与费率未取得；2024 年 ±10/15/20% 与 0.01/0.02/0.1 元每千瓦时只能作样例。",
+    "现行综合线损率、用户侧结算边界（零售计量点 vs 关口）未确认。",
+    "现货差价/差量与参考点（日前/实时）选择未在规则库中锁定。",
+    "绿电环境价值的价格来源与凭证核销方式未确认。",
+    "辅助服务费、系统运行费、居民农业分摊的实际科目编码与分摊池未确认。",
+    "跨年追退补的例外审批路径未确认。"
+  ]
+}
