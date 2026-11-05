@@ -1,0 +1,372 @@
+{
+  "registry_version": "1.0.0",
+  "sources": [
+    {
+      "source_id": "SRC-INT-RULE-PDF",
+      "title": "市场规则文件（人工下载 PDF）",
+      "channel": "INTERNAL",
+      "transport": "FILE",
+      "availability": {
+        "since_stage": "S1",
+        "anonymous": false
+      },
+      "datasets": [
+        "D01"
+      ],
+      "sensitivity": "PUBLIC",
+      "cadence": "ONCE",
+      "mapping": {
+        "template_fingerprint": "sha256:rule-pdf-v1",
+        "time_basis": "interval_end",
+        "unit_map": {},
+        "columns": {
+          "文号": "doc_no",
+          "标题": "title",
+          "发布机构": "issuer",
+          "发布日期": "publish_date",
+          "实施日期": "effective_from"
+        }
+      },
+      "capabilities": [
+        "READ"
+      ],
+      "writes_to_trading_system": false,
+      "failure_policy": {
+        "on_block": "QUARANTINE_BATCH",
+        "max_retries": 0,
+        "backoff_seconds": [],
+        "alert": "WARN"
+      },
+      "owner": "交易经理",
+      "registry_version": "1.0.0",
+      "lifecycle": "ACTIVE",
+      "notes": "规则库随发布人工归档；正文与条款抽取在后续票。"
+    },
+    {
+      "source_id": "SRC-INT-USER-XLSX",
+      "title": "用户主数据（营销系统导出 Excel）",
+      "channel": "INTERNAL",
+      "transport": "FILE",
+      "availability": {
+        "since_stage": "S1",
+        "anonymous": false
+      },
+      "datasets": [
+        "D02"
+      ],
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "cadence": "WEEKLY",
+      "mapping": {
+        "template_fingerprint": "sha256:user-xlsx-v1",
+        "time_basis": "interval_end",
+        "unit_map": {},
+        "columns": {
+          "用户编号": "user_id",
+          "行业": "industry_code",
+          "区域": "region_code",
+          "电压等级": "voltage_level",
+          "合同容量kW": "contract_capacity_kw"
+        },
+        "pending_confirmation": [
+          "industry_code"
+        ]
+      },
+      "capabilities": [
+        "READ"
+      ],
+      "writes_to_trading_system": false,
+      "failure_policy": {
+        "on_block": "QUARANTINE_BATCH",
+        "max_retries": 0,
+        "backoff_seconds": [],
+        "alert": "ERROR"
+      },
+      "owner": "市场部数据管理员",
+      "registry_version": "1.0.0",
+      "lifecycle": "ACTIVE"
+    },
+    {
+      "source_id": "SRC-INT-LOAD-XLSX",
+      "title": "用户 15 分钟负荷导出（按日）",
+      "channel": "INTERNAL",
+      "transport": "FILE",
+      "availability": {
+        "since_stage": "S1",
+        "anonymous": false
+      },
+      "datasets": [
+        "D04"
+      ],
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "cadence": "DAILY",
+      "mapping": {
+        "template_fingerprint": "sha256:load-xlsx-v1",
+        "time_basis": "interval_end",
+        "unit_map": {
+          "kWh": "MWh"
+        },
+        "columns": {
+          "用户编号": "user_id",
+          "日期": "business_date",
+          "时段": "slot_no",
+          "电量kWh": "energy_mwh",
+          "时标": "interval_start"
+        }
+      },
+      "capabilities": [
+        "READ"
+      ],
+      "writes_to_trading_system": false,
+      "failure_policy": {
+        "on_block": "QUARANTINE_BATCH",
+        "max_retries": 3,
+        "backoff_seconds": [
+          30,
+          120,
+          600
+        ],
+        "alert": "ERROR"
+      },
+      "owner": "计量专责",
+      "registry_version": "1.0.0",
+      "lifecycle": "ACTIVE",
+      "notes": "15 分钟源数据，入库时按 #26 T5 聚成小时主栅格。"
+    },
+    {
+      "source_id": "SRC-INT-SETTLE-CSV",
+      "title": "日清数据（交易中心导出 CSV）",
+      "channel": "INTERNAL",
+      "transport": "FILE",
+      "availability": {
+        "since_stage": "S1",
+        "anonymous": false
+      },
+      "datasets": [
+        "D09"
+      ],
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "cadence": "DAILY",
+      "mapping": {
+        "template_fingerprint": "sha256:settle-csv-v1",
+        "time_basis": "interval_end",
+        "unit_map": {},
+        "columns": {
+          "日期": "energy_date",
+          "时段": "slot_no",
+          "科目": "subject_code",
+          "方向": "direction",
+          "电量": "energy_mwh",
+          "电价": "price",
+          "金额": "amount"
+        },
+        "pending_confirmation": [
+          "subject_code"
+        ]
+      },
+      "capabilities": [
+        "READ"
+      ],
+      "writes_to_trading_system": false,
+      "failure_policy": {
+        "on_block": "QUARANTINE_BATCH",
+        "max_retries": 3,
+        "backoff_seconds": [
+          30,
+          120,
+          600
+        ],
+        "alert": "ERROR"
+      },
+      "owner": "结算专责",
+      "registry_version": "1.0.0",
+      "lifecycle": "ACTIVE",
+      "notes": "二阶段接入企业结算库后置 DEPRECATED，由 SRC-INT-DB-SETTLE 替代。"
+    },
+    {
+      "source_id": "SRC-EXT-WEATHER-API",
+      "title": "公开天气 API（区域小时预报）",
+      "channel": "EXTERNAL",
+      "transport": "API",
+      "availability": {
+        "since_stage": "S1",
+        "anonymous": true
+      },
+      "datasets": [
+        "D11"
+      ],
+      "sensitivity": "PUBLIC",
+      "cadence": "DAILY",
+      "mapping": {
+        "template_fingerprint": "sha256:weather-api-v1",
+        "time_basis": "interval_start",
+        "unit_map": {},
+        "columns": {
+          "region_code": "region_code",
+          "valid_at": "valid_at",
+          "temperature_c": "temperature_c",
+          "humidity_pct": "humidity_pct",
+          "weather_code": "weather_code"
+        }
+      },
+      "capabilities": [
+        "READ"
+      ],
+      "writes_to_trading_system": false,
+      "failure_policy": {
+        "on_block": "QUARANTINE_BATCH",
+        "max_retries": 3,
+        "backoff_seconds": [
+          30,
+          120,
+          600
+        ],
+        "alert": "WARN"
+      },
+      "owner": "负荷预测负责人",
+      "registry_version": "1.0.0",
+      "lifecycle": "ACTIVE",
+      "notes": "外部特征通道，缺失不阻塞结算。"
+    },
+    {
+      "source_id": "SRC-EXT-CALENDAR-CSV",
+      "title": "节假日与交易日历（国务院通知整理）",
+      "channel": "EXTERNAL",
+      "transport": "FILE",
+      "availability": {
+        "since_stage": "S1",
+        "anonymous": false
+      },
+      "datasets": [
+        "D12"
+      ],
+      "sensitivity": "PUBLIC",
+      "cadence": "ONCE",
+      "mapping": {
+        "template_fingerprint": "sha256:calendar-csv-v1",
+        "time_basis": "interval_end",
+        "unit_map": {},
+        "columns": {
+          "日期": "calendar_date",
+          "类型": "day_type",
+          "名称": "holiday_name",
+          "是否工作日": "is_workday",
+          "调休来源": "makeup_for",
+          "来源": "source"
+        }
+      },
+      "capabilities": [
+        "READ"
+      ],
+      "writes_to_trading_system": false,
+      "failure_policy": {
+        "on_block": "QUARANTINE_BATCH",
+        "max_retries": 0,
+        "backoff_seconds": [],
+        "alert": "WARN"
+      },
+      "owner": "交易经理",
+      "registry_version": "1.0.0",
+      "lifecycle": "ACTIVE",
+      "notes": "每年国务院通知后整表更新，升 registry_version。"
+    },
+    {
+      "source_id": "SRC-INT-DB-SETTLE",
+      "title": "企业结算库（只读视图）",
+      "channel": "INTERNAL",
+      "transport": "DB",
+      "availability": {
+        "since_stage": "S2",
+        "anonymous": false
+      },
+      "datasets": [
+        "D09"
+      ],
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "cadence": "DAILY",
+      "mapping": {
+        "template_fingerprint": "sha256:settle-db-v1",
+        "time_basis": "interval_end",
+        "unit_map": {},
+        "columns": {
+          "energy_date": "energy_date",
+          "slot_no": "slot_no",
+          "subject_code": "subject_code",
+          "direction": "direction",
+          "energy_mwh": "energy_mwh",
+          "price": "price",
+          "amount": "amount"
+        },
+        "pending_confirmation": [
+          "subject_code"
+        ]
+      },
+      "capabilities": [
+        "READ",
+        "LIST"
+      ],
+      "writes_to_trading_system": false,
+      "failure_policy": {
+        "on_block": "QUARANTINE_BATCH",
+        "max_retries": 3,
+        "backoff_seconds": [
+          30,
+          120,
+          600
+        ],
+        "alert": "ERROR"
+      },
+      "credentials_ref": "ENV:CCS_SETTLE_DB_DSN",
+      "owner": "结算专责",
+      "registry_version": "1.0.0",
+      "lifecycle": "DRAFT",
+      "stage_note": "二阶段启用；只读账号与网络策略由企业侧部署配置注入。"
+    },
+    {
+      "source_id": "SRC-INT-SPOT-STREAM",
+      "title": "现货出清实时只读订阅",
+      "channel": "INTERNAL",
+      "transport": "STREAM",
+      "availability": {
+        "since_stage": "S3",
+        "anonymous": false
+      },
+      "datasets": [
+        "D08"
+      ],
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "cadence": "REALTIME",
+      "mapping": {
+        "template_fingerprint": "sha256:spot-stream-v1",
+        "time_basis": "interval_end",
+        "unit_map": {},
+        "columns": {
+          "交易日": "trade_date",
+          "品种": "variety",
+          "时段": "slot_no",
+          "电量": "volume_mwh",
+          "电价": "price"
+        }
+      },
+      "capabilities": [
+        "READ",
+        "STREAM"
+      ],
+      "writes_to_trading_system": false,
+      "failure_policy": {
+        "on_block": "QUARANTINE_BATCH",
+        "max_retries": 3,
+        "backoff_seconds": [
+          30,
+          120,
+          600
+        ],
+        "alert": "ERROR"
+      },
+      "credentials_ref": "VAULT:CCS_MARKET_READONLY",
+      "owner": "交易员",
+      "registry_version": "1.0.0",
+      "lifecycle": "DRAFT",
+      "stage_note": "三阶段启用；只用于影子运行，不触发申报。"
+    }
+  ]
+}

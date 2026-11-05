@@ -1,0 +1,10 @@
+E1 注册表结构 PASS  8 条，错误 {}；缺必填 []
+E2 阶段矩阵 PASS  FILE 标 S2 应拒:拒绝；DB 标 S1 应拒:拒绝；STREAM 标 S2 应拒:拒绝；公开匿名 API 可 S1:通过；内部 API 须 S2:通过
+E3 只读闸 PASS  WRITE: ["出现写能力 ['WRITE']：任何通道不得写交易系统"]; 写交易: ['writes_to_trading_system 必须显式为 false']
+E4 凭据与企业侧 PASS  明文拒绝=True；导出脱敏=True
+E5 幂等 PASS  COMMITTED->DUPLICATE, rows=2
+E6 换源不改下游 PASS  报告字段固定=True；行一致=True
+E7 失败隔离与重试上限 PASS  QUARANTINED, committed=0, 重试尝试=4
+E8 映射覆盖与 TBD PASS  非法目标 []；未声明用例=无；TBD 字段 8 个
+
+结果：全部通过

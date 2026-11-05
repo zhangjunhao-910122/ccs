@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ccs.local/spec/data-source-registry/registry.schema.json",
+  "title": "数据源注册表 v1.0（#44）",
+  "description": "所有数据入口的 allowlist。未登记即拒绝导入。语义约束（阶段矩阵、只读闸、凭据、映射）由 reference_registry.py 执行，本 schema 只做结构与枚举。",
+  "type": "object",
+  "required": [
+    "registry_version",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "registry_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "required": [
+        "source_id",
+        "title",
+        "channel",
+        "transport",
+        "availability",
+        "datasets",
+        "sensitivity",
+        "cadence",
+        "mapping",
+        "capabilities",
+        "writes_to_trading_system",
+        "failure_policy",
+        "owner",
+        "registry_version",
+        "lifecycle"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "pattern": "^SRC-(INT|EXT)-[A-Z0-9-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "channel": {
+          "enum": [
+            "INTERNAL",
+            "EXTERNAL"
+          ]
+        },
+        "transport": {
+          "enum": [
+            "FILE",
+            "DB",
+            "API",
+            "STREAM"
+          ]
+        },
+        "availability": {
+          "type": "object",
+          "required": [
+            "since_stage",
+            "anonymous"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "since_stage": {
+              "enum": [
+                "S1",
+                "S2",
+                "S3"
+              ]
+            },
+            "anonymous": {
+              "type": "boolean"
+            }
+          }
+        },
+        "datasets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^D(0[1-9]|1[0-6])$"
+          }
+        },
+        "sensitivity": {
+          "enum": [
+            "PUBLIC",
+            "SENSITIVE",
+            "HIGHLY_SENSITIVE"
+          ]
+        },
+        "cadence": {
+          "enum": [
+            "ONCE",
+            "DAILY",
+            "WEEKLY",
+            "MONTHLY",
+            "REALTIME"
+          ]
+        },
+        "mapping": {
+          "type": "object",
+          "required": [
+            "template_fingerprint",
+            "time_basis",
+            "unit_map",
+            "columns"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "template_fingerprint": {
+              "type": "string",
+              "minLength": 1
+            },
+            "time_basis": {
+              "enum": [
+                "interval_end",
+                "interval_start"
+              ]
+            },
+            "unit_map": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "columns": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "pending_confirmation": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            }
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "READ",
+              "LIST",
+              "STREAM"
+            ]
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "writes_to_trading_system": {
+          "const": false
+        },
+        "failure_policy": {
+          "type": "object",
+          "required": [
+            "on_block",
+            "max_retries",
+            "backoff_seconds",
+            "alert"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "on_block": {
+              "const": "QUARANTINE_BATCH"
+            },
+            "max_retries": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "backoff_seconds": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "alert": {
+              "enum": [
+                "WARN",
+                "ERROR"
+              ]
+            }
+          }
+        },
+        "credentials_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registry_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "lifecycle": {
+          "enum": [
+            "DRAFT",
+            "ACTIVE",
+            "DEPRECATED",
+            "RETIRED"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        },
+        "stage_note": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
