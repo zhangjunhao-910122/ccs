@@ -1,0 +1,1202 @@
+{
+  "name": "ccs-data-contract",
+  "version": "1.0.0",
+  "generated_for": "湖北省售电公司交易员训战一体化平台 · 统一数据契约（D01–D16）",
+  "ticket": "#33 / map #22",
+  "time_grid": "docs/spec/time-grid/SPEC.md v1.0（T1–T15）",
+  "defaults": {
+    "timezone": "Asia/Shanghai",
+    "energy_unit": "MWh",
+    "price_unit": "CNY/MWh",
+    "amount_unit": "CNY",
+    "decimal_places": {
+      "energy": 3,
+      "price": 4,
+      "amount": 2,
+      "ratio": 4
+    }
+  },
+  "common_columns": [
+    {
+      "name": "batch_id",
+      "type": "string",
+      "desc": "导入批次号，形如 IMP-20261105-0001"
+    },
+    {
+      "name": "source_system",
+      "type": "string",
+      "desc": "来源系统：SFTP/EMAIL/MANUAL/API/交易平台"
+    },
+    {
+      "name": "source_file",
+      "type": "string",
+      "desc": "原始文件名或接口名"
+    },
+    {
+      "name": "source_row_no",
+      "type": "int",
+      "desc": "原始文件行号/记录号，1 起"
+    },
+    {
+      "name": "file_hash",
+      "type": "string",
+      "desc": "原件 SHA-256，用于幂等与证据留存"
+    },
+    {
+      "name": "imported_at",
+      "type": "datetime",
+      "desc": "入库时刻（Asia/Shanghai，带偏移）"
+    },
+    {
+      "name": "importer_version",
+      "type": "string",
+      "desc": "导入器版本"
+    },
+    {
+      "name": "rule_version",
+      "type": "string",
+      "desc": "校验规则版本，指向 quality_rules.version"
+    },
+    {
+      "name": "valid_from",
+      "type": "date",
+      "desc": "业务生效起始日（含）"
+    },
+    {
+      "name": "valid_to",
+      "type": "date",
+      "desc": "业务生效截止日（不含），NULL=至今"
+    },
+    {
+      "name": "is_current",
+      "type": "bool",
+      "desc": "同一业务键的当前版本标记，唯一"
+    },
+    {
+      "name": "owner",
+      "type": "string",
+      "desc": "数据责任人（工号/角色）"
+    }
+  ],
+  "enums": {
+    "quality_flag": [
+      "OK",
+      "ESTIMATED",
+      "PARTIAL",
+      "SUSPECT",
+      "MISSING"
+    ],
+    "sensitivity": [
+      "PUBLIC",
+      "SENSITIVE",
+      "HIGHLY_SENSITIVE"
+    ],
+    "confidence": [
+      "RULE_DERIVED",
+      "PLAN_DERIVED",
+      "TBD"
+    ],
+    "day_type": [
+      "NORMAL_WORKDAY",
+      "NORMAL_RESTDAY",
+      "STATUTORY_HOLIDAY",
+      "MAKEUP_WORKDAY"
+    ],
+    "direction": [
+      "BUY",
+      "SELL"
+    ],
+    "slot_no": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ]
+  },
+  "datasets": {
+    "D01": {
+      "table": "d01_rule_doc",
+      "title": "市场规则文件",
+      "sensitivity": "PUBLIC",
+      "confidence": "RULE_DERIVED",
+      "business_key": [
+        "doc_id"
+      ],
+      "fields": [
+        {
+          "name": "doc_id",
+          "type": "string",
+          "desc": "规则文件业务编号，RULE-<发布机构码>-<年>-<序号>"
+        },
+        {
+          "name": "doc_no",
+          "type": "string",
+          "desc": "文号，如 鄂电交易〔2025〕9号"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "desc": "文件全称"
+        },
+        {
+          "name": "issuer",
+          "type": "string",
+          "desc": "发布机构"
+        },
+        {
+          "name": "doc_type",
+          "type": "enum",
+          "desc": "层级",
+          "enum": [
+            "NATIONAL",
+            "REGIONAL",
+            "PROVINCIAL",
+            "COMPANY"
+          ]
+        },
+        {
+          "name": "publish_date",
+          "type": "date",
+          "desc": "发布日期"
+        },
+        {
+          "name": "effective_from",
+          "type": "date",
+          "desc": "实施日期"
+        },
+        {
+          "name": "effective_to",
+          "type": "date",
+          "desc": "失效日期，NULL=未见失效条款",
+          "required": false
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "desc": "现行状态",
+          "enum": [
+            "DRAFT",
+            "ACTIVE",
+            "SUPERSEDED",
+            "EXPIRED"
+          ]
+        },
+        {
+          "name": "url",
+          "type": "string",
+          "desc": "官方正文 URL"
+        },
+        {
+          "name": "file_hash",
+          "type": "string",
+          "desc": "正文/附件 SHA-256"
+        },
+        {
+          "name": "clause_count",
+          "type": "int",
+          "desc": "已结构化条款数"
+        },
+        {
+          "name": "supersedes_doc_id",
+          "type": "string",
+          "desc": "替代的旧文件编号",
+          "required": false
+        }
+      ]
+    },
+    "D02": {
+      "table": "d02_user",
+      "title": "用户主数据",
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "user_id"
+      ],
+      "fields": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "desc": "匿名用户ID，USER-<ORG4>-<SEQ6>-<CHK>"
+        },
+        {
+          "name": "industry_code",
+          "type": "string",
+          "desc": "行业编码，GB/T 4754 门类；粒度待 Q02 样本确认",
+          "confidence": "TBD"
+        },
+        {
+          "name": "region_code",
+          "type": "string",
+          "desc": "行政区划代码（GB/T 2260，6 位，湖北 42xxxx）"
+        },
+        {
+          "name": "voltage_level",
+          "type": "enum",
+          "desc": "电压等级",
+          "enum": [
+            "10KV",
+            "35KV",
+            "110KV",
+            "220KV",
+            "OTHER"
+          ]
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "desc": "用户状态",
+          "enum": [
+            "ACTIVE",
+            "PAUSED",
+            "CLOSED"
+          ]
+        },
+        {
+          "name": "contract_capacity_kw",
+          "type": "decimal",
+          "desc": "合同容量 kW，3 位小数"
+        },
+        {
+          "name": "retail_package_id",
+          "type": "string",
+          "desc": "当前零售套餐编号",
+          "required": false
+        }
+      ]
+    },
+    "D03": {
+      "table": "d03_meter",
+      "title": "计量点主数据",
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "meter_id"
+      ],
+      "fields": [
+        {
+          "name": "meter_id",
+          "type": "string",
+          "desc": "匿名计量点ID，METER-<ORG4>-<SEQ6>-<CHK>"
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "desc": "所属用户"
+        },
+        {
+          "name": "metering_period",
+          "type": "enum",
+          "desc": "抄表周期",
+          "enum": [
+            "MONTHLY",
+            "DAILY",
+            "HOURLY"
+          ],
+          "confidence": "TBD"
+        },
+        {
+          "name": "ct_ratio",
+          "type": "decimal",
+          "desc": "电流互感器倍率"
+        },
+        {
+          "name": "pt_ratio",
+          "type": "decimal",
+          "desc": "电压互感器倍率"
+        },
+        {
+          "name": "unit",
+          "type": "enum",
+          "desc": "电量单位",
+          "enum": [
+            "MWH",
+            "KWH"
+          ]
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "desc": "计量点状态",
+          "enum": [
+            "ACTIVE",
+            "INACTIVE"
+          ]
+        },
+        {
+          "name": "commissioned_at",
+          "type": "date",
+          "desc": "投运日期"
+        }
+      ]
+    },
+    "D04": {
+      "table": "d04_load_hourly",
+      "title": "用户负荷曲线（小时主栅格）",
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "confidence": "RULE_DERIVED",
+      "business_key": [
+        "user_id",
+        "business_date",
+        "slot_no"
+      ],
+      "fields": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "desc": "匿名用户ID"
+        },
+        {
+          "name": "business_date",
+          "type": "date",
+          "desc": "业务日（自然日，Asia/Shanghai）"
+        },
+        {
+          "name": "slot_no",
+          "type": "int",
+          "desc": "时段号 1..24，对应 [h-1,h) 小时",
+          "enum_ref": "slot_no"
+        },
+        {
+          "name": "interval_start",
+          "type": "datetime",
+          "desc": "区间左端，== business_date + (slot_no-1)h"
+        },
+        {
+          "name": "energy_mwh",
+          "type": "decimal",
+          "desc": "小时电量 MWh，3 位小数；NULL=未观测",
+          "required": false
+        },
+        {
+          "name": "observed_sum_mwh",
+          "type": "decimal",
+          "desc": "仅诊断：实际观测到的 15min 电量之和",
+          "required": false
+        },
+        {
+          "name": "source_15min_count",
+          "type": "int",
+          "desc": "参与聚合的 15min 点数 0..4"
+        },
+        {
+          "name": "quality_flag",
+          "type": "enum",
+          "desc": "质量等级，沿用时间栅格 T7",
+          "enum_ref": "quality_flag"
+        },
+        {
+          "name": "tariff_segment",
+          "type": "enum",
+          "desc": "分时电价段，U5 定稿前可空",
+          "enum": [
+            "SHARP_PEAK",
+            "PEAK",
+            "FLAT",
+            "VALLEY",
+            "DEEP_VALLEY"
+          ],
+          "required": false,
+          "confidence": "TBD"
+        }
+      ]
+    },
+    "D05": {
+      "table": "d05_wholesale_contract",
+      "title": "批发合同",
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "contract_id",
+        "version"
+      ],
+      "fields": [
+        {
+          "name": "contract_id",
+          "type": "string",
+          "desc": "合同编号，CONTRACT-<ORG4>-<SEQ6>-<CHK>"
+        },
+        {
+          "name": "variety",
+          "type": "enum",
+          "desc": "交易品种",
+          "enum": [
+            "ANNUAL",
+            "MONTHLY",
+            "INTRAMONTH",
+            "MULTI_DAY"
+          ]
+        },
+        {
+          "name": "counterparty_id",
+          "type": "string",
+          "desc": "对手方交易主体编号"
+        },
+        {
+          "name": "period_start",
+          "type": "date",
+          "desc": "合同起始日"
+        },
+        {
+          "name": "period_end",
+          "type": "date",
+          "desc": "合同截止日（含）"
+        },
+        {
+          "name": "total_energy_mwh",
+          "type": "decimal",
+          "desc": "合同总电量 MWh"
+        },
+        {
+          "name": "price_type",
+          "type": "enum",
+          "desc": "价格形式",
+          "enum": [
+            "FIXED",
+            "FORMULA"
+          ]
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "desc": "固定价 元/MWh，FORMULA 时为空",
+          "required": false
+        },
+        {
+          "name": "formula_text",
+          "type": "string",
+          "desc": "联动公式原文",
+          "required": false
+        },
+        {
+          "name": "curve_json",
+          "type": "json",
+          "desc": "分时曲线：24×N 的 {date|year_month, slot_no, energy_mwh}",
+          "confidence": "TBD"
+        },
+        {
+          "name": "version",
+          "type": "int",
+          "desc": "版本号，1 起"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "desc": "合同状态",
+          "enum": [
+            "SIGNED",
+            "SUPERSEDED",
+            "TERMINATED"
+          ]
+        }
+      ]
+    },
+    "D06": {
+      "table": "d06_retail_contract",
+      "title": "零售合同",
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "contract_id",
+        "version"
+      ],
+      "fields": [
+        {
+          "name": "contract_id",
+          "type": "string",
+          "desc": "零售合同编号"
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "desc": "签约用户"
+        },
+        {
+          "name": "package_id",
+          "type": "string",
+          "desc": "零售套餐编号，PACKAGE-<ORG4>-<SEQ6>-<CHK>"
+        },
+        {
+          "name": "price_type",
+          "type": "enum",
+          "desc": "套餐类型",
+          "enum": [
+            "FIXED",
+            "LINKED",
+            "TOU",
+            "CAP_FLOOR"
+          ]
+        },
+        {
+          "name": "formula_text",
+          "type": "string",
+          "desc": "价格公式/浮动比例/封顶保底条款"
+        },
+        {
+          "name": "term_start",
+          "type": "date",
+          "desc": "合同期起"
+        },
+        {
+          "name": "term_end",
+          "type": "date",
+          "desc": "合同期止（含）"
+        },
+        {
+          "name": "version",
+          "type": "int",
+          "desc": "版本号"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "desc": "合同状态",
+          "enum": [
+            "SIGNED",
+            "SUPERSEDED",
+            "TERMINATED"
+          ]
+        }
+      ]
+    },
+    "D07": {
+      "table": "d07_declaration",
+      "title": "交易申报",
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "batch_id",
+        "trade_date",
+        "variety",
+        "slot_no"
+      ],
+      "fields": [
+        {
+          "name": "batch_id",
+          "type": "string",
+          "desc": "申报批次号"
+        },
+        {
+          "name": "trade_date",
+          "type": "date",
+          "desc": "交易日"
+        },
+        {
+          "name": "variety",
+          "type": "enum",
+          "desc": "品种",
+          "enum": [
+            "ANNUAL",
+            "MONTHLY",
+            "INTRAMONTH",
+            "DAY_AHEAD"
+          ]
+        },
+        {
+          "name": "slot_no",
+          "type": "int",
+          "desc": "时段号",
+          "enum_ref": "slot_no"
+        },
+        {
+          "name": "energy_mwh",
+          "type": "decimal",
+          "desc": "申报电量 MWh"
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "desc": "申报价 元/MWh"
+        },
+        {
+          "name": "submitted_at",
+          "type": "datetime",
+          "desc": "提交时刻"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "desc": "申报状态",
+          "enum": [
+            "DRAFT",
+            "SUBMITTED",
+            "ACCEPTED",
+            "REJECTED"
+          ]
+        }
+      ]
+    },
+    "D08": {
+      "table": "d08_trade_result",
+      "title": "成交结果",
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "trade_id"
+      ],
+      "fields": [
+        {
+          "name": "trade_id",
+          "type": "string",
+          "desc": "成交序号（交易机构口径）"
+        },
+        {
+          "name": "trade_date",
+          "type": "date",
+          "desc": "交易日"
+        },
+        {
+          "name": "variety",
+          "type": "enum",
+          "desc": "品种",
+          "enum": [
+            "ANNUAL",
+            "MONTHLY",
+            "INTRAMONTH",
+            "DAY_AHEAD"
+          ]
+        },
+        {
+          "name": "slot_no",
+          "type": "int",
+          "desc": "时段号",
+          "enum_ref": "slot_no"
+        },
+        {
+          "name": "volume_mwh",
+          "type": "decimal",
+          "desc": "成交量 MWh"
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "desc": "成交价 元/MWh"
+        },
+        {
+          "name": "fee_amount",
+          "type": "decimal",
+          "desc": "手续费 元",
+          "required": false
+        },
+        {
+          "name": "counterparty_id",
+          "type": "string",
+          "desc": "对手方编号",
+          "required": false
+        },
+        {
+          "name": "cleared_at",
+          "type": "datetime",
+          "desc": "出清时刻"
+        }
+      ]
+    },
+    "D09": {
+      "table": "d09_daily_settlement",
+      "title": "日清数据",
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "confidence": "RULE_DERIVED",
+      "business_key": [
+        "energy_date",
+        "slot_no",
+        "subject_code",
+        "direction"
+      ],
+      "fields": [
+        {
+          "name": "energy_date",
+          "type": "date",
+          "desc": "电量归属日（按 interval_start，见时间栅格 T9）"
+        },
+        {
+          "name": "slot_no",
+          "type": "int",
+          "desc": "时段号",
+          "enum_ref": "slot_no"
+        },
+        {
+          "name": "subject_code",
+          "type": "string",
+          "desc": "清算科目编码（客户账单科目对照表，待 Q02 样本）",
+          "confidence": "TBD"
+        },
+        {
+          "name": "direction",
+          "type": "enum",
+          "desc": "购/售方向",
+          "enum_ref": "direction"
+        },
+        {
+          "name": "energy_mwh",
+          "type": "decimal",
+          "desc": "科目电量 MWh，保留符号"
+        },
+        {
+          "name": "price",
+          "type": "decimal",
+          "desc": "科目价格 元/MWh"
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "desc": "科目金额 元，2 位小数"
+        },
+        {
+          "name": "settle_date",
+          "type": "date",
+          "desc": "结算日（不用于反推 energy_date）"
+        },
+        {
+          "name": "rule_ref",
+          "type": "string",
+          "desc": "依据条款号"
+        },
+        {
+          "name": "quality_flag",
+          "type": "enum",
+          "desc": "质量等级",
+          "enum_ref": "quality_flag"
+        }
+      ]
+    },
+    "D10": {
+      "table": "d10_monthly_settlement",
+      "title": "月结数据",
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "settle_month",
+        "subject_code",
+        "direction",
+        "retro_seq"
+      ],
+      "fields": [
+        {
+          "name": "settle_month",
+          "type": "string",
+          "desc": "结算月 YYYY-MM"
+        },
+        {
+          "name": "subject_code",
+          "type": "string",
+          "desc": "科目编码",
+          "confidence": "TBD"
+        },
+        {
+          "name": "direction",
+          "type": "enum",
+          "desc": "购/售方向",
+          "enum_ref": "direction"
+        },
+        {
+          "name": "energy_mwh",
+          "type": "decimal",
+          "desc": "月电量 MWh"
+        },
+        {
+          "name": "amount",
+          "type": "decimal",
+          "desc": "月金额 元"
+        },
+        {
+          "name": "retro_adjust_type",
+          "type": "enum",
+          "desc": "追退补类型",
+          "enum": [
+            "NONE",
+            "SUPPLEMENT",
+            "REFUND"
+          ],
+          "confidence": "TBD"
+        },
+        {
+          "name": "related_month",
+          "type": "string",
+          "desc": "追退补对应的原结算月",
+          "required": false
+        },
+        {
+          "name": "retro_seq",
+          "type": "int",
+          "desc": "同月同科目的调整序号，0=原单"
+        },
+        {
+          "name": "rule_ref",
+          "type": "string",
+          "desc": "依据条款号"
+        },
+        {
+          "name": "settle_date",
+          "type": "date",
+          "desc": "结算日"
+        }
+      ]
+    },
+    "D11": {
+      "table": "d11_weather",
+      "title": "天气数据",
+      "sensitivity": "PUBLIC",
+      "confidence": "RULE_DERIVED",
+      "business_key": [
+        "region_code",
+        "valid_at"
+      ],
+      "fields": [
+        {
+          "name": "region_code",
+          "type": "string",
+          "desc": "行政区划代码"
+        },
+        {
+          "name": "valid_at",
+          "type": "datetime",
+          "desc": "整点时刻（小时栅格左端）"
+        },
+        {
+          "name": "temperature_c",
+          "type": "decimal",
+          "desc": "气温 ℃，1 位小数"
+        },
+        {
+          "name": "humidity_pct",
+          "type": "decimal",
+          "desc": "相对湿度 %"
+        },
+        {
+          "name": "weather_code",
+          "type": "string",
+          "desc": "WMO 天气现象码"
+        },
+        {
+          "name": "alert_level",
+          "type": "enum",
+          "desc": "气象预警级别",
+          "enum": [
+            "NONE",
+            "BLUE",
+            "YELLOW",
+            "ORANGE",
+            "RED"
+          ]
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "desc": "数据源名称与版本（如 open-meteo archive v1）"
+        }
+      ]
+    },
+    "D12": {
+      "table": "d12_calendar",
+      "title": "节假日与交易日历",
+      "sensitivity": "PUBLIC",
+      "confidence": "RULE_DERIVED",
+      "business_key": [
+        "calendar_date"
+      ],
+      "fields": [
+        {
+          "name": "calendar_date",
+          "type": "date",
+          "desc": "自然日"
+        },
+        {
+          "name": "day_type",
+          "type": "enum",
+          "desc": "日类型（四类）",
+          "enum_ref": "day_type"
+        },
+        {
+          "name": "holiday_name",
+          "type": "string",
+          "desc": "节假日名称",
+          "required": false
+        },
+        {
+          "name": "is_workday",
+          "type": "bool",
+          "desc": "是否工作日（调休上班日=true）"
+        },
+        {
+          "name": "makeup_for",
+          "type": "string",
+          "desc": "调休补班的对应节日",
+          "required": false
+        },
+        {
+          "name": "tariff_segment_map_version",
+          "type": "string",
+          "desc": "分时电价 24 段映射版本，U5 定稿后填写",
+          "required": false,
+          "confidence": "TBD"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "desc": "依据文号（国办发明电〔2025〕7号）"
+        }
+      ]
+    },
+    "D13": {
+      "table": "d13_production_correction",
+      "title": "生产计划修正",
+      "sensitivity": "SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "correction_id"
+      ],
+      "fields": [
+        {
+          "name": "correction_id",
+          "type": "string",
+          "desc": "修正单编号"
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "desc": "受影响用户"
+        },
+        {
+          "name": "business_date",
+          "type": "date",
+          "desc": "生效日"
+        },
+        {
+          "name": "type",
+          "type": "enum",
+          "desc": "修正类型",
+          "enum": [
+            "SHUTDOWN",
+            "BOOST"
+          ]
+        },
+        {
+          "name": "impact_ratio",
+          "type": "decimal",
+          "desc": "影响比例 0..1，4 位小数"
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "desc": "原因摘要"
+        },
+        {
+          "name": "source",
+          "type": "string",
+          "desc": "来源（表单/邮件/口头转录）"
+        }
+      ]
+    },
+    "D14": {
+      "table": "d14_credit_limit",
+      "title": "履约与额度",
+      "sensitivity": "HIGHLY_SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "participant_id",
+        "as_of"
+      ],
+      "fields": [
+        {
+          "name": "participant_id",
+          "type": "string",
+          "desc": "交易主体编号，TRADER-<ORG4>-<SEQ6>-<CHK>"
+        },
+        {
+          "name": "as_of",
+          "type": "date",
+          "desc": "数据截止日"
+        },
+        {
+          "name": "credit_limit_amount",
+          "type": "decimal",
+          "desc": "授信额度 元"
+        },
+        {
+          "name": "margin_required",
+          "type": "decimal",
+          "desc": "应缴保证金 元"
+        },
+        {
+          "name": "margin_posted",
+          "type": "decimal",
+          "desc": "实缴保证金 元"
+        },
+        {
+          "name": "guarantee_amount",
+          "type": "decimal",
+          "desc": "保函金额 元"
+        },
+        {
+          "name": "used_amount",
+          "type": "decimal",
+          "desc": "已用额度 元"
+        },
+        {
+          "name": "warning_line_amount",
+          "type": "decimal",
+          "desc": "预警线 元"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "desc": "额度状态",
+          "enum": [
+            "NORMAL",
+            "WARNING",
+            "BREACH"
+          ]
+        }
+      ]
+    },
+    "D15": {
+      "table": "d15_user_account",
+      "title": "用户与权限",
+      "sensitivity": "SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "account_id"
+      ],
+      "fields": [
+        {
+          "name": "account_id",
+          "type": "string",
+          "desc": "账号（工号/邮箱）"
+        },
+        {
+          "name": "display_name",
+          "type": "string",
+          "desc": "显示名"
+        },
+        {
+          "name": "role",
+          "type": "enum",
+          "desc": "角色",
+          "enum": [
+            "TRADER",
+            "SUPERVISOR",
+            "RISK",
+            "SETTLEMENT",
+            "ADMIN",
+            "AUDITOR"
+          ]
+        },
+        {
+          "name": "org_code",
+          "type": "string",
+          "desc": "组织编码"
+        },
+        {
+          "name": "permissions",
+          "type": "array",
+          "desc": "权限点列表，如 [\"trade.submit\",\"settle.view\"]"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "desc": "账号状态",
+          "enum": [
+            "ACTIVE",
+            "DISABLED"
+          ]
+        },
+        {
+          "name": "mfa_enabled",
+          "type": "bool",
+          "desc": "是否启用多因素"
+        },
+        {
+          "name": "last_login_at",
+          "type": "datetime",
+          "desc": "最近登录时刻",
+          "required": false
+        }
+      ]
+    },
+    "D16": {
+      "table": "d16_model_call_log",
+      "title": "模型调用日志",
+      "sensitivity": "SENSITIVE",
+      "confidence": "PLAN_DERIVED",
+      "business_key": [
+        "call_id"
+      ],
+      "fields": [
+        {
+          "name": "call_id",
+          "type": "string",
+          "desc": "调用ID（UUID）"
+        },
+        {
+          "name": "task",
+          "type": "string",
+          "desc": "任务类型：forecast/strategy/qa/summary"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "desc": "模型名与版本"
+        },
+        {
+          "name": "prompt_tokens",
+          "type": "int",
+          "desc": "输入 Token"
+        },
+        {
+          "name": "completion_tokens",
+          "type": "int",
+          "desc": "输出 Token"
+        },
+        {
+          "name": "latency_ms",
+          "type": "int",
+          "desc": "端到端耗时 ms"
+        },
+        {
+          "name": "redacted_summary",
+          "type": "string",
+          "desc": "脱敏后的输入摘要（不得含原始敏感字段）"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "desc": "调用结果",
+          "enum": [
+            "OK",
+            "ERROR",
+            "TIMEOUT"
+          ]
+        },
+        {
+          "name": "trace_id",
+          "type": "string",
+          "desc": "链路追踪ID"
+        },
+        {
+          "name": "actor_account_id",
+          "type": "string",
+          "desc": "发起账号"
+        }
+      ]
+    }
+  }
+}

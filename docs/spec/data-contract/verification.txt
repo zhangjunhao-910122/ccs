@@ -1,0 +1,13 @@
+契约 ccs-data-contract v1.0.0；时轴依据 docs/spec/time-grid/SPEC.md v1.0（T1–T15）
+对象 16 类；示例 16 行；质量规则 6 条
+------------------------------------------------------------------------
+PASS E1 契约完整性 :: 16 类对象；业务键/类型/枚举/敏感级别齐备
+PASS E2 主体编码与归一 :: 编码往返一致；错校验位被拒；3 种写法归一为同一主体
+PASS E3 敏感级别与出域 :: 高度敏感出域被拒；公开放行；敏感脱敏；模型仅 k≥5 聚合
+PASS E4 质量六类规则 :: Q01–Q06 六类规则各自命中且级别正确（Q05 为 WARN 并换算）
+PASS E5 双时态版本 :: as-of 命中唯一版本；重叠配置被拒；早于生效日返回空
+PASS E6 时轴一致 :: 4×15min=0.400 MWh 与小时行一致；示例行通过校验
+PASS E7 示例行全覆盖 :: 16 行示例覆盖 16 类对象，全部通过 BLOCK 级校验
+PASS E8 Q02 缺口登记 :: 8 个 TBD 字段登记在案：D02.industry_code、D03.metering_period、D04.tariff_segment、D05.curve_json、D09.subject_code、D10.subject_code、D10.retro_adjust_type、D12.tariff_segment_map_version
+------------------------------------------------------------------------
+合计 8 项通过，0 项失败
