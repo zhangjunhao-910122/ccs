@@ -9,4 +9,12 @@
 !docs/agents/**
 !docs/research/
 !docs/research/**
+!docs/spec/
+!docs/spec/**
+!docs/notes/
+!docs/notes/**
+!audit-point-library/
+!audit-point-library/**
+!tools/
+!tools/**
 !docs/iso-audit/

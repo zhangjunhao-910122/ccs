@@ -1,0 +1,90 @@
+# 标准画像注册表 —— 审核点库元数据真源
+# 对应 GitHub Issue #2（规格 S1）。新增画像 = 加一个画像文件 + 此处加一行，不改加载逻辑。
+# 版本元数据为公开来源重建，未经正版标准核定（verification_status: unverified），由 #5 I8 逐条核定后回填。
+
+schema_version: 1
+registry_updated: "2026-11-05"
+
+profiles:
+  - id: qms-gbt19001-2016
+    domain: quality
+    file: profiles/quality/gbt19001-2016.yaml
+    status: current
+    standard:
+      designation: GB/T 19001-2016
+      iso_equivalent: ISO 9001:2015
+      edition: "2016"
+      status: current
+      published: "2016-12-30"
+      effective: "2017-07-01"
+      withdrawn: null
+      supersedes: null
+      relation: identical
+      official_sources:
+        - url: https://openstd.samr.gov.cn/bzgk/gb/std_list
+          accessed: "2026-11-05"
+          title: 国家标准全文公开系统 GB/T 19001 条目（采标、现行）
+    scope:
+      applies_to: 管理体系认证审核（初次第一阶段、初次第二阶段、监督审核、再认证）；亦可作为组织内部审核检查表参考
+      excludes:
+        - 产品认证（CCC）
+        - 行业扩展要求（IATF 16949、ISO 22163 等）
+    clause_table_ref: docs/research/iso9001-clause-audit-baseline.md
+    clause_tree_ref: clause_trees/qms-gbt19001-2016.yaml
+    version_meta:
+      generated_from: docs/research/iso9001-clause-audit-baseline.md
+      verification_status: unverified
+      verified_by: null
+      verified_at: null
+
+  - id: ems-gbt24001-2016
+    domain: environment
+    file: profiles/environment/gbt24001-2016.yaml
+    status: pending
+    standard:
+      designation: GB/T 24001-2016
+      iso_equivalent: ISO 14001:2015
+      edition: "2016"
+      status: current
+      published: null
+      effective: null
+      withdrawn: null
+      supersedes: null
+      relation: identical
+      official_sources: []
+    scope:
+      applies_to: 环境管理体系认证审核
+      excludes: []
+    clause_table_ref: docs/research/iso14001-clause-audit-baseline.md
+    version_meta:
+      generated_from: docs/research/iso14001-clause-audit-baseline.md
+      verification_status: unverified
+      verified_by: null
+      verified_at: null
+    note: 待 #13 R1 产出基线后由 tools/build_library.py parse 生成画像文件并补全元数据
+
+  - id: ohs-gbt45001-2020
+    domain: ohs
+    file: profiles/ohs/gbt45001-2020.yaml
+    status: pending
+    standard:
+      designation: GB/T 45001-2020
+      iso_equivalent: ISO 45001:2018
+      edition: "2020"
+      status: current
+      published: null
+      effective: null
+      withdrawn: null
+      supersedes: null
+      relation: identical
+      official_sources: []
+    scope:
+      applies_to: 职业健康安全管理体系认证审核
+      excludes: []
+    clause_table_ref: docs/research/iso45001-clause-audit-baseline.md
+    version_meta:
+      generated_from: docs/research/iso45001-clause-audit-baseline.md
+      verification_status: unverified
+      verified_by: null
+      verified_at: null
+    note: 待 #8 R2 产出基线后由 tools/build_library.py parse 生成画像文件并补全元数据

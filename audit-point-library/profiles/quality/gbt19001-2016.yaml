@@ -1,0 +1,1420 @@
+# 由 tools/build_library.py parse 自动生成，请勿手工编辑。
+# 源基线：见 profile.version_meta.generated_from
+# 修改审核点请改基线 Markdown 后重新生成，或由 #5 I8 人工核定后回填。
+profile:
+  id: qms-gbt19001-2016
+  domain: quality
+  standard:
+    designation: GB/T 19001-2016
+    iso_equivalent: ISO 9001:2015
+    edition: '2016'
+    status: current
+    published: '2016-12-30'
+    effective: '2017-07-01'
+    withdrawn: null
+    supersedes: null
+    relation: identical
+    official_sources:
+    - url: https://openstd.samr.gov.cn/bzgk/gb/std_list
+      accessed: '2026-11-05'
+      title: 国家标准全文公开系统 GB/T 19001 条目（采标、现行）
+  scope:
+    applies_to: 管理体系认证审核（初次第一阶段、初次第二阶段、监督审核、再认证）；亦可作为组织内部审核检查表参考
+    excludes:
+    - 产品认证（CCC）
+    - 行业扩展要求（IATF 16949、ISO 22163 等）
+  version_meta:
+    generated_from: docs/research/iso9001-clause-audit-baseline.md
+    verification_status: unverified
+    verified_by: null
+    verified_at: null
+    clause_tree_ref: clause_trees/qms-gbt19001-2016.yaml
+    snapshot_id: sha256:4e1cce777a6b209424cb50ea6cc914de8fb4e53f7385caabac04ffd1b0c4274d
+    consistency_warnings:
+    - 8.1 基线称 4 个内容块，条款树为 3 个子条款（版本口径疑点）
+clauses:
+- clause_no: '4.1'
+  title: 组织环境
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.1'
+    audit_question: 组织如何确定与其宗旨和战略方向相关的内部和外部因素？这些因素如何影响质量管理体系实现预期结果的能力？气候变化相关考虑如何纳入（ISO 9001:2015 Amd 1:2024
+      修订涉及 4.1 与 4.2）？
+    written_evidence:
+    - 组织环境分析记录（PEST/SWOT、竞争与市场分析）、内外部因素清单及更新记录、相关方分析与需求矩阵、气候相关性与法规要求影响的评价记录、管理评审中环境变更的输入记录
+    on_site_evidence:
+    - 查看分析记录形成日期与最近一次更新日期
+    - 抽查其列举的因素是否真实影响体系（对照当期的订单结构、法规变化、人员状况）
+    - 核对分析结论是否向下传递到 6.1 风险识别与 6.2 质量目标
+    typical_nc:
+    - 组织未系统识别内外部因素，仅列行业宏观口号
+    - 环境分析长期未更新，与当前经营实际脱节
+    - 相关方清单遗漏关键方（如监理单位、行业协会、供方）
+    - 已发生的重大环境变化未反映到风险与目标中
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 组织环境分析记录（PEST/SWOT、竞争与市场分析）、内外部因素清单及更新记录、相关方分析与需求矩阵、气候相关性与法规要求影响的评价记录、管理评审中环境变更的输入记录
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 查看分析记录形成日期与最近一次更新日期
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查其列举的因素是否真实影响体系（对照当期的订单结构、法规变化、人员状况）
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对分析结论是否向下传递到 6.1 风险识别与 6.2 质量目标
+        priority: supporting
+    difficulty: low
+    apg_ref: []
+- clause_no: '4.2'
+  title: 理解相关方的需求和期望
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.2'
+    audit_question: 组织如何监视、解释并确定相关方的需求和期望？其中哪些转化为产品与服务要求、法规要求或过程要求？如何向相关方沟通并处理相互冲突的要求？
+    written_evidence:
+    - 相关方清单与要求监视记录、顾客与法规要求的评审与转化记录、要求冲突的处置记录、向相关方反馈结果的记录
+    on_site_evidence:
+    - 访谈销售、合同、售后人员，追溯一件已交付产品/服务当时承诺的要求
+    - 核对相关方要求是否逐条落入合同评审与 8.2.2 要求的确定
+    typical_nc:
+    - 相关方要求仅笼统记录为「顾客满意」，无具体要求项
+    - 未对要求变化做监视
+    - 法律法规变化（如新强制性标准）未转化为体系要求
+    - 冲突要求未形成决定并记录理由
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 相关方清单与要求监视记录、顾客与法规要求的评审与转化记录、要求冲突的处置记录、向相关方反馈结果的记录
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 访谈销售、合同、售后人员，追溯一件已交付产品/服务当时承诺的要求
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对相关方要求是否逐条落入合同评审与 8.2.2 要求的确定
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '4.3'
+  title: 确定质量管理体系的范围
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.3'
+    audit_question: 体系范围如何确定并文件化？是否覆盖全部场所、活动、过程、产品与服务？范围描述是否与实际一致（第一阶段核对的重点，见 S3 第 4.3.3.2 条第 1 项）？
+    written_evidence:
+    - 质量手册或体系说明中的范围条款、场所与活动清单、认证范围申报文件、删减条款的说明与理由（如 7.3 意识、8.3 设计开发等删减）
+    on_site_evidence:
+    - 将范围文件与现场比对：部门、场所、生产服务活动、班次是否都被覆盖
+    - 验证删减条款是否确属不适用且理由成立
+    typical_nc:
+    - 范围描述与现场实际不一致（漏场所、漏临时场所、漏一班制人员）
+    - 范围声明不符合法规允许的删减边界
+    - 新增场所或业务未纳入范围而仍使用证书
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 质量手册或体系说明中的范围条款、场所与活动清单、认证范围申报文件、删减条款的说明与理由（如 7.3 意识、8.3 设计开发等删减）
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 将范围文件与现场比对：部门、场所、生产服务活动、班次是否都被覆盖
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 验证删减条款是否确属不适用且理由成立
+        priority: supporting
+    difficulty: low
+    apg_ref: []
+- clause_no: '4.4'
+  title: 质量管理体系及其过程
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - pdca-process-approach
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '4.4'
+    audit_question: 组织是否按过程方法确定过程的输入输出、顺序和相互作用、准则和方法、资源、职责权限、风险和机遇、绩效指标与改进方式？成文信息如何支撑？哪些过程外包，外包如何受控？
+    written_evidence:
+    - 过程清单与过程关系图、过程说明（准则、方法、绩效指标、负责人）、外包过程识别清单及外包控制方案、过程绩效监视数据
+    on_site_evidence:
+    - 选一条实际订单或一件产品做端到端追踪，验证过程图与实际流转一致
+    - 核对绩效指标是否有真实数据支撑而非空表
+    typical_nc:
+    - 过程清单与实际作业不符
+    - 过程无明确准则与绩效指标
+    - 外包过程（如委外加工、外包物流、外包检测）未识别或无控制方式
+    - 过程之间的关系未描述，导致接口失控
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 过程清单与过程关系图、过程说明（准则、方法、绩效指标、负责人）、外包过程识别清单及外包控制方案、过程绩效监视数据
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 选一条实际订单或一件产品做端到端追踪，验证过程图与实际流转一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对绩效指标是否有真实数据支撑而非空表
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '5.1'
+  title: 领导作用和承诺
+  scope_note: 含 5.1.1 总则、5.1.2 相关方导向
+  covers:
+  - 5.1.1
+  - 5.1.2
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 5.1.1
+  - 5.1.2
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '5.1'
+    audit_question: 最高管理者如何对体系有效性负责？如何确保方针目标相容、体系要求融入业务过程、以过程方式管理、获得预期结果并促使人员参与和推动改进？最高管理者是否亲自参与（APG 有
+      2025-03-21 最高管理者专题材料）？
+    written_evidence:
+    - 最高管理者对体系的声明与任命文件、资源投入决定（预算、人员编制、设备）、与战略方针的相容性论证、最高管理者主持的管理评审记录、内审启动与人员任命文件
+    on_site_evidence:
+    - 与最高管理者单独面谈，核对其对体系关键风险、重大不符合与资源约束的了解程度
+    - 查其签署的决策记录是否与访谈陈述一致
+    - 查一线人员是否能说出最高管理者的具体要求
+    typical_nc:
+    - 最高管理者仅挂名，访谈中对体系运行细节不了解
+    - 资源投入不足以支撑目标
+    - 最高管理者未主持或未实质参与管理评审与内审
+    - 体系要求未嵌入日常业务决策（战略、经营计划中无质量要求）
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 最高管理者对体系的声明与任命文件、资源投入决定（预算、人员编制、设备）、与战略方针的相容性论证、最高管理者主持的管理评审记录、内审启动与人员任命文件
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 与最高管理者单独面谈，核对其对体系关键风险、重大不符合与资源约束的了解程度
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查其签署的决策记录是否与访谈陈述一致
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查一线人员是否能说出最高管理者的具体要求
+        priority: supporting
+    difficulty: low
+    apg_ref: []
+- clause_no: '5.2'
+  title: 方针
+  scope_note: 含 5.2.1 总则、5.2.2 方针的建立与沟通
+  covers:
+  - 5.2.1
+  - 5.2.2
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 5.2.1
+  - 5.2.2
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '5.2'
+    audit_question: 方针是否适宜战略与运行环境、构成质量目标的框架、满足法律法规要求、包含持续改进承诺？方针如何沟通、理解并在组织内保持一致？
+    written_evidence:
+    - 方针文本、发布与批准记录、方针与战略相容性的评审记录、方针沟通与宣贯记录、员工理解确认（培训签到、考试、班组记录）
+    on_site_evidence:
+    - 现场抽查 3 至 5 名不同层级员工，请其用自己的话说明方针含义及其与本岗位的关系
+    - 查看车间看板、看板、作业文件上的方针是否一致
+    typical_nc:
+    - 方针模板化、与战略和业务无关
+    - 缺少法律法规符合或持续改进承诺
+    - 方针变更后未重新沟通
+    - 员工只知道口号说不出与岗位的关联
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 方针文本、发布与批准记录、方针与战略相容性的评审记录、方针沟通与宣贯记录、员工理解确认（培训签到、考试、班组记录）
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场抽查 3 至 5 名不同层级员工，请其用自己的话说明方针含义及其与本岗位的关系
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看车间看板、看板、作业文件上的方针是否一致
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '5.3'
+  title: 组织的岗位、职责和权限
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '5.3'
+    audit_question: 相关岗位的职责权限是否规定并传达？质量管理者、过程负责人、内审员、合规人员的指定与授权是否清晰？跨部门接口的职责是否明确？
+    written_evidence:
+    - 组织机构图与部门职责文件、岗位说明书、内审员与质量管理者任命文件、授权文件（放行、不合格处置、对外供方批准、让步接收）
+    on_site_evidence:
+    - 找 2 至 3 名一线员工核对其职责表述与文件是否一致
+    - 对授权事项抽查授权人本人是否在岗、是否实际行使
+    typical_nc:
+    - 职责权限文件与实际分工不符
+    - 关键授权（如产品放行、让步接收）无人行使或由不具备资格者行使
+    - 接口部门职责重叠或空白
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 组织机构图与部门职责文件、岗位说明书、内审员与质量管理者任命文件、授权文件（放行、不合格处置、对外供方批准、让步接收）
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 找 2 至 3 名一线员工核对其职责表述与文件是否一致
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 对授权事项抽查授权人本人是否在岗、是否实际行使
+        priority: supporting
+    difficulty: low
+    apg_ref: []
+- clause_no: '6.1'
+  title: 应对风险和机遇的措施
+  scope_note: 含识别、策划、有效性评价与融入三个块
+  covers: []
+  covers_mode: content_blocks
+  covers_source: clause_tree
+  block_count: 3
+  mentioned_units: []
+  blocks:
+  - common-planning
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '6.1'
+    audit_question: 组织如何识别影响体系预期结果的风险和机遇？识别方法是否覆盖过程、变更、外部因素？如何策划应对措施（规避、降低、分享、接受、追求）并评价其有效性？措施如何融入 8.1
+      运行策划、8.3 设计与开发、8.4 外部供方控制等既有过程？
+    written_evidence:
+    - 风险与机遇识别清单及其来源（过程评审、变更评审、内审、管理评审、员工建议）、风险评价准则与分级、应对措施计划及责任人、措施有效性评价记录、措施融入既有过程文件的对照说明
+    on_site_evidence:
+    - 抽取 3 项已识别风险，追问其来源与判定依据
+    - 查看措施在过程文件中是否真实存在（而非另起一套台账）
+    - 核查有效性评价是否用客观数据（缺陷率、交付及时率、审核发现数）而非仅写「已培训」
+    typical_nc:
+    - 风险清单与 4.1 环境分析、6.2 目标、内审发现互相割裂，同类问题重复识别
+    - 措施未融入实际流程，仅在风险台账中闭环
+    - 有效性评价无客观依据
+    - 只识别风险不识别机遇
+    - 变更未触发风险重评
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 风险与机遇识别清单及其来源（过程评审、变更评审、内审、管理评审、员工建议）、风险评价准则与分级、应对措施计划及责任人、措施有效性评价记录、措施融入既有过程文件的对照说明
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽取 3 项已识别风险，追问其来源与判定依据
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看措施在过程文件中是否真实存在（而非另起一套台账）
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核查有效性评价是否用客观数据（缺陷率、交付及时率、审核发现数）而非仅写「已培训」
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '6.2'
+  title: 质量目标及其实现的策划
+  scope_note: 含 6.2.1 确定目标、6.2.2 策划实现
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 6.2.1
+  - 6.2.2
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '6.2'
+    audit_question: 质量目标是否在相关职能、层次和过程上建立？是否与方针一致、考虑适用要求与法规、明确可测量（指标、计算方法、目标值、时限、资源、数据来源）？目标未达成时如何处置？
+    written_evidence:
+    - 目标分解表（层级到部门、岗位、过程）、指标定义与计算口径文件、目标下达与沟通记录、目标监视数据分析记录、未达成目标的处置与改进记录
+    on_site_evidence:
+    - 任选一个目标，现场要求被考核部门出示原始数据并复算指标（这是 CNCA 监管重点：编造记录，S15）
+    - 核对目标值与实际绩效的差距及其处置
+    typical_nc:
+    - 目标不可测量（无口径、无数据源、无时限）
+    - 目标只到部门未到过程
+    - 目标与法规强制要求脱节
+    - 目标数据与 9.1.3 的分析结论互相矛盾
+    - 未达标无分析无改进（CNCA 认证决定前须确认目标可测量且监视有效，S3 第 4.6.3 条）
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 目标分解表（层级到部门、岗位、过程）、指标定义与计算口径文件、目标下达与沟通记录、目标监视数据分析记录、未达成目标的处置与改进记录
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 任选一个目标，现场要求被考核部门出示原始数据并复算指标（这是 CNCA 监管重点：编造记录，S15）
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对目标值与实际绩效的差距及其处置
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '6.3'
+  title: 变更的策划
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '6.3'
+    audit_question: 组织如何策划体系或过程的变更？变更前是否评价目的与潜在后果、对体系的影响、职责权限、资源需求与沟通安排？变更导致的成文信息更新是否同步？
+    written_evidence:
+    - 变更申请与评审记录、变更影响评价（含对目标、风险、过程的影响）、变更实施与验证记录、相关文件修订记录、变更通知与培训记录
+    on_site_evidence:
+    - 抽取近 6 至 12 个月的实际变更（工艺、设备、组织、人员、场所、供应商）逐项追溯其策划证据
+    - 核对变更后现场作业文件与新要求是否一致
+    typical_nc:
+    - 变更未评审直接实施
+    - 变更后文件、图纸、工艺参数未同步更新
+    - 变更对目标和风险的影响未重新评价
+    - 重大变更未按合同向认证机构通报（S3 第 4.1.5 条第 3 项）
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 变更申请与评审记录、变更影响评价（含对目标、风险、过程的影响）、变更实施与验证记录、相关文件修订记录、变更通知与培训记录
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽取近 6 至 12 个月的实际变更（工艺、设备、组织、人员、场所、供应商）逐项追溯其策划证据
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对变更后现场作业文件与新要求是否一致
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '7.1'
+  title: 资源
+  scope_note: 含 7.1.1 总则与 7.1.2～7.1.6 五个资源分项
+  covers:
+  - 7.1.1
+  - 7.1.2
+  - 7.1.3
+  - 7.1.4
+  - 7.1.5
+  - 7.1.6
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 7.1.1
+  - 7.1.2
+  - 7.1.6
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.1'
+    audit_question: 组织如何确定并提供体系所需资源（7.1.1）？资源是否与 6.1 的风险机遇、6.2 的目标相匹配？人员（7.1.2）、基础设施（7.1.3）、过程运行环境（7.1.4）、监视测量资源（7.1.5）、组织知识（7.1.6）分别如何获取、维持并可用？
+    written_evidence:
+    - 资源需求分析与配置决定（人员编制、设备台账、场地与工位规划、监视测量设备台账与校准计划、组织知识清单）、基础设施与过程运行环境的维护保养计划与记录、监视测量资源的溯源链（校准证书、检定/校准周期、测量不确定度评估、不合格测量设备对以往结果的影响评估）、组织知识的保持方式（知识产权、经验教训库、技术档案）
+    on_site_evidence:
+    - 现场核查设备实际状态与台账一致（贴标在有效期内、封存完好）
+    - 抽查一台关键测量设备从现场到校准证书的完整溯源链（校准证书—校准机构资质—溯源到国家/国际基准）
+    - 查维护保养与厂房设施的实际执行记录
+    - 查经验教训库是否被实际调用
+    typical_nc:
+    - 监视测量设备超期未校准仍使用
+    - 校准证书无溯源性说明或仅写「合格」
+    - 测量设备失效后未评估对已放行产品的影响
+    - 维护保养记录补填、代签、涂改
+    - 组织知识无载体（离职即丢失），无人员备份
+    - 基础设施故障影响交付无应急措施
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 资源需求分析与配置决定（人员编制、设备台账、场地与工位规划、监视测量设备台账与校准计划、组织知识清单）、基础设施与过程运行环境的维护保养计划与记录、监视测量资源的溯源链（校准证书、检定/校准周期、测量不确定度评估、不合格测量设备对以往结果的影响评估）、组织知识的保持方式（知识产权、经验教训库、技术档案）
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场核查设备实际状态与台账一致（贴标在有效期内、封存完好）
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查一台关键测量设备从现场到校准证书的完整溯源链（校准证书—校准机构资质—溯源到国家/国际基准）
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查维护保养与厂房设施的实际执行记录
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查经验教训库是否被实际调用
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '7.2'
+  title: 能力
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.2'
+    audit_question: 组织如何确定各岗位所需能力？如何获得能力（培训、辅导、咨询、学历、经历）？如何确保能力差距被有效补足？如何保留人员能力证据？
+    written_evidence:
+    - 岗位能力要求矩阵（岗位—所需知识/技能/经验—评价准则）、培训计划与实施记录、考核结果与合格判定标准、外部培训与资质证书、入职与转岗培训记录、特殊过程人员的资格评定记录
+    on_site_evidence:
+    - 抽 2 至 3 名关键岗位人员访谈其培训经历与资格是否与岗位要求匹配
+    - 核查培训记录与现场人员的一致性（有无代签）
+    - 验证特殊过程操作人员的资格评定证据（如焊接、热处理、无损检测）
+    typical_nc:
+    - 能力要求只有通用培训计划、无岗位对应矩阵
+    - 培训记录事后补记、代签
+    - 特种作业/检验人员无有效资格或资格过期
+    - 能力评价结果不与岗位安排挂钩
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 岗位能力要求矩阵（岗位—所需知识/技能/经验—评价准则）、培训计划与实施记录、考核结果与合格判定标准、外部培训与资质证书、入职与转岗培训记录、特殊过程人员的资格评定记录
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽 2 至 3 名关键岗位人员访谈其培训经历与资格是否与岗位要求匹配
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核查培训记录与现场人员的一致性（有无代签）
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 验证特殊过程操作人员的资格评定证据（如焊接、热处理、无损检测）
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '7.3'
+  title: 意识
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.3'
+    audit_question: 组织如何确保相关人员知晓质量方针、相关岗位的作用与职责、与其工作相关的顾客要求和法律法规要求、不合格控制与绩效改进的好处？
+    written_evidence:
+    - 方针与意识的宣贯记录、班组会/晨会记录、看板与公示栏照片、岗位责任告知书、新员工入职宣导记录
+    on_site_evidence:
+    - 现场随机访谈 5 至 8 名不同岗位人员，要求说出本岗位相关的顾客要求、法规要求与本岗位对质量目标的贡献
+    typical_nc:
+    - 意识宣导仅集中培训一次、无后续验证
+    - 一线说不出与岗位相关的法规要求
+    - 新人未纳入宣导范围
+    - 外来施工与临时人员完全未覆盖
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 方针与意识的宣贯记录、班组会/晨会记录、看板与公示栏照片、岗位责任告知书、新员工入职宣导记录
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场随机访谈 5 至 8 名不同岗位人员，要求说出本岗位相关的顾客要求、法规要求与本岗位对质量目标的贡献
+        priority: core
+    difficulty: null
+    apg_ref: []
+- clause_no: '7.4'
+  title: 沟通
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.4'
+    audit_question: 组织如何确定内部与外部沟通的渠道、内容、时机、接收方与责任岗位？沟通是否与体系要求一致（含 8.2.1 顾客沟通）？
+    written_evidence:
+    - 沟通矩阵（沟通事项—渠道—频率—责任人）、顾客沟通渠道说明（电话、邮件、售后系统、投诉渠道）、内部沟通机制文件、投诉处理流程与台账
+    on_site_evidence:
+    - 实际拨测/查阅一个公开投诉渠道是否畅通
+    - 查看投诉是否被登记、分派、响应、关闭并反馈
+    - 查跨部门问题（返修、让步、变更）是否通过规定渠道升级
+    typical_nc:
+    - 投诉渠道形同虚设或无人负责
+    - 外部投诉不进入体系（仅客服处理）且无统计分析
+    - 跨部门信息只靠口头传递导致记录不一致
+    - 紧急问题无升级路径
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 沟通矩阵（沟通事项—渠道—频率—责任人）、顾客沟通渠道说明（电话、邮件、售后系统、投诉渠道）、内部沟通机制文件、投诉处理流程与台账
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 实际拨测/查阅一个公开投诉渠道是否畅通
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查看投诉是否被登记、分派、响应、关闭并反馈
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查跨部门问题（返修、让步、变更）是否通过规定渠道升级
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '7.5'
+  title: 成文信息
+  scope_note: 2015 版未设编号子条款，本表按三个内容块覆盖：块①总则、块②创建与更新、块③控制
+  covers:
+  - 7.5.1
+  - 7.5.2
+  - 7.5.3
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: 3
+  mentioned_units: []
+  blocks:
+  - common-documented-information
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '7.5'
+    audit_question: 组织如何确定需要控制的成文信息及其评审与批准？成文信息是否清晰、可读、适宜（含外来文件）？是否标识、检索、保护、备份、保留、处置？电子记录是否防篡改（CNCA 要求电子记录为不可编辑格式）？
+    written_evidence:
+    - 文件控制程序与文件清单、外来文件控制清单（法律法规、国标、图纸、客户规范）、文件评审与批准记录（版本、批准人、生效日期）、发放与回收记录、备份与恢复记录、保留与处置/归档记录、变更记录
+    on_site_evidence:
+    - 现场取任意一份作业文件核对：是否为现行有效版本、是否在受控清单内、是否在使用现场可获得
+    - 查作废文件是否已标识隔离或销毁
+    - 抽查电子系统中权限与修改日志（谁可改、能否删除痕迹）
+    typical_nc:
+    - 现场使用作废版本文件
+    - 文件清单与实际文件不符（多出/缺失）
+    - 外来文件（客户图纸、法规）未评审即使用
+    - 电子记录可随意修改或删除，无权限与日志
+    - 文件保存期限与产品生命周期不匹配
+    - 无外来文件更新机制
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 文件控制程序与文件清单、外来文件控制清单（法律法规、国标、图纸、客户规范）、文件评审与批准记录（版本、批准人、生效日期）、发放与回收记录、备份与恢复记录、保留与处置/归档记录、变更记录
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场取任意一份作业文件核对：是否为现行有效版本、是否在受控清单内、是否在使用现场可获得
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查作废文件是否已标识隔离或销毁
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 抽查电子系统中权限与修改日志（谁可改、能否删除痕迹）
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '8.1'
+  title: 运行策划和控制
+  scope_note: 2015 版未设编号子条款，本表按四个内容块覆盖：块①总则与策划、块②未预先策划的控制、块③未预先策划控制的需求与准备、块④监视测量资源控制与验证确认
+  covers:
+  - 8.1.1
+  - 8.1.2
+  - 8.1.3
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: 4
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '8.1'
+    audit_question: 组织如何策划、实施和控制满足产品服务要求所需的过程（块①）？策划是否含准则、方法、资源、职责、风险机遇、绩效指标、顾客与供方要求？实际运行与策划不一致时如何处置（块②）？临时/非常规作业的需求与准备如何规定（块③）？监视测量资源在用于放行前是否处于可用状态（块④）？产品服务的验证与确认如何策划并在放行前完成（块④）？
+    written_evidence:
+    - 运行策划文件（生产/服务计划、作业指导书、检验计划）、控制准则与工艺参数表、未预先策划作业的审批与临时管控记录、监视测量设备状态确认记录、验证与确认方案及报告（首件检验、型式试验、确认试验）
+    on_site_evidence:
+    - 现场追踪一件在制品：工艺参数与文件是否一致、记录是否同步真实填写
+    - 查首件/验证报告是否在批量生产前完成
+    - 查临时作业（如返工、试制、紧急插单）的审批与临时控制措施
+    - 查测量设备在生产现场的实际校准状态标识
+    typical_nc:
+    - 工艺参数现场执行与文件不符且无处置记录
+    - 先生产后补首件记录
+    - 验证与确认缺失（尤其特种设备、强制认证产品）
+    - 未预先策划的作业无审批即执行
+    - 过程失控后未按 8.6/10.2 处置即继续放行
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 运行策划文件（生产/服务计划、作业指导书、检验计划）、控制准则与工艺参数表、未预先策划作业的审批与临时管控记录、监视测量设备状态确认记录、验证与确认方案及报告（首件检验、型式试验、确认试验）
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场追踪一件在制品：工艺参数与文件是否一致、记录是否同步真实填写
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查首件/验证报告是否在批量生产前完成
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查临时作业（如返工、试制、紧急插单）的审批与临时控制措施
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查测量设备在生产现场的实际校准状态标识
+        priority: supporting
+    difficulty: high
+    apg_ref: []
+- clause_no: '8.2'
+  title: 产品和服务的要求
+  scope_note: 含 8.2.1 顾客沟通、8.2.2 要求的确定、8.2.3 评审、8.2.4 更改
+  covers:
+  - 8.2.1
+  - 8.2.2
+  - 8.2.3
+  - 8.2.4
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 8.2.1
+  - 8.2.2
+  - 8.2.3
+  - 8.2.4
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '8.2'
+    audit_question: 组织如何与顾客沟通产品服务信息、问询、合同或订单（含招标、投标、售前）、投诉及后续服务？顾客要求（含法规要求、交付后要求）如何确定并形成文件化要求？评审要求时是否考虑有能力满足、有无未解决分歧、是否需法规批准或供方批准、是否提供顾客可接受证据？要求更改后如何通知相关方并重新评审？
+    written_evidence:
+    - 合同/订单及其评审记录（含技术协议、验收标准、图纸）、要求清单与澄清记录、投标文件与技术偏离表、顾客投诉与处理记录、合同更改通知与再评审记录、法规与强制性认证要求清单
+    on_site_evidence:
+    - 抽一份已交付合同，做端到端比对：合同要求 → 要求清单 → 评审记录 → 生产/服务计划 → 检验记录 → 交付文件
+    - 核对评审时的能力确认依据是否真实
+    - 查要求更改是否已通知生产与检验并重新评审
+    typical_nc:
+    - 合同评审只勾选「满足」无依据
+    - 口头更改未落到文件导致交付争议
+    - 评审未覆盖法规要求或强标认证要求
+    - 顾客未明确规定的要求（行业惯例）未识别
+    - 投诉处理后未形成产品服务要求的更新
+    - 供方能力未在评审时确认
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 合同/订单及其评审记录（含技术协议、验收标准、图纸）、要求清单与澄清记录、投标文件与技术偏离表、顾客投诉与处理记录、合同更改通知与再评审记录、法规与强制性认证要求清单
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽一份已交付合同，做端到端比对：合同要求 → 要求清单 → 评审记录 → 生产/服务计划 → 检验记录 → 交付文件
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对评审时的能力确认依据是否真实
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查要求更改是否已通知生产与检验并重新评审
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '8.3'
+  title: 设计和开发
+  scope_note: 含 8.3.1 总则、8.3.2 策划、8.3.3 输入、8.3.4 控制、8.3.5 输出、8.3.6 更改
+  covers:
+  - 8.3.1
+  - 8.3.2
+  - 8.3.3
+  - 8.3.4
+  - 8.3.5
+  - 8.3.6
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 8.3.1
+  - 8.3.2
+  - 8.3.3
+  - 8.3.4
+  - 8.3.5
+  - 8.3.6
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '8.3'
+    audit_question: 设计和开发是如何策划的（阶段、评审验证确认活动、职责、接口、资源）？输入是否完整（功能性能、法规要求、可用性、风险、基准方案）？控制是否含评审、验证、确认、问题处置、变更控制、试制与批准？输出是否满足输入并可放行？更改是否受控并保留更改前文件？
+    written_evidence:
+    - 设计和开发计划、输入清单与评审记录、评审/验证/确认方案与报告、设计输出（图纸、技术规范、配方、软件版本）、更改申请与更改通知（含原版文件归档）、试制与样品评价记录、设计转生产的移交清单
+    on_site_evidence:
+    - 抽取一个在研项目做全流程追溯：需求→设计输入→评审→验证→确认→输出→更改
+    - 核对实际在用版本与受控清单一致
+    - 确认验证与确认由独立于设计者的人员完成
+    - 查设计输出是否真正转入生产/服务策划
+    typical_nc:
+    - 无设计与开发策划（跳过 8.3.2 直接做）
+    - 验证与确认混同（只有评审无独立确认）
+    - 更改未评审即投产且旧版文件未受控
+    - 设计与开发策划未在服务类组织适用性评审中说明
+    - 输出未覆盖输入中法规要求
+    - 软件版本与配置记录不可追溯
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 设计和开发计划、输入清单与评审记录、评审/验证/确认方案与报告、设计输出（图纸、技术规范、配方、软件版本）、更改申请与更改通知（含原版文件归档）、试制与样品评价记录、设计转生产的移交清单
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽取一个在研项目做全流程追溯：需求→设计输入→评审→验证→确认→输出→更改
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对实际在用版本与受控清单一致
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 确认验证与确认由独立于设计者的人员完成
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查设计输出是否真正转入生产/服务策划
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '8.4'
+  title: 外部提供的过程、产品和服务
+  scope_note: 含 8.4.1 总则、8.4.2 控制类型和程度、8.4.3 提供给外部供方的信息
+  covers:
+  - 8.4.1
+  - 8.4.2
+  - 8.4.3
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 8.4.1
+  - 8.4.2
+  - 8.4.3
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '8.4'
+    audit_question: 组织基于哪些准则决定外部提供的程度（策划、验证、确认、接收检验或不放行）？准则是否与外部供方对组织产品服务的影响相适应并有记录？是否对外部供方施加控制（沟通、技术交流、评审、验证活动）？向外部供方提供的信息是否完整（要求、过程、技术状态、审核权利、绩效反馈）？
+    written_evidence:
+    - 外部供方识别与分级清单、采购合同与技术协议、评价与选择记录、批准的供方名录及其状态（合格/观察/停用）、进货检验与验收记录、委外过程（外协加工、外包物流、外包检测）的控制方案与验收记录、外部供方的纠正措施与改进记录、绩效监视数据
+    on_site_evidence:
+    - 查采购/委外台账与现场实物是否对应（是否有无受控供方在用）
+    - 抽 2 家供方查看其现场与资质（必要时安排供方现场审核或查其证书与报告）
+    - 核对进货检验记录与不良品处置记录是否闭环
+    - 核对委外过程是否与 4.4 的外包过程识别一致
+    typical_nc:
+    - 只对"提供产品"做控制，对"外部提供的过程"（委外加工、外包服务）无控制措施
+    - 供方评价流于形式（无分级标准与数据）
+    - 进货检验记录事后补填
+    - 名录已废止但仍在采购
+    - 委外件未做验收即入库
+    - 未对高风险供方实施现场审核或第三方审核
+    - 采购要求（图纸、验收准则）不完整导致供方按旧版生产
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 外部供方识别与分级清单、采购合同与技术协议、评价与选择记录、批准的供方名录及其状态（合格/观察/停用）、进货检验与验收记录、委外过程（外协加工、外包物流、外包检测）的控制方案与验收记录、外部供方的纠正措施与改进记录、绩效监视数据
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 查采购/委外台账与现场实物是否对应（是否有无受控供方在用）
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽 2 家供方查看其现场与资质（必要时安排供方现场审核或查其证书与报告）
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对进货检验记录与不良品处置记录是否闭环
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对委外过程是否与 4.4 的外包过程识别一致
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '8.5'
+  title: 生产和服务提供
+  scope_note: 含 8.5.1 总则、8.5.2 策划、8.5.3 标识和可追溯性、8.5.4 顾客所有的财产、8.5.5 防护、8.5.6 放行
+  covers:
+  - 8.5.1
+  - 8.5.2
+  - 8.5.3
+  - 8.5.4
+  - 8.5.5
+  - 8.5.6
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 8.5.1
+  - 8.5.2
+  - 8.5.3
+  - 8.5.4
+  - 8.5.5
+  - 8.5.6
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '8.5'
+    audit_question: 生产和服务提供的策划是否含可获得结果的准则、方法、环境、监视条件、适宜设备与资源？标识与可追溯性如何实现（产品状态、唯一性标识、追溯链条）？顾客或外部供方的财产如何识别、验证、保管与保护？防护措施（防损伤、防污染、防失效）如何执行？放行是否在策划安排之后、是否有授权人、是否在验证活动完成后？
+    written_evidence:
+    - 生产/服务作业指导与工艺参数、作业条件与设备清单、标识与追溯规则（编码规则、批次号、追溯矩阵）、顾客财产接收与返还记录、防护与储存维护记录（含温湿度、防护标识）、放行授权文件与检验合格证、特殊过程的确认记录与再确认周期
+    on_site_evidence:
+    - 现场查看一批产品的实物标识与台账一致性（抽 5～10 件核对批次与追溯链）
+    - 查顾客财产（客户提供的模具、物料、图纸）在厂内的存放、标识与状态
+    - 查待检品、合格品、不合格品区域物理隔离与标识
+    - 核对放行签字人是否有授权且与检验记录对应
+    - 查特殊过程的工艺参数与定期再确认记录
+    typical_nc:
+    - 标识与追溯断链（无法从成品追到原料批次或工序记录）
+    - 待检与合格品混放、标识褪色或手写无签
+    - 顾客财产丢失或混用未追责
+    - 防护条件（存储温湿度、防尘）无记录
+    - 未经检验或检验未合格即放行（先发后检）
+    - 放行记录代签
+    - 特殊过程参数波动无处置记录
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 生产/服务作业指导与工艺参数、作业条件与设备清单、标识与追溯规则（编码规则、批次号、追溯矩阵）、顾客财产接收与返还记录、防护与储存维护记录（含温湿度、防护标识）、放行授权文件与检验合格证、特殊过程的确认记录与再确认周期
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场查看一批产品的实物标识与台账一致性（抽 5～10 件核对批次与追溯链）
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 查顾客财产（客户提供的模具、物料、图纸）在厂内的存放、标识与状态
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 查待检品、合格品、不合格品区域物理隔离与标识
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 核对放行签字人是否有授权且与检验记录对应
+        priority: supporting
+      - id: o5
+        kind: on_site
+        text: 查特殊过程的工艺参数与定期再确认记录
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+- clause_no: '8.6'
+  title: 不合格输出的控制
+  scope_note: 编号口径见 5.5.1
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 5.5.1
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases:
+  - '8.7'
+  points:
+  - point_key: '8.6'
+    audit_question: 不合格输出如何判定、标识、记录与控制？处置方式（返工、返修、让步接收、报废、返给供方）如何选择并经授权？返工与返修是否等同于合格产品并需重新检验？让步接收是否经授权并告知顾客（必要时需顾客或法规批准）？不合格品是否被误用/误发？
+    written_evidence:
+    - 不合格品判定准则（检验规范中的判定限）、不合格品台账与处置单、返工返修作业指导与复检记录、让步接收审批单（含顾客/法规批准证据）、报废与退货记录、纠正措施记录（与 10.2 衔接）
+    on_site_evidence:
+    - 现场查是否存在标识隔离区、待处置区
+    - 抽 3～5 份不合格处置单核对判定依据、处置方式、审批与复检记录
+    - 核对让步接收件是否有顾客书面认可
+    - 查有缺陷品是否被混入合格品库或已发运（通过现场盘点与记录比对）
+    typical_nc:
+    - 不合格品无台账或事后补录
+    - 返工后未重新检验即放行
+    - 让步接收无授权或无顾客同意
+    - 不合格品流出到客户或下道工序
+    - 返修件被当新品销售无标识
+    - 不合格判定准则与检验规范不一致
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 不合格品判定准则（检验规范中的判定限）、不合格品台账与处置单、返工返修作业指导与复检记录、让步接收审批单（含顾客/法规批准证据）、报废与退货记录、纠正措施记录（与 10.2 衔接）
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场查是否存在标识隔离区、待处置区
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽 3～5 份不合格处置单核对判定依据、处置方式、审批与复检记录
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对让步接收件是否有顾客书面认可
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 查有缺陷品是否被混入合格品库或已发运（通过现场盘点与记录比对）
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+  alias_note: 部分公开资料与部分译本用 8.7 指"不合格输出的控制"，主键用 8.6，命中 8.7 路由到同一张条款卡
+- clause_no: '9.1'
+  title: 监视、测量、分析和评价
+  scope_note: 含 9.1.1 总则、9.1.2 顾客满意、9.1.3 分析和评价
+  covers:
+  - 9.1.1
+  - 9.1.2
+  - 9.1.3
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 9.1.1
+  - 9.1.2
+  - 9.1.3
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '9.1'
+    audit_question: 组织需要监视和测量的对象是什么、监视什么、测量什么、何时监视、用什么方法、评价准则是什么、数据是否完整可靠？顾客满意如何监视（含顾客反馈源）？数据是否经统计分析、是否评价了过程绩效与产品服务符合性、是否评价了外部供方绩效、是否评价了风险措施有效性、是否识别了改进机会？
+    written_evidence:
+    - 监视测量计划（对象、方法、频次、责任人、评价准则）、顾客满意监视记录（投诉、满意度调查、交付后评价、市场/行业数据）、统计分析报告（趋势、波动、不良率、Pareto）、过程绩效与符合性评价记录、外部供方绩效评价与再评价记录、改进机会清单与跟踪
+    on_site_evidence:
+    - 现场要求被审核部门出示原始数据并复算（CNCA 监管明确要求严查编造记录，S15）
+    - 核对监视测量计划的执行率与漏测项
+    - 抽查分析结论是否改变了实际决策（有无后续行动）
+    typical_nc:
+    - 只统计不分析（数据堆在台账，无趋势与结论）
+    - 顾客满意仅用投诉数衡量、忽略交付及时率与外部评价
+    - 分析结论与 9.3 管理评审输入不一致
+    - 数据事后补录、同一台账前后数值矛盾
+    - 未评价外部供方绩效与风险措施有效性
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 监视测量计划（对象、方法、频次、责任人、评价准则）、顾客满意监视记录（投诉、满意度调查、交付后评价、市场/行业数据）、统计分析报告（趋势、波动、不良率、Pareto）、过程绩效与符合性评价记录、外部供方绩效评价与再评价记录、改进机会清单与跟踪
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场要求被审核部门出示原始数据并复算（CNCA 监管明确要求严查编造记录，S15）
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对监视测量计划的执行率与漏测项
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 抽查分析结论是否改变了实际决策（有无后续行动）
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+  alias_note: 2008 版遗留的"8.7 数据分析"对应 2015 版 9.1.3 分析和评价
+- clause_no: '9.2'
+  title: 内部审核
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks:
+  - common-audit-and-review
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '9.2'
+    audit_question: 内审是否按计划实施、覆盖全部过程/场所/法规要求、准则是否适当、内审员是否独立且有能力？内审发现（含不符合）是否记录、是否升级为纠正措施、是否验证有效性、是否防止重复发生？是否考虑过程绩效与顾客反馈的结果？
+    written_evidence:
+    - 内审方案与计划（范围、准则、方法、审核组）、内审报告与记录（不符合清单）、不符合项纠正与验证记录、内审员能力证明（培训、经历、见证记录）、内审输入数据（过程绩效、顾客反馈、以往审核结果、变更）
+    on_site_evidence:
+    - 核对内审计划覆盖范围与实际过程清单的差异
+    - 抽查内审报告，看不符合项是否有根因分析与有效性验证
+    - 核对内审员是否审核了本人负责的过程
+    - 看内审发现是否真正进入 10.2 与管理评审
+    typical_nc:
+    - 内审范围未覆盖全部过程或场所（尤其新增过程、临时场所）
+    - 内审员能力不足或独立性存疑（审核本部门）
+    - 内审只核对文件不到现场
+    - 不符合项仅纠正未分析原因（CNAS-GL008 对实验室评审也把此类列为严重/一般不符合示例，见 S9）
+    - 不符合项未验证有效性、重复发生
+    - 内审报告与实际不符
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 内审方案与计划（范围、准则、方法、审核组）、内审报告与记录（不符合清单）、不符合项纠正与验证记录、内审员能力证明（培训、经历、见证记录）、内审输入数据（过程绩效、顾客反馈、以往审核结果、变更）
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核对内审计划覆盖范围与实际过程清单的差异
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查内审报告，看不符合项是否有根因分析与有效性验证
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 核对内审员是否审核了本人负责的过程
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 看内审发现是否真正进入 10.2 与管理评审
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '9.3'
+  title: 管理评审
+  scope_note: 含 9.3.1 总则、9.3.2 输入、9.3.3 输出
+  covers:
+  - 9.3.1
+  - 9.3.2
+  - 9.3.3
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 9.3.1
+  - 9.3.2
+  - 9.3.3
+  blocks:
+  - common-audit-and-review
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '9.3'
+    audit_question: 管理评审是否按计划由最高管理者主持、间隔是否符合要求（通常每年至少一次）？输入是否齐全（以往评审措施、过程绩效与产品服务符合性、顾客满意、外部供方绩效、监视测量结果、不符合与纠正措施、内审结果、外部因素变化、风险机遇与措施有效性、资源充分性、改进机会）？输出是否形成决策（改进机会、变更需求、资源需求）并落实跟踪？评审记录是否真实完整、是否包含体系有效性评价？
+    written_evidence:
+    - 管理评审计划与通知（含参加人员，含技术专家）、管理评审报告与签到表、各项输入材料及数据、评审输出决议与落实跟踪记录、改进事项的责任人与完成时间
+    on_site_evidence:
+    - 核实评审记录的真实召开（签到、议程、发言记录）
+    - 核对输入中的数据与 9.1.3 分析报告一致
+    - 追踪输出决议到落地（改进项目已在实施）
+    - 确认最高管理者对体系有效性的评价结论
+    typical_nc:
+    - 管理评审由管理者代表主持或最高管理者未实质参与
+    - 输入项缺失（无顾客满意、无外部供方绩效、无风险措施有效性）
+    - 评审只有「一致通过」无具体决议与资源承诺
+    - 输出决议无跟踪
+    - 评审记录事后补写
+    - 输入数据与实际绩效矛盾（目标未达成但评审称有效）
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 管理评审计划与通知（含参加人员，含技术专家）、管理评审报告与签到表、各项输入材料及数据、评审输出决议与落实跟踪记录、改进事项的责任人与完成时间
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核实评审记录的真实召开（签到、议程、发言记录）
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对输入中的数据与 9.1.3 分析报告一致
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 追踪输出决议到落地（改进项目已在实施）
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 确认最高管理者对体系有效性的评价结论
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '10.1'
+  title: 总则
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '10.1'
+    audit_question: 组织如何确定并选择改进机会（与体系有效性、产品服务合格性、顾客满意、过程绩效相适应）？改进是否纳入体系策划（6.2 目标、6.3 变更）？
+    written_evidence:
+    - 改进机会识别清单、改进计划与立项依据、与 6.2/6.3 的衔接记录
+    on_site_evidence:
+    - 查改进项目的来源（内审、投诉、分析、管理评审）是否覆盖主要问题来源
+    - 改进是否进入正式流程与资源计划
+    typical_nc:
+    - 改进只来自单一来源（仅内审）
+    - 改进未纳入目标与资源
+    - 改进与风险措施、纠正措施重复或混淆
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 改进机会识别清单、改进计划与立项依据、与 6.2/6.3 的衔接记录
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 查改进项目的来源（内审、投诉、分析、管理评审）是否覆盖主要问题来源
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 改进是否进入正式流程与资源计划
+        priority: supporting
+    difficulty: medium
+    apg_ref: []
+- clause_no: '10.2'
+  title: 不合格和纠正措施
+  scope_note: 含 10.2.1 总则、10.2.2 不合格和纠正措施
+  covers:
+  - 10.2.1
+  - 10.2.2
+  covers_mode: subclauses_named
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units:
+  - 10.2.1
+  - 10.2.2
+  blocks:
+  - common-nonconformity
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '10.2'
+    audit_question: 不合格（含来自顾客投诉的）发生后如何响应：控制、纠正、处置、记录、处置后果（通报、停用、撤回）？是否评审根因（根因分析是否到原因层面而非停在「员工疏忽」）？纠正措施是否实施并验证有效（是否证明问题不再重复发生）？是否更新体系文件与风险评估、是否防止类似问题在他处发生？
+    written_evidence:
+    - 不合格处置记录、根因分析（5Why、鱼骨图、故障树）记录、纠正措施计划与实施证据、有效性验证记录、体系文件/风险评估/作业文件的修订记录、横向展开的排查记录
+    on_site_evidence:
+    - 抽 3～5 个已关闭的不合格/纠正措施，核对根因深度（追到体系原因而非个人原因）
+    - 看纠正措施是否有客观验证数据且期间足够长
+    - 确认文件已同步修订
+    - 同类问题在其他部门是否排查
+    typical_nc:
+    - 根因停留在表面（人员培训不足、未按规程操作）而未改体系
+    - 纠正措施只处理本产品未排查同批与类似产品
+    - 有效性验证仅凭培训签到无客观证据
+    - 不合格与纠正措施未与 8.6 不合格输出控制联动（不合格品放行）
+    - 问题重复发生
+    - 改进后未更新风险评估与文件
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 不合格处置记录、根因分析（5Why、鱼骨图、故障树）记录、纠正措施计划与实施证据、有效性验证记录、体系文件/风险评估/作业文件的修订记录、横向展开的排查记录
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽 3～5 个已关闭的不合格/纠正措施，核对根因深度（追到体系原因而非个人原因）
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 看纠正措施是否有客观验证数据且期间足够长
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 确认文件已同步修订
+        priority: supporting
+      - id: o4
+        kind: on_site
+        text: 同类问题在其他部门是否排查
+        priority: supporting
+    difficulty: null
+    apg_ref: []
+  alias_note: 需求文档中常见的"8.7 纠正措施"实为 10.2，不建 8.7 节点，避免同一要求两处取证
+- clause_no: '10.3'
+  title: 持续改进
+  scope_note: null
+  covers: []
+  covers_mode: single_clause
+  covers_source: clause_tree
+  block_count: null
+  mentioned_units: []
+  blocks: []
+  photo_evidence: not_applicable
+  photo_note: null
+  aliases: []
+  points:
+  - point_key: '10.3'
+    audit_question: 改进是否持续推进并产生预期结果？改进效果如何监视？改进与产品服务合格性、顾客满意、过程绩效的关系如何证明？
+    written_evidence:
+    - 改进项目台账（立项、责任人、期限、状态、效果数据）、改进前后对比数据、改进成果纳入目标与绩效的证据、管理评审中的持续改进决议
+    on_site_evidence:
+    - 查改进台账中已完成项目是否有效果数据支撑
+    - 抽查已完成项目在现场的落地情况（作业方式是否真的变了）
+    - 改进成果是否体现在顾客反馈或过程绩效上
+    typical_nc:
+    - 改进项目长期挂起无效果评价
+    - 改进活动与体系运行割裂（另起一套台账）
+    - 改进无量化效果，仅有活动记录
+    - 改进未反哺过程绩效与目标
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 改进项目台账（立项、责任人、期限、状态、效果数据）、改进前后对比数据、改进成果纳入目标与绩效的证据、管理评审中的持续改进决议
+        priority: core
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 查改进台账中已完成项目是否有效果数据支撑
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查已完成项目在现场的落地情况（作业方式是否真的变了）
+        priority: supporting
+      - id: o3
+        kind: on_site
+        text: 改进成果是否体现在顾客反馈或过程绩效上
+        priority: supporting
+    difficulty: medium
+    apg_ref: []

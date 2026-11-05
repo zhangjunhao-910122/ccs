@@ -1,0 +1,49 @@
+# 四态判定规则、锚点规则、照片取证规则
+# 对应 GitHub Issue #2（规格 S1）。判定语义由 #9 S2 定义，此处为机器可读表示。
+
+schema_version: 1
+
+verdicts:
+  - id: conform
+    name: 符合
+    requires:
+      - anchor_covers_all_required_evidence
+      - all_anchors_confirmed
+  - id: nonconform
+    name: 不符合
+    requires:
+      - at_least_one_confirmed_anchor
+      - fact_statement
+      - clause_no
+      - nc_category
+    nc_categories: [critical, major, minor]
+  - id: insufficient
+    name: 证据不足
+    requires: []
+    rule: 必核证据项缺锚点、或锚点未 confirmed 时，唯一合法结论。禁止判为符合。
+  - id: na
+    name: 不适用
+    requires:
+      - justification
+      - basis_anchor
+
+anchor_rules:
+  types: [file, image]
+  file_locator_kinds: [page, section, table_row, cell, paragraph, timestamp]
+  image_region_kinds: [bbox, region_desc, tag]
+  confirmation_states: [pending, confirmed, rejected]
+  hard_rules:
+    - 报告正文只允许引用锚点表中状态为 confirmed 的锚点
+    - 锚点缺失时判定自动落 insufficient，工具不得自动补齐
+    - file 锚点必须带文件指纹（hash 或 size+mtime），用于事后验证材料未被替换
+    - image 锚点必须声明可证范围（visible_state_only），不得据照片推断时间序列、访谈内容或文件完整性
+
+photo_evidence_levels: [allowed, conditional, not_applicable]
+photo_evidence_rules:
+  - photo_evidence=allowed 表示照片可直接支撑该条款的可见状态结论
+  - photo_evidence=conditional 表示仅在配合其他证据时才可引用，且必须在报告中说明
+  - photo_evidence=not_applicable 表示照片无法作为该条款证据
+  - 白名单内容由 #11 I4 提供；本文件只定义标记位与规则
+
+difficulty_levels: [high, medium, low]
+difficulty_meaning: 取证难度（客观证据是否可得、是否需跨部门追溯、是否依赖主观陈述），决定审核时间分配与抽样强度
