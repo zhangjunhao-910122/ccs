@@ -1,0 +1,24 @@
+{
+  "source_id": "SRC-INT-METER-CSV",
+  "dataset": "D03",
+  "batch_id": "IMP-20261107-0003",
+  "file_hash": "b1b0c7fdbb5d602ab62ba6634503c5989b48995ff0581a436a942f5bba039bd6",
+  "status": "COMMITTED",
+  "rows_read": 2,
+  "rows_committed": 2,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "TBD_PASSTHROUGH",
+      "severity": "INFO",
+      "row_no": null,
+      "field": "metering_period",
+      "message": "TBD 字段 metering_period 直通，待客户确认"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-07T00:51:29+08:00",
+  "finished_at": "2026-11-07T00:51:29+08:00",
+  "evidence_path": null
+}

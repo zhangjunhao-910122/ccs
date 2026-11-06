@@ -1,0 +1,24 @@
+{
+  "source_id": "SRC-INT-USER-CSV",
+  "dataset": "D02",
+  "batch_id": "IMP-20261107-0001",
+  "file_hash": "5c2a9e708326a642bcf7d1b45ca666c096deb313bb30b8c2782840adc44fd795",
+  "status": "COMMITTED",
+  "rows_read": 3,
+  "rows_committed": 3,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "TBD_PASSTHROUGH",
+      "severity": "INFO",
+      "row_no": null,
+      "field": "industry_code",
+      "message": "TBD 字段 industry_code 直通，待客户确认"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-07T01:24:22+08:00",
+  "finished_at": "2026-11-07T01:24:22+08:00",
+  "evidence_path": null
+}

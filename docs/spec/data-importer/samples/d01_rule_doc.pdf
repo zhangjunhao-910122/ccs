@@ -1,0 +1,66 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 536 >>
+stream
+BT
+/F1 10 Tf
+50 760 Td
+13 TL
+(doc_id: ) Tj
+(RULE-HB-2025-0009) Tj
+T*
+(doc_no: ) Tj
+<910275354EA46613301400320030003200353015003953F7> Tj
+T*
+(title: ) Tj
+<6E5653177535529B96F6552E5E02573A4EA466135B9E65BD7EC65219FF0800320030003200355E747248FF09> Tj
+T*
+(issuer: ) Tj
+<6E5653177535529B4EA466134E2D5FC3> Tj
+T*
+(doc_type: ) Tj
+(PROVINCIAL) Tj
+T*
+(publish_date: ) Tj
+(2025-12-20) Tj
+T*
+(effective_from: ) Tj
+(2026-01-01) Tj
+T*
+(status: ) Tj
+(ACTIVE) Tj
+T*
+(url: ) Tj
+(https://example.invalid/hb/2025/9) Tj
+T*
+(clause_count: ) Tj
+(120) Tj
+T*
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+898
+%%EOF

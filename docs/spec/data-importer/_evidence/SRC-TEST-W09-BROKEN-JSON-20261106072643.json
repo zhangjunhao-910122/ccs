@@ -1,0 +1,24 @@
+{
+  "source_id": "SRC-TEST-W09-BROKEN-JSON",
+  "dataset": "D11",
+  "batch_id": null,
+  "file_hash": "9b35188a9ec93beba1968fe85e2553c3d998fd909006f4c12f4a36a6bc7d2ef7",
+  "status": "FAILED",
+  "rows_read": 0,
+  "rows_committed": 0,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "W09",
+      "severity": "WARN",
+      "row_no": null,
+      "field": null,
+      "message": "外部通道返回不可解析的 JSON：Expecting value: line 1 column 39 (char 38)"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-06T07:26:43+08:00",
+  "finished_at": "2026-11-06T07:26:43+08:00",
+  "evidence_path": null
+}

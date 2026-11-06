@@ -1,0 +1,16 @@
+{
+  "source_id": "SRC-TEST-DIRTY-Q03",
+  "dataset": "D09",
+  "batch_id": "IMP-20261106-0004",
+  "file_hash": "e39d0a9b25c8d1500ed0814f02e791dca47a4b2a80dd45d8fa7c26da543eec23",
+  "status": "DUPLICATE",
+  "rows_read": 0,
+  "rows_committed": 0,
+  "rows_quarantined": 0,
+  "quality_issues": [],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-06T07:26:43+08:00",
+  "finished_at": "2026-11-06T07:26:43+08:00",
+  "evidence_path": null
+}

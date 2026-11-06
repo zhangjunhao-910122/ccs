@@ -1,0 +1,24 @@
+{
+  "source_id": "SRC-INT-WHALE-XLSX",
+  "dataset": "D05",
+  "batch_id": "IMP-20261107-0006",
+  "file_hash": "2ac2b44648f55b5fb77469572a3e167178b23cb626ce93301543bf2aeaf2c00b",
+  "status": "COMMITTED",
+  "rows_read": 2,
+  "rows_committed": 2,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "TBD_PASSTHROUGH",
+      "severity": "INFO",
+      "row_no": null,
+      "field": "curve_json",
+      "message": "TBD 字段 curve_json 直通，待客户确认"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-07T00:51:29+08:00",
+  "finished_at": "2026-11-07T00:51:29+08:00",
+  "evidence_path": null
+}

@@ -1,0 +1,24 @@
+{
+  "source_id": "SRC-INT-LOAD-15MIN-CSV",
+  "dataset": "D04",
+  "batch_id": "IMP-20261107-0004",
+  "file_hash": "2cc8f6e37866c94a65c4f7e9abb33cd5cf4e16ecf92e346a2a25b1736a7b21c9",
+  "status": "COMMITTED",
+  "rows_read": 11,
+  "rows_committed": 3,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "I06",
+      "severity": "WARN",
+      "row_no": 9,
+      "field": "source_15min_count",
+      "message": "USER-4201-000124-3 2026-11-04 第 1 时段只有 3 个 15 分钟点，小时电量置空并降级 PARTIAL"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-07T00:51:29+08:00",
+  "finished_at": "2026-11-07T00:51:29+08:00",
+  "evidence_path": null
+}

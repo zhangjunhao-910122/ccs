@@ -1,0 +1,31 @@
+{
+  "source_id": "SRC-EXT-WEATHER-JSON",
+  "dataset": "D11",
+  "batch_id": "IMP-20261106-0009",
+  "file_hash": "9420d44e375679588c2243d12028d945df11442843525062e1238293c75f0dff",
+  "status": "COMMITTED",
+  "rows_read": 2,
+  "rows_committed": 0,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "DUPLICATE_RECORD_SKIPPED",
+      "severity": "INFO",
+      "row_no": 1,
+      "field": "*",
+      "message": "记录已存在，跳过：a13d9c65a520"
+    },
+    {
+      "rule_id": "DUPLICATE_RECORD_SKIPPED",
+      "severity": "INFO",
+      "row_no": 2,
+      "field": "*",
+      "message": "记录已存在，跳过：d61e43110441"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-06T07:26:43+08:00",
+  "finished_at": "2026-11-06T07:26:43+08:00",
+  "evidence_path": null
+}

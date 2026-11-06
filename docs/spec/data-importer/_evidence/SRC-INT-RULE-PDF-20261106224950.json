@@ -1,0 +1,24 @@
+{
+  "source_id": "SRC-INT-RULE-PDF",
+  "dataset": "D01",
+  "batch_id": "IMP-20261106-0009",
+  "file_hash": "ba37970ad2afb83bfaf53fad1f2c2cb886d45b6cd351b778b4f115dcca8e3790",
+  "status": "COMMITTED",
+  "rows_read": 1,
+  "rows_committed": 0,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "DUPLICATE_RECORD_SKIPPED",
+      "severity": "INFO",
+      "row_no": 1,
+      "field": "*",
+      "message": "记录已存在，跳过：2a417588dc34"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-06T22:49:50+08:00",
+  "finished_at": "2026-11-06T22:49:50+08:00",
+  "evidence_path": null
+}

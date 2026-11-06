@@ -1,0 +1,16 @@
+{
+  "source_id": "SRC-INT-TRADE-CSV",
+  "dataset": "D08",
+  "batch_id": "IMP-20261107-0009",
+  "file_hash": "820f58d1a98f1d84831be030d3374bfd110419b7993ae3a04f8e7f565188ee0a",
+  "status": "DUPLICATE",
+  "rows_read": 0,
+  "rows_committed": 0,
+  "rows_quarantined": 0,
+  "quality_issues": [],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-07T01:24:23+08:00",
+  "finished_at": "2026-11-07T01:24:23+08:00",
+  "evidence_path": null
+}

@@ -1,0 +1,31 @@
+{
+  "source_id": "SRC-INT-MONTHLY-CSV",
+  "dataset": "D10",
+  "batch_id": "IMP-20261107-0011",
+  "file_hash": "9358893882b44eeab1e089be079561e99c6d562ebdd96bea8aa64e645f43dfce",
+  "status": "COMMITTED",
+  "rows_read": 2,
+  "rows_committed": 2,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "TBD_PASSTHROUGH",
+      "severity": "INFO",
+      "row_no": null,
+      "field": "retro_adjust_type",
+      "message": "TBD 字段 retro_adjust_type 直通，待客户确认"
+    },
+    {
+      "rule_id": "TBD_PASSTHROUGH",
+      "severity": "INFO",
+      "row_no": null,
+      "field": "subject_code",
+      "message": "TBD 字段 subject_code 直通，待客户确认"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-07T00:51:29+08:00",
+  "finished_at": "2026-11-07T00:51:29+08:00",
+  "evidence_path": null
+}

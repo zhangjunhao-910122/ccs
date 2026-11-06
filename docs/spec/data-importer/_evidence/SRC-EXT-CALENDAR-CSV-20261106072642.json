@@ -1,0 +1,24 @@
+{
+  "source_id": "SRC-EXT-CALENDAR-CSV",
+  "dataset": "D12",
+  "batch_id": "IMP-20261106-0002",
+  "file_hash": "0814718da846f35c046bd9619353e4af4d0e0bb96d4e78b66d9f8ae7b98109d2",
+  "status": "COMMITTED",
+  "rows_read": 3,
+  "rows_committed": 3,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "TBD_PASSTHROUGH",
+      "severity": "INFO",
+      "row_no": null,
+      "field": "tariff_segment_map_version",
+      "message": "TBD 字段 tariff_segment_map_version 直通，待客户确认"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-06T07:26:42+08:00",
+  "finished_at": "2026-11-06T07:26:42+08:00",
+  "evidence_path": null
+}

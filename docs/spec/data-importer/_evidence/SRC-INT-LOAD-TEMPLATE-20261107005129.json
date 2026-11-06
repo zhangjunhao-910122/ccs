@@ -1,0 +1,16 @@
+{
+  "source_id": "SRC-INT-LOAD-TEMPLATE",
+  "dataset": "D04",
+  "batch_id": "IMP-20261107-0005",
+  "file_hash": "dce620346b4343bfe895bf8f20512c300c4860554132775b7b5123ad8d3e4a26",
+  "status": "DUPLICATE",
+  "rows_read": 0,
+  "rows_committed": 0,
+  "rows_quarantined": 0,
+  "quality_issues": [],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-07T00:51:29+08:00",
+  "finished_at": "2026-11-07T00:51:29+08:00",
+  "evidence_path": null
+}

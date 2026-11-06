@@ -1,0 +1,20 @@
+[
+ {
+  "region_code": "420100",
+  "valid_at": "2026-11-04T00:00:00+08:00",
+  "temperature_c": "12.5",
+  "humidity_pct": "65.0",
+  "weather_code": "CLEAR",
+  "alert_level": "NONE",
+  "source": "SRC-EXT-WEATHER-API"
+ },
+ {
+  "region_code": "420100",
+  "valid_at": "2026-11-04T01:00:00+08:00",
+  "temperature_c": "12.0",
+  "humidity_pct": "67.0",
+  "weather_code": "CLEAR",
+  "alert_level": "NONE",
+  "source": "SRC-EXT-WEATHER-API"
+ }
+]

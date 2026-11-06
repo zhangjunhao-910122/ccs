@@ -1,0 +1,16 @@
+{
+  "source_id": "SRC-INT-RETAIL-XLSX",
+  "dataset": "D06",
+  "batch_id": "IMP-20261106-0001",
+  "file_hash": "848f36fb8bb9b98d06071a8f44347a343f436731eacab3c89e60080b3383bd94",
+  "status": "COMMITTED",
+  "rows_read": 2,
+  "rows_committed": 2,
+  "rows_quarantined": 0,
+  "quality_issues": [],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-06T07:26:42+08:00",
+  "finished_at": "2026-11-06T07:26:42+08:00",
+  "evidence_path": null
+}

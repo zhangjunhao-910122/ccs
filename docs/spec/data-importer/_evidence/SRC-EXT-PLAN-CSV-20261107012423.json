@@ -1,0 +1,16 @@
+{
+  "source_id": "SRC-EXT-PLAN-CSV",
+  "dataset": "D13",
+  "batch_id": "IMP-20261107-0015",
+  "file_hash": "4b36cef97f3658224baf23b5904314148ce533f09e7d2501340f9b6516d7035a",
+  "status": "COMMITTED",
+  "rows_read": 2,
+  "rows_committed": 2,
+  "rows_quarantined": 0,
+  "quality_issues": [],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-07T01:24:23+08:00",
+  "finished_at": "2026-11-07T01:24:23+08:00",
+  "evidence_path": null
+}

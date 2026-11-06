@@ -1,0 +1,24 @@
+{
+  "source_id": "SRC-TEST-DIRTY-Q05",
+  "dataset": "D04",
+  "batch_id": "IMP-20261106-0006",
+  "file_hash": "bb9c8a566fc1fa6c2f8cfca47f6ef11de8763073a839333dc5c8b254fa2ef2bd",
+  "status": "COMMITTED",
+  "rows_read": 1,
+  "rows_committed": 1,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "Q05",
+      "severity": "WARN",
+      "row_no": 1,
+      "field": "energy_mwh",
+      "message": "源单位 kWh 与契约单位 MWh 不一致，按 0.001 换算（来源未登记换算率）"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-06T22:49:50+08:00",
+  "finished_at": "2026-11-06T22:49:50+08:00",
+  "evidence_path": null
+}

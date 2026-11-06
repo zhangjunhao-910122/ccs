@@ -1,0 +1,31 @@
+{
+  "source_id": "SRC-INT-DAILY-CSV",
+  "dataset": "D09",
+  "batch_id": "IMP-20261106-0001",
+  "file_hash": "1adc7633343959241c3bf021da3248d03d10ab80d22af24462390436d86042f0",
+  "status": "QUARANTINED",
+  "rows_read": 3,
+  "rows_committed": 0,
+  "rows_quarantined": 3,
+  "quality_issues": [
+    {
+      "rule_id": "TBD_PASSTHROUGH",
+      "severity": "INFO",
+      "row_no": null,
+      "field": "subject_code",
+      "message": "TBD 字段 subject_code 直通，待客户确认"
+    },
+    {
+      "rule_id": "Q06",
+      "severity": "BLOCK",
+      "row_no": 2,
+      "field": "amount",
+      "message": "金额 4511.00 与 电量x价格 4511.1000000 偏差超过 0.01"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-06T22:49:50+08:00",
+  "finished_at": "2026-11-06T22:49:50+08:00",
+  "evidence_path": null
+}

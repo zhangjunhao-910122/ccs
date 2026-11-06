@@ -1,0 +1,1220 @@
+{
+  "name": "数据导入器口径（票 #24）",
+  "version": "1.0.0",
+  "ticket": "#24",
+  "rule_version": "rules-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "registry_version": "registry-2026.01.01",
+  "max_rows": 200000,
+  "batch_id_prefix": "IMP",
+  "evidence_dir": "_evidence",
+  "work_dir": "_work",
+  "rule_severity": {
+    "Q01": "BLOCK",
+    "Q02": "BLOCK",
+    "Q03": "BLOCK",
+    "Q04": "BLOCK",
+    "Q05": "WARN",
+    "Q06": "BLOCK",
+    "I01": "BLOCK",
+    "I02": "BLOCK",
+    "I03": "BLOCK",
+    "I04": "BLOCK",
+    "I05": "BLOCK",
+    "I06": "WARN",
+    "W09": "WARN"
+  },
+  "rule_meaning": {
+    "Q01": "必需字段为空（object-map required=是）",
+    "Q02": "同一业务键重复（批内 DUP_IN_BATCH）",
+    "Q03": "枚举越界 / 数值区间越界 / 小数位超出契约位数",
+    "Q04": "时标错位：区间起点不等于业务日 + (时段号-1) 小时，或提交日与交易日不一致，或结算日早于电量归属日",
+    "Q05": "单位声明缺失或与契约单位不一致（可换算则 WARN 并记录换算率）",
+    "Q06": "逻辑异常：金额≠电量×价格（容差 0.01 元）、日历与工作日标志矛盾",
+    "I01": "标准模板指纹不符（表头列名与顺序的 SHA-256 不匹配）",
+    "I02": "PDF 无文本层（不做 OCR）",
+    "I03": "单位无法换算（换算因子缺失或未知单位）",
+    "I04": "映射缺必需字段，或模板数据字典与映射不一致",
+    "I05": "批次行数超限",
+    "I06": "15 分钟聚合点数不足 4（沿用时间栅格 T7 降级为 PARTIAL/MISSING）",
+    "W09": "外部通道失败降级（不影响其它数据集）"
+  },
+  "business_keys": {
+    "D01": [
+      "doc_id"
+    ],
+    "D02": [
+      "user_id"
+    ],
+    "D03": [
+      "meter_id"
+    ],
+    "D04": [
+      "user_id",
+      "business_date",
+      "slot_no"
+    ],
+    "D05": [
+      "contract_id",
+      "version"
+    ],
+    "D06": [
+      "contract_id",
+      "version"
+    ],
+    "D07": [
+      "batch_id",
+      "trade_date",
+      "variety",
+      "slot_no"
+    ],
+    "D08": [
+      "trade_id"
+    ],
+    "D09": [
+      "energy_date",
+      "slot_no",
+      "subject_code",
+      "direction"
+    ],
+    "D10": [
+      "settle_month",
+      "subject_code",
+      "direction",
+      "retro_seq"
+    ],
+    "D11": [
+      "region_code",
+      "valid_at"
+    ],
+    "D12": [
+      "calendar_date"
+    ],
+    "D13": [
+      "correction_id"
+    ]
+  },
+  "current_key_drop": [
+    "version"
+  ],
+  "valid_from_fields": {
+    "D01": "publish_date",
+    "D02": null,
+    "D03": "commissioned_at",
+    "D04": "business_date",
+    "D05": "period_start",
+    "D06": "term_start",
+    "D07": "trade_date",
+    "D08": "trade_date",
+    "D09": "energy_date",
+    "D10": "settle_month",
+    "D11": "valid_at",
+    "D12": "calendar_date",
+    "D13": "business_date"
+  },
+  "slot_datasets": {
+    "D04": "business_date",
+    "D07": "trade_date",
+    "D09": "energy_date",
+    "D08": "trade_date"
+  },
+  "sources": [
+    {
+      "source_id": "SRC-INT-USER-CSV",
+      "dataset": "D02",
+      "kind": "csv",
+      "path": "samples/d02_users.csv",
+      "registry_source": "SRC-INT-USER-XLSX",
+      "columns": [
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        },
+        {
+          "target": "industry_code",
+          "source": "行业编码"
+        },
+        {
+          "target": "region_code",
+          "source": "区域编码"
+        },
+        {
+          "target": "voltage_level",
+          "source": "电压等级"
+        },
+        {
+          "target": "status",
+          "source": "状态"
+        },
+        {
+          "target": "contract_capacity_kw",
+          "source": "合同容量(kW)"
+        },
+        {
+          "target": "retail_package_id",
+          "source": "套餐编号"
+        }
+      ],
+      "pending_confirmation": [
+        "industry_code"
+      ]
+    },
+    {
+      "source_id": "SRC-INT-USER-XLSX",
+      "dataset": "D02",
+      "kind": "xlsx",
+      "path": "samples/d02_users.xlsx",
+      "columns": [
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        },
+        {
+          "target": "industry_code",
+          "source": "行业编码"
+        },
+        {
+          "target": "region_code",
+          "source": "区域编码"
+        },
+        {
+          "target": "voltage_level",
+          "source": "电压等级"
+        },
+        {
+          "target": "status",
+          "source": "状态"
+        },
+        {
+          "target": "contract_capacity_kw",
+          "source": "合同容量(kW)"
+        },
+        {
+          "target": "retail_package_id",
+          "source": "套餐编号"
+        }
+      ],
+      "pending_confirmation": [
+        "industry_code"
+      ]
+    },
+    {
+      "source_id": "SRC-INT-METER-CSV",
+      "dataset": "D03",
+      "kind": "csv",
+      "path": "samples/d03_meters.csv",
+      "columns": [
+        {
+          "target": "meter_id",
+          "source": "计量点编号"
+        },
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        },
+        {
+          "target": "metering_period",
+          "source": "计量周期"
+        },
+        {
+          "target": "ct_ratio",
+          "source": "CT变比"
+        },
+        {
+          "target": "pt_ratio",
+          "source": "PT变比"
+        },
+        {
+          "target": "unit",
+          "source": "计量单位"
+        },
+        {
+          "target": "status",
+          "source": "状态"
+        },
+        {
+          "target": "commissioned_at",
+          "source": "投运日期"
+        }
+      ],
+      "pending_confirmation": [
+        "metering_period"
+      ]
+    },
+    {
+      "source_id": "SRC-INT-LOAD-15MIN-CSV",
+      "dataset": "D04",
+      "kind": "csv",
+      "path": "samples/d04_load_15min.csv",
+      "grain": "15min",
+      "time_basis": "interval_end",
+      "columns": [
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        },
+        {
+          "target": "business_date",
+          "source": "日期"
+        },
+        {
+          "target": "point_time",
+          "source": "时刻"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "电量(kWh)",
+          "unit": "kWh",
+          "to_unit": "MWh",
+          "factor": 0.001
+        }
+      ],
+      "pending_confirmation": [
+        "tariff_segment"
+      ]
+    },
+    {
+      "source_id": "SRC-INT-WHALE-XLSX",
+      "dataset": "D05",
+      "kind": "xlsx",
+      "path": "samples/d05_wholesale_contract.xlsx",
+      "columns": [
+        {
+          "target": "contract_id",
+          "source": "合同编号"
+        },
+        {
+          "target": "variety",
+          "source": "品种"
+        },
+        {
+          "target": "counterparty_id",
+          "source": "对手方"
+        },
+        {
+          "target": "period_start",
+          "source": "开始日期"
+        },
+        {
+          "target": "period_end",
+          "source": "结束日期"
+        },
+        {
+          "target": "total_energy_mwh",
+          "source": "合同电量(MWh)"
+        },
+        {
+          "target": "price_type",
+          "source": "电价类型"
+        },
+        {
+          "target": "price",
+          "source": "价格(元/MWh)"
+        },
+        {
+          "target": "formula_text",
+          "source": "公式"
+        },
+        {
+          "target": "version",
+          "source": "版本"
+        },
+        {
+          "target": "status",
+          "source": "状态"
+        },
+        {
+          "target": "curve_json",
+          "source": "24时段曲线(JSON)"
+        }
+      ],
+      "pending_confirmation": [
+        "curve_json"
+      ]
+    },
+    {
+      "source_id": "SRC-INT-RETAIL-XLSX",
+      "dataset": "D06",
+      "kind": "xlsx",
+      "path": "samples/d06_retail_contract.xlsx",
+      "columns": [
+        {
+          "target": "contract_id",
+          "source": "合同编号"
+        },
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        },
+        {
+          "target": "package_id",
+          "source": "套餐编号"
+        },
+        {
+          "target": "price_type",
+          "source": "电价类型"
+        },
+        {
+          "target": "formula_text",
+          "source": "公式"
+        },
+        {
+          "target": "term_start",
+          "source": "起始日期"
+        },
+        {
+          "target": "term_end",
+          "source": "结束日期"
+        },
+        {
+          "target": "version",
+          "source": "版本"
+        },
+        {
+          "target": "status",
+          "source": "状态"
+        }
+      ],
+      "pending_confirmation": []
+    },
+    {
+      "source_id": "SRC-INT-DECL-CSV",
+      "dataset": "D07",
+      "kind": "csv",
+      "path": "samples/d07_declaration.csv",
+      "columns": [
+        {
+          "target": "batch_id",
+          "source": "申报批次号"
+        },
+        {
+          "target": "trade_date",
+          "source": "交易日"
+        },
+        {
+          "target": "variety",
+          "source": "品种"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "申报电量(MWh)"
+        },
+        {
+          "target": "price",
+          "source": "申报价(元/MWh)"
+        },
+        {
+          "target": "submitted_at",
+          "source": "提交时刻"
+        },
+        {
+          "target": "status",
+          "source": "状态"
+        }
+      ],
+      "pending_confirmation": []
+    },
+    {
+      "source_id": "SRC-INT-TRADE-CSV",
+      "dataset": "D08",
+      "kind": "csv",
+      "path": "samples/d08_trade_result.csv",
+      "columns": [
+        {
+          "target": "trade_id",
+          "source": "成交编号"
+        },
+        {
+          "target": "trade_date",
+          "source": "交易日"
+        },
+        {
+          "target": "variety",
+          "source": "品种"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "volume_mwh",
+          "source": "成交电量(MWh)"
+        },
+        {
+          "target": "price",
+          "source": "成交价(元/MWh)"
+        },
+        {
+          "target": "fee_amount",
+          "source": "费用(元)"
+        },
+        {
+          "target": "counterparty_id",
+          "source": "对手方"
+        },
+        {
+          "target": "cleared_at",
+          "source": "出清时刻"
+        }
+      ],
+      "pending_confirmation": []
+    },
+    {
+      "source_id": "SRC-INT-DAILY-CSV",
+      "dataset": "D09",
+      "kind": "csv",
+      "path": "samples/d09_daily_settlement.csv",
+      "columns": [
+        {
+          "target": "energy_date",
+          "source": "日期"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "subject_code",
+          "source": "科目编码"
+        },
+        {
+          "target": "direction",
+          "source": "方向"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "电量(MWh)"
+        },
+        {
+          "target": "price",
+          "source": "电价(元/MWh)"
+        },
+        {
+          "target": "amount",
+          "source": "金额(元)"
+        },
+        {
+          "target": "settle_date",
+          "source": "结算日"
+        },
+        {
+          "target": "rule_ref",
+          "source": "依据条款"
+        },
+        {
+          "target": "quality_flag",
+          "source": "质量标识"
+        }
+      ],
+      "pending_confirmation": [
+        "subject_code"
+      ]
+    },
+    {
+      "source_id": "SRC-INT-MONTHLY-CSV",
+      "dataset": "D10",
+      "kind": "csv",
+      "path": "samples/d10_monthly_settlement.csv",
+      "columns": [
+        {
+          "target": "settle_month",
+          "source": "结算月份"
+        },
+        {
+          "target": "subject_code",
+          "source": "科目编码"
+        },
+        {
+          "target": "direction",
+          "source": "方向"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "电量(MWh)"
+        },
+        {
+          "target": "amount",
+          "source": "金额(元)"
+        },
+        {
+          "target": "retro_adjust_type",
+          "source": "追退补类型"
+        },
+        {
+          "target": "related_month",
+          "source": "关联月份"
+        },
+        {
+          "target": "retro_seq",
+          "source": "序号"
+        },
+        {
+          "target": "rule_ref",
+          "source": "依据条款"
+        },
+        {
+          "target": "settle_date",
+          "source": "结算日"
+        }
+      ],
+      "pending_confirmation": [
+        "retro_adjust_type",
+        "subject_code"
+      ]
+    },
+    {
+      "source_id": "SRC-INT-RULE-PDF",
+      "dataset": "D01",
+      "kind": "pdf",
+      "path": "samples/d01_rule_doc.pdf",
+      "registry_source": "SRC-INT-RULE-PDF",
+      "labels": {
+        "doc_id": "doc_id",
+        "doc_no": "doc_no",
+        "title": "title",
+        "issuer": "issuer",
+        "doc_type": "doc_type",
+        "publish_date": "publish_date",
+        "effective_from": "effective_from",
+        "status": "status",
+        "url": "url",
+        "clause_count": "clause_count"
+      },
+      "pending_confirmation": []
+    },
+    {
+      "source_id": "SRC-EXT-WEATHER-JSON",
+      "dataset": "D11",
+      "kind": "json",
+      "path": "samples/ext_weather.json",
+      "registry_source": "SRC-EXT-WEATHER-API",
+      "params": {
+        "region_code": "420100"
+      },
+      "pending_confirmation": []
+    },
+    {
+      "source_id": "SRC-EXT-CALENDAR-CSV",
+      "dataset": "D12",
+      "kind": "csv",
+      "path": "samples/ext_calendar.csv",
+      "registry_source": "SRC-EXT-CALENDAR-CSV",
+      "columns": [
+        {
+          "target": "calendar_date",
+          "source": "日期"
+        },
+        {
+          "target": "day_type",
+          "source": "日期类型"
+        },
+        {
+          "target": "holiday_name",
+          "source": "节假日名称"
+        },
+        {
+          "target": "is_workday",
+          "source": "是否工作日"
+        },
+        {
+          "target": "makeup_for",
+          "source": "补班日期"
+        },
+        {
+          "target": "tariff_segment_map_version",
+          "source": "分时版本"
+        },
+        {
+          "target": "source",
+          "source": "来源"
+        }
+      ],
+      "pending_confirmation": [
+        "tariff_segment_map_version"
+      ]
+    },
+    {
+      "source_id": "SRC-EXT-PLAN-CSV",
+      "dataset": "D13",
+      "kind": "csv",
+      "path": "samples/ext_production_plan.csv",
+      "columns": [
+        {
+          "target": "correction_id",
+          "source": "修正编号"
+        },
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        },
+        {
+          "target": "business_date",
+          "source": "业务日期"
+        },
+        {
+          "target": "type",
+          "source": "类型"
+        },
+        {
+          "target": "impact_ratio",
+          "source": "影响比例"
+        },
+        {
+          "target": "reason",
+          "source": "原因"
+        },
+        {
+          "target": "source",
+          "source": "来源"
+        }
+      ],
+      "pending_confirmation": []
+    },
+    {
+      "source_id": "SRC-INT-LOAD-TEMPLATE",
+      "dataset": "D04",
+      "kind": "template",
+      "path": "samples/template_load_hourly_template.xlsx",
+      "columns": [
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        },
+        {
+          "target": "business_date",
+          "source": "业务日期"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "interval_start",
+          "source": "区间开始"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "小时电量(MWh)"
+        },
+        {
+          "target": "source_15min_count",
+          "source": "15分钟点数"
+        },
+        {
+          "target": "quality_flag",
+          "source": "质量标识"
+        }
+      ],
+      "pending_confirmation": [
+        "tariff_segment"
+      ],
+      "template_fingerprint": "e78df84a2fb799beccc0987cfbec37a6f71b223e7ae042cef31909bbae0ff19f",
+      "dictionary_sheet": "数据字典",
+      "template_headers": [
+        "用户编号",
+        "业务日期",
+        "时段号",
+        "区间开始",
+        "小时电量(MWh)",
+        "15分钟点数",
+        "质量标识"
+      ]
+    },
+    {
+      "source_id": "SRC-INT-LOAD-TEMPLATE-BAD",
+      "dataset": "D04",
+      "kind": "template",
+      "path": "samples/template_load_hourly_bad.xlsx",
+      "columns": [
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        },
+        {
+          "target": "business_date",
+          "source": "业务日期"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "interval_start",
+          "source": "区间开始"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "小时电量(MWh)"
+        },
+        {
+          "target": "source_15min_count",
+          "source": "15分钟点数"
+        },
+        {
+          "target": "quality_flag",
+          "source": "质量标识"
+        }
+      ],
+      "pending_confirmation": [
+        "tariff_segment"
+      ],
+      "template_fingerprint": "e78df84a2fb799beccc0987cfbec37a6f71b223e7ae042cef31909bbae0ff19f",
+      "dictionary_sheet": "数据字典",
+      "template_headers": [
+        "用户编号",
+        "业务日期",
+        "时段号",
+        "区间开始",
+        "小时电量(MWh)",
+        "15分钟点数",
+        "质量标识"
+      ]
+    },
+    {
+      "source_id": "SRC-TEST-DIRTY-Q01",
+      "dataset": "D09",
+      "kind": "csv",
+      "path": "samples/dirty_q01_missing.csv",
+      "dirty": true,
+      "columns": [
+        {
+          "target": "energy_date",
+          "source": "日期"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "subject_code",
+          "source": "科目编码"
+        },
+        {
+          "target": "direction",
+          "source": "方向"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "电量(MWh)"
+        },
+        {
+          "target": "price",
+          "source": "电价(元/MWh)"
+        },
+        {
+          "target": "amount",
+          "source": "金额(元)"
+        },
+        {
+          "target": "settle_date",
+          "source": "结算日"
+        },
+        {
+          "target": "rule_ref",
+          "source": "依据条款"
+        },
+        {
+          "target": "quality_flag",
+          "source": "质量标识"
+        }
+      ],
+      "pending_confirmation": [
+        "subject_code"
+      ]
+    },
+    {
+      "source_id": "SRC-TEST-DIRTY-Q02",
+      "dataset": "D09",
+      "kind": "csv",
+      "path": "samples/dirty_q02_dup.csv",
+      "dirty": true,
+      "columns": [
+        {
+          "target": "energy_date",
+          "source": "日期"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "subject_code",
+          "source": "科目编码"
+        },
+        {
+          "target": "direction",
+          "source": "方向"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "电量(MWh)"
+        },
+        {
+          "target": "price",
+          "source": "电价(元/MWh)"
+        },
+        {
+          "target": "amount",
+          "source": "金额(元)"
+        },
+        {
+          "target": "settle_date",
+          "source": "结算日"
+        },
+        {
+          "target": "rule_ref",
+          "source": "依据条款"
+        },
+        {
+          "target": "quality_flag",
+          "source": "质量标识"
+        }
+      ],
+      "pending_confirmation": [
+        "subject_code"
+      ]
+    },
+    {
+      "source_id": "SRC-TEST-DIRTY-Q03",
+      "dataset": "D09",
+      "kind": "csv",
+      "path": "samples/dirty_q03_range.csv",
+      "dirty": true,
+      "columns": [
+        {
+          "target": "energy_date",
+          "source": "日期"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "subject_code",
+          "source": "科目编码"
+        },
+        {
+          "target": "direction",
+          "source": "方向"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "电量(MWh)"
+        },
+        {
+          "target": "price",
+          "source": "电价(元/MWh)"
+        },
+        {
+          "target": "amount",
+          "source": "金额(元)"
+        },
+        {
+          "target": "settle_date",
+          "source": "结算日"
+        },
+        {
+          "target": "rule_ref",
+          "source": "依据条款"
+        },
+        {
+          "target": "quality_flag",
+          "source": "质量标识"
+        }
+      ],
+      "pending_confirmation": [
+        "subject_code"
+      ]
+    },
+    {
+      "source_id": "SRC-TEST-DIRTY-Q04",
+      "dataset": "D07",
+      "kind": "csv",
+      "path": "samples/dirty_q04_shift.csv",
+      "dirty": true,
+      "columns": [
+        {
+          "target": "batch_id",
+          "source": "申报批次号"
+        },
+        {
+          "target": "trade_date",
+          "source": "交易日"
+        },
+        {
+          "target": "variety",
+          "source": "品种"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "申报电量(MWh)"
+        },
+        {
+          "target": "price",
+          "source": "申报价(元/MWh)"
+        },
+        {
+          "target": "submitted_at",
+          "source": "提交时刻"
+        },
+        {
+          "target": "status",
+          "source": "状态"
+        }
+      ],
+      "pending_confirmation": []
+    },
+    {
+      "source_id": "SRC-TEST-DIRTY-Q05",
+      "dataset": "D04",
+      "kind": "csv",
+      "path": "samples/dirty_q05_unit.csv",
+      "dirty": true,
+      "columns": [
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        },
+        {
+          "target": "business_date",
+          "source": "业务日期"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "interval_start",
+          "source": "区间开始"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "电量(kWh)",
+          "unit": "kWh"
+        },
+        {
+          "target": "source_15min_count",
+          "source": "15分钟点数"
+        },
+        {
+          "target": "quality_flag",
+          "source": "质量标识"
+        }
+      ],
+      "pending_confirmation": []
+    },
+    {
+      "source_id": "SRC-TEST-DIRTY-Q06",
+      "dataset": "D09",
+      "kind": "csv",
+      "path": "samples/dirty_q06_logic.csv",
+      "dirty": true,
+      "columns": [
+        {
+          "target": "energy_date",
+          "source": "日期"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "subject_code",
+          "source": "科目编码"
+        },
+        {
+          "target": "direction",
+          "source": "方向"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "电量(MWh)"
+        },
+        {
+          "target": "price",
+          "source": "电价(元/MWh)"
+        },
+        {
+          "target": "amount",
+          "source": "金额(元)"
+        },
+        {
+          "target": "settle_date",
+          "source": "结算日"
+        },
+        {
+          "target": "rule_ref",
+          "source": "依据条款"
+        },
+        {
+          "target": "quality_flag",
+          "source": "质量标识"
+        }
+      ],
+      "pending_confirmation": [
+        "subject_code"
+      ]
+    },
+    {
+      "source_id": "SRC-TEST-DIRTY-I03",
+      "dataset": "D04",
+      "kind": "csv",
+      "path": "samples/dirty_i03_unit.csv",
+      "dirty": true,
+      "columns": [
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        },
+        {
+          "target": "business_date",
+          "source": "业务日期"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "interval_start",
+          "source": "区间开始"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "电量(斤)",
+          "unit": "斤"
+        },
+        {
+          "target": "source_15min_count",
+          "source": "15分钟点数"
+        },
+        {
+          "target": "quality_flag",
+          "source": "质量标识"
+        }
+      ],
+      "pending_confirmation": []
+    },
+    {
+      "source_id": "SRC-TEST-I04-MISSING-REQUIRED",
+      "dataset": "D03",
+      "kind": "csv",
+      "path": "samples/dirty_i04_missing_required.csv",
+      "dirty": true,
+      "columns": [
+        {
+          "target": "user_id",
+          "source": "用户编号"
+        }
+      ],
+      "pending_confirmation": []
+    },
+    {
+      "source_id": "SRC-TEST-I05-TOO-LARGE",
+      "dataset": "D09",
+      "kind": "csv",
+      "path": "samples/dirty_i05_too_large.csv",
+      "dirty": true,
+      "max_rows": 2,
+      "columns": [
+        {
+          "target": "energy_date",
+          "source": "日期"
+        },
+        {
+          "target": "slot_no",
+          "source": "时段号"
+        },
+        {
+          "target": "subject_code",
+          "source": "科目编码"
+        },
+        {
+          "target": "direction",
+          "source": "方向"
+        },
+        {
+          "target": "energy_mwh",
+          "source": "电量(MWh)"
+        },
+        {
+          "target": "price",
+          "source": "电价(元/MWh)"
+        },
+        {
+          "target": "amount",
+          "source": "金额(元)"
+        },
+        {
+          "target": "settle_date",
+          "source": "结算日"
+        },
+        {
+          "target": "rule_ref",
+          "source": "依据条款"
+        },
+        {
+          "target": "quality_flag",
+          "source": "质量标识"
+        }
+      ],
+      "pending_confirmation": [
+        "subject_code"
+      ]
+    },
+    {
+      "source_id": "SRC-TEST-I02-NO-TEXT-LAYER",
+      "dataset": "D01",
+      "kind": "pdf",
+      "path": "samples/d01_rule_doc_scanned.pdf",
+      "dirty": true
+    },
+    {
+      "source_id": "SRC-TEST-W09-BROKEN-JSON",
+      "dataset": "D11",
+      "kind": "json",
+      "path": "samples/ext_weather_broken.json",
+      "dirty": true
+    }
+  ],
+  "template_fingerprint_algorithm": "sha256(按顺序用 \\n 连接模板表头列名的 UTF-8 字节)",
+  "amount_tolerance": "0.01",
+  "unit_check_policy": "僅对聲明单位或列名帶单位标记的欄位检查；单位不一致且可换算→Q05 WARN 并记录换算率；不可换算→I03 BLOCK",
+  "aux_tables": {
+    "quarantine_resolution": {
+      "columns": [
+        "qid",
+        "decision",
+        "resolved_by",
+        "resolved_at",
+        "overrides_json",
+        "new_batch_id",
+        "new_record_id",
+        "note"
+      ],
+      "note": "人工確認後回補的裁决记录；decision∈ACCEPT/REJECT"
+    }
+  },
+  "derivable_fields": {
+    "D01": [
+      "file_hash"
+    ],
+    "D04": [
+      "slot_no",
+      "source_15min_count",
+      "quality_flag",
+      "interval_start",
+      "observed_sum_mwh"
+    ],
+    "D11": [
+      "region_code"
+    ]
+  }
+}

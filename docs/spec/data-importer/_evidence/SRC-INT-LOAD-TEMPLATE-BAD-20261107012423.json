@@ -1,0 +1,24 @@
+{
+  "source_id": "SRC-INT-LOAD-TEMPLATE-BAD",
+  "dataset": "D04",
+  "batch_id": null,
+  "file_hash": "e367be366d66b56bae8e713319a5e5e37aabc82f33582a3e72a75df27ef1eadf",
+  "status": "FAILED",
+  "rows_read": 0,
+  "rows_committed": 0,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "I01",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": null,
+      "message": "标准模板指纹不符：期望 e78df84a2fb799beccc0987cfbec37a6f71b223e7ae042cef31909bbae0ff19f，实际 b4a3ab3546497d25605f95178b6606123c8a9601e455b533da49567faed9b6e3"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-07T01:24:23+08:00",
+  "finished_at": "2026-11-07T01:24:23+08:00",
+  "evidence_path": null
+}

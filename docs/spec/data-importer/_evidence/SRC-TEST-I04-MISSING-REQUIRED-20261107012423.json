@@ -1,0 +1,164 @@
+{
+  "source_id": "SRC-TEST-I04-MISSING-REQUIRED",
+  "dataset": "D03",
+  "batch_id": "IMP-20261107-0023",
+  "file_hash": "c28604849ff6ca7e6ce4485295904304f5c2ab46f6b4d0c693aa1cc1246a93bd",
+  "status": "FAILED",
+  "rows_read": 1,
+  "rows_committed": 0,
+  "rows_quarantined": 0,
+  "quality_issues": [
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "meter_id",
+      "message": "映射缺少必填字段 meter_id"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "metering_period",
+      "message": "映射缺少必填字段 metering_period"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "ct_ratio",
+      "message": "映射缺少必填字段 ct_ratio"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "pt_ratio",
+      "message": "映射缺少必填字段 pt_ratio"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "unit",
+      "message": "映射缺少必填字段 unit"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "status",
+      "message": "映射缺少必填字段 status"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "commissioned_at",
+      "message": "映射缺少必填字段 commissioned_at"
+    },
+    {
+      "rule_id": "Q01",
+      "severity": "BLOCK",
+      "row_no": 1,
+      "field": "meter_id",
+      "message": "缺少必填字段 meter_id"
+    },
+    {
+      "rule_id": "Q01",
+      "severity": "BLOCK",
+      "row_no": 1,
+      "field": "metering_period",
+      "message": "缺少必填字段 metering_period"
+    },
+    {
+      "rule_id": "Q01",
+      "severity": "BLOCK",
+      "row_no": 1,
+      "field": "ct_ratio",
+      "message": "缺少必填字段 ct_ratio"
+    },
+    {
+      "rule_id": "Q01",
+      "severity": "BLOCK",
+      "row_no": 1,
+      "field": "pt_ratio",
+      "message": "缺少必填字段 pt_ratio"
+    },
+    {
+      "rule_id": "Q01",
+      "severity": "BLOCK",
+      "row_no": 1,
+      "field": "unit",
+      "message": "缺少必填字段 unit"
+    },
+    {
+      "rule_id": "Q01",
+      "severity": "BLOCK",
+      "row_no": 1,
+      "field": "status",
+      "message": "缺少必填字段 status"
+    },
+    {
+      "rule_id": "Q01",
+      "severity": "BLOCK",
+      "row_no": 1,
+      "field": "commissioned_at",
+      "message": "缺少必填字段 commissioned_at"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "meter_id",
+      "message": "映射缺少必填字段 meter_id"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "metering_period",
+      "message": "映射缺少必填字段 metering_period"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "ct_ratio",
+      "message": "映射缺少必填字段 ct_ratio"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "pt_ratio",
+      "message": "映射缺少必填字段 pt_ratio"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "unit",
+      "message": "映射缺少必填字段 unit"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "status",
+      "message": "映射缺少必填字段 status"
+    },
+    {
+      "rule_id": "I04",
+      "severity": "BLOCK",
+      "row_no": null,
+      "field": "commissioned_at",
+      "message": "映射缺少必填字段 commissioned_at"
+    }
+  ],
+  "registry_version": "registry-2026.01.01",
+  "importer_version": "importer-1.0.0",
+  "started_at": "2026-11-07T01:24:23+08:00",
+  "finished_at": "2026-11-07T01:24:23+08:00",
+  "evidence_path": null
+}
