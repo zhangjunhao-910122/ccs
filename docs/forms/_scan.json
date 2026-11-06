@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "tool": "scan_templates",
+  "generated_at": "2026-11-06T09:52:16",
+  "roots": [
+    "tools/templates/families"
+  ],
+  "profile": {
+    "path": "tools/templates/agency_profiles/example.yaml",
+    "profile_id": "AGENCY-EXAMPLE",
+    "agency_name": "示例认证机构"
+  },
+  "registry": {
+    "path": "tools/templates/form_number_registry.yaml",
+    "entries": [
+      "FN-EXAMPLE-MS",
+      "FN-ALT-EXAMPLE-MS",
+      "FN-UICC-MS"
+    ]
+  },
+  "include_config": false,
+  "files_scanned": [
+    "tools/templates/families/F01_audit_plan_book.yaml",
+    "tools/templates/families/F02_audit_plan_schedule.yaml",
+    "tools/templates/families/F03_opening_closing_meeting_record.yaml",
+    "tools/templates/families/F04_opening_closing_meeting_signin.yaml",
+    "tools/templates/families/F05_checklist_management.yaml",
+    "tools/templates/families/F06_checklist_department.yaml",
+    "tools/templates/families/F07_nonconformity_report.yaml",
+    "tools/templates/families/F08_audit_report.yaml",
+    "tools/templates/families/F09_stage1_audit_report.yaml",
+    "tools/templates/families/F10_document_review_report.yaml",
+    "tools/templates/families/F11_arrival_departure_confirmation.yaml",
+    "tools/templates/families/F12_audit_team_feedback.yaml"
+  ],
+  "files_exempt": [],
+  "summary": {
+    "by_category": {
+      "agency_form_number": 0,
+      "agency_name": 0,
+      "internal_deadline": 0,
+      "residual_real_date": 0,
+      "cleaning_damage": 0,
+      "residual_placeholder": 0
+    },
+    "defect_total": 0,
+    "exempt_total": 0,
+    "file_count": 12
+  },
+  "findings": []
+}

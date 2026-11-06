@@ -1,0 +1,267 @@
+# 审核报告（机构成果模板，Issue #19）
+# 机构中立模板：本文件不含任何真实机构表单号、机构名或机构内部信息。
+schema_version: 1
+family_id: F08
+name: 审核报告
+short_name: 审核报告
+aliases:
+- f08_audit_report
+source_of_list: docs/spec/output-formats.md §11.1 第 8 类
+form_number:
+  placeholder: '{{表单编号}}'
+  form_name_placeholder: '{{表单名称}}'
+  registry_ref: FN-UICC-MS
+  note: 本仓库只登记编号形态与来源出处，绝不写任何真实机构表单号
+fields:
+- key: task_id
+  label: 任务标识
+  required: true
+  placeholder: '{{任务标识}}'
+  source: 任务记录
+  dictionary_ref: '9.1'
+- key: node_id
+  label: 节点编号
+  required: false
+  placeholder: '{{节点编号}}'
+  source: '#4 状态机节点'
+  dictionary_ref: '9.1'
+- key: agency
+  label: 认证机构名称
+  required: true
+  placeholder: '{{认证机构名称}}'
+  source: 机构档案（#20）
+  dictionary_ref: '9.1'
+- key: client
+  label: 受审核方名称
+  required: true
+  placeholder: '{{受审核方名称}}'
+  source: 委托人档案
+  dictionary_ref: '9.1'
+- key: client_addr
+  label: 受审核方地址
+  required: true
+  placeholder: '{{受审核方地址}}'
+  source: 委托人档案
+  dictionary_ref: '9.1'
+- key: credit_code
+  label: 受审核方统一社会信用代码
+  required: false
+  placeholder: '{{受审核方统一社会信用代码}}'
+  source: 委托人档案
+  dictionary_ref: '9.1'
+- key: audit_type
+  label: 审核类型
+  required: true
+  placeholder: '{{审核类型}}'
+  source: '#4 状态机 N1～N6'
+  dictionary_ref: '9.1'
+- key: criteria
+  label: 审核准则
+  required: true
+  placeholder: '{{审核准则}}'
+  source: 依据库快照
+  dictionary_ref: '9.1'
+- key: purpose
+  label: 审核目的
+  required: true
+  placeholder: '{{审核目的}}'
+  source: 审核方案
+  dictionary_ref: '9.1'
+- key: scope
+  label: 认证范围
+  required: true
+  placeholder: '{{认证范围}}'
+  source: 审核方案
+  dictionary_ref: '9.1'
+- key: prof_code
+  label: 专业代码
+  required: false
+  placeholder: '{{专业代码}}'
+  source: '附录 A（引用 #21 计算结果）'
+  dictionary_ref: '9.1'
+- key: contract_no
+  label: 合同编号
+  required: false
+  placeholder: '{{合同编号}}'
+  source: 合同记录
+  dictionary_ref: '9.1'
+- key: audit_time
+  label: 审核时间
+  required: true
+  placeholder: '{{审核时间}}'
+  source: '引用 #21 计算结果'
+  dictionary_ref: '9.1'
+- key: lead
+  label: 审核组长姓名
+  required: true
+  placeholder: '{{审核组长姓名}}'
+  source: 审核组信息
+  dictionary_ref: '9.1'
+- key: lead_title
+  label: 审核组长职务
+  required: false
+  placeholder: '{{审核组长职务}}'
+  source: 审核组信息
+  dictionary_ref: '9.1'
+- key: auditors
+  label: 审核员姓名
+  required: true
+  placeholder: '{{审核员姓名}}'
+  source: 审核组信息
+  dictionary_ref: '9.1'
+- key: auditor_title
+  label: 审核职务
+  required: false
+  placeholder: '{{审核职务}}'
+  source: 审核组信息
+  dictionary_ref: '9.1'
+- key: peer
+  label: 同行人员姓名
+  required: false
+  placeholder: '{{同行人员姓名}}'
+  source: 审核组信息
+  dictionary_ref: '9.1'
+- key: client_rep
+  label: 委托方代表姓名
+  required: false
+  placeholder: '{{委托方代表姓名}}'
+  source: 委托人档案
+  dictionary_ref: '9.1'
+- key: date
+  label: 日期
+  required: false
+  placeholder: '{{日期}}'
+  source: 任务时间
+  dictionary_ref: '9.1'
+- key: date_range
+  label: 起止日期
+  required: false
+  placeholder: '{{起止日期}}'
+  source: 审核方案
+  dictionary_ref: '9.1'
+- key: site
+  label: 场所
+  required: false
+  placeholder: '{{场所}}'
+  source: 审核方案
+  dictionary_ref: '9.1'
+- key: version
+  label: 版本号
+  required: true
+  placeholder: '{{版本号}}'
+  source: 成果元数据
+  dictionary_ref: '9.1'
+- key: state
+  label: 成果状态
+  required: true
+  placeholder: '{{成果状态}}'
+  source: 成果元数据
+  dictionary_ref: '9.1'
+- key: form_no
+  label: 表单编号
+  required: true
+  placeholder: '{{表单编号}}'
+  source: 模板层扩展占位符
+  dictionary_ref: T
+- key: form_name
+  label: 表单名称
+  required: true
+  placeholder: '{{表单名称}}'
+  source: 模板层扩展占位符
+  dictionary_ref: T
+- key: signer
+  label: 签字人姓名
+  required: false
+  placeholder: '{{签字人姓名}}'
+  source: 人工录入
+  dictionary_ref: '9.1'
+- key: sign_date
+  label: 签字日期
+  required: false
+  placeholder: '{{签字日期}}'
+  source: 人工录入
+  dictionary_ref: '9.1'
+sections:
+- order: 1
+  id: cover
+  title: 封面页
+  fields:
+  - agency
+  - form_no
+  - form_name
+  - task_id
+  - version
+  - state
+  - lead
+  - signer
+  - sign_date
+  - contract_no
+- order: 2
+  id: ch1
+  title: §1 审核依据
+  fields:
+  - criteria
+  - audit_type
+  - purpose
+  - lead
+  - auditors
+  - peer
+- order: 3
+  id: ch2
+  title: §2 审核范围
+  fields:
+  - client
+  - scope
+  - prof_code
+  - audit_time
+  - date_range
+  - site
+- order: 4
+  id: ch3
+  title: §3 受审核方信息
+  fields:
+  - client
+  - client_addr
+  - credit_code
+  - client_rep
+- order: 5
+  id: ch4
+  title: §4 审核发现
+  fields:
+  - version
+- order: 6
+  id: ch5
+  title: §5 结论与建议
+  fields:
+  - version
+- order: 7
+  id: ch6
+  title: §6 附件索引
+  fields:
+  - version
+artifacts:
+- artifact_base: 审核报告
+  artifact_format: docx
+  artifact_form: 报告类成果
+  relation: 审核报告正文（§11.1 第 8 类；§6.1 章节骨架、§6.2 十九项映射）
+- artifact_base: 过程底稿
+  artifact_format: json
+  artifact_form: 过程底稿
+  relation: report_refs 十九项映射（§7.4）
+note: 第 19 项（审核组推荐意见与认证范围适宜性结论）由人写，工具只给依据摘要并写「（待填写）」（§6.2、§10.1、G5 闸口）
+sample_body: |-
+  {{表单名称}}（表单编号：{{表单编号}}）
+  {{认证机构名称}}
+  任务标识：{{任务标识}}　节点编号：{{节点编号}}　版本：{{版本号}}　成果态：{{成果状态}}
+  §1 审核依据
+    1.1 审核准则与认证机构：{{审核准则}}／{{认证机构名称}}
+    1.2 审核类型与目的：{{审核类型}}／{{审核目的}}
+    1.4 审核组构成：组长 {{审核组长姓名}}（{{审核组长职务}}）；审核员 {{审核员姓名}}（{{审核职务}}）；同行人员 {{同行人员姓名}}
+  §2 审核范围
+    2.1 受审核方：{{受审核方名称}}（{{受审核方地址}}，统一社会信用代码 {{受审核方统一社会信用代码}}）
+    2.2 审核时间与抽样：{{审核时间}}／{{起止日期}}
+    2.4 实施日期、地点与场所性质：{{日期}}／{{场所}}
+  §3 受审核方信息
+    3.1 委托人名称、地址及其代表：{{受审核方名称}}／{{受审核方地址}}／{{委托方代表姓名}}
+  §4 审核发现　§5 结论与建议　§6 附件索引
+  签署：{{签字人姓名}}（{{签字人职务}}）　签字日期：{{签字日期}}

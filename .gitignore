@@ -17,3 +17,13 @@
 !audit-point-library/**
 !tools/
 !tools/**
+
+# 模板填写副本与缺陷报告（Issue #19）
+!docs/forms/
+!docs/forms/**
+
+# Python 字节码缓存不入库
+tools/__pycache__/
+tools/tests/__pycache__/
+docs/spec/data-storage/__pycache__/
+__pycache__/

@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "node": "N08",
+  "title": "认证机构选择及申请",
+  "previous": [
+    "N07"
+  ],
+  "next": [
+    "N09"
+  ],
+  "formal_name": "N08_过程底稿",
+  "brief_name": "N08_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N08-C01",
+        "condition": "机构选择记录核对完成",
+        "evidence": "选择记录可定位",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N08-C02",
+        "condition": "提交清单核对完成",
+        "evidence": "缺失与不可读件已登记",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N08-C03",
+        "condition": "申请书签署与授权核对完成",
+        "evidence": "核对记录有结论",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N08-C04",
+        "condition": "合同事项齐备性核对完成",
+        "evidence": "合同核对表逐项有结论",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N08-C05",
+        "condition": "合同签署与生效核对完成",
+        "evidence": "状态记录显示已满足生效条件",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N08-C06",
+        "condition": "关键标识登记完成",
+        "evidence": "标识原值与来源一致",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N08-01",
+      "check_id": "N08-C01",
+      "title": "认证机构选择过程记录",
+      "evidence": "选择记录、比选或询价材料（如有）",
+      "method": "核对选择依据是否留痕并可定位，记录选择结果与时间",
+      "acceptance": "选择过程有可定位记录，选择结果明确且与申请范围匹配",
+      "failure": "无记录→转「等待补件」；选择与范围不匹配→登记 conflict 并转「等待人员确认」"
+    },
+    {
+      "rule_id": "R-N08-02",
+      "check_id": "N08-C02",
+      "title": "申请材料完整性与提交清单核对",
+      "evidence": "申请材料清单、实际提交件",
+      "method": "按清单逐件核对提交情况，登记缺失与不可读件",
+      "acceptance": "清单每项都有提交状态，缺失与不可读件已登记并有补交安排",
+      "failure": "清单缺失→转「等待补件」；件不可读→登记 unreadable"
+    },
+    {
+      "rule_id": "R-N08-03",
+      "check_id": "N08-C03",
+      "title": "申请书签署与授权有效性核对",
+      "evidence": "申请书签署页、授权委托材料",
+      "method": "核对签署人身份与授权范围是否覆盖本次申请",
+      "acceptance": "签署人与授权材料匹配，授权范围覆盖申请事项",
+      "failure": "授权缺失或过期→转「等待补件」；签署人不符→登记 conflict 并转「等待人员确认」"
+    },
+    {
+      "rule_id": "R-N08-04",
+      "check_id": "N08-C04",
+      "title": "认证合同与相关责任约定齐备性核对",
+      "evidence": "认证合同、CNCA 5.3 认证合同及相关责任条款",
+      "method": "按 5.3 核对合同中应明确的事项是否齐备，登记缺项",
+      "acceptance": "5.3 规定的合同事项全部齐备并可定位",
+      "failure": "缺项→登记 missing 并转「等待补件」；条款互相矛盾→登记 conflict"
+    },
+    {
+      "rule_id": "R-N08-05",
+      "check_id": "N08-C05",
+      "title": "合同签署与生效状态核对",
+      "evidence": "合同签署页、生效条件说明",
+      "method": "核对签署与生效条件是否满足，登记签署方与时间",
+      "acceptance": "合同已签署且生效条件满足，签署方可定位",
+      "failure": "未签署或生效条件未满足→转「等待补件」，不得推进到 N09"
+    },
+    {
+      "rule_id": "R-N08-06",
+      "check_id": "N08-C06",
+      "title": "关键标识登记与外部编号隔离",
+      "evidence": "合同编号、申请编号等标识",
+      "method": "登记外部标识原值，不在本节点写入机构内部编号或未经确认的编号规则",
+      "acceptance": "标识原值已登记且与来源文件一致，生成物中的编号占位符按 S4 字典替换",
+      "failure": "标识与来源不一致→登记 conflict；占位符残留→按 S4 §9.2 校验并改正"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N08.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N08.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N08.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N08.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N08.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N08.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N08.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N08.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N08.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N08.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N08.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N08.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N08.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N08.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N08.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N08.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N08.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N08.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N08.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "委托人",
+      "authority": "认证机构选择与申请提交",
+      "source": "S3 §2.1 N08"
+    },
+    {
+      "role": "委托人授权代表",
+      "authority": "申请书与合同签署",
+      "source": "S3 §11.2 签署边界"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a",
+    "docs/research/external-package-and-uicc-review.md": "944c7964718f5a210d74fc1be4a65bd855f6e089e78f3bdaea0cb6cce6cdbf63",
+    ".research-tmp/CNCA-QMS-01-2025_cct.txt": "ea4c203c544c663846503937222f1fe49333cbb7515f7de4524b9692822ade12"
+  },
+  "business_authorization": {
+    "gates": [],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}

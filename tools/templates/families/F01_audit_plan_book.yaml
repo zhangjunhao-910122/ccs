@@ -1,0 +1,185 @@
+# 审核计划书（机构成果模板，Issue #19）
+# 机构中立模板：本文件不含任何真实机构表单号、机构名或机构内部信息。
+schema_version: 1
+family_id: F01
+name: 审核计划书
+short_name: 审核计划
+aliases:
+- f01_audit_plan_book
+source_of_list: docs/spec/output-formats.md §11.1 第 1 类
+form_number:
+  placeholder: '{{表单编号}}'
+  form_name_placeholder: '{{表单名称}}'
+  registry_ref: FN-UICC-MS
+  note: 本仓库只登记编号形态与来源出处，绝不写任何真实机构表单号
+fields:
+- key: task_id
+  label: 任务标识
+  required: true
+  placeholder: '{{任务标识}}'
+  source: 任务记录
+  dictionary_ref: '9.1'
+- key: node_id
+  label: 节点编号
+  required: false
+  placeholder: '{{节点编号}}'
+  source: '#4 状态机节点'
+  dictionary_ref: '9.1'
+- key: agency
+  label: 认证机构名称
+  required: true
+  placeholder: '{{认证机构名称}}'
+  source: 机构档案（#20）
+  dictionary_ref: '9.1'
+- key: client
+  label: 受审核方名称
+  required: true
+  placeholder: '{{受审核方名称}}'
+  source: 委托人档案
+  dictionary_ref: '9.1'
+- key: client_addr
+  label: 受审核方地址
+  required: true
+  placeholder: '{{受审核方地址}}'
+  source: 委托人档案
+  dictionary_ref: '9.1'
+- key: audit_type
+  label: 审核类型
+  required: true
+  placeholder: '{{审核类型}}'
+  source: '#4 状态机 N1～N6'
+  dictionary_ref: '9.1'
+- key: criteria
+  label: 审核准则
+  required: true
+  placeholder: '{{审核准则}}'
+  source: 依据库快照
+  dictionary_ref: '9.1'
+- key: purpose
+  label: 审核目的
+  required: true
+  placeholder: '{{审核目的}}'
+  source: 审核方案
+  dictionary_ref: '9.1'
+- key: scope
+  label: 认证范围
+  required: true
+  placeholder: '{{认证范围}}'
+  source: 审核方案
+  dictionary_ref: '9.1'
+- key: audit_time
+  label: 审核时间
+  required: true
+  placeholder: '{{审核时间}}'
+  source: '引用 #21 计算结果'
+  dictionary_ref: '9.1'
+- key: lead
+  label: 审核组长姓名
+  required: true
+  placeholder: '{{审核组长姓名}}'
+  source: 审核组信息
+  dictionary_ref: '9.1'
+- key: auditors
+  label: 审核员姓名
+  required: true
+  placeholder: '{{审核员姓名}}'
+  source: 审核组信息
+  dictionary_ref: '9.1'
+- key: date
+  label: 日期
+  required: false
+  placeholder: '{{日期}}'
+  source: 任务时间
+  dictionary_ref: '9.1'
+- key: version
+  label: 版本号
+  required: true
+  placeholder: '{{版本号}}'
+  source: 成果元数据
+  dictionary_ref: '9.1'
+- key: form_no
+  label: 表单编号
+  required: true
+  placeholder: '{{表单编号}}'
+  source: 模板层扩展占位符
+  dictionary_ref: T
+- key: form_name
+  label: 表单名称
+  required: true
+  placeholder: '{{表单名称}}'
+  source: 模板层扩展占位符
+  dictionary_ref: T
+- key: internal_no
+  label: 机构内部编号
+  required: false
+  placeholder: '{{机构内部编号}}'
+  source: 模板层扩展占位符
+  dictionary_ref: T
+- key: logo
+  label: 机构标识
+  required: false
+  placeholder: '{{机构标识}}'
+  source: 模板层扩展占位符
+  dictionary_ref: T
+- key: signer
+  label: 签字人姓名
+  required: false
+  placeholder: '{{签字人姓名}}'
+  source: 人工录入
+  dictionary_ref: '9.1'
+- key: sign_date
+  label: 签字日期
+  required: false
+  placeholder: '{{签字日期}}'
+  source: 人工录入
+  dictionary_ref: '9.1'
+sections:
+- order: 1
+  id: cover
+  title: 封面
+  fields:
+  - agency
+  - form_no
+  - form_name
+  - task_id
+  - version
+  - date
+  - internal_no
+  - logo
+- order: 2
+  id: plan_body
+  title: 审核计划正文
+  fields:
+  - audit_type
+  - criteria
+  - purpose
+  - scope
+  - audit_time
+  - lead
+  - auditors
+- order: 3
+  id: sign
+  title: 签署栏
+  fields:
+  - lead
+  - signer
+  - sign_date
+artifacts:
+- artifact_base: 预览
+  artifact_format: md
+  artifact_form: 简报
+  relation: 策划件；简报引用（§11.1 第 1 类）
+- artifact_base: 过程底稿
+  artifact_format: json
+  artifact_form: 过程底稿
+  relation: 审核方案字段落底稿 artifact 段
+sample_body: |-
+  {{表单名称}}（表单编号：{{表单编号}}）
+  {{认证机构名称}}
+  任务标识：{{任务标识}}　版本：{{版本号}}　日期：{{日期}}
+  一、审核目的：{{审核目的}}
+  二、审核准则：{{审核准则}}
+  三、审核范围：{{认证范围}}（受审核方：{{受审核方名称}}，地址：{{受审核方地址}}）
+  四、审核类型与时间：{{审核类型}}／{{审核时间}}（起止：{{起止日期}}）
+  五、审核组：组长 {{审核组长姓名}}（{{审核组长职务}}）；审核员 {{审核员姓名}}（{{审核职务}}）
+  六、签署：{{签字人姓名}}（{{签字人职务}}）　签字日期：{{签字日期}}

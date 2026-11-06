@@ -1,0 +1,32 @@
+# 机构差异配置（切换验证用，GitHub Issue #19 验收标准 3）
+#
+# 用途：与 agency_profiles/example.yaml 并列的第二份**虚构**机构配置，
+#       用于验证「切换机构只改配置、不动模板本体」：
+#       机构名换成另一个虚构名，表单号前缀换成 XFZ-R-MS。
+# 纪律：同样只登记形态与配置项，不复制任何真实机构表单号原文。
+schema_version: 1
+profile_id: AGENCY-ALT-EXAMPLE
+note: >
+  第二份虚构机构配置（切换验证用）。机构名与表单号前缀均与 example.yaml 不同，
+  用于证明模板集在切换机构差异配置后仍保持机构中立。
+
+agency_name: 备用虚构认证机构
+agency_aliases:
+- 备用虚构认证
+- 备用虚构认证机构
+
+form_number:
+  prefix: XFZ-R-MS
+  pattern: '^XFZ-R-MS-\d{3}$'
+  form_number_template: "XFZ-R-MS-<三位数字>"
+  registry_ref: FN-ALT-EXAMPLE-MS
+  placeholder: "{{表单编号}}"
+
+internal_deadlines:
+- 整改资料提交期限：20 个工作日
+- 整改有效性验证期限：45 个工作日
+
+field_label_aliases:
+  备用虚构认证机构审核计划书: 审核计划书
+  备用虚构认证机构审核报告: 审核报告
+  备用虚构认证机构审核计划表: 审核计划表

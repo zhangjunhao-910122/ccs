@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "artifact": "过程底稿",
+  "template_family": {
+    "family_id": "F10",
+    "name": "管理体系文件评审报告",
+    "short_name": "文件评审报告",
+    "source_of_list": "docs/spec/output-formats.md §11.1 第 10 类",
+    "form_number": {
+      "placeholder": "{{表单编号}}",
+      "form_name_placeholder": "{{表单名称}}",
+      "registry_ref": "FN-UICC-MS",
+      "note": "本仓库只登记编号形态与来源出处，绝不写任何真实机构表单号"
+    }
+  },
+  "artifacts": [
+    {
+      "artifact_base": "条款-证据对照表",
+      "artifact_format": "xlsx",
+      "artifact_form": "表格类成果",
+      "relation": "对照表文件类锚点行（§11.1 第 10 类；§5.1 列定义）"
+    },
+    {
+      "artifact_base": "过程底稿",
+      "artifact_format": "json",
+      "artifact_form": "过程底稿",
+      "relation": "judgements 记录（§7.3）"
+    }
+  ],
+  "sections": [
+    {
+      "order": 1,
+      "id": "header",
+      "title": "表头",
+      "rows": [
+        {
+          "key": "agency",
+          "label": "认证机构名称",
+          "value": "示例认证机构",
+          "required": true,
+          "source": "机构档案（#20）",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{认证机构名称}}"
+        },
+        {
+          "key": "form_no",
+          "label": "表单编号",
+          "value": "XF-R-MS-001",
+          "required": true,
+          "source": "模板层扩展占位符",
+          "dictionary_ref": "T",
+          "placeholder": "{{表单编号}}"
+        },
+        {
+          "key": "form_name",
+          "label": "表单名称",
+          "value": "示例审核计划书",
+          "required": true,
+          "source": "模板层扩展占位符",
+          "dictionary_ref": "T",
+          "placeholder": "{{表单名称}}"
+        },
+        {
+          "key": "task_id",
+          "label": "任务标识",
+          "value": "TSK-EXAMPLE-2026-001",
+          "required": true,
+          "source": "任务记录",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{任务标识}}"
+        },
+        {
+          "key": "client",
+          "label": "受审核方名称",
+          "value": "示例受审核方有限公司",
+          "required": true,
+          "source": "委托人档案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{受审核方名称}}"
+        },
+        {
+          "key": "version",
+          "label": "版本号",
+          "value": "V1.0",
+          "required": true,
+          "source": "成果元数据",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{版本号}}"
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "id": "rows",
+      "title": "条款与文件评审结论",
+      "rows": [
+        {
+          "key": "clause_no",
+          "label": "条款号",
+          "value": "（待填）",
+          "required": true,
+          "source": "审核准则条款编号",
+          "dictionary_ref": "T",
+          "placeholder": "{{条款号}}"
+        },
+        {
+          "key": "clause_title",
+          "label": "条款标题",
+          "value": "（待填）",
+          "required": false,
+          "source": "审核准则条款标题",
+          "dictionary_ref": "T",
+          "placeholder": "{{条款标题}}"
+        },
+        {
+          "key": "verdict",
+          "label": "判定结论",
+          "value": "（待填）",
+          "required": true,
+          "source": "判定枚举",
+          "dictionary_ref": "T",
+          "placeholder": "{{判定结论}}"
+        },
+        {
+          "key": "anchors",
+          "label": "证据锚点",
+          "value": "（待填）",
+          "required": true,
+          "source": "锚点库 ID 列表",
+          "dictionary_ref": "T",
+          "placeholder": "{{证据锚点}}"
+        },
+        {
+          "key": "gap_note",
+          "label": "缺口说明",
+          "value": "（待填）",
+          "required": false,
+          "source": "文件评审缺口",
+          "dictionary_ref": "T",
+          "placeholder": "{{缺口说明}}"
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "id": "sign",
+      "title": "签署栏",
+      "rows": [
+        {
+          "key": "reviewer",
+          "label": "评审人",
+          "value": "（待填）",
+          "required": true,
+          "source": "审核组信息",
+          "dictionary_ref": "T",
+          "placeholder": "{{评审人}}"
+        },
+        {
+          "key": "signer",
+          "label": "签字人姓名",
+          "value": "示例签字人",
+          "required": false,
+          "source": "人工录入",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{签字人姓名}}"
+        },
+        {
+          "key": "sign_date",
+          "label": "签字日期",
+          "value": "2026-11-10",
+          "required": false,
+          "source": "人工录入",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{签字日期}}"
+        }
+      ]
+    }
+  ],
+  "used_placeholders": [
+    "{{任务标识}}",
+    "{{判定结论}}",
+    "{{受审核方名称}}",
+    "{{日期}}",
+    "{{条款号}}",
+    "{{条款标题}}",
+    "{{版本号}}",
+    "{{确认状态}}",
+    "{{签字人姓名}}",
+    "{{签字日期}}",
+    "{{缺口说明}}",
+    "{{表单名称}}",
+    "{{表单编号}}",
+    "{{认证机构名称}}",
+    "{{证据锚点}}",
+    "{{评审人}}"
+  ],
+  "missing_placeholders": [
+    "{{判定结论}}",
+    "{{条款号}}",
+    "{{条款标题}}",
+    "{{确认状态}}",
+    "{{缺口说明}}",
+    "{{证据锚点}}",
+    "{{评审人}}"
+  ],
+  "residual_placeholders": [],
+  "bare_braces": 0,
+  "unfilled_count": 6
+}

@@ -1,0 +1,335 @@
+{
+  "schema_version": 1,
+  "node": "N02",
+  "title": "认证范围及标准识别",
+  "previous": [
+    "N01"
+  ],
+  "next": [
+    "N03",
+    "N17"
+  ],
+  "formal_name": "N02_过程底稿",
+  "brief_name": "N02_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N02-C01",
+        "condition": "范围四要素描述齐全",
+        "evidence": "范围要素表四要素均有描述与来源锚点",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N02-C02",
+        "condition": "标准候选与审核方式候选确定",
+        "evidence": "标准候选表覆盖全部候选且快照状态为 current",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N02-C03",
+        "condition": "范围与实际活动匹配核对完成",
+        "evidence": "匹配核对表每项有结论，无未处理冲突",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N02-C04",
+        "condition": "场所与过程识别清单完成",
+        "evidence": "每个场所唯一标识且有对应过程",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N02-C05",
+        "condition": "适用性候选清单完成",
+        "evidence": "每条不适用候选均有理由与依据锚点",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N02-C06",
+        "condition": "范围条款映射与缺口清单完成",
+        "evidence": "映射表覆盖全部候选条款，缺口有责任方",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N02-C07",
+        "condition": "G1 适用性闸口已放行",
+        "evidence": "闸口放行记录含确认人、确认时间与确认版本",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N02-01",
+      "check_id": "N02-C01",
+      "title": "范围四要素描述完整性",
+      "evidence": "认证范围申请描述、场所清单、产品或服务说明、过程说明",
+      "method": "按产品或服务、过程、场所、边界四个要素逐项检查，把每个要素的来源材料与位置登记为锚点",
+      "acceptance": "四个要素均有具体描述并可回指到申请材料，不存在「全部」「相关业务」等无边界表述",
+      "failure": "要素缺失或仅有笼统表述→转「等待补件」并登记 missing"
+    },
+    {
+      "rule_id": "R-N02-02",
+      "check_id": "N02-C02",
+      "title": "体系标准候选识别与审核方式候选",
+      "evidence": "标准候选清单、受审核方申请的体系范围、依据库快照",
+      "method": "逐个候选列出适用条款范围、所需依据快照与审核方式（单体系、结合、联合或一体化）候选，标明候选来源",
+      "acceptance": "每个候选标准都能对应到依据库中状态为 current 的快照，并写明审核方式候选及其依据",
+      "failure": "候选标准在依据库中未登记或状态为 unverifiable→转「等待补件」并按依据状态处理，不得默认适用"
+    },
+    {
+      "rule_id": "R-N02-03",
+      "check_id": "N02-C03",
+      "title": "范围与受审核方实际活动匹配",
+      "evidence": "范围描述、场所清单、GB/T 19001-2016 4.3 对范围确定的要求",
+      "method": "把范围要素与受审核方档案、场所对应表交叉核对，逐项标注匹配、不匹配或待核",
+      "acceptance": "每个范围要素都能在受审核方档案与场所对应表中找到对应活动记录，且与 GB/T 19001-2016 4.3 要求的范围确定要求不矛盾",
+      "failure": "要素无对应活动记录→转「等待补件」；相互矛盾→登记 conflict 并转「等待人员确认」"
+    },
+    {
+      "rule_id": "R-N02-04",
+      "check_id": "N02-C04",
+      "title": "场所与过程的描述性识别",
+      "evidence": "场所清单、过程说明、过程之间的关联说明",
+      "method": "按描述性识别要求列出场所名称、场所性质、对应过程与关联关系，为后续抽样与现场安排提供输入",
+      "acceptance": "每个拟审核场所均有唯一标识、场所性质与对应过程，过程之间的关联关系有材料支撑",
+      "failure": "场所无法唯一标识或过程关联无材料支撑→转「等待补件」"
+    },
+    {
+      "rule_id": "R-N02-05",
+      "check_id": "N02-C05",
+      "title": "适用与不适用条款候选及适用性依据准备",
+      "evidence": "标准候选对应的条款集合、范围要素判定结果",
+      "method": "逐条标记候选适用或不适用，并写出适用性理由与支撑该理由的证据位置，进入 G1",
+      "acceptance": "每条候选不适用都有适用性理由与支撑证据位置，理由不成立或证据缺失的条款保持待定",
+      "failure": "不适用无依据→不得标记不适用，转「等待补件」或「等待人员确认」"
+    },
+    {
+      "rule_id": "R-N02-06",
+      "check_id": "N02-C06",
+      "title": "范围与条款的映射及资源缺口清单",
+      "evidence": "范围要素、条款集合、现场资源与人员清单",
+      "method": "建立范围要素到条款的映射表，标出缺少证据来源、需要补充材料或需要现场资源的条款",
+      "acceptance": "映射表覆盖全部候选条款，每条无映射或资源缺口的条款都有明确待办与责任方",
+      "failure": "映射缺项未登记→本项不合格，补齐后按原接受条件重新校验"
+    },
+    {
+      "rule_id": "R-N02-07",
+      "check_id": "N02-C07",
+      "title": "范围与标准选择的最终人工确认（G1 适用性闸口）",
+      "evidence": "范围候选清单、标准候选表、适用性候选清单",
+      "method": "把候选与依据摘要提交人确认，记录确认人、确认时间与确认版本；工具不代替确认",
+      "acceptance": "范围边界与标准组合已由具名责任人确认，闸口状态为已放行且有确认记录",
+      "failure": "未确认→闸口不放行，节点停在「进行中」并登记未决事项，不得推进到 N03"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N02.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N02.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N02.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N02.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N02.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N02.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N02.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N02.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N02.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N02.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N02.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N02.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N02.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N02.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N02.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N02.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N02.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N02.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N02.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "审核员",
+      "authority": "范围候选清单与标准候选的整理",
+      "source": "S3 §2.1 N02"
+    },
+    {
+      "role": "审核组长",
+      "authority": "认证范围与标准组合的确认（G1 适用性闸口）",
+      "source": "S3 §11.1 G1"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a",
+    "docs/research/external-package-and-uicc-review.md": "944c7964718f5a210d74fc1be4a65bd855f6e089e78f3bdaea0cb6cce6cdbf63",
+    "audit-point-library/clause_trees/qms-gbt19001-2016.yaml": "624bdbae3a9ef08e18ad9aec25fa5da92c71b2c98cf1a2b4e2264a920eeeaac3"
+  },
+  "business_authorization": {
+    "gates": [
+      {
+        "gate_id": "G1",
+        "name": "适用性闸口",
+        "approver": "审核组长（会同审核员）",
+        "non_automatable": [
+          "判定条款是否适用并写出适用性理由",
+          "确认不适用（na）并具名确认",
+          "在依据缺失或状态为 unverifiable 时决定只能落 insufficient"
+        ],
+        "tool_behavior": "工具只生成适用性候选与缺口，适用性未确认时相关条款只能落 insufficient，节点停在「进行中」，不得进入交接前置条件。",
+        "source": "S3 §11.1 G1；S2 §3.1"
+      }
+    ],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}

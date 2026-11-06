@@ -1,0 +1,30 @@
+# 机构差异配置（单点化，GitHub Issue #19 产出物）
+#
+# 纪律：只登记占位符形态与配置项，**不复制任何真实机构表单号原文**。
+# 换机构只改这一份：模板本体（tools/templates/families/*.yaml）不含机构信息。
+schema_version: 1
+profile_id: AGENCY-EXAMPLE
+note: >
+  虚构示例机构配置，用于验证「改一份机构差异配置 → 全库模板无残留机构名称与表单号」。
+  真实机构接入时替换本文件即可，模板与扫描器不动。
+
+agency_name: 示例认证机构
+agency_aliases:
+- 示例认证
+- 示例认证机构
+
+form_number:
+  prefix: XF-R-MS
+  pattern: '^XF-R-MS-\d{3}$'
+  form_number_template: "XF-R-MS-<三位数字>"
+  registry_ref: FN-EXAMPLE-MS
+  placeholder: "{{表单编号}}"
+
+internal_deadlines:
+- 整改资料提交期限：15 个工作日
+- 整改有效性验证期限：30 个工作日
+
+field_label_aliases:
+  示例认证机构审核计划书: 审核计划书
+  示例认证机构审核报告: 审核报告
+  示例认证机构审核计划表: 审核计划表

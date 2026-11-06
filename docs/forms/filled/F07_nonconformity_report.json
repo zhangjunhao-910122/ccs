@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "artifact": "过程底稿",
+  "template_family": {
+    "family_id": "F07",
+    "name": "现场审核不符合报告",
+    "short_name": "不符合报告",
+    "source_of_list": "docs/spec/output-formats.md §11.1 第 7 类",
+    "form_number": {
+      "placeholder": "{{表单编号}}",
+      "form_name_placeholder": "{{表单名称}}",
+      "registry_ref": "FN-UICC-MS",
+      "note": "本仓库只登记编号形态与来源出处，绝不写任何真实机构表单号"
+    }
+  },
+  "artifacts": [
+    {
+      "artifact_base": "审核报告",
+      "artifact_format": "docx",
+      "artifact_form": "报告类成果",
+      "relation": "审核报告 §4.2 不符合项栏（§11.1 第 7 类）"
+    },
+    {
+      "artifact_base": "过程底稿",
+      "artifact_format": "json",
+      "artifact_form": "过程底稿",
+      "relation": "nonconformities 记录（§7.5）"
+    }
+  ],
+  "sections": [
+    {
+      "order": 1,
+      "id": "header",
+      "title": "表头",
+      "rows": [
+        {
+          "key": "agency",
+          "label": "认证机构名称",
+          "value": "示例认证机构",
+          "required": true,
+          "source": "机构档案（#20）",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{认证机构名称}}"
+        },
+        {
+          "key": "form_no",
+          "label": "表单编号",
+          "value": "XF-R-MS-001",
+          "required": true,
+          "source": "模板层扩展占位符",
+          "dictionary_ref": "T",
+          "placeholder": "{{表单编号}}"
+        },
+        {
+          "key": "form_name",
+          "label": "表单名称",
+          "value": "示例审核计划书",
+          "required": true,
+          "source": "模板层扩展占位符",
+          "dictionary_ref": "T",
+          "placeholder": "{{表单名称}}"
+        },
+        {
+          "key": "task_id",
+          "label": "任务标识",
+          "value": "TSK-EXAMPLE-2026-001",
+          "required": true,
+          "source": "任务记录",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{任务标识}}"
+        },
+        {
+          "key": "client",
+          "label": "受审核方名称",
+          "value": "示例受审核方有限公司",
+          "required": true,
+          "source": "委托人档案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{受审核方名称}}"
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "id": "nc",
+      "title": "不符合项",
+      "rows": [
+        {
+          "key": "nc_id",
+          "label": "不符合编号",
+          "value": "（待填）",
+          "required": true,
+          "source": "不符合项序列",
+          "dictionary_ref": "T",
+          "placeholder": "{{不符合编号}}"
+        },
+        {
+          "key": "clause_no",
+          "label": "条款号",
+          "value": "（待填）",
+          "required": true,
+          "source": "审核准则条款编号",
+          "dictionary_ref": "T",
+          "placeholder": "{{条款号}}"
+        },
+        {
+          "key": "clause_text_ref",
+          "label": "条款引用",
+          "value": "（待填）",
+          "required": true,
+          "source": "审核准则原文出处",
+          "dictionary_ref": "T",
+          "placeholder": "{{条款引用}}"
+        },
+        {
+          "key": "fact_statement",
+          "label": "事实陈述",
+          "value": "（待填）",
+          "required": true,
+          "source": "有锚点支撑的事实句",
+          "dictionary_ref": "T",
+          "placeholder": "{{事实陈述}}"
+        },
+        {
+          "key": "anchors",
+          "label": "证据锚点",
+          "value": "（待填）",
+          "required": true,
+          "source": "锚点库 ID 列表",
+          "dictionary_ref": "T",
+          "placeholder": "{{证据锚点}}"
+        },
+        {
+          "key": "judgement_basis",
+          "label": "判定依据",
+          "value": "（待填）",
+          "required": true,
+          "source": "锚点逐句支撑说明",
+          "dictionary_ref": "T",
+          "placeholder": "{{判定依据}}"
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "id": "remediation",
+      "title": "整改",
+      "rows": [
+        {
+          "key": "remediation_required",
+          "label": "整改要求",
+          "value": "（待填）",
+          "required": false,
+          "source": "不符合项闭环要求",
+          "dictionary_ref": "T",
+          "placeholder": "{{整改要求}}"
+        },
+        {
+          "key": "due_date",
+          "label": "完成时限",
+          "value": "（待填）",
+          "required": false,
+          "source": "引用 #21 计算结果",
+          "dictionary_ref": "T",
+          "placeholder": "{{完成时限}}"
+        },
+        {
+          "key": "nc_status",
+          "label": "不符合状态",
+          "value": "（待填）",
+          "required": false,
+          "source": "开启或关闭状态",
+          "dictionary_ref": "T",
+          "placeholder": "{{不符合状态}}"
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "id": "sign",
+      "title": "签署栏",
+      "rows": [
+        {
+          "key": "lead",
+          "label": "审核组长姓名",
+          "value": "示例组长",
+          "required": true,
+          "source": "审核组信息",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核组长姓名}}"
+        },
+        {
+          "key": "sign_date",
+          "label": "签字日期",
+          "value": "2026-11-10",
+          "required": false,
+          "source": "人工录入",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{签字日期}}"
+        }
+      ]
+    }
+  ],
+  "used_placeholders": [
+    "{{不符合状态}}",
+    "{{不符合类别}}",
+    "{{不符合编号}}",
+    "{{事实陈述}}",
+    "{{任务标识}}",
+    "{{判定依据}}",
+    "{{受审核方名称}}",
+    "{{完成时限}}",
+    "{{审核组长姓名}}",
+    "{{整改要求}}",
+    "{{条款号}}",
+    "{{条款引用}}",
+    "{{版本号}}",
+    "{{签字日期}}",
+    "{{表单名称}}",
+    "{{表单编号}}",
+    "{{认证机构名称}}",
+    "{{证据锚点}}"
+  ],
+  "missing_placeholders": [
+    "{{不符合状态}}",
+    "{{不符合类别}}",
+    "{{不符合编号}}",
+    "{{事实陈述}}",
+    "{{判定依据}}",
+    "{{完成时限}}",
+    "{{整改要求}}",
+    "{{条款号}}",
+    "{{条款引用}}",
+    "{{证据锚点}}"
+  ],
+  "residual_placeholders": [],
+  "bare_braces": 0,
+  "unfilled_count": 9
+}

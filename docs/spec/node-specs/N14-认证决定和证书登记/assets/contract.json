@@ -1,0 +1,353 @@
+{
+  "schema_version": 1,
+  "node": "N14",
+  "title": "认证决定和证书登记",
+  "previous": [
+    "N13"
+  ],
+  "next": [],
+  "formal_name": "N14_审核报告、N14_过程底稿",
+  "brief_name": "N14_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N14-C01",
+        "condition": "决定包字段齐备",
+        "evidence": "字段校验表无缺项且 decision_ready 为 false",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N14-C02",
+        "condition": "判定计数一致",
+        "evidence": "计数核对表逐项一致",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N14-C03",
+        "condition": "未结项与未解决问题清单一致",
+        "evidence": "清单核对表逐条一致",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N14-C04",
+        "condition": "严重不符合时限核对完成",
+        "evidence": "时限引用 #21 与 params.yaml",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N14-C05",
+        "condition": "独立性人工核查项留痕",
+        "evidence": "四项核查项有勾选与留痕",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N14-C06",
+        "condition": "G6 闸口放行且状态正确",
+        "evidence": "闸口记录显示节点为等待机构结果",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N14-C07",
+        "condition": "证书登记要素核对完成",
+        "evidence": "要素与决定包一致",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N14-C08",
+        "condition": "转出事项登记完成",
+        "evidence": "触发情形已登记",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N14-01",
+      "check_id": "N14-C01",
+      "title": "决定包字段齐备性",
+      "evidence": "S2 §12.2 decision_pack 字段集合、底稿与报告",
+      "method": "逐字段核对决定包（审核类型、判定四态计数、未结不符合项、insufficient 条款、抽样免责声明、未解决问题、依据快照、签署状态、decision_ready）",
+      "acceptance": "决定包全部字段有值且与底稿一致，decision_ready 为 false",
+      "failure": "字段缺失→本项不合格，补齐后重新校验；decision_ready 非 false→强制改回 false"
+    },
+    {
+      "rule_id": "R-N14-02",
+      "check_id": "N14-C02",
+      "title": "判定四态计数与底稿一致性",
+      "evidence": "过程底稿 judgements、决定包 verdict_counts",
+      "method": "按 conform/nonconform/insufficient/na 逐项重算计数并与决定包比对",
+      "acceptance": "四项计数与底稿逐条重算结果一致",
+      "failure": "计数不一致→按底稿更正并登记差异原因"
+    },
+    {
+      "rule_id": "R-N14-03",
+      "check_id": "N14-C03",
+      "title": "未结不符合项与未解决问题清单核对",
+      "evidence": "不符合项台账、未解决问题清单",
+      "method": "核对决定包列出的未结不符合项与未解决问题与上游记录逐条一致",
+      "acceptance": "两份清单条目与上游记录一一对应，无遗漏或多余",
+      "failure": "不一致→按上游记录更正并登记差异"
+    },
+    {
+      "rule_id": "R-N14-04",
+      "check_id": "N14-C04",
+      "title": "严重不符合验证时限状态核对",
+      "evidence": "CNCA 5.10 严重不符合时限条款、tools/params.yaml 时限域",
+      "method": "核对每条严重不符合的验证时限是否满足并引用 #21 计算结果，登记未满足的后果提示",
+      "acceptance": "时限判定有引用来源与证据，未满足项已登记对应后果提示",
+      "failure": "出现写死天数→改为引用式表述；时限未核对→本项不合格"
+    },
+    {
+      "rule_id": "R-N14-05",
+      "check_id": "N14-C05",
+      "title": "认证决定人员资格与独立性人工核查项登记",
+      "evidence": "CNCA 5.12 认证决定条款、决定人员资格与独立性信息",
+      "method": "把「专职认证人员、非审核组成员、过程不外包、境内工作人员」四项列为人工核查项并登记勾选与留痕，工具不代作",
+      "acceptance": "四项人工核查项均有勾选与留痕，且工具产出中不含代签署痕迹",
+      "failure": "任一项未勾选→节点停在「等待机构结果」并登记未决事项"
+    },
+    {
+      "rule_id": "R-N14-06",
+      "check_id": "N14-C06",
+      "title": "G6 决定闸口与节点状态控制",
+      "evidence": "决定包、五项置位条件、G6 闸口记录",
+      "method": "核对五项条件状态并把闸口状态与节点状态对齐；decision_ready 只在人工置位时为 true",
+      "acceptance": "G6 记录显示决定包已备齐、decision_ready 为 false、节点状态为「等待机构结果」",
+      "failure": "闸口未放行→节点停在「等待机构结果」；工具自行置位 decision_ready=true→撤销"
+    },
+    {
+      "rule_id": "R-N14-07",
+      "check_id": "N14-C07",
+      "title": "证书登记要素核对",
+      "evidence": "证书登记要素材料、认证范围与场所信息",
+      "method": "核对证书编号、认证范围、场所、有效期与决定包一致，登记外部编号原值",
+      "acceptance": "证书要素与决定包及上游记录一致，编号原值已登记且无内部编号混入",
+      "failure": "要素不一致→登记 conflict 并转「等待人员确认」；编号不可回指→转「等待补件」"
+    },
+    {
+      "rule_id": "R-N14-08",
+      "check_id": "N14-C08",
+      "title": "暂停撤销注销与申诉投诉转出登记",
+      "evidence": "CNCA 7.2~7.4 与 8 相关触发情形、上游记录",
+      "method": "识别触发情形并登记转出事项、责任方与时限引用",
+      "acceptance": "触发情形已识别并登记为转出事项，未在本节点自行处理",
+      "failure": "触发未登记→本项不合格，补齐后重新校验"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N14.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N14.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N14.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N14.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N14.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N14.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N14.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N14.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N14.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N14.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N14.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N14.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N14.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N14.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N14.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N14.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N14.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N14.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N14.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "认证决定人员",
+      "authority": "认证决定（人工，工具不代作）",
+      "source": "CNCA 5.12 认证决定"
+    },
+    {
+      "role": "认证机构",
+      "authority": "决定过程组织与不得外包的落实",
+      "source": "CNCA 5.12.1"
+    },
+    {
+      "role": "审核组",
+      "authority": "提供决定包所需的报告与判定统计",
+      "source": "S3 §11.1 G6"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a",
+    ".research-tmp/CNCA-QMS-01-2025_cct.txt": "ea4c203c544c663846503937222f1fe49333cbb7515f7de4524b9692822ade12",
+    ".research-tmp/CNCA-EMS-01-2026_cct.txt": "1a915b5656a231c8473b918b32e11c5851055905aceec192462be3fea17c4763",
+    ".research-tmp/CNCA-OHSMS-01-2026_cct.txt": "e94895ecd800724627fc92ea9128880ca19d0457f8e801a05e105a0ab3234da6"
+  },
+  "business_authorization": {
+    "gates": [
+      {
+        "gate_id": "G6",
+        "name": "决定闸口",
+        "approver": "认证决定人员（认证机构专职认证人员，不得为审核组成员、不得外包）",
+        "non_automatable": [
+          "作出授予、保持、更新、暂停、撤销、注销的认证决定",
+          "把 decision_ready 置为 true",
+          "核查决定人员独立性与决定过程未外包"
+        ],
+        "tool_behavior": "工具只备齐 decision_pack，decision_ready 默认 false，节点保持「等待机构结果」。",
+        "source": "S3 §11.1 G6；S2 §12.2"
+      }
+    ],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}

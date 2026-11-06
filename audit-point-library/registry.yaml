@@ -21,6 +21,15 @@ profiles:
       withdrawn: null
       supersedes: null
       relation: identical
+      iso_side_status:
+        iso_designation: ISO 9001:2015
+        iso_status: withdrawn
+        iso_withdrawn_on: "2026-09-16"
+        iso_replaced_by: ISO 9001:2026
+        gb_revision_plan: "20264412-T-469"
+        gb_revision_stage: "正在征求意见（2027-02-28 前报批）"
+        transition_note: "ISO 9001:2026 已于 2026-09-16 发布；ISO/TC 176 过渡节点：2027-03-31 认证机构具备评估能力 / 2027-06-30 提交过渡声明 / 2027-09-30 完成过渡决定 / 2028-03-31 起仅可签发 2026 版证书 / 2029-09-30 2015 版持证组织过渡截止"
+        ref: docs/research/standard-version-watch.md
       official_sources:
         - url: https://openstd.samr.gov.cn/bzgk/gb/std_list
           accessed: "2026-11-05"
@@ -53,6 +62,15 @@ profiles:
       withdrawn: null
       supersedes: null
       relation: identical
+      iso_side_status:
+        iso_designation: ISO 14001:2015
+        iso_status: withdrawn
+        iso_withdrawn_on: "2026-04-15"
+        iso_replaced_by: ISO 14001:2026
+        gb_revision_plan: "20261483-T-469"
+        gb_revision_stage: "正在征求意见（2026-03-31 下达，周期 12 个月）"
+        transition_note: "ISO 14001:2026 已发布（第四版，2026-04，目录号 92300）；ISO 侧过渡期日期未公开"
+        ref: docs/research/standard-version-watch.md
       official_sources:
         - url: https://openstd.samr.gov.cn/bzgk/gb/std_list
           accessed: "2026-11-05"
@@ -83,6 +101,15 @@ profiles:
       withdrawn: null
       supersedes: null
       relation: identical
+      iso_side_status:
+        iso_designation: ISO 45001:2018
+        iso_status: current
+        iso_withdrawn_on: null
+        iso_replaced_by: "ISO/DIS 45001（计划以 ISO 45001:2027 发布）"
+        gb_revision_plan: null
+        gb_revision_stage: "公开平台检索不到修订计划"
+        transition_note: "ISO 45001:2018 经 2024 年复审确认仍现行；GB/T 45001-2020 于 2020-03-06 发布并实施"
+        ref: docs/research/standard-version-watch.md
       official_sources:
         - url: https://openstd.samr.gov.cn/bzgk/gb/std_list
           accessed: "2026-11-05"

@@ -1,0 +1,342 @@
+{
+  "schema_version": 1,
+  "node": "N09",
+  "title": "审核策划配合",
+  "previous": [
+    "N08"
+  ],
+  "next": [
+    "N10"
+  ],
+  "formal_name": "N09_审查表、N09_过程底稿",
+  "brief_name": "N09_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N09-C01",
+        "condition": "审核方案要素齐备",
+        "evidence": "审核方案核对表无空缺要素",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N09-C02",
+        "condition": "审核时间确定记录化核对完成",
+        "evidence": "记录与文件化均有证据",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N09-C03",
+        "condition": "人日与时间计算引用完成",
+        "evidence": "数值引用登记附输入与口径",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N09-C04",
+        "condition": "多场所抽样方案完成",
+        "evidence": "抽样方案覆盖全部场所且六字段齐全",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N09-C05",
+        "condition": "审核组构成与独立性核查完成",
+        "evidence": "核查表有处置结论",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N09-C06",
+        "condition": "审核计划编制与提交完成",
+        "evidence": "有提交受审核方的证据",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N09-C07",
+        "condition": "审核方式判定完成",
+        "evidence": "方式判定记录含理由",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N09-C08",
+        "condition": "未决事项与数值依赖登记完成",
+        "evidence": "全部未决项有责任方",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N09-01",
+      "check_id": "N09-C01",
+      "title": "审核方案要素齐备性",
+      "evidence": "CNCA 5.4.1 审核方案条款、审核方案要点材料",
+      "method": "按 5.4.1 逐要素核对审核目的、范围、准则、抽样与时间安排的书面化情况",
+      "acceptance": "5.4.1 各要素均有书面记录并可定位，无要素空缺",
+      "failure": "要素缺失→转「等待补件」；要素互相矛盾→登记 conflict 并转「等待人员确认」"
+    },
+    {
+      "rule_id": "R-N09-02",
+      "check_id": "N09-C02",
+      "title": "审核时间确定过程的记录化",
+      "evidence": "CNCA 5.4.2 审核时间条款、5.4.2.3 时间确定过程记录、5.4.2.4 结合审核时间确定方法",
+      "method": "检查每次审核时间确定过程是否形成记录，结合审核的时间确定方法是否已文件化",
+      "acceptance": "审核时间确定过程有记录，结合审核时间确定方法已文件化并可定位",
+      "failure": "无记录或方法未文件化→登记 missing 并转「等待补件」"
+    },
+    {
+      "rule_id": "R-N09-03",
+      "check_id": "N09-C03",
+      "title": "人日与审核时间的计算引用",
+      "evidence": "tools/calculate.py 人日域计算结果、tools/calendar_ratio.py 计算结果",
+      "method": "调用 #21 计算工具取得人日与时间区间，登记计算口径、输入值与引用来源，不在本节点自行计算",
+      "acceptance": "人日与时间区间均引自 #21 计算结果并附输入与口径说明，无自算或估计数值",
+      "failure": "出现自算数值→本项不合格，改为引用式表述后重新校验"
+    },
+    {
+      "rule_id": "R-N09-04",
+      "check_id": "N09-C04",
+      "title": "多场所抽样方案与风险依据",
+      "evidence": "CNCA 5.4.3 多场所抽样条款、场所活动与过程清单、#21 抽样域计算结果",
+      "method": "按 5.4.3 判断相似与非相似场所并形成抽样方案，登记风险依据与抽样六字段",
+      "acceptance": "抽样方案覆盖全部场所并写明风险依据，六字段齐全且数值引自 #21 计算结果",
+      "failure": "六字段缺一→登记 missing 并使相关抽样结论只能落 insufficient；无风险依据→转「等待补件」"
+    },
+    {
+      "rule_id": "R-N09-05",
+      "check_id": "N09-C05",
+      "title": "审核组组建与独立性核查",
+      "evidence": "CNCA 5.4.4 组建审核组条款、5.4.4.4 利益关系要求、审核员能力与独立性声明",
+      "method": "核对组内分工、专业能力覆盖与利益关系声明，登记回避或更换安排",
+      "acceptance": "审核组构成满足专业能力覆盖要求，利益关系核查已留痕并有处置结论",
+      "failure": "能力或独立性证据缺失→登记 missing 并转「等待补件」；存在利益关系→记录更换安排"
+    },
+    {
+      "rule_id": "R-N09-06",
+      "check_id": "N09-C06",
+      "title": "审核计划编制与提交",
+      "evidence": "CNCA 5.4.5 审核计划条款、5.4.5.3 提交受审核方要求、审核计划文本",
+      "method": "核对计划的日程、抽样点与审核内容是否明确，并核对其在现场审核开始前提交受审核方的证据",
+      "acceptance": "计划要素完整且有提交受审核方的可定位证据",
+      "failure": "未提交→登记 missing 并转「等待补件」，不得开始现场审核；要素缺失→本项不合格"
+    },
+    {
+      "rule_id": "R-N09-07",
+      "check_id": "N09-C07",
+      "title": "结合审核与联合审核的条件处理",
+      "evidence": "CNCA 5.4 条款、结合或联合审核的适用条件材料",
+      "method": "判断是否存在结合或联合审核情形，适用时按 5.4.2.4 核对结合审核的时间确定方法文件化情况",
+      "acceptance": "结合或联合审核情形已识别并有相应的时间确定方法文件化支撑，或明确不适用（理由：…）",
+      "failure": "适用但无方法文件化→登记 missing 并转「等待补件」"
+    },
+    {
+      "rule_id": "R-N09-08",
+      "check_id": "N09-C08",
+      "title": "未决事项与数值依赖登记",
+      "evidence": "本节点全部待办事项、#21 依赖项清单",
+      "method": "逐条登记缺件、冲突、待人工确认与待核数值，注明责任方与期望回复",
+      "acceptance": "全部未决事项均已登记且有责任方，未核数值均为引用式表述",
+      "failure": "存在未登记的未决事项→本项不合格，补齐后重新校验"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N09.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N09.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N09.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N09.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N09.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N09.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N09.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N09.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N09.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N09.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N09.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N09.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N09.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N09.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N09.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N09.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N09.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N09.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N09.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "审核员",
+      "authority": "审核方案与审核计划的编制配合",
+      "source": "S3 §2.1 N09"
+    },
+    {
+      "role": "审核组长",
+      "authority": "审核方案与计划的确认",
+      "source": "CNCA 5.4 认证机构审核策划职责"
+    },
+    {
+      "role": "认证机构",
+      "authority": "审核组组建与独立性管理",
+      "source": "CNCA 5.4.4 组建审核组"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a",
+    ".research-tmp/CNCA-QMS-01-2025_cct.txt": "ea4c203c544c663846503937222f1fe49333cbb7515f7de4524b9692822ade12",
+    ".research-tmp/CNCA-EMS-01-2026_cct.txt": "1a915b5656a231c8473b918b32e11c5851055905aceec192462be3fea17c4763",
+    ".research-tmp/CNCA-OHSMS-01-2026_cct.txt": "e94895ecd800724627fc92ea9128880ca19d0457f8e801a05e105a0ab3234da6"
+  },
+  "business_authorization": {
+    "gates": [],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}

@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "node": "N11",
+  "title": "第一阶段问题处理",
+  "previous": [
+    "N10"
+  ],
+  "next": [
+    "N12"
+  ],
+  "formal_name": "N11_审查表、N11_过程底稿",
+  "brief_name": "N11_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N11-C01",
+        "condition": "问题台账建立完成",
+        "evidence": "台账覆盖第一阶段全部发现",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N11-C02",
+        "condition": "问题分类核对完成",
+        "evidence": "分类与证据状态一致且无越界",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N11-C03",
+        "condition": "原因分析材料登记完成",
+        "evidence": "每条问题有可定位材料",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N11-C04",
+        "condition": "纠正措施登记完成",
+        "evidence": "每条问题有措施、责任与计划",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N11-C05",
+        "condition": "实施证据核对完成",
+        "evidence": "差异项已登记",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N11-C06",
+        "condition": "未决事项与提醒登记完成",
+        "evidence": "未闭环条目全部在册",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N11-01",
+      "check_id": "N11-C01",
+      "title": "第一阶段发现转问题台账的完整性",
+      "evidence": "N10 审核发现清单与缺口清单",
+      "method": "逐条转入问题台账，登记问题类型、依据条款、责任方与期望回复",
+      "acceptance": "第一阶段的每条发现都在台账中有对应条目，无遗漏",
+      "failure": "发现未入账→本项不合格，补齐后重新校验"
+    },
+    {
+      "rule_id": "R-N11-02",
+      "check_id": "N11-C02",
+      "title": "问题分类与定性边界",
+      "evidence": "S2 §4 问题七分类、发现内容与证据状态",
+      "method": "按 missing/unreadable/pending_check/conflict/suspected_nc/formal_nc/suggestion 分类，核对分类与证据状态匹配",
+      "acceptance": "每条问题分类与证据状态一致，未把 suspected_nc 写成 formal_nc，未把 missing 写成不适用",
+      "failure": "分类越界→改正为正确分类并登记说明；正式不符合项须由有权限人员确认"
+    },
+    {
+      "rule_id": "R-N11-03",
+      "check_id": "N11-C03",
+      "title": "原因分析材料登记",
+      "evidence": "原因分析材料、GB/T 19001-2016 10.2 相关要求",
+      "method": "登记原因分析材料的来源、位置与覆盖范围，只记录材料写了什么",
+      "acceptance": "每条待处理问题都有可定位的原因分析材料",
+      "failure": "材料缺失→登记 missing 并转「等待补件」；材料不可读→登记 unreadable"
+    },
+    {
+      "rule_id": "R-N11-04",
+      "check_id": "N11-C04",
+      "title": "纠正措施与整改计划登记",
+      "evidence": "纠正措施材料、整改计划",
+      "method": "登记措施内容、责任、资源与计划安排，定位到材料位置",
+      "acceptance": "每条问题都有明确措施、责任与计划安排并可定位",
+      "failure": "措施缺责任或计划→登记 missing 并转「等待补件」"
+    },
+    {
+      "rule_id": "R-N11-05",
+      "check_id": "N11-C05",
+      "title": "整改实施证据登记与一致性核对",
+      "evidence": "整改实施证据、台账状态",
+      "method": "登记实施证据并与台账状态交叉核对，登记差异",
+      "acceptance": "台账状态与证据一致，状态变化有取得时间与来源",
+      "failure": "状态无证据→登记 missing；状态与证据矛盾→登记 conflict 并转「等待人员确认」"
+    },
+    {
+      "rule_id": "R-N11-06",
+      "check_id": "N11-C06",
+      "title": "未闭环问题与提醒登记",
+      "evidence": "台账未闭环条目、未决事项清单",
+      "method": "把未闭环条目登记为未决事项，注明责任方与期望回复，设定跟踪提醒",
+      "acceptance": "每个未闭环条目都在未决事项清单中有对应条目与责任方",
+      "failure": "存在未登记的未闭环条目→本项不合格，补齐后重新校验"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N11.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N11.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N11.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N11.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N11.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N11.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N11.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N11.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N11.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N11.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N11.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N11.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N11.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N11.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N11.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N11.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N11.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N11.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N11.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "委托人",
+      "authority": "问题处理与整改实施",
+      "source": "S3 §2.1 N11"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a"
+  },
+  "business_authorization": {
+    "gates": [],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}

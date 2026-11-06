@@ -1,0 +1,98 @@
+# 机构表单号登记表（Issue #19）
+#
+# 纪律（docs/spec/output-formats.md §9.4、§11.1、§11.2②）：
+#   * 本表**只登记「占位符形态的编号模板」与来源出处说明**；
+#   * **不复制任何真实机构表单号原文**（公开标准号除外）；
+#   * 真实编号原文只允许出现在 00_原始材料/ 的只读原件与 docs/research/ 的一手摘录中；
+#   * 命中本表 entries 的编号 → 报冲突并阻断；命中 public_standards 或
+#     neutral_patterns 的编号 → 放行。
+schema_version: 1
+title: 机构表单号登记表
+discipline: >
+  只登记编号形态与出处，不登记编号原文。机构标识一律以代号引用，
+  真实机构名与真实表单号不入本表。
+
+entries:
+  - id: FN-EXAMPLE-MS
+    agency: AGENCY-EXAMPLE
+    agency_ref: "模板集自带的虚构示例机构（非真实机构），仅用于演示表单号隔离"
+    form_number_template: "XF-R-MS-<三位数字>"
+    pattern: '^XF-R-MS-\d{3}$'
+    family: 现场审核记录类
+    source: "tools/templates/families/*.yaml 的示例机构 profile（虚构样本）"
+    status: known
+    note: "形态模板，不含任何真实编号原文"
+
+  - id: FN-ALT-EXAMPLE-MS
+    agency: AGENCY-ALT-EXAMPLE
+    agency_ref: "模板集自带的第二份虚构机构配置（切换验证用，非真实机构）"
+    form_number_template: "XFZ-R-MS-<三位数字>"
+    pattern: '^XFZ-R-MS-\d{3}$'
+    family: 现场审核记录类
+    source: "tools/templates/agency_profiles/alt-example.yaml（虚构样本，用于切换机构验证）"
+    status: known
+    note: "形态模板，不含任何真实编号原文"
+
+  - id: FN-UICC-MS
+    agency: AGENCY-UICC
+    agency_ref: "docs/research/external-package-and-uicc-review.md §1.1（真实机构名不入本表，仅以代号引用）"
+    form_number_template: "UI-R-MS-<三位数字>"
+    pattern: '^UI-R-MS-\d{3}$'
+    family: 现场审核记录类
+    source: "docs/research/external-package-and-uicc-review.md §2.7（模板缺陷扫描：机构表单编号 40 处；此处只登记编号体系形态与出处，编号原文不入本表）"
+    status: known
+    note: "形态模板，不含任何真实编号原文"
+
+public_standards:
+  - id: STD-ISO-9001
+    label: "ISO 9001"
+    pattern: '^ISO(?:/IEC)?\s*9001(?:\s*[:\-–]\s*\d{4})?$'
+    source: "公开标准号；版本以依据库快照为准（#20）"
+  - id: STD-ISO-14001
+    label: "ISO 14001"
+    pattern: '^ISO(?:/IEC)?\s*14001(?:\s*[:\-–]\s*\d{4})?$'
+    source: "公开标准号；版本以依据库快照为准（#20）"
+  - id: STD-ISO-45001
+    label: "ISO 45001"
+    pattern: '^ISO(?:/IEC)?\s*45001(?:\s*[:\-–]\s*\d{4})?$'
+    source: "公开标准号；版本以依据库快照为准（#20）"
+  - id: STD-GB-T-19001
+    label: "GB/T 19001"
+    pattern: '^GB/T\s*19001(?:\s*[:\-–]\s*\d{4})?$'
+    source: "公开标准号；版本以依据库快照为准（#20）"
+  - id: STD-GB-T-24001
+    label: "GB/T 24001"
+    pattern: '^GB/T\s*24001(?:\s*[:\-–]\s*\d{4})?$'
+    source: "公开标准号；版本以依据库快照为准（#20）"
+  - id: STD-GB-T-45001
+    label: "GB/T 45001"
+    pattern: '^GB/T\s*45001(?:\s*[:\-–]\s*\d{4})?$'
+    source: "公开标准号；版本以依据库快照为准（#20）"
+  - id: STD-CNCA-QMS
+    label: "CNCA-QMS-01"
+    pattern: '^CNCA(?:-[A-Z]{2,6})?[-–]\d+(?:[.:\-]\d+)*$'
+    source: "公开认证机构认可规则编号族；版本以依据库快照为准（#20）"
+  - id: STD-CNCA-EMS
+    label: "CNCA-EMS-01"
+    pattern: '^CNCA(?:-[A-Z]{2,6})?[-–]\d+(?:[.:\-]\d+)*$'
+    source: "公开认证机构认可规则编号族；版本以依据库快照为准（#20）"
+  - id: STD-CNCA-OHSMS
+    label: "CNCA-OHSMS-01"
+    pattern: '^CNCA(?:-[A-Z]{2,6})?[-–]\d+(?:[.:\-]\d+)*$'
+    source: "公开认证机构认可规则编号族；版本以依据库快照为准（#20）"
+  - id: STD-CNAS-CC
+    label: "CNAS-CC 系列"
+    pattern: '^CNAS(?:-[A-Z]{2,6})?[-–]\d+(?:[.:\-]\d+)*$'
+    source: "公开 CNAS 合格评定认可文件编号族；版本以依据库快照为准（#20）"
+
+neutral_patterns:
+  - id: NEUTRAL-FORM-NUMBER
+    label: "机构表单编号占位符"
+    form_number_template: "{{表单编号}}"
+    pattern: '^\{\{表单编号\}\}$'
+    source: "output-formats.md §9.1 字典 + §9.4 机构私有信息隔离（模板层扩展占位符）"
+  - id: NEUTRAL-INTERNAL-NUMBER
+    label: "机构内部编号占位符"
+    form_number_template: "{{机构内部编号}}"
+    pattern: '^\{\{机构内部编号\}\}$'
+    source: "output-formats.md §9.4 机构私有信息隔离（模板层扩展占位符）"

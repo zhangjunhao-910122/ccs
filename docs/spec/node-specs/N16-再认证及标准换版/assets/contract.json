@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "node": "N16",
+  "title": "再认证及标准换版",
+  "previous": [
+    "N15"
+  ],
+  "next": [],
+  "formal_name": "N16_审查表、N16_条款-证据对照表、N16_审核报告、N16_过程底稿",
+  "brief_name": "N16_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N16-C01",
+        "condition": "再认证策划与时点核对完成",
+        "evidence": "策划核对表有引用来源",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N16-C02",
+        "condition": "现场实施确认完成",
+        "evidence": "实施证据可定位",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N16-C03",
+        "condition": "全周期证据与判定完成",
+        "evidence": "逐条款有锚点与判定",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N16-C04",
+        "condition": "上次结论抽样复核完成",
+        "evidence": "抽样记录六字段齐全",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N16-C05",
+        "condition": "换版差异台账机械比对产出",
+        "evidence": "台账字段齐全且含 source_ref",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N16-C06",
+        "condition": "影响面分析完成",
+        "evidence": "影响面表覆盖受影响过程",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N16-C07",
+        "condition": "版本锁定完成",
+        "evidence": "锁定记录与 ISO 侧状态在册",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N16-C08",
+        "condition": "类型N5 报告与 G5 闸口完成",
+        "evidence": "19 项校验无缺项",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N16-01",
+      "check_id": "N16-C01",
+      "title": "再认证申请时点与策划范围核对",
+      "evidence": "CNCA 5.8.1 与 5.8.3 条款、再认证申请与策划材料",
+      "method": "核对申请时点与策划是否考虑最近一个认证周期，期限引用 #21 计算结果与依据库现行快照",
+      "acceptance": "申请时点与策划范围均有依据且覆盖最近一个认证周期",
+      "failure": "出现写死期限→改为引用式表述；策划未覆盖周期→登记 missing 并转「等待补件」"
+    },
+    {
+      "rule_id": "R-N16-02",
+      "check_id": "N16-C02",
+      "title": "再认证现场实施确认",
+      "evidence": "CNCA 5.8.2 在现场实施要求、实施记录",
+      "method": "核对本次再认证是否在现场实施并登记实施与取证证据",
+      "acceptance": "现场实施有可定位证据，覆盖内容与计划一致",
+      "failure": "未在现场实施→转「等待补件」，不得推进"
+    },
+    {
+      "rule_id": "R-N16-03",
+      "check_id": "N16-C03",
+      "title": "全周期符合性与有效性证据核对",
+      "evidence": "整个认证周期的运行与符合性证据、依据库快照",
+      "method": "对全周期证据按条款建立锚点并执行判定，登记证据时点",
+      "acceptance": "每条条款的证据覆盖周期内相关时点并可定位",
+      "failure": "锚点缺失→该条落 insufficient；依据 unverifiable→该条只能落 insufficient"
+    },
+    {
+      "rule_id": "R-N16-04",
+      "check_id": "N16-C04",
+      "title": "上次结论抽样复核",
+      "evidence": "上次审核结论清单、抽样记录",
+      "method": "按抽样方式复核上次结论对应条款，登记抽样六字段并引用 #21 计算结果",
+      "acceptance": "复核对象、抽样依据与结论明确，六字段齐全",
+      "failure": "六字段缺一→相关结论只能落 insufficient 并登记 SAMPLING_INSUFFICIENT"
+    },
+    {
+      "rule_id": "R-N16-05",
+      "check_id": "N16-C05",
+      "title": "换版差异台账的机械比对产出",
+      "evidence": "CNCA 11.1 条款、条款树 yaml、版本台账",
+      "method": "以条款树与版本台账的机械比对产出差异台账，字段对齐依据快照字段（source_ref、snapshot_sha256、verified_at）",
+      "acceptance": "差异台账逐条来自机械比对结果，字段齐全且与条款树版本号一致",
+      "failure": "凭记忆生成或条目无 source_ref→台账作废重做；版本号与条款树不一致→登记 conflict"
+    },
+    {
+      "rule_id": "R-N16-06",
+      "check_id": "N16-C06",
+      "title": "换版影响面分析与现场佐证",
+      "evidence": "换版影响的过程清单、影响面分析、现场佐证材料",
+      "method": "按受影响条款识别受影响过程与文件，给出影响面结论并登记现场佐证的用途",
+      "acceptance": "受影响过程全部识别且有影响面结论，现场照片只作佐证不作结论依据",
+      "failure": "影响过程未识别→本项不合格；据照片作有效性结论→撤销并改登记 pending_check"
+    },
+    {
+      "rule_id": "R-N16-07",
+      "check_id": "N16-C07",
+      "title": "双轨版本情形处理",
+      "evidence": "版本台账中 ISO 侧状态与国标现行状态",
+      "method": "当 ISO 侧已撤销而国标仍现行时锁定国标版本，并在差异台账中记录 ISO 侧状态",
+      "acceptance": "双轨情形已锁定任务版本且差异台账含 ISO 侧状态记录",
+      "failure": "未锁定版本→本项不合格；台账缺 ISO 侧状态→补录后重新校验"
+    },
+    {
+      "rule_id": "R-N16-08",
+      "check_id": "N16-C08",
+      "title": "类型N5 分支报告与 G5 闸口",
+      "evidence": "报告骨架、19 项覆盖校验表、换版差异台账引用、审核组长签署",
+      "method": "按 S4 §6.2 生成类型N5 分支报告，第 19 项留「（待填写）」，校验 19 项与签署",
+      "acceptance": "19 项齐全、差异台账已引用、签署状态合规",
+      "failure": "缺项→登记 REPORT_ITEM_MISSING；缺签署→不出 final，节点停在「已具交接条件」"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N16.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N16.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N16.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N16.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N16.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N16.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N16.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N16.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N16.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N16.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N16.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N16.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N16.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N16.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N16.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N16.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N16.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N16.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N16.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "审核组",
+      "authority": "再认证实施、换版影响面分析与判定",
+      "source": "S3 §2.1 N16"
+    },
+    {
+      "role": "审核组长",
+      "authority": "再认证报告签署（G5）",
+      "source": "S3 §11.1 G5"
+    },
+    {
+      "role": "认证机构",
+      "authority": "标准换版的适用与版本锁定",
+      "source": "CNCA 11.1"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a",
+    ".research-tmp/CNCA-QMS-01-2025_cct.txt": "ea4c203c544c663846503937222f1fe49333cbb7515f7de4524b9692822ade12",
+    ".research-tmp/CNCA-EMS-01-2026_cct.txt": "1a915b5656a231c8473b918b32e11c5851055905aceec192462be3fea17c4763",
+    ".research-tmp/CNCA-OHSMS-01-2026_cct.txt": "e94895ecd800724627fc92ea9128880ca19d0457f8e801a05e105a0ab3234da6",
+    "audit-point-library/clause_trees/qms-gbt19001-2016.yaml": "624bdbae3a9ef08e18ad9aec25fa5da92c71b2c98cf1a2b4e2264a920eeeaac3"
+  },
+  "business_authorization": {
+    "gates": [
+      {
+        "gate_id": "G5",
+        "name": "报告签署闸口",
+        "approver": "审核组长（受审核方代表会签）",
+        "non_automatable": [
+          "撰写审核报告第 19 项（审核组推荐意见与认证范围适宜性结论）",
+          "在报告上签署",
+          "确认报告版本已定稿"
+        ],
+        "tool_behavior": "工具只生成待签版本，第 19 项写「（待填写）」，签署栏留空标「（待签）」；缺第 19 项或缺签署不得出 final，节点停在「已具交接条件」。",
+        "source": "S3 §11.1 G5；S4 §6.2、§10"
+      }
+    ],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}

@@ -1,0 +1,86 @@
+# 虚构机构样本（**仅用于单元测试**）
+#
+# 纪律：
+#   * 这里的机构名、地址、联系人、内部编号、表单号**全部是虚构的**，
+#     不对应任何真实机构，也不是任何真实表单的原文；
+#   * 表单号使用模板集自带的虚构编号体系（登记条目 FN-EXAMPLE-MS），
+#     形态与真实机构表单号体系一致，用于验证「表单号隔离」能命中并阻断；
+#   * 机构中立模板集（tools/templates/families/*.yaml）里**不放**本文件这种
+#     带机构专有信息的样本。
+schema_version: 1
+family_id: F01
+name: 审核计划书（测试样本）
+short_name: 审核计划
+aliases:
+- fictional_agency_audit_plan_book
+source_of_list: docs/spec/output-formats.md §11.1 第 1 类
+
+# 机构 profile：清洗与占位化的输入来源
+agency_profile:
+  agency_name: 虚构示例认证机构
+  form_number: XF-R-MS-999
+  logo_ref: 虚构认证机构徽标
+  address: 虚构市虚构区示例路 1 号
+  contact_name: 虚构联系人甲
+  internal_number: 虚构机构内部编号 A-001
+  template_date: '2024-03-01'
+  field_label_aliases:
+    虚构机构审核任务号: 审核任务号
+    虚构机构审核意见: 审核意见
+
+form_number:
+  value: XF-R-MS-999
+  placeholder: '{{表单编号}}'
+  form_name_placeholder: '{{表单名称}}'
+  registry_ref: FN-EXAMPLE-MS
+
+fields:
+- key: task_id
+  label: 虚构机构审核任务号
+  required: true
+  placeholder: '{{任务标识}}'
+  source: 任务记录
+  dictionary_ref: '9.1'
+- key: agency_opinion
+  label: 虚构机构审核意见
+  required: false
+  placeholder: '{{审核目的}}'
+  source: 人工填写
+  dictionary_ref: '9.1'
+- key: form_no
+  label: 表单编号
+  required: true
+  placeholder: '{{表单编号}}'
+  source: 模板层扩展占位符
+  dictionary_ref: T
+
+sections:
+- order: 1
+  id: cover
+  title: 封面
+  fields:
+  - task_id
+  - form_no
+- order: 2
+  id: opinion
+  title: 审核意见
+  fields:
+  - agency_opinion
+
+artifacts:
+- artifact_base: 预览
+  artifact_format: md
+  artifact_form: 简报
+  relation: 策划件；简报引用（§11.1 第 1 类）
+
+sample_body: |-
+  虚构示例认证机构 审核计划书
+  表单编号：XF-R-MS-999
+  机构标识：虚构认证机构徽标
+  地址：虚构市虚构区示例路 1 号
+  联系人：虚构联系人甲
+  内部编号：虚构机构内部编号 A-001
+  模板日期：2024-03-01
+  任务标识：{{任务标识}}
+  审核准则：ISO 9001:2015
+  整改完成时限：30 个工作日内

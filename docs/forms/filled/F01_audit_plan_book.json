@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "artifact": "过程底稿",
+  "template_family": {
+    "family_id": "F01",
+    "name": "审核计划书",
+    "short_name": "审核计划",
+    "source_of_list": "docs/spec/output-formats.md §11.1 第 1 类",
+    "form_number": {
+      "placeholder": "{{表单编号}}",
+      "form_name_placeholder": "{{表单名称}}",
+      "registry_ref": "FN-UICC-MS",
+      "note": "本仓库只登记编号形态与来源出处，绝不写任何真实机构表单号"
+    }
+  },
+  "artifacts": [
+    {
+      "artifact_base": "预览",
+      "artifact_format": "md",
+      "artifact_form": "简报",
+      "relation": "策划件；简报引用（§11.1 第 1 类）"
+    },
+    {
+      "artifact_base": "过程底稿",
+      "artifact_format": "json",
+      "artifact_form": "过程底稿",
+      "relation": "审核方案字段落底稿 artifact 段"
+    }
+  ],
+  "sections": [
+    {
+      "order": 1,
+      "id": "cover",
+      "title": "封面",
+      "rows": [
+        {
+          "key": "agency",
+          "label": "认证机构名称",
+          "value": "示例认证机构",
+          "required": true,
+          "source": "机构档案（#20）",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{认证机构名称}}"
+        },
+        {
+          "key": "form_no",
+          "label": "表单编号",
+          "value": "XF-R-MS-001",
+          "required": true,
+          "source": "模板层扩展占位符",
+          "dictionary_ref": "T",
+          "placeholder": "{{表单编号}}"
+        },
+        {
+          "key": "form_name",
+          "label": "表单名称",
+          "value": "示例审核计划书",
+          "required": true,
+          "source": "模板层扩展占位符",
+          "dictionary_ref": "T",
+          "placeholder": "{{表单名称}}"
+        },
+        {
+          "key": "task_id",
+          "label": "任务标识",
+          "value": "TSK-EXAMPLE-2026-001",
+          "required": true,
+          "source": "任务记录",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{任务标识}}"
+        },
+        {
+          "key": "version",
+          "label": "版本号",
+          "value": "V1.0",
+          "required": true,
+          "source": "成果元数据",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{版本号}}"
+        },
+        {
+          "key": "date",
+          "label": "日期",
+          "value": "2026-11-05",
+          "required": false,
+          "source": "任务时间",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{日期}}"
+        },
+        {
+          "key": "internal_no",
+          "label": "机构内部编号",
+          "value": "XF-IN-2026-001",
+          "required": false,
+          "source": "模板层扩展占位符",
+          "dictionary_ref": "T",
+          "placeholder": "{{机构内部编号}}"
+        },
+        {
+          "key": "logo",
+          "label": "机构标识",
+          "value": "（待填）",
+          "required": false,
+          "source": "模板层扩展占位符",
+          "dictionary_ref": "T",
+          "placeholder": "{{机构标识}}"
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "id": "plan_body",
+      "title": "审核计划正文",
+      "rows": [
+        {
+          "key": "audit_type",
+          "label": "审核类型",
+          "value": "初次认证审核第二阶段",
+          "required": true,
+          "source": "#4 状态机 N1～N6",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核类型}}"
+        },
+        {
+          "key": "criteria",
+          "label": "审核准则",
+          "value": "GB/T 19001-2016 / ISO 9001:2015；CNCA-QMS-01:2025",
+          "required": true,
+          "source": "依据库快照",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核准则}}"
+        },
+        {
+          "key": "purpose",
+          "label": "审核目的",
+          "value": "验证质量管理体系符合性与有效性",
+          "required": true,
+          "source": "审核方案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核目的}}"
+        },
+        {
+          "key": "scope",
+          "label": "认证范围",
+          "value": "示例产品研发与生产",
+          "required": true,
+          "source": "审核方案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{认证范围}}"
+        },
+        {
+          "key": "audit_time",
+          "label": "审核时间",
+          "value": "5.5 人日",
+          "required": true,
+          "source": "引用 #21 计算结果",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核时间}}"
+        },
+        {
+          "key": "lead",
+          "label": "审核组长姓名",
+          "value": "示例组长",
+          "required": true,
+          "source": "审核组信息",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核组长姓名}}"
+        },
+        {
+          "key": "auditors",
+          "label": "审核员姓名",
+          "value": "示例审核员甲、示例审核员乙",
+          "required": true,
+          "source": "审核组信息",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核员姓名}}"
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "id": "sign",
+      "title": "签署栏",
+      "rows": [
+        {
+          "key": "lead",
+          "label": "审核组长姓名",
+          "value": "示例组长",
+          "required": true,
+          "source": "审核组信息",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核组长姓名}}"
+        },
+        {
+          "key": "signer",
+          "label": "签字人姓名",
+          "value": "示例签字人",
+          "required": false,
+          "source": "人工录入",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{签字人姓名}}"
+        },
+        {
+          "key": "sign_date",
+          "label": "签字日期",
+          "value": "2026-11-10",
+          "required": false,
+          "source": "人工录入",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{签字日期}}"
+        }
+      ]
+    }
+  ],
+  "used_placeholders": [
+    "{{任务标识}}",
+    "{{受审核方名称}}",
+    "{{受审核方地址}}",
+    "{{审核准则}}",
+    "{{审核员姓名}}",
+    "{{审核时间}}",
+    "{{审核目的}}",
+    "{{审核类型}}",
+    "{{审核组长姓名}}",
+    "{{审核组长职务}}",
+    "{{审核职务}}",
+    "{{日期}}",
+    "{{机构内部编号}}",
+    "{{机构标识}}",
+    "{{版本号}}",
+    "{{签字人姓名}}",
+    "{{签字人职务}}",
+    "{{签字日期}}",
+    "{{节点编号}}",
+    "{{表单名称}}",
+    "{{表单编号}}",
+    "{{认证机构名称}}",
+    "{{认证范围}}",
+    "{{起止日期}}"
+  ],
+  "missing_placeholders": [
+    "{{机构标识}}"
+  ],
+  "residual_placeholders": [],
+  "bare_braces": 0,
+  "unfilled_count": 1
+}

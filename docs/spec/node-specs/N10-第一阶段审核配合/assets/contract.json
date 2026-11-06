@@ -1,0 +1,388 @@
+{
+  "schema_version": 1,
+  "node": "N10",
+  "title": "第一阶段审核配合",
+  "previous": [
+    "N09"
+  ],
+  "next": [
+    "N11"
+  ],
+  "formal_name": "N10_审查表、N10_条款-证据对照表、N10_审核报告、N10_过程底稿",
+  "brief_name": "N10_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N10-C01",
+        "condition": "第一阶段范围书面确定",
+        "evidence": "范围确定记录覆盖必检条款",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N10-C02",
+        "condition": "锚点表建立完成",
+        "evidence": "file 锚点指纹与定位齐全",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N10-C03",
+        "condition": "要求与事实记录完成",
+        "evidence": "逐条款有要求原文与观察事实",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N10-C04",
+        "condition": "申请信息一致性核对完成",
+        "evidence": "差异项已登记",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N10-C05",
+        "condition": "第二阶段条件判定完成",
+        "evidence": "判定表有依据且缺口已登记",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N10-C06",
+        "condition": "G1 适用性闸口放行",
+        "evidence": "G1 记录显示放行",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N10-C07",
+        "condition": "G2 证据闸口放行",
+        "evidence": "G2 记录显示放行",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N10-C08",
+        "condition": "G3 冲突闸口放行",
+        "evidence": "G3 记录显示放行",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N10-C09",
+        "condition": "类型N2 报告 19 项齐备",
+        "evidence": "覆盖校验表无缺项且第 19 项待填写",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N10-01",
+      "check_id": "N10-C01",
+      "title": "第一阶段目的与文件评审范围的书面确定",
+      "evidence": "CNCA 5.6.2.1 条款、第一阶段文件评审方案、必检条款集合",
+      "method": "书面确定本次文件评审的条款范围与目的，逐条登记来源与范围依据",
+      "acceptance": "第一阶段范围已书面确定且与必检条款集合一致，每条可回指来源",
+      "failure": "范围未确定→转「等待补件」；范围与必检集合不一致→登记 conflict"
+    },
+    {
+      "rule_id": "R-N10-02",
+      "check_id": "N10-C02",
+      "title": "文件锚点建立与指纹登记",
+      "evidence": "受审核方体系文件与记录、依据库快照",
+      "method": "逐条款在文件具体位置建立锚点，file 锚点必须带指纹与定位（页、段、表行等）",
+      "acceptance": "每个被判定条款都有指向具体位置的锚点，file 锚点指纹齐全",
+      "failure": "锚点缺失或无指纹→该条款只能落 insufficient 并登记 missing；锚点指向不具体→改正后重新校验"
+    },
+    {
+      "rule_id": "R-N10-03",
+      "check_id": "N10-C03",
+      "title": "文件层面符合性记录的完整性与一致性",
+      "evidence": "条款要求原文、锚点、观察到的内容",
+      "method": "逐条款记录要求原文与文件观察到的事实，比对得出差距事实，只写看到什么",
+      "acceptance": "每条记录的要求原文精确到条款号，观察事实与锚点一一对应且不含推断性结论",
+      "failure": "要求只引整份文件→登记 BASIS_MISSING；观察事实缺锚点→登记 missing 并落 insufficient"
+    },
+    {
+      "rule_id": "R-N10-04",
+      "check_id": "N10-C04",
+      "title": "申请信息与文件真实性核对",
+      "evidence": "CNCA 5.6.2.4 条款、申请信息、体系文件与记录",
+      "method": "核对申请信息与文件所述是否一致，登记不一致处并保留两侧证据",
+      "acceptance": "申请信息与文件一致或不一致项已全部登记并有处理结论",
+      "failure": "发现不实→登记 conflict 并转「等待人员确认」，按 5.6.2.4 处理"
+    },
+    {
+      "rule_id": "R-N10-05",
+      "check_id": "N10-C05",
+      "title": "第二阶段条件具备性判定",
+      "evidence": "CNCA 5.6.2.3 条款、本阶段缺口清单",
+      "method": "逐条判断是否具备第二阶段条件，未具备项登记为具体缺口并指定责任方",
+      "acceptance": "具备性判定有条款依据，未具备项全部登记为可执行缺口",
+      "failure": "具备性无依据→保持 pending 并转「等待补件」"
+    },
+    {
+      "rule_id": "R-N10-06",
+      "check_id": "N10-C06",
+      "title": "G1 适用性闸口执行",
+      "evidence": "适用性判定记录与依据锚点、审核点库要求",
+      "method": "逐条确认适用性并把依据登记为锚点；适用性未确认的条款保持待定",
+      "acceptance": "每条条款的适用性状态已确认且有依据锚点，闸口放行有记录",
+      "failure": "适用性未确认→闸口不放行，节点停在「进行中」，相关条款只能落 insufficient"
+    },
+    {
+      "rule_id": "R-N10-07",
+      "check_id": "N10-C07",
+      "title": "G2 证据闸口执行",
+      "evidence": "锚点表与确认记录",
+      "method": "核对必核项是否都有 confirmed 锚点与支持证据，未确认项登记为待办",
+      "acceptance": "必核项证据齐全且确认状态为 confirmed，闸口放行有记录",
+      "failure": "锚点未确认→闸口不放行，相关条款落 insufficient 并生成 pending_check 待办"
+    },
+    {
+      "rule_id": "R-N10-08",
+      "check_id": "N10-C08",
+      "title": "G3 冲突闸口执行",
+      "evidence": "冲突登记与两侧证据",
+      "method": "逐条核对冲突是否已解决，未解决项保留两侧证据并登记责任方",
+      "acceptance": "冲突项要么已解决并留痕，要么已作为未决事项显式登记，闸口放行有记录",
+      "failure": "冲突未处理却已给结论→该结论改回 pending 并登记 conflict"
+    },
+    {
+      "rule_id": "R-N10-09",
+      "check_id": "N10-C09",
+      "title": "类型N2 报告的 19 项齐备与结论口径",
+      "evidence": "报告骨架、19 项映射、抽样免责声明句式、第 19 项占位",
+      "method": "按 S4 §6.2 逐项检查 19 项覆盖与章节落位，第 18 项由抽样记录生成固定句式，第 19 项写「（待填写）」",
+      "acceptance": "19 项全部有章节落位，第 18 项绑定抽样记录，第 19 项为待填写占位且 generated_by=human",
+      "failure": "缺项→登记 REPORT_ITEM_MISSING 且不得出 final；出现过程有效性表述→改正后重新校验"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N10.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N10.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N10.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N10.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N10.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N10.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N10.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N10.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N10.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N10.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N10.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N10.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N10.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N10.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N10.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N10.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N10.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N10.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N10.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "审核组",
+      "authority": "文件评审、锚点建立与类型N2 结论",
+      "source": "S3 §8.2 N10=类型N2"
+    },
+    {
+      "role": "审核组长",
+      "authority": "第一阶段结论确认与报告签署（G5 不适用于本节点的正式报告）",
+      "source": "S3 §11.1"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a",
+    ".research-tmp/CNCA-QMS-01-2025_cct.txt": "ea4c203c544c663846503937222f1fe49333cbb7515f7de4524b9692822ade12",
+    ".research-tmp/CNCA-EMS-01-2026_cct.txt": "1a915b5656a231c8473b918b32e11c5851055905aceec192462be3fea17c4763",
+    ".research-tmp/CNCA-OHSMS-01-2026_cct.txt": "e94895ecd800724627fc92ea9128880ca19d0457f8e801a05e105a0ab3234da6"
+  },
+  "business_authorization": {
+    "gates": [
+      {
+        "gate_id": "G1",
+        "name": "适用性闸口",
+        "approver": "审核组长（会同审核员）",
+        "non_automatable": [
+          "判定条款是否适用并写出适用性理由",
+          "确认不适用（na）并具名确认",
+          "在依据缺失或状态为 unverifiable 时决定只能落 insufficient"
+        ],
+        "tool_behavior": "工具只生成适用性候选与缺口，适用性未确认时相关条款只能落 insufficient，节点停在「进行中」，不得进入交接前置条件。",
+        "source": "S3 §11.1 G1；S2 §3.1"
+      },
+      {
+        "gate_id": "G2",
+        "name": "证据闸口",
+        "approver": "审核组长",
+        "non_automatable": [
+          "确认锚点与证据是否足以支撑判定",
+          "把事实状态提升到 verified",
+          "判定证据不可读或缺失时的处置结论"
+        ],
+        "tool_behavior": "工具汇总锚点、未确认锚点与待核项，证据闸口未放行不得转「已具交接条件」。",
+        "source": "S3 §11.1 G2；S2 §2、§3.1"
+      },
+      {
+        "gate_id": "G3",
+        "name": "冲突闸口",
+        "approver": "审核组长",
+        "non_automatable": [
+          "裁决冲突事实的取舍与最终认定",
+          "认定哪一侧证据成立并记录依据"
+        ],
+        "tool_behavior": "工具并列保留两侧证据并登记 conflict，不按多数材料或对通过有利的版本定事实；冲突未解决不得转「已具交接条件」。",
+        "source": "S3 §11.1 G3；S2 §3.4"
+      }
+    ],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}

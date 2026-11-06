@@ -1,0 +1,393 @@
+# CNCA 三体系 人日 / 抽样比例 / 期限 参数表
+# ---------------------------------------------------------------------------
+# 唯一数值来源：docs/research/multi-system-audit-research.md（数值落地笔记）
+#   + 其指向的一手规则全文 .research-tmp/CNCA-*-cct.txt（附录 B 完整表）
+# 规则：代码不内嵌任何规则数值，一律读本表；本表里没有的数值不得猜。
+#
+# 字段约定
+#   value / days : 数值
+#   source_ref   : CNCA 条款号（+ 附录 B 行号），可追溯到规则原文
+#   md_ref       : multi-system-audit-research.md 中同时载有该数值的章节
+#                  （null = 该数值只由一手规则原文核验，md 未列）
+#   verified     : true/false；false 且 blocking=true 时，调用方必须报「参数待核」
+#   blocking     : false 表示该项是工具约定或提示性缺口，不阻断计算
+# ---------------------------------------------------------------------------
+
+meta:
+  schema_version: 1
+  title: CNCA 三体系 人日/抽样/期限 参数表
+  generated: "2026-11-05"
+  primary_sources:
+    qms: ".research-tmp/CNCA-QMS-01-2025_cct.txt"
+    ems: ".research-tmp/CNCA-EMS-01-2026_cct.txt"
+    ohsms: ".research-tmp/CNCA-OHSMS-01-2026_cct.txt"
+  notes:
+    - "附录 B 三张表的完整数值不在 md 里（md 只列节选），按 md §5 与 §10-1 的指引从一手规则原文解析后写入本表。"
+    - "md 已列出的行用 md_ref 标注，可逐行与一手原文互校。"
+    - "条款号按 2025/2026 版新编号（md §7 映射表）；5.10 段 QMS 为 5.10.3/5.10.4，EMS/OHSMS 为 5.10.4/5.10.5。"
+  verification_policy:
+    # true = 一手规则原文已核验的行，即使 md 未列，也视为已核验；
+    # false = 只承认 md 载有的行，其余一律按「参数待核」处理。
+    allow_primary_source_only: true
+  rule_clause_map:
+    qms:   {nc_verification: "5.10.3", no_decision: "5.10.4"}
+    ems:   {nc_verification: "5.10.4", no_decision: "5.10.5"}
+    ohsms: {nc_verification: "5.10.4", no_decision: "5.10.5"}
+
+# ---------------------------------------------------------------------------
+# 计量单位
+# ---------------------------------------------------------------------------
+units:
+  man_day_hours:
+    value: 8
+    source_ref:
+      - "CNCA-QMS-01:2025 5.4.2.1"
+      - "CNCA-EMS-01:2026 5.4.2.1"
+      - "CNCA-OHSMS-01:2026 5.4.2.1"
+    md_ref: "md §3.3"
+    verified: true
+
+# ---------------------------------------------------------------------------
+# 附录 B 审核时间要求（人日）
+#   mode=base_plus_risk_factor : 先取附录 B 区间值，再乘风险系数（QMS）
+#   mode=risk_column           : 风险类型直接选列（EMS / OHSMS）
+# ---------------------------------------------------------------------------
+man_day:
+  qms:
+    mode: base_plus_risk_factor
+    source_ref: "CNCA-QMS-01:2025 附录B（质量管理体系认证审核时间要求）"
+    table:
+      - {min: 0,     max: 15,    days: 2.5, md_ref: "md §5.1"}
+      - {min: 16,    max: 25,    days: 3,   md_ref: "md §5.1"}
+      - {min: 26,    max: 45,    days: 4,   md_ref: "md §5.1"}
+      - {min: 46,    max: 65,    days: 5,   md_ref: "md §5.1"}
+      - {min: 66,    max: 85,    days: 6,   md_ref: "md §5.1"}
+      - {min: 86,    max: 125,   days: 7,   md_ref: "md §5.1"}
+      - {min: 126,   max: 175,   days: 8,   md_ref: "md §5.1"}
+      - {min: 176,   max: 275,   days: 9,   md_ref: "md §5.1"}
+      - {min: 276,   max: 425,   days: 10,  md_ref: "md §5.1"}
+      - {min: 426,   max: 625,   days: 11,  md_ref: "md §5.1"}
+      - {min: 626,   max: 875,   days: 12,  md_ref: "md §5.1"}
+      - {min: 876,   max: 1175,  days: 13,  md_ref: "md §5.1"}
+      - {min: 1176,  max: 1550,  days: 14,  md_ref: "md §5.1"}
+      - {min: 1551,  max: 2025,  days: 15,  md_ref: "md §5.1"}
+      - {min: 2026,  max: 2675,  days: 16,  md_ref: "md §5.1"}
+      - {min: 2676,  max: 3450,  days: 17,  md_ref: "md §5.1"}
+      - {min: 3451,  max: 4350,  days: 18,  md_ref: "md §5.1"}
+      - {min: 4351,  max: 5450,  days: 19,  md_ref: "md §5.1"}
+      - {min: 5451,  max: 6800,  days: 20,  md_ref: "md §5.1"}
+      - {min: 6801,  max: 8500,  days: 21,  md_ref: "md §5.1"}
+      - {min: 8501,  max: 10700, days: 22,  md_ref: "md §5.1"}
+    above_max:
+      status: unverified
+      reason: "原文「>10700 遵循上述递进规律」未给出具体人日数，不得猜值。"
+      source_ref: "CNCA-QMS-01:2025 附录B（>10700 行）"
+      md_ref: "md §5.1"
+      verified: false
+      blocking: true
+      primary_source_verified: false
+    risk_adjust:
+      low:
+        factor: 0.9
+        direction: "最多减少10%（本值为允许的下限）"
+        source_ref: "CNCA-QMS-01:2025 附录B 注4"
+        md_ref: "md §5.1 注4"
+        verified: true
+      medium:
+        factor: 1.0
+        direction: "按附录B 计算审核时间"
+        source_ref: "CNCA-QMS-01:2025 附录B 注4"
+        md_ref: "md §5.1 注4"
+        verified: true
+      high:
+        factor: 1.1
+        direction: "至少增加10%（本值为下限）"
+        source_ref: "CNCA-QMS-01:2025 附录B 注4"
+        md_ref: "md §5.1 注4"
+        verified: true
+
+  ems:
+    mode: risk_column
+    source_ref: "CNCA-EMS-01:2026 附录B（EMS 认证审核时间要求）"
+    table:
+      - {min: 0,    max: 15,    days: {high: 4.5, medium: 3.5, low: 3.0},   md_ref: "md §5.2"}
+      - {min: 16,   max: 25,    days: {high: 5.5, medium: 4.5, low: 3.5},   md_ref: "md §5.2"}
+      - {min: 26,   max: 45,    days: {high: 7,   medium: 5.5, low: 4.0},   md_ref: "md §5.2"}
+      - {min: 46,   max: 65,    days: {high: 8,   medium: 6,   low: 4.5},   md_ref: "md §5.2"}
+      - {min: 66,   max: 85,    days: {high: 9,   medium: 7,   low: 5.0},   md_ref: null}
+      - {min: 86,   max: 125,   days: {high: 11,  medium: 8,   low: 5.5},   md_ref: null}
+      - {min: 126,  max: 175,   days: {high: 12,  medium: 9,   low: 6.0},   md_ref: null}
+      - {min: 176,  max: 275,   days: {high: 13,  medium: 10,  low: 7.0},   md_ref: null}
+      - {min: 276,  max: 425,   days: {high: 15,  medium: 11,  low: 8.0},   md_ref: null}
+      - {min: 426,  max: 625,   days: {high: 16,  medium: 12,  low: 9.0},   md_ref: null}
+      - {min: 626,  max: 875,   days: {high: 17,  medium: 13,  low: 10.0},  md_ref: null}
+      - {min: 876,  max: 1175,  days: {high: 19,  medium: 15,  low: 11.0},  md_ref: "md §5.2"}
+      - {min: 1176, max: 1550,  days: {high: 20,  medium: 16,  low: 12.0},  md_ref: null}
+      - {min: 1551, max: 2025,  days: {high: 21,  medium: 17,  low: 12.0},  md_ref: null}
+      - {min: 2026, max: 2675,  days: {high: 23,  medium: 18,  low: 13.0},  md_ref: "md §5.2"}
+      - {min: 2676, max: 3450,  days: {high: 25,  medium: 19,  low: 14.0},  md_ref: null}
+      - {min: 3451, max: 4350,  days: {high: 27,  medium: 20,  low: 15.0},  md_ref: null}
+      - {min: 4351, max: 5450,  days: {high: 28,  medium: 21,  low: 16.0},  md_ref: null}
+      - {min: 5451, max: 6800,  days: {high: 30,  medium: 23,  low: 17.0},  md_ref: null}
+      - {min: 6801, max: 8500,  days: {high: 32,  medium: 25,  low: 19.0},  md_ref: null}
+      - {min: 8501, max: 10700, days: {high: 34,  medium: 27,  low: 20.0},  md_ref: null}
+    above_max:
+      status: unverified
+      reason: "原文「>10700 遵循上述递进规律」未给出具体人日数，不得猜值。"
+      source_ref: "CNCA-EMS-01:2026 附录B（>10700 行）"
+      md_ref: null
+      verified: false
+      blocking: true
+      primary_source_verified: false
+    limited_column:
+      status: unverified
+      reason: "附录 B 含「有限」列，但其适用定义（附录 A 表 A.2 第四档）未逐字核对，见 md §10 待核实清单第 2 条。"
+      source_ref: "CNCA-EMS-01:2026 附录B（有限列）"
+      md_ref: "md §10.2"
+      verified: false
+      blocking: true
+      primary_source_verified: false
+    special_complexity:
+      floor: high
+      reason: "附录 B 未涉及「特殊复杂程度」，此时审核时间应不低于高环境因素复杂程度的审核时间。"
+      source_ref: "CNCA-EMS-01:2026 附录B 注5"
+      md_ref: null
+      verified: true
+      blocking: false
+
+  ohsms:
+    mode: risk_column
+    source_ref: "CNCA-OHSMS-01:2026 附录B（OHSMS 认证审核时间要求）"
+    table:
+      - {min: 0,    max: 15,    days: {high: 4.5, medium: 3.5, low: 3.0},   md_ref: "md §5.3"}
+      - {min: 16,   max: 25,    days: {high: 5.5, medium: 4.5, low: 3.5},   md_ref: "md §5.3"}
+      - {min: 26,   max: 45,    days: {high: 7,   medium: 5.5, low: 4.0},   md_ref: "md §5.3"}
+      - {min: 46,   max: 65,    days: {high: 8,   medium: 6,   low: 4.5},   md_ref: "md §5.3"}
+      - {min: 66,   max: 85,    days: {high: 9,   medium: 7,   low: 5.0},   md_ref: null}
+      - {min: 86,   max: 125,   days: {high: 11,  medium: 8,   low: 5.5},   md_ref: null}
+      - {min: 126,  max: 175,   days: {high: 12,  medium: 9,   low: 6.0},   md_ref: null}
+      - {min: 176,  max: 275,   days: {high: 13,  medium: 10,  low: 7.0},   md_ref: null}
+      - {min: 276,  max: 425,   days: {high: 15,  medium: 11,  low: 8.0},   md_ref: null}
+      - {min: 426,  max: 625,   days: {high: 16,  medium: 12,  low: 9.0},   md_ref: null}
+      - {min: 626,  max: 875,   days: {high: 17,  medium: 13,  low: 10.0},  md_ref: null}
+      - {min: 876,  max: 1175,  days: {high: 19,  medium: 15,  low: 11.0},  md_ref: "md §5.3"}
+      - {min: 1176, max: 1550,  days: {high: 20,  medium: 16,  low: 12.0},  md_ref: null}
+      - {min: 1551, max: 2025,  days: {high: 21,  medium: 17,  low: 12.0},  md_ref: null}
+      - {min: 2026, max: 2675,  days: {high: 23,  medium: 18,  low: 13.0},  md_ref: "md §5.3"}
+      - {min: 2676, max: 3450,  days: {high: 25,  medium: 19,  low: 14.0},  md_ref: null}
+      - {min: 3451, max: 4350,  days: {high: 27,  medium: 20,  low: 15.0},  md_ref: null}
+      - {min: 4351, max: 5450,  days: {high: 28,  medium: 21,  low: 16.0},  md_ref: null}
+      - {min: 5451, max: 6800,  days: {high: 30,  medium: 23,  low: 17.0},  md_ref: null}
+      - {min: 6801, max: 8500,  days: {high: 32,  medium: 25,  low: 19.0},  md_ref: null}
+      - {min: 8501, max: 10700, days: {high: 34,  medium: 27,  low: 20.0},  md_ref: null}
+    above_max:
+      status: unverified
+      reason: "原文「>10700 遵循上述递进规律」未给出具体人日数，不得猜值。"
+      source_ref: "CNCA-OHSMS-01:2026 附录B（>10700 行）"
+      md_ref: null
+      verified: false
+      blocking: true
+      primary_source_verified: false
+
+# ---------------------------------------------------------------------------
+# 审核时间调整与比例
+# ---------------------------------------------------------------------------
+ratio:
+  onsite_min:
+    value: 0.8
+    note: "现场审核时间不得少于所确定审核时间的 80%"
+    source_ref: "CNCA-QMS-01:2025 5.4.2.3 / CNCA-EMS-01:2026 5.4.2.3 / CNCA-OHSMS-01:2026 5.4.2.3"
+    md_ref: "md §3.3"
+    verified: true
+  per_site_onsite_min:
+    value: 0.5
+    note: "分场所现场审核时间不得少于依据附录 B 所确定的现场审核时间的 50%"
+    source_ref: "CNCA-QMS-01:2025 5.4.3.5 / CNCA-EMS-01:2026 5.4.3.5 / CNCA-OHSMS-01:2026 5.4.3.5"
+    md_ref: "md §3.4"
+    verified: true
+  max_reduction_vs_appendix_b:
+    value: 0.30
+    note: "减少的审核时间不得超过附录 B 所规定的审核时间的 30%（与 5.4.2.4 的 80% 基线不是同一个基线）"
+    source_ref: "CNCA-QMS-01:2025 5.4.2.3 / CNCA-EMS-01:2026 5.4.2.3 / CNCA-OHSMS-01:2026 5.4.2.3"
+    md_ref: "md §3.3"
+    verified: true
+  combined_min_vs_sum:
+    value: 0.8
+    note: "结合审核的总审核时间不得少于多个单独体系所需审核时间之和的 80%"
+    source_ref: "CNCA-QMS-01:2025 5.4.2.4 / CNCA-EMS-01:2026 5.4.2.4 / CNCA-OHSMS-01:2026 5.4.2.4"
+    md_ref: "md §3.3"
+    verified: true
+  surveillance_min:
+    numerator: 1
+    denominator: 3
+    note: "监督审核时间不少于依据附录 B 所确定的初次认证审核时间的 1/3"
+    source_ref: "CNCA-QMS-01:2025 5.7.4 / CNCA-EMS-01:2026 5.7.4 / CNCA-OHSMS-01:2026 5.7.4"
+    md_ref: "md §3.7"
+    verified: true
+  recert_min:
+    numerator: 2
+    denominator: 3
+    note: "再认证审核时间不少于依据附录 B 所确定的初次认证审核时间的 2/3"
+    source_ref: "CNCA-QMS-01:2025 5.8.4 / CNCA-EMS-01:2026 5.8.4 / CNCA-OHSMS-01:2026 5.8.4"
+    md_ref: "md §3.7"
+    verified: true
+  sampling:
+    initial:
+      factor:
+        value: 1.0
+        note: "初次认证审核 Y = X"
+        source_ref: "CNCA-QMS-01:2025 5.4.3.3(1) / CNCA-EMS-01:2026 5.4.3.3(1) / CNCA-OHSMS-01:2026 5.4.3.3(1)"
+        md_ref: "md §3.4"
+        verified: true
+    supervision:
+      factor:
+        value: 0.6
+        note: "监督审核 Y = 0.6 X"
+        source_ref: "CNCA-QMS-01:2025 5.4.3.3(2) / CNCA-EMS-01:2026 5.4.3.3(2) / CNCA-OHSMS-01:2026 5.4.3.3(2)"
+        md_ref: "md §3.4"
+        verified: true
+    recert:
+      factor:
+        value: 0.8
+        note: "再认证审核 Y = 0.8 X"
+        source_ref: "CNCA-QMS-01:2025 5.4.3.3(3) / CNCA-EMS-01:2026 5.4.3.3(3) / CNCA-OHSMS-01:2026 5.4.3.3(3)"
+        md_ref: "md §3.4"
+        verified: true
+  sampling_rounding:
+    rule: "ceil"
+    note: "抽样数量 Y 向上取整"
+    source_ref: "CNCA-QMS-01:2025 5.4.3.3 / CNCA-EMS-01:2026 5.4.3.3 / CNCA-OHSMS-01:2026 5.4.3.3"
+    md_ref: "md §3.4"
+    verified: true
+  non_similar_supervision_min_sites:
+    value: 0.30
+    note: "非相似场所监督审核应抽取不少于 30% 的场所，且每次审核均应包括中心职能部门"
+    source_ref: "CNCA-QMS-01:2025 5.4.3.4 / CNCA-EMS-01:2026 5.4.3.4 / CNCA-OHSMS-01:2026 5.4.3.4"
+    md_ref: "md §3.4"
+    verified: true
+  non_similar_no_sampling:
+    note: "非相似场所不应抽样：初审和再认证审核应逐一在各场所进行审核"
+    source_ref: "CNCA-QMS-01:2025 5.4.3.4 / CNCA-EMS-01:2026 5.4.3.4 / CNCA-OHSMS-01:2026 5.4.3.4"
+    md_ref: "md §3.4"
+    verified: true
+
+# ---------------------------------------------------------------------------
+# 期限
+# ---------------------------------------------------------------------------
+deadline:
+  nc_verification:
+    initial:
+      months: 6
+      event: "第二阶段审核结束之日"
+      note: "初次认证：在第二阶段审核结束之日起 6 个月内完成"
+      source_ref: "CNCA-QMS-01:2025 5.10.3(1) / CNCA-EMS-01:2026 5.10.4(1) / CNCA-OHSMS-01:2026 5.10.4(1)"
+      md_ref: "md §3.9"
+      verified: true
+    supervision:
+      months: 3
+      event: "审核结束之日"
+      note: "监督审核：在审核结束之日起 3 个月内完成"
+      source_ref: "CNCA-QMS-01:2025 5.10.3(2) / CNCA-EMS-01:2026 5.10.4(2) / CNCA-OHSMS-01:2026 5.10.4(2)"
+      md_ref: "md §3.9"
+      verified: true
+    recert:
+      event: "原认证证书到期日"
+      note: "再认证：在原认证证书到期前完成"
+      source_ref: "CNCA-QMS-01:2025 5.10.3(3) / CNCA-EMS-01:2026 5.10.4(3) / CNCA-OHSMS-01:2026 5.10.4(3)"
+      md_ref: "md §3.9"
+      verified: true
+  no_decision_if_late:
+    note: "未能在规定时限内完成不符合所采取措施的，不应作出授予、保持或更新认证的决定"
+    source_ref: "CNCA-QMS-01:2025 5.10.4 / CNCA-EMS-01:2026 5.10.5 / CNCA-OHSMS-01:2026 5.10.5"
+    md_ref: "md §3.9"
+    verified: true
+  initial_decision:
+    months: 6
+    event: "现场审核结束之日"
+    note: "初次认证审核的认证决定应在现场审核后 6 个月内完成，否则应再实施一次第二阶段审核"
+    source_ref: "CNCA-QMS-01:2025 5.12.3 / CNCA-EMS-01:2026 5.12.3 / CNCA-OHSMS-01:2026 5.12.3"
+    md_ref: null
+    verified: true
+  recert_decision:
+    event: "上一认证周期认证证书到期日"
+    max_months_after_expiry: 6
+    note: "再认证审核的认证决定宜在上一认证周期认证证书到期前完成，最迟应在证书到期之日起 6 个月内完成"
+    source_ref: "CNCA-QMS-01:2025 5.12.4 / CNCA-EMS-01:2026 5.12.4 / CNCA-OHSMS-01:2026 5.12.4"
+    md_ref: null
+    verified: true
+  recert_audit_completion:
+    event: "认证证书到期日"
+    note: "再认证审核应在获证组织现场进行，并应在认证证书到期前完成"
+    source_ref: "CNCA-QMS-01:2025 5.8.2 / CNCA-EMS-01:2026 5.8.2 / CNCA-OHSMS-01:2026 5.8.2"
+    md_ref: "md §3.7"
+    verified: true
+  two_stage_gap:
+    min_days: 5
+    max_months: 6
+    note: "两个阶段审核时间间隔最短不应少于 5 日，最长不应超过 6 个月；需更长间隔应重新实施第一阶段审核"
+    source_ref: "CNCA-QMS-01:2025 5.6.1 / CNCA-EMS-01:2026 5.6.1 / CNCA-OHSMS-01:2026 5.6.1"
+    md_ref: "md §3.6"
+    verified: true
+  certificate_validity_max_years:
+    value: 3
+    note: "认证证书的有效期最长为 3 年"
+    source_ref: "CNCA-QMS-01:2025 6.2.1 / CNCA-EMS-01:2026 6.2.1 / CNCA-OHSMS-01:2026 6.2.1"
+    md_ref: "md §3.11"
+    verified: true
+  certificate_validity_start:
+    event: "证书签发日期"
+    note: "有效期起算日期为认证证书签发日期，签发日期不应早于做出认证决定的日期"
+    source_ref: "CNCA-QMS-01:2025 6.2.2 / CNCA-EMS-01:2026 6.2.2 / CNCA-OHSMS-01:2026 6.2.2"
+    md_ref: null
+    verified: true
+  certificate_auto_lapse:
+    note: "未能在原认证证书到期前完成再认证决定的，证书到期后自动失效，且不应延长原证书有效期"
+    source_ref: "CNCA-QMS-01:2025 6.2.3 / CNCA-EMS-01:2026 6.2.3 / CNCA-OHSMS-01:2026 6.2.3"
+    md_ref: null
+    verified: true
+  first_surveillance:
+    months: 12
+    event: "认证证书签发之日"
+    note: "初次认证及再认证后的第一次监督审核应在认证证书签发之日起 12 个月内进行，此后监督间隔不超过 12 个月"
+    source_ref: "CNCA-QMS-01:2025 5.4.1.4 / CNCA-EMS-01:2026 5.4.1.4 / CNCA-OHSMS-01:2026 5.4.1.4"
+    md_ref: null
+    verified: true
+
+# ---------------------------------------------------------------------------
+# 工具约定（CNCA 规则未规定细则，此处显式声明，不冒充规则数值）
+# ---------------------------------------------------------------------------
+conventions:
+  calendar_month:
+    value: true
+    note: "期限按日历月处理（不按 30 天折算）；月份加减时目标月无对应日则收敛到该月最后一天（如 1 月 31 日 + 1 个月 = 2 月 28 日）。"
+    source_ref: "工具约定（CNCA 规则未规定期间计算细则）"
+    verified: false
+    blocking: false
+    class: tool_convention
+  start_day_counted:
+    value: false
+    note: "起算当日不计入期限，期限自次日起算。"
+    source_ref: "工具约定（CNCA 规则未规定期间计算细则）"
+    verified: false
+    blocking: false
+    class: tool_convention
+  deadline_day_included:
+    value: true
+    note: "届满当日算届满：在届满日当日 24:00 前完成即视为在期限内（临界值按合规判定）。"
+    source_ref: "工具约定（CNCA 规则未规定期间计算细则）"
+    verified: false
+    blocking: false
+    class: tool_convention
+  half_man_day_rounding:
+    step: 0.5
+    tie: "half_up"
+    note: "人日计算结果有小数的，宜调整为最接近的半人日数（5.3→5.5，5.2→5.0）；正好居中时向上取（5.25→5.5）。"
+    source_ref: "CNCA-QMS-01:2025 5.4.2.3 / CNCA-EMS-01:2026 5.4.2.3 / CNCA-OHSMS-01:2026 5.4.2.3"
+    md_ref: "md §3.3"
+    verified: true
+  site_allocation:
+    note: "分场所人日按「总人日 ÷ 抽样场所数」分配后取最接近的半人日；分配合计可能与总人日有差额，差额单列。"
+    source_ref: "工具约定（规则只要求按 5.4.2 逐场所确定，见 5.4.3.5）"
+    verified: false
+    blocking: false
+    class: tool_convention

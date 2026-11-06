@@ -1,0 +1,368 @@
+{
+  "schema_version": 1,
+  "node": "N17",
+  "title": "异常与特殊业务",
+  "previous": [
+    "N02"
+  ],
+  "next": [],
+  "formal_name": "N17_审查表、N17_条款-证据对照表、N17_审核报告、N17_过程底稿",
+  "brief_name": "N17_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N17-C01",
+        "condition": "分支触发判定完成",
+        "evidence": "判定表逐情形有结论",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N17-C02",
+        "condition": "证据范围书面界定",
+        "evidence": "范围界定记录可定位",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N17-C03",
+        "condition": "扩范围审核活动确定",
+        "evidence": "活动安排有依据",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N17-C04",
+        "condition": "条件说明与提前告知核对完成",
+        "evidence": "有知悉证据",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N17-C05",
+        "condition": "额外关注落实留痕",
+        "evidence": "关注点记录在册",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N17-C06",
+        "condition": "触发时限核对完成",
+        "evidence": "时限引用 #21 计算结果",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N17-C07",
+        "condition": "转出衔接登记完成",
+        "evidence": "转出登记含承接条款",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N17-C08",
+        "condition": "类型N6 报告与范围限定完成",
+        "evidence": "19 项齐全且无全体系结论",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N17-C09",
+        "condition": "G5 闸口与未解决问题登记完成",
+        "evidence": "闸口记录与清单齐全",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N17-01",
+      "check_id": "N17-C01",
+      "title": "事件类型识别与分支触发判定",
+      "evidence": "事件信息、CNCA 5.9 与 7.2~7.4、8 相关条款",
+      "method": "按条款逐项判定触发情形，登记成立或不成立及其依据",
+      "acceptance": "每个可能情形都有判定结论与依据，触发情形已确定并对应处理分支",
+      "failure": "情形未判定→转「等待补件」；判定无依据→转「等待人员确认」"
+    },
+    {
+      "rule_id": "R-N17-02",
+      "check_id": "N17-C02",
+      "title": "本次证据范围界定",
+      "evidence": "事件范围材料、上次审核结论相关部分",
+      "method": "书面界定本次取证与判定的条款与过程范围，明确不在范围内的内容",
+      "acceptance": "范围已书面界定且可定位，每条判定都能回指范围内条款",
+      "failure": "范围未界定→转「等待补件」；范围外内容被纳入结论→撤销该结论"
+    },
+    {
+      "rule_id": "R-N17-03",
+      "check_id": "N17-C03",
+      "title": "扩大认证范围的审核活动确定",
+      "evidence": "CNCA 5.9.1 条款、扩范围申请与新增范围材料",
+      "method": "评审并确定必要审核活动，记录是否结合监督审核同时进行及其依据",
+      "acceptance": "必要审核活动已确定并说明理由，结合监督审核的情形有依据",
+      "failure": "未确定→转「等待补件」；新增范围要素缺失→登记 missing"
+    },
+    {
+      "rule_id": "R-N17-04",
+      "check_id": "N17-C04",
+      "title": "提前较短时间通知的条件说明与提前告知",
+      "evidence": "CNCA 5.9.2 条款、告知材料与获证组织的知悉记录",
+      "method": "核对条件说明是否覆盖触发原因，并核实惠证组织提前了解的证据",
+      "acceptance": "条件说明完整且有获证组织提前了解的证据",
+      "failure": "未提前告知→不得实施该审核，转「等待补件」；说明缺失→登记 missing"
+    },
+    {
+      "rule_id": "R-N17-05",
+      "check_id": "N17-C05",
+      "title": "指派审核组时的额外关注落实",
+      "evidence": "CNCA 5.9.2 关于无反对机会时应给予更多关注的要求、审核组安排记录",
+      "method": "核对审核组指派安排中是否落实额外关注要求并留痕",
+      "acceptance": "额外关注要求已落实到审核组安排与关注点记录",
+      "failure": "未落实→登记 missing 并在结论中显式说明该限制"
+    },
+    {
+      "rule_id": "R-N17-06",
+      "check_id": "N17-C06",
+      "title": "国家监督抽查不合格触发的时限核对",
+      "evidence": "CNCA 5.9.3 条款、市场监管部门通报、#21 计算结果",
+      "method": "以通报日期为起点核对触发时限，期限引用 #21 计算结果并登记证据",
+      "acceptance": "时限判定引用 #21 计算结果并有通报日期证据",
+      "failure": "出现写死天数→改为引用式表述；通报日期不可回指→转「等待补件」"
+    },
+    {
+      "rule_id": "R-N17-07",
+      "check_id": "N17-C07",
+      "title": "暂停撤销注销与申诉投诉的转出衔接",
+      "evidence": "CNCA 7.2~7.4 与 8 相关记录",
+      "method": "登记触发情形并转出到认证机构相应程序，登记责任方与时限引用",
+      "acceptance": "转出事项已登记并注明承接程序，未在本节点自行作出处置",
+      "failure": "触发未登记→本项不合格，补齐后重新校验"
+    },
+    {
+      "rule_id": "R-N17-08",
+      "check_id": "N17-C08",
+      "title": "类型N6 报告与结论范围限定",
+      "evidence": "报告骨架、19 项覆盖校验表、结论文本",
+      "method": "按 S4 §6.2 生成类型N6 分支报告并逐句校验结论只涉及本次范围",
+      "acceptance": "19 项齐全，结论文本无全体系符合性表述且明确限定本次范围",
+      "failure": "出现全体系结论→改正后重新校验；缺项→登记 REPORT_ITEM_MISSING"
+    },
+    {
+      "rule_id": "R-N17-09",
+      "check_id": "N17-C09",
+      "title": "G5 闸口与未解决问题登记",
+      "evidence": "审核组长签署位置、未解决问题与待人工确认事项",
+      "method": "核对签署状态并登记未解决问题与待人工确认事项",
+      "acceptance": "签署状态合规、闸口放行有记录，未解决问题全部登记",
+      "failure": "缺签署→不出 final，节点停在「已具交接条件」；未登记未解决问题→本项不合格"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N17.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N17.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N17.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N17.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N17.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N17.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N17.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N17.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N17.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N17.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N17.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N17.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N17.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N17.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N17.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N17.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N17.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N17.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N17.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "审核组",
+      "authority": "特殊事项取证、范围界定与判定",
+      "source": "S3 §2.1 N17"
+    },
+    {
+      "role": "审核组长",
+      "authority": "特殊审核报告签署（G5）",
+      "source": "S3 §11.1 G5"
+    },
+    {
+      "role": "认证机构",
+      "authority": "暂停撤销注销与申诉投诉的处置",
+      "source": "CNCA 7.2~7.4、8"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a",
+    ".research-tmp/CNCA-QMS-01-2025_cct.txt": "ea4c203c544c663846503937222f1fe49333cbb7515f7de4524b9692822ade12",
+    ".research-tmp/CNCA-EMS-01-2026_cct.txt": "1a915b5656a231c8473b918b32e11c5851055905aceec192462be3fea17c4763",
+    ".research-tmp/CNCA-OHSMS-01-2026_cct.txt": "e94895ecd800724627fc92ea9128880ca19d0457f8e801a05e105a0ab3234da6"
+  },
+  "business_authorization": {
+    "gates": [
+      {
+        "gate_id": "G5",
+        "name": "报告签署闸口",
+        "approver": "审核组长（受审核方代表会签）",
+        "non_automatable": [
+          "撰写审核报告第 19 项（审核组推荐意见与认证范围适宜性结论）",
+          "在报告上签署",
+          "确认报告版本已定稿"
+        ],
+        "tool_behavior": "工具只生成待签版本，第 19 项写「（待填写）」，签署栏留空标「（待签）」；缺第 19 项或缺签署不得出 final，节点停在「已具交接条件」。",
+        "source": "S3 §11.1 G5；S4 §6.2、§10"
+      }
+    ],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}

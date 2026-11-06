@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "node": "N04",
+  "title": "体系建设与运行跟踪",
+  "previous": [
+    "N03"
+  ],
+  "next": [
+    "N05"
+  ],
+  "formal_name": "N04_审查表、N04_过程底稿",
+  "brief_name": "N04_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N04-C01",
+        "condition": "文件跟踪清单完成",
+        "evidence": "每件体系文件有版本、发布日期与来源锚点",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N04-C02",
+        "condition": "过程文件对照完成",
+        "evidence": "对照表覆盖全部已识别过程",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N04-C03",
+        "condition": "准则信息可获得性核对完成",
+        "evidence": "可获得性表逐过程有结论",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N04-C04",
+        "condition": "岗位授权对照完成",
+        "evidence": "差异项均有处理结论",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N04-C05",
+        "condition": "运行记录核对完成",
+        "evidence": "核对表含缺失与不可读登记",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N04-C06",
+        "condition": "跟踪台账建立",
+        "evidence": "每个未完成项有责任方与期望回复时间",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N04-01",
+      "check_id": "N04-C01",
+      "title": "体系文件清单与受控版本核对",
+      "evidence": "体系文件清单、文件封面或发布页、版本号与发布日期",
+      "method": "逐件记录文件基名与受控版本，把版本信息定位到封面或发布记录的具体位置",
+      "acceptance": "每件体系文件都有受控版本、发布日期与来源位置，无版本不明文件",
+      "failure": "版本或发布日期不可回指→转「等待补件」；同名不同版本→登记 conflict 并转「等待人员确认」"
+    },
+    {
+      "rule_id": "R-N04-02",
+      "check_id": "N04-C02",
+      "title": "过程与流程文件覆盖核对",
+      "evidence": "过程清单、流程文件、GB/T 19001-2016 4.4",
+      "method": "把每个过程与对应文件逐项对照，标出无文件支撑的过程",
+      "acceptance": "每个已识别过程都有对应文件或已登记的缺口说明",
+      "failure": "过程无文件支撑→登记 missing 并转入缺口台账；范围不一致→登记 conflict"
+    },
+    {
+      "rule_id": "R-N04-03",
+      "check_id": "N04-C03",
+      "title": "过程运行准则与信息可获得性核对",
+      "evidence": "过程运行方法说明、GB/T 19001-2016 7.1.5",
+      "method": "检查每个过程的运行准则、监测要求与必要信息是否在文件或记录中可获得",
+      "acceptance": "每个过程的运行准则与必要信息均有材料支撑且可定位",
+      "failure": "准则或信息缺失→登记 missing 并转入缺口台账"
+    },
+    {
+      "rule_id": "R-N04-04",
+      "check_id": "N04-C04",
+      "title": "岗位职责与授权文件一致性核对",
+      "evidence": "岗位职责文件、授权文件、人员清单",
+      "method": "把岗位职责文件与授权文件逐项对照，登记不一致与空缺岗位",
+      "acceptance": "每个岗位都有明确职责与授权依据，不一致项已登记并有处理结论",
+      "failure": "职责与授权冲突→登记 conflict 并转「等待人员确认」；岗位空缺→登记 missing"
+    },
+    {
+      "rule_id": "R-N04-05",
+      "check_id": "N04-C05",
+      "title": "运行记录存在与保存核对",
+      "evidence": "运行记录样本、记录保存位置与保存期限说明",
+      "method": "核对记录是否存在、是否可定位到具体时间与具体过程，只记录观察到的内容",
+      "acceptance": "每个被抽查过程的运行记录均可定位且字段完整，缺失项已登记为 missing",
+      "failure": "记录缺失或不可读→登记 missing 或 unreadable，转「等待补件」"
+    },
+    {
+      "rule_id": "R-N04-06",
+      "check_id": "N04-C06",
+      "title": "跟踪提醒与到期复核安排",
+      "evidence": "缺口台账、文件跟踪清单、运行记录核对表中的未完成项",
+      "method": "为每个未完成项登记跟踪事项、责任方与期望回复时间，不代替受审核方实施",
+      "acceptance": "每个未完成项都有跟踪事项与责任方，无未登记的未完成项",
+      "failure": "存在未登记的未完成项→本项不合格，补齐后重新校验"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N04.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N04.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N04.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N04.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N04.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N04.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N04.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N04.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N04.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N04.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N04.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N04.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N04.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N04.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N04.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N04.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N04.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N04.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N04.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "审核员",
+      "authority": "体系文件与运行记录的核对与跟踪提醒",
+      "source": "S3 §2.1 N04"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a",
+    "audit-point-library/clause_trees/qms-gbt19001-2016.yaml": "624bdbae3a9ef08e18ad9aec25fa5da92c71b2c98cf1a2b4e2264a920eeeaac3"
+  },
+  "business_authorization": {
+    "gates": [],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}

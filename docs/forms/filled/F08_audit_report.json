@@ -1,0 +1,377 @@
+{
+  "schema_version": 1,
+  "artifact": "过程底稿",
+  "template_family": {
+    "family_id": "F08",
+    "name": "审核报告",
+    "short_name": "审核报告",
+    "source_of_list": "docs/spec/output-formats.md §11.1 第 8 类",
+    "form_number": {
+      "placeholder": "{{表单编号}}",
+      "form_name_placeholder": "{{表单名称}}",
+      "registry_ref": "FN-UICC-MS",
+      "note": "本仓库只登记编号形态与来源出处，绝不写任何真实机构表单号"
+    }
+  },
+  "artifacts": [
+    {
+      "artifact_base": "审核报告",
+      "artifact_format": "docx",
+      "artifact_form": "报告类成果",
+      "relation": "审核报告正文（§11.1 第 8 类；§6.1 章节骨架、§6.2 十九项映射）"
+    },
+    {
+      "artifact_base": "过程底稿",
+      "artifact_format": "json",
+      "artifact_form": "过程底稿",
+      "relation": "report_refs 十九项映射（§7.4）"
+    }
+  ],
+  "sections": [
+    {
+      "order": 1,
+      "id": "cover",
+      "title": "封面页",
+      "rows": [
+        {
+          "key": "agency",
+          "label": "认证机构名称",
+          "value": "示例认证机构",
+          "required": true,
+          "source": "机构档案（#20）",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{认证机构名称}}"
+        },
+        {
+          "key": "form_no",
+          "label": "表单编号",
+          "value": "XF-R-MS-001",
+          "required": true,
+          "source": "模板层扩展占位符",
+          "dictionary_ref": "T",
+          "placeholder": "{{表单编号}}"
+        },
+        {
+          "key": "form_name",
+          "label": "表单名称",
+          "value": "示例审核计划书",
+          "required": true,
+          "source": "模板层扩展占位符",
+          "dictionary_ref": "T",
+          "placeholder": "{{表单名称}}"
+        },
+        {
+          "key": "task_id",
+          "label": "任务标识",
+          "value": "TSK-EXAMPLE-2026-001",
+          "required": true,
+          "source": "任务记录",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{任务标识}}"
+        },
+        {
+          "key": "version",
+          "label": "版本号",
+          "value": "V1.0",
+          "required": true,
+          "source": "成果元数据",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{版本号}}"
+        },
+        {
+          "key": "state",
+          "label": "成果状态",
+          "value": "review",
+          "required": true,
+          "source": "成果元数据",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{成果状态}}"
+        },
+        {
+          "key": "lead",
+          "label": "审核组长姓名",
+          "value": "示例组长",
+          "required": true,
+          "source": "审核组信息",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核组长姓名}}"
+        },
+        {
+          "key": "signer",
+          "label": "签字人姓名",
+          "value": "示例签字人",
+          "required": false,
+          "source": "人工录入",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{签字人姓名}}"
+        },
+        {
+          "key": "sign_date",
+          "label": "签字日期",
+          "value": "2026-11-10",
+          "required": false,
+          "source": "人工录入",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{签字日期}}"
+        },
+        {
+          "key": "contract_no",
+          "label": "合同编号",
+          "value": "CT-EXAMPLE-2026-001",
+          "required": false,
+          "source": "合同记录",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{合同编号}}"
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "id": "ch1",
+      "title": "§1 审核依据",
+      "rows": [
+        {
+          "key": "criteria",
+          "label": "审核准则",
+          "value": "GB/T 19001-2016 / ISO 9001:2015；CNCA-QMS-01:2025",
+          "required": true,
+          "source": "依据库快照",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核准则}}"
+        },
+        {
+          "key": "audit_type",
+          "label": "审核类型",
+          "value": "初次认证审核第二阶段",
+          "required": true,
+          "source": "#4 状态机 N1～N6",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核类型}}"
+        },
+        {
+          "key": "purpose",
+          "label": "审核目的",
+          "value": "验证质量管理体系符合性与有效性",
+          "required": true,
+          "source": "审核方案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核目的}}"
+        },
+        {
+          "key": "lead",
+          "label": "审核组长姓名",
+          "value": "示例组长",
+          "required": true,
+          "source": "审核组信息",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核组长姓名}}"
+        },
+        {
+          "key": "auditors",
+          "label": "审核员姓名",
+          "value": "示例审核员甲、示例审核员乙",
+          "required": true,
+          "source": "审核组信息",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核员姓名}}"
+        },
+        {
+          "key": "peer",
+          "label": "同行人员姓名",
+          "value": "示例技术专家",
+          "required": false,
+          "source": "审核组信息",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{同行人员姓名}}"
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "id": "ch2",
+      "title": "§2 审核范围",
+      "rows": [
+        {
+          "key": "client",
+          "label": "受审核方名称",
+          "value": "示例受审核方有限公司",
+          "required": true,
+          "source": "委托人档案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{受审核方名称}}"
+        },
+        {
+          "key": "scope",
+          "label": "认证范围",
+          "value": "示例产品研发与生产",
+          "required": true,
+          "source": "审核方案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{认证范围}}"
+        },
+        {
+          "key": "prof_code",
+          "label": "专业代码",
+          "value": "65",
+          "required": false,
+          "source": "附录 A（引用 #21 计算结果）",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{专业代码}}"
+        },
+        {
+          "key": "audit_time",
+          "label": "审核时间",
+          "value": "5.5 人日",
+          "required": true,
+          "source": "引用 #21 计算结果",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{审核时间}}"
+        },
+        {
+          "key": "date_range",
+          "label": "起止日期",
+          "value": "2026-11-05 至 2026-11-07",
+          "required": false,
+          "source": "审核方案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{起止日期}}"
+        },
+        {
+          "key": "site",
+          "label": "场所",
+          "value": "示例场所",
+          "required": false,
+          "source": "审核方案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{场所}}"
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "id": "ch3",
+      "title": "§3 受审核方信息",
+      "rows": [
+        {
+          "key": "client",
+          "label": "受审核方名称",
+          "value": "示例受审核方有限公司",
+          "required": true,
+          "source": "委托人档案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{受审核方名称}}"
+        },
+        {
+          "key": "client_addr",
+          "label": "受审核方地址",
+          "value": "示例省示例市示例区示例路 1 号",
+          "required": true,
+          "source": "委托人档案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{受审核方地址}}"
+        },
+        {
+          "key": "credit_code",
+          "label": "受审核方统一社会信用代码",
+          "value": "EXAMPLE-00000000-0",
+          "required": false,
+          "source": "委托人档案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{受审核方统一社会信用代码}}"
+        },
+        {
+          "key": "client_rep",
+          "label": "委托方代表姓名",
+          "value": "示例代表",
+          "required": false,
+          "source": "委托人档案",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{委托方代表姓名}}"
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "id": "ch4",
+      "title": "§4 审核发现",
+      "rows": [
+        {
+          "key": "version",
+          "label": "版本号",
+          "value": "V1.0",
+          "required": true,
+          "source": "成果元数据",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{版本号}}"
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "id": "ch5",
+      "title": "§5 结论与建议",
+      "rows": [
+        {
+          "key": "version",
+          "label": "版本号",
+          "value": "V1.0",
+          "required": true,
+          "source": "成果元数据",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{版本号}}"
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "id": "ch6",
+      "title": "§6 附件索引",
+      "rows": [
+        {
+          "key": "version",
+          "label": "版本号",
+          "value": "V1.0",
+          "required": true,
+          "source": "成果元数据",
+          "dictionary_ref": "9.1",
+          "placeholder": "{{版本号}}"
+        }
+      ]
+    }
+  ],
+  "used_placeholders": [
+    "{{专业代码}}",
+    "{{任务标识}}",
+    "{{受审核方名称}}",
+    "{{受审核方地址}}",
+    "{{受审核方统一社会信用代码}}",
+    "{{合同编号}}",
+    "{{同行人员姓名}}",
+    "{{场所}}",
+    "{{委托方代表姓名}}",
+    "{{审核准则}}",
+    "{{审核员姓名}}",
+    "{{审核时间}}",
+    "{{审核目的}}",
+    "{{审核类型}}",
+    "{{审核组长姓名}}",
+    "{{审核组长职务}}",
+    "{{审核职务}}",
+    "{{成果状态}}",
+    "{{日期}}",
+    "{{版本号}}",
+    "{{签字人姓名}}",
+    "{{签字人职务}}",
+    "{{签字日期}}",
+    "{{节点编号}}",
+    "{{表单名称}}",
+    "{{表单编号}}",
+    "{{认证机构名称}}",
+    "{{认证范围}}",
+    "{{起止日期}}"
+  ],
+  "missing_placeholders": [],
+  "residual_placeholders": [],
+  "bare_braces": 0,
+  "unfilled_count": 0
+}

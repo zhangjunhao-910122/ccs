@@ -1,0 +1,138 @@
+# 首末次会议记录（机构成果模板，Issue #19）
+# 机构中立模板：本文件不含任何真实机构表单号、机构名或机构内部信息。
+schema_version: 1
+family_id: F03
+name: 首末次会议记录
+short_name: 会议记录
+aliases:
+- f03_opening_closing_meeting_record
+source_of_list: docs/spec/output-formats.md §11.1 第 3 类
+form_number:
+  placeholder: '{{表单编号}}'
+  form_name_placeholder: '{{表单名称}}'
+  registry_ref: FN-UICC-MS
+  note: 本仓库只登记编号形态与来源出处，绝不写任何真实机构表单号
+fields:
+- key: task_id
+  label: 任务标识
+  required: true
+  placeholder: '{{任务标识}}'
+  source: 任务记录
+  dictionary_ref: '9.1'
+- key: agency
+  label: 认证机构名称
+  required: true
+  placeholder: '{{认证机构名称}}'
+  source: 机构档案（#20）
+  dictionary_ref: '9.1'
+- key: client
+  label: 受审核方名称
+  required: true
+  placeholder: '{{受审核方名称}}'
+  source: 委托人档案
+  dictionary_ref: '9.1'
+- key: client_rep
+  label: 委托方代表姓名
+  required: false
+  placeholder: '{{委托方代表姓名}}'
+  source: 委托人档案
+  dictionary_ref: '9.1'
+- key: audit_type
+  label: 审核类型
+  required: true
+  placeholder: '{{审核类型}}'
+  source: '#4 状态机 N1～N6'
+  dictionary_ref: '9.1'
+- key: date
+  label: 日期
+  required: false
+  placeholder: '{{日期}}'
+  source: 任务时间
+  dictionary_ref: '9.1'
+- key: time
+  label: 时间
+  required: false
+  placeholder: '{{时间}}'
+  source: 任务时间
+  dictionary_ref: '9.1'
+- key: site
+  label: 场所
+  required: false
+  placeholder: '{{场所}}'
+  source: 审核方案
+  dictionary_ref: '9.1'
+- key: auditors
+  label: 审核员姓名
+  required: true
+  placeholder: '{{审核员姓名}}'
+  source: 审核组信息
+  dictionary_ref: '9.1'
+- key: lead
+  label: 审核组长姓名
+  required: true
+  placeholder: '{{审核组长姓名}}'
+  source: 审核组信息
+  dictionary_ref: '9.1'
+- key: contact
+  label: 联系人姓名
+  required: false
+  placeholder: '{{联系人姓名}}'
+  source: 委托人档案
+  dictionary_ref: '9.1'
+- key: version
+  label: 版本号
+  required: true
+  placeholder: '{{版本号}}'
+  source: 成果元数据
+  dictionary_ref: '9.1'
+- key: form_no
+  label: 表单编号
+  required: true
+  placeholder: '{{表单编号}}'
+  source: 模板层扩展占位符
+  dictionary_ref: T
+- key: form_name
+  label: 表单名称
+  required: true
+  placeholder: '{{表单名称}}'
+  source: 模板层扩展占位符
+  dictionary_ref: T
+sections:
+- order: 1
+  id: header
+  title: 会议信息
+  fields:
+  - agency
+  - form_no
+  - form_name
+  - task_id
+  - client
+  - date
+  - time
+  - site
+- order: 2
+  id: attendance
+  title: 出席情况
+  fields:
+  - lead
+  - auditors
+  - client_rep
+  - contact
+- order: 3
+  id: topics
+  title: 议题与结论
+  fields:
+  - audit_type
+  - version
+artifacts:
+- artifact_base: 预览
+  artifact_format: md
+  artifact_form: 简报
+  relation: 简报附件（§11.1 第 3 类）；会议结论只引用判定记录摘要
+sample_body: |-
+  {{表单名称}}（表单编号：{{表单编号}}）
+  {{认证机构名称}}　任务标识：{{任务标识}}
+  一、会议：{{审核类型}}　日期：{{日期}}　时间：{{时间}}　地点：{{场所}}
+  二、出席：审核组 {{审核组长姓名}}、{{审核员姓名}}；受审核方代表 {{委托方代表姓名}}；联络人 {{联系人姓名}}
+  三、议题：审核目的 {{审核目的}}；审核范围 {{认证范围}}
+  四、结论：（只引用判定记录摘要，不自由撰写）

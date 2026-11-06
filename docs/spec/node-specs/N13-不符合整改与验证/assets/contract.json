@@ -1,0 +1,393 @@
+{
+  "schema_version": 1,
+  "node": "N13",
+  "title": "不符合整改与验证",
+  "previous": [
+    "N12"
+  ],
+  "next": [
+    "N14"
+  ],
+  "formal_name": "N13_审查表、N13_条款-证据对照表、N13_过程底稿",
+  "brief_name": "N13_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N13-C01",
+        "condition": "不符合项状态台账完成",
+        "evidence": "状态取值合法且有依据",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N13-C02",
+        "condition": "原因分析核对完成",
+        "evidence": "逐条有材料位置与覆盖说明",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N13-C03",
+        "condition": "措施实施证据核验完成",
+        "evidence": "逐条有实施证据与抽样记录",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N13-C04",
+        "condition": "同类问题抽查完成",
+        "evidence": "抽查记录有抽样依据",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N13-C05",
+        "condition": "有效性建议生成",
+        "evidence": "四项证据齐全且决定人栏留空",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N13-C06",
+        "condition": "轻微不符合延期处理完成",
+        "evidence": "状态保持 submitted 且时限计算已排除",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N13-C07",
+        "condition": "严重不符合时限核对完成",
+        "evidence": "时限引用 #21 与 params.yaml",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N13-C08",
+        "condition": "G2、G3 闸口放行",
+        "evidence": "闸口记录显示放行",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N13-C09",
+        "condition": "G4 闸口状态与取证限制声明完成",
+        "evidence": "分级对应明确且已写明照片作用边界",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N13-01",
+      "check_id": "N13-C01",
+      "title": "不符合项状态流转登记",
+      "evidence": "不符合项清单、S2 §10 状态集合（open/submitted/verified/closed/rejected）",
+      "method": "逐条登记当前状态、状态变化时间、来源人与依据证据，检查状态取值合法",
+      "acceptance": "每条不符合项的状态取值合法且有变化依据与时间，无跳步或无依据状态",
+      "failure": "状态无依据→登记 missing 并转「等待补件」；状态取值非法→改正后重新校验"
+    },
+    {
+      "rule_id": "R-N13-02",
+      "check_id": "N13-C02",
+      "title": "原因分析覆盖性核对",
+      "evidence": "原因分析材料、CNCA 5.10 对原因分析的要求（按所选体系取用子条款号）",
+      "method": "登记原因分析是否指向体系原因而非仅描述表面现象，记录材料位置与覆盖范围",
+      "acceptance": "每条待验证不符合项的原因分析材料可定位且覆盖所要求的内容",
+      "failure": "材料缺失→登记 missing 并转「等待补件」；仅描述现象无体系原因分析→登记 pending_check"
+    },
+    {
+      "rule_id": "R-N13-03",
+      "check_id": "N13-C03",
+      "title": "纠正措施实施证据核验",
+      "evidence": "纠正措施实施材料、CNCA 5.10 对纠正措施的要求",
+      "method": "核对措施是否已实施并有可定位的实施证据，登记抽样与验证方式",
+      "acceptance": "每条不符合项都有可定位的实施证据，抽样记录六字段齐全",
+      "failure": "实施证据缺失→登记 missing；抽样六字段缺一→该条只能落 insufficient 并登记 SAMPLING_INSUFFICIENT"
+    },
+    {
+      "rule_id": "R-N13-04",
+      "check_id": "N13-C04",
+      "title": "同类问题未在其他过程复现的证据核对",
+      "evidence": "受审核方相关过程的抽查证据、抽样记录",
+      "method": "在受审核方声明的范围内抽查相关过程，登记是否复现及抽样依据",
+      "acceptance": "抽查范围与结果有记录，复现与否有可定位依据",
+      "failure": "无抽查依据→转「等待补件」；抽样依据不足→该结论只能落 insufficient"
+    },
+    {
+      "rule_id": "R-N13-05",
+      "check_id": "N13-C05",
+      "title": "有效性四要素齐备性核对与建议结论",
+      "evidence": "S2 §10.5 有效性判定四项、原因分析、实施证据、同类问题抽查",
+      "method": "逐项核对四项是否齐备且互证，形成建议结论并标明决定人留空",
+      "acceptance": "四项均有可定位证据且互相印证，建议结论已生成且决定人为空待人工填写",
+      "failure": "任一项缺证据→结论只能落 insufficient 并登记 pending_check；工具自行填入决定人→撤销并改为人工确认"
+    },
+    {
+      "rule_id": "R-N13-06",
+      "check_id": "N13-C06",
+      "title": "轻微不符合延期验证处理",
+      "evidence": "不符合项分级信息、S2 §10.2 延期验证规则",
+      "method": "对轻微不符合登记 deferred_verification 与 next_audit 处理方式，核对状态是否保持 submitted",
+      "acceptance": "轻微不符合状态保持 submitted，验证方式记为延期到下次审核，且未计入严重不符合时限计算",
+      "failure": "轻微不符合被计入严重不符合时限计算→撤销该计算并改正台账"
+    },
+    {
+      "rule_id": "R-N13-07",
+      "check_id": "N13-C07",
+      "title": "严重不符合验证时限核对",
+      "evidence": "CNCA 5.10 严重不符合验证时限条款、tools/params.yaml 时限域（按 QMS/EMS/OHSMS 分体系）",
+      "method": "按体系取用对应时限规则并引用 #21 计算结果，核对提交与验证是否在时限内",
+      "acceptance": "时限判定引用 params.yaml 与 #21 计算结果，提交与验证时间有可定位证据",
+      "failure": "出现写死的天数→改为引用式表述；超期→登记并按 5.10 对应条款提示不得作出相关认证决定"
+    },
+    {
+      "rule_id": "R-N13-08",
+      "check_id": "N13-C08",
+      "title": "G2 证据闸口与 G3 冲突闸口执行",
+      "evidence": "锚点表与确认记录、冲突登记",
+      "method": "核对必核项是否都有 confirmed 锚点、冲突是否已解，留痕闸口状态",
+      "acceptance": "G2 与 G3 均已放行且有记录，否则节点停在「进行中」",
+      "failure": "锚点未确认或冲突未解→闸口不放行，相关条目落 insufficient"
+    },
+    {
+      "rule_id": "R-N13-09",
+      "check_id": "N13-C09",
+      "title": "G4 分级闸口与有效性取证限制",
+      "evidence": "不符合项分级信息、整改后现场材料、审核点库 photo_evidence 字段",
+      "method": "核对其分级与验证方式的对应关系；同时声明有效性属时间序列类，不得以整改后对照照片作为充分证据",
+      "acceptance": "分级与验证方式对应关系明确，且已写明照片只作现状佐证、有效性仍需书面或时间序列证据",
+      "failure": "以照片作为有效性充分证据→撤销该结论并改登记 pending_check；分级空缺→G4 不放行"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N13.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N13.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N13.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N13.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N13.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N13.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N13.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N13.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N13.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N13.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N13.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N13.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N13.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N13.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N13.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N13.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N13.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N13.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N13.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "审核组",
+      "authority": "整改证据组织与有效性建议",
+      "source": "S3 §2.1 N13、§11.2"
+    },
+    {
+      "role": "审核组长",
+      "authority": "不符合项验证结论与关闭（人工）",
+      "source": "S2 §10.5"
+    },
+    {
+      "role": "认证机构",
+      "authority": "严重不符合时限与不得作出决定的规则适用",
+      "source": "CNCA 5.10"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a",
+    ".research-tmp/CNCA-QMS-01-2025_cct.txt": "ea4c203c544c663846503937222f1fe49333cbb7515f7de4524b9692822ade12",
+    ".research-tmp/CNCA-EMS-01-2026_cct.txt": "1a915b5656a231c8473b918b32e11c5851055905aceec192462be3fea17c4763",
+    ".research-tmp/CNCA-OHSMS-01-2026_cct.txt": "e94895ecd800724627fc92ea9128880ca19d0457f8e801a05e105a0ab3234da6"
+  },
+  "business_authorization": {
+    "gates": [
+      {
+        "gate_id": "G2",
+        "name": "证据闸口",
+        "approver": "审核组长",
+        "non_automatable": [
+          "确认锚点与证据是否足以支撑判定",
+          "把事实状态提升到 verified",
+          "判定证据不可读或缺失时的处置结论"
+        ],
+        "tool_behavior": "工具汇总锚点、未确认锚点与待核项，证据闸口未放行不得转「已具交接条件」。",
+        "source": "S3 §11.1 G2；S2 §2、§3.1"
+      },
+      {
+        "gate_id": "G3",
+        "name": "冲突闸口",
+        "approver": "审核组长",
+        "non_automatable": [
+          "裁决冲突事实的取舍与最终认定",
+          "认定哪一侧证据成立并记录依据"
+        ],
+        "tool_behavior": "工具并列保留两侧证据并登记 conflict，不按多数材料或对通过有利的版本定事实；冲突未解决不得转「已具交接条件」。",
+        "source": "S3 §11.1 G3；S2 §3.4"
+      },
+      {
+        "gate_id": "G4",
+        "name": "分级闸口",
+        "approver": "审核组长与认证机构授权的分级人员",
+        "non_automatable": [
+          "填写不符合类别（category）",
+          "认定不符合项是严重还是轻微",
+          "决定是否按轻微不符合安排下次审核验证"
+        ],
+        "tool_behavior": "工具生成 category 留空的不符合项候选；未分级项可具交接条件但不得出 final 成果。",
+        "source": "S3 §11.1 G4；S2 §8.2"
+      }
+    ],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}

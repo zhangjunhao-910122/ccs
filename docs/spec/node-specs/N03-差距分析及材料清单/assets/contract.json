@@ -1,0 +1,361 @@
+{
+  "schema_version": 1,
+  "node": "N03",
+  "title": "差距分析及材料清单",
+  "previous": [
+    "N02"
+  ],
+  "next": [
+    "N04",
+    "N07"
+  ],
+  "formal_name": "N03_审查表、N03_过程底稿",
+  "brief_name": "N03_预览",
+  "completion": {
+    "checklist": [
+      {
+        "id": "N03-C01",
+        "condition": "必检条款集合完成",
+        "evidence": "必检条款清单覆盖审核点库必检项且有来源条目",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N03-C02",
+        "condition": "证据类型映射完成",
+        "evidence": "映射表覆盖全部必检审核点",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N03-C03",
+        "condition": "材料清单完成",
+        "evidence": "材料清单条目与必检审核点一一对应",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N03-C04",
+        "condition": "缺口台账完成",
+        "evidence": "缺口条目含影响条款、优先级与责任方",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N03-C05",
+        "condition": "照片不可取证四类已替换",
+        "evidence": "处理表覆盖全部命中审核点",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N03-C06",
+        "condition": "适用性与冲突登记完成",
+        "evidence": "每条审核点有适用性与冲突状态",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N03-C07",
+        "condition": "依据状态核验完成",
+        "evidence": "依据状态台账覆盖全部必检条款",
+        "initial_status": "未执行"
+      },
+      {
+        "id": "N03-C08",
+        "condition": "数值依赖登记完成",
+        "evidence": "全部数值依赖为引用式表述",
+        "initial_status": "未执行"
+      }
+    ],
+    "handover_preconditions": [
+      "逐项完成核查表全部为已执行且有通过证据",
+      "全部规则均已判定，无未判定检查项",
+      "无未结等待态；如未决须作为已登记未决事项显式列出",
+      "若产出判定，锚点表存在且每个结论可回指锚点与依据，依据 unverifiable 只能 insufficient",
+      "数值类结论均引自 #21 计算结果且 source_ref 与核验状态齐备",
+      "本节点承载的人工闸口已放行"
+    ],
+    "state_alignment": {
+      "进行中": "waiting",
+      "等待补件": "waiting",
+      "整改中": "waiting",
+      "等待现场核实": "waiting",
+      "等待人员确认": "waiting",
+      "已具交接条件": "review",
+      "已完成": "final",
+      "终止": "terminated"
+    }
+  },
+  "rules": [
+    {
+      "rule_id": "R-N03-01",
+      "check_id": "N03-C01",
+      "title": "必检条款集合识别",
+      "evidence": "审核点库画像的必检标记、范围与标准识别结果",
+      "method": "按选定标准与范围筛选必检条款，逐条登记其来源审核点条目与范围依据",
+      "acceptance": "必检条款集合与审核点库一致，每条都能回指来源审核点条目与范围依据",
+      "failure": "画像缺少必检标记或来源不可回指→转「等待补件」并按依据未登记处理"
+    },
+    {
+      "rule_id": "R-N03-02",
+      "check_id": "N03-C02",
+      "title": "证据类型与取证方式映射",
+      "evidence": "必检审核点的审核问题与要求、审核点库取证方式字段",
+      "method": "逐审核点确定证据类型（文件、记录、访谈、现场观察）与取证方式，标注可由照片取证的与不可由照片取证的",
+      "acceptance": "每个必检审核点都有明确的证据类型与取证方式，且与审核点库登记的取证要求不冲突",
+      "failure": "无法确定证据类型的审核点→登记 pending_check 并转「等待补件」"
+    },
+    {
+      "rule_id": "R-N03-03",
+      "check_id": "N03-C03",
+      "title": "材料清单生成",
+      "evidence": "证据类型映射表、受审核方现有材料清单",
+      "method": "把每个审核点所需证据转换为可提交的材料条目，注明材料形式、提供方与用途",
+      "acceptance": "材料清单覆盖全部必检审核点，每条注明材料形式与提供方，无重复或遗漏",
+      "failure": "清单缺条或无法覆盖审核点→本项不合格，补齐后按原接受条件重新校验"
+    },
+    {
+      "rule_id": "R-N03-04",
+      "check_id": "N03-C04",
+      "title": "缺口台账与优先级",
+      "evidence": "材料清单与受审核方现有材料的比对结果",
+      "method": "逐条比对得出已具备、待补、不可得三类结论，按风险与阶段标注优先级并指定责任方",
+      "acceptance": "每个必检审核点都有明确结论，缺口条目含影响条款、优先级、所需阶段与责任方",
+      "failure": "未比对的审核点或缺责任方的缺口→本项不合格，补齐后重新校验"
+    },
+    {
+      "rule_id": "R-N03-05",
+      "check_id": "N03-C05",
+      "title": "四类不可由照片取证审核点的证据方式替换",
+      "evidence": "audit-point-library 的照片取证白名单字段、审核点的取证要求",
+      "method": "逐审核点判定是否落在文件内容完整性、访谈、时间序列类、数据真实性与完整性四类之内，命中即替换为书面证据、可核原件或访谈记录",
+      "acceptance": "四类审核点均已写明替代证据方式与取证要求，且不留「以照片为准」的表述",
+      "failure": "四类审核点仍以照片作为唯一证据→登记 conflict 并转「等待补件」，同时提示该审核点判定只能落 insufficient"
+    },
+    {
+      "rule_id": "R-N03-06",
+      "check_id": "N03-C06",
+      "title": "适用性状态与冲突登记",
+      "evidence": "适用性候选清单、材料清单与现有材料之间的差异记录",
+      "method": "把每条审核点的适用性状态与冲突事项逐项登记，冲突保留两侧证据与主体、时间、口径差异",
+      "acceptance": "每条审核点都有适用性状态与冲突状态，冲突条目含两侧证据与待确认责任人",
+      "failure": "适用性未确认仍作结论性判断→改回 pending；冲突未登记→本项不合格"
+    },
+    {
+      "rule_id": "R-N03-07",
+      "check_id": "N03-C07",
+      "title": "依据快照状态核验",
+      "evidence": "依据库快照的条款状态（current、superseded、unverifiable 或未登记）",
+      "method": "逐条款核验快照状态并记录来源定位与快照哈希，状态非 current 的单独列出",
+      "acceptance": "每条必检条款都有明确的快照状态与来源定位，非 current 的条款已转入对应处理流程",
+      "failure": "未登记依据→转「等待补件」；不可核验依据→该条款只能落 insufficient，节点不得推进到已具交接条件"
+    },
+    {
+      "rule_id": "R-N03-08",
+      "check_id": "N03-C08",
+      "title": "数值依赖登记与引用口径",
+      "evidence": "人日、现场占比与间隔、抽样数量、严重不符合验证时限的取值需求",
+      "method": "逐项登记数值依赖并标注计算口径与引用来源，本节点不落任何自算数值",
+      "acceptance": "全部数值依赖均写明「引用 #21 计算结果」并注明对应工具与域，无自算或估计数值",
+      "failure": "出现未经引用的自算数值→本项不合格，改为引用式表述后重新校验"
+    }
+  ],
+  "sections": [
+    {
+      "section_id": "N03.S01",
+      "document": "节点执行规范",
+      "title": "1. 节点标识与职责",
+      "basis": "S3 §2.1"
+    },
+    {
+      "section_id": "N03.S02",
+      "document": "节点执行规范",
+      "title": "2. 启动条件与输入清单",
+      "basis": "S3 §4、§6.1"
+    },
+    {
+      "section_id": "N03.S03",
+      "document": "节点执行规范",
+      "title": "3. 节点内执行顺序",
+      "basis": "S3 §6.1"
+    },
+    {
+      "section_id": "N03.S04",
+      "document": "节点执行规范",
+      "title": "4. 必需输入与对应核验任务表",
+      "basis": "S2 §3.1"
+    },
+    {
+      "section_id": "N03.S05",
+      "document": "节点执行规范",
+      "title": "5. 阻塞、补件与退回执行",
+      "basis": "S3 §6.2、§6.3"
+    },
+    {
+      "section_id": "N03.S06",
+      "document": "节点执行规范",
+      "title": "6. 节点异常专门要求",
+      "basis": "S3 §4.3"
+    },
+    {
+      "section_id": "N03.S07",
+      "document": "节点执行规范",
+      "title": "7. 照片取证边界",
+      "basis": "S3 §10.3、§10.4"
+    },
+    {
+      "section_id": "N03.S08",
+      "document": "节点执行规范",
+      "title": "8. 人工闸口与不可自动化动作",
+      "basis": "S3 §11.1、§11.2"
+    },
+    {
+      "section_id": "N03.S09",
+      "document": "节点执行规范",
+      "title": "9. 数值依赖与引用口径",
+      "basis": "S3 §7"
+    },
+    {
+      "section_id": "N03.S10",
+      "document": "节点执行规范",
+      "title": "10. 本节点结束",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N03.S11",
+      "document": "审核规则规范",
+      "title": "1. 适用范围与判定基线",
+      "basis": "S2 §1、§3.1"
+    },
+    {
+      "section_id": "N03.S12",
+      "document": "审核规则规范",
+      "title": "2. 共同审核判定规则",
+      "basis": "研究文档 §2.5"
+    },
+    {
+      "section_id": "N03.S13",
+      "document": "审核规则规范",
+      "title": "3. 本节点专门规则",
+      "basis": "S2 §3.4"
+    },
+    {
+      "section_id": "N03.S14",
+      "document": "审核规则规范",
+      "title": "4. 结论汇总约束",
+      "basis": "S3 §8.2、§8.3、§8.5"
+    },
+    {
+      "section_id": "N03.S15",
+      "document": "成果与完成交接规范",
+      "title": "1. 双成果内容与责任",
+      "basis": "S4 §2.1、§8.2"
+    },
+    {
+      "section_id": "N03.S16",
+      "document": "成果与完成交接规范",
+      "title": "2. 成果四态与节点状态对齐",
+      "basis": "S4 §1.1、§2.2"
+    },
+    {
+      "section_id": "N03.S17",
+      "document": "成果与完成交接规范",
+      "title": "3. 逐项完成核查表",
+      "basis": "S3 §5.3"
+    },
+    {
+      "section_id": "N03.S18",
+      "document": "成果与完成交接规范",
+      "title": "4. 确认与交接",
+      "basis": "S3 §5.1、§5.4"
+    },
+    {
+      "section_id": "N03.S19",
+      "document": "成果与完成交接规范",
+      "title": "5. 文件版本与追溯",
+      "basis": "S4 §2.2、§2.3、§2.4"
+    }
+  ],
+  "required_authority": [
+    {
+      "role": "审核员",
+      "authority": "缺口台账与材料清单的编制",
+      "source": "S3 §2.1 N03"
+    },
+    {
+      "role": "审核组长",
+      "authority": "适用性确认与冲突处理结论（G1、G3）",
+      "source": "S3 §11.1 G1、G3"
+    }
+  ],
+  "sources": {
+    "docs/spec/audit-process-state-machine.md": "367786e052f8f97cb8138a199e10c51a8046b375e36c27890f6527a2036bcd93",
+    "docs/spec/verdict-anchor-rules.md": "3dfe7728456047322c166044330f155f1d7aa8d4c7e1b3c0125b927fd20d855c",
+    "docs/spec/output-formats.md": "b48220f9cd773b3afb33289868768b6edcafedc24c735f09cad763ca1efac64a",
+    "audit-point-library/clause_trees/qms-gbt19001-2016.yaml": "624bdbae3a9ef08e18ad9aec25fa5da92c71b2c98cf1a2b4e2264a920eeeaac3",
+    "audit-point-library/shared/rules.yaml": "d518b3d50e6ccf1f004828e7f64ff35cedf1f1b510f9921cd0145d47cd3f844d"
+  },
+  "business_authorization": {
+    "gates": [
+      {
+        "gate_id": "G1",
+        "name": "适用性闸口",
+        "approver": "审核组长（会同审核员）",
+        "non_automatable": [
+          "判定条款是否适用并写出适用性理由",
+          "确认不适用（na）并具名确认",
+          "在依据缺失或状态为 unverifiable 时决定只能落 insufficient"
+        ],
+        "tool_behavior": "工具只生成适用性候选与缺口，适用性未确认时相关条款只能落 insufficient，节点停在「进行中」，不得进入交接前置条件。",
+        "source": "S3 §11.1 G1；S2 §3.1"
+      },
+      {
+        "gate_id": "G3",
+        "name": "冲突闸口",
+        "approver": "审核组长",
+        "non_automatable": [
+          "裁决冲突事实的取舍与最终认定",
+          "认定哪一侧证据成立并记录依据"
+        ],
+        "tool_behavior": "工具并列保留两侧证据并登记 conflict，不按多数材料或对通过有利的版本定事实；冲突未解决不得转「已具交接条件」。",
+        "source": "S3 §11.1 G3；S2 §3.4"
+      }
+    ],
+    "signature_boundary": [
+      "签到表参会人本人签",
+      "审核报告由审核组长签署",
+      "不符合报告由审核员开具、分级由授权人员认定",
+      "认证决定由认证机构专职认证人员作出"
+    ],
+    "prohibitions": [
+      "工具不得代签、伪造签章或补写签名",
+      "工具不得预填不符合类别（category）",
+      "工具不得撰写审核报告第 19 项",
+      "工具不得作出认证决定或把 decision_ready 置为 true",
+      "工具不得自行判定不适用或自行裁决冲突"
+    ]
+  },
+  "substep_policy": {
+    "parallel_execution": false,
+    "missing_input_action": "缺件即停：停在该检查点转对应等待态，产出双成果并标未完成，不得进入下一节点",
+    "resume_action": "补充材料后登记版本（文件名、路径、sha256、取得时间、来源人），在当前项按原接受条件复核，不得改标不适用",
+    "rollback_record_fields": [
+      "rollback_from",
+      "rollback_to",
+      "reason",
+      "evidence",
+      "affected_downstream",
+      "disposition"
+    ],
+    "handoff_record_fields": [
+      "handoff_id",
+      "task_id",
+      "node_id",
+      "from_state",
+      "to_state",
+      "artifacts",
+      "contract_digest",
+      "open_items",
+      "numeric_refs",
+      "actor",
+      "confirmed_by",
+      "timestamp"
+    ],
+    "handoff_append_only": true
+  }
+}
