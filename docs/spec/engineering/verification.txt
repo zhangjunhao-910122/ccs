@@ -2,17 +2,17 @@
 时间基准: 2026-11-06
 契约文件: docs/spec/engineering/SPEC.md
 检查器: docs/spec/engineering/reference_structure.py
-样例: docs/spec/engineering/samples/apps（合规） 与 docs/spec/engineering/samples/apps_bad（故意违规）
+样例: apps（合规基线）与 apps_bad（6 类代表性违规）；其余规则用最小片段探针单独验证
 
 E1 合规骨架零违规（S1-S10 全部通过）: PASS
-E2 违规骨架触发 S2（层间依赖矩阵）: PASS
-E3 违规骨架触发 S3-1（具名禁止项）: PASS
-E4 违规骨架触发 S4（跨包导入须用顶层包名）: PASS
-E5 违规骨架触发 S5（明文凭据）: PASS
-E6 违规骨架触发 S6（配置分环境）: PASS
-E7 违规骨架触发 S7 全部 9 条 AI 控制边界: PASS
-E8 违规骨架触发 S8（依赖清单一致性）: PASS
-E9 违规骨架触发 S9（第三方依赖白名单）: PASS
-E10 违规骨架触发 S10（禁 ORM 推 DDL）: PASS
+E2 触发 S2（层间依赖矩阵）: PASS
+E3 触发 S3 具名禁止项（六条）: PASS
+E4 触发 S4（跨包导入须用顶层包名）: PASS
+E5 触发 S5（明文凭据）: PASS
+E6 触发 S6（配置分环境）: PASS
+E7 触发 S7 全部 9 条 AI 控制边界: PASS
+E8 触发 S8（依赖清单一致性）: PASS
+E9 触发 S9（第三方依赖白名单）: PASS
+E10 触发 S10（禁 ORM 推 DDL）: PASS
 
 结果: 10/10 PASS

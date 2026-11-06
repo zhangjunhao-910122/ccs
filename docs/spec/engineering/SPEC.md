@@ -4,7 +4,7 @@
 - **票**：[规格：工程结构与运行约定](https://github.com/zhangjunhao-910122/ccs/issues/32)（wayfinder:task）
 - **地图**：[湖北省售电公司交易员训战一体化平台（按方案 V1.0）](https://github.com/zhangjunhao-910122/ccs/issues/22)
 - **日期**：2026-11-06
-- **配套文件**：docs/spec/engineering/reference_structure.py（零依赖静态检查器 + 自检 E1–E10）、docs/spec/engineering/samples/apps/（合规骨架样例）、docs/spec/engineering/samples/apps_bad/（故意违规骨架样例）、docs/spec/engineering/verification.txt（自检输出，当前 10/10 PASS）、docs/research/engineering-stack-choice.md（§8 技术栈一手来源的待录入骨架，真实数据待后期录入）
+- **配套文件**：docs/spec/engineering/reference_structure.py（零依赖静态检查器 + 自检 E1–E10）、docs/spec/engineering/samples/apps/（合规骨架样例）、docs/spec/engineering/samples/apps_bad/（6 类代表性违规样例）、docs/spec/engineering/verification.txt（自检输出，当前 10/10 PASS）
 - **范围**：仓库目录布局、层间依赖方向、确定性引擎与模型调用的代码边界、AI 控制边界的结构化落点、配置与密钥约定、日志与审计格式、技术栈登记。本票只定「结构与约定」，不写业务实现。
 
 ## 0. 一页结论
@@ -25,7 +25,7 @@
 - #33 数据契约（D01–D16、字段敏感级别、公共列口径）、#46 对外 API 契约与页面数据契约（信封、错误码、operationId 注册路由）、#29 认证与授权（54 格矩阵、AU18 审计事件）、#44 数据源注册表（凭据引用、导入器双闸）、#25 存储层（一对象一表、as-of、导出闸门）、#45 负荷预测（防穿越硬断言）。
 - 地图 #22 硬约束：数值确定、规则有据、数据最小化、时间隔离、人工负责、宁可缺数据不插值；未核验数值不进自动判定。
 - 工程习惯沿用本仓 ISO 线：规格落 docs/spec/<域>/SPEC.md，参考实现与自检同目录，工具用 Python，结论可复现。
-- §8 技术栈的一手来源依据：docs/research/engineering-stack-choice.md（骨架已建；许可证、版本策略、离线交付方式与被否方案的一手证据待后期录入）。
+- §8 技术栈的一手出处（官方文档、许可证、版本策略、离线交付方式、被否方案的理由）：本票只定「怎么锁」，不写未核实版本号；一手出处待联网可查时补齐，查不到的写「未核实」，不凭印象填。
 
 ### 1.2 边界
 
@@ -84,7 +84,7 @@ G:/DSH工作区
 
 零依赖检查器 docs/spec/engineering/reference_structure.py，用 Python 标准库 ast 解析导入，检查项：
 
-- S1 目录与包齐备（apps/ 下 8 个目录；每个 Python 包须有 src/<包名>/__init__.py、requirements.txt、pyproject.toml、README.md 与 config/dev、config/prod 两个环境目录；前端包须有 package.json）
+- S1 目录与依赖清单齐备（apps/ 下 8 个目录；每个 Python 包须有 requirements.txt 与 config/dev、config/prod 两个环境目录；前端包须有 package.json。刻意不查 README / pyproject.toml / 包入口等样板文件：那是落地时的书写规范，不是技术路线，不值得变成一条静态规则）
 - S2 层间依赖矩阵（§3.1 允许表）
 - S3 §3.2 禁止项逐条
 - S4 跨包导入必须是顶层包名（禁深层路径）
@@ -97,7 +97,7 @@ G:/DSH工作区
 
 任何一项 FAIL 即视为违反本约定；CI 与提交前钩子均可跑它。
 
-检查器自带自检（--self）：docs/spec/engineering/samples/apps/ 是合规骨架，扫描后零违规；docs/spec/engineering/samples/apps_bad/ 故意埋了层间越界、跨包深层导入、明文凭据、环境变量默认值兜底、写交易系统、改历史、硬编码阈值、取未来数据、直连公网、核心层直持 HTTP 客户端、直引高敏原始数据、建议类型混入数值通道、出域函数缺用途授权、未声明第三方依赖、导入白名单外第三方包、ORM 推 DDL 等违规，每一条都必须被对应规则报出。自检输出写在 docs/spec/engineering/verification.txt，当前 10/10 PASS。
+检查器自带自检（--self）：docs/spec/engineering/samples/apps/ 是合规骨架，扫描后零违规；docs/spec/engineering/samples/apps_bad/ 只保留 6 类代表性违规（层间越界、明文凭据、核心层直持 HTTP 客户端、由 ORM 推 DDL、直连公网、改写历史数据）；其余规则用最小违规片段探针单独验证（每条规则一个独立临时目录，命中即算该规则有效），不必为每条规则再造一整套包。自检输出写在 docs/spec/engineering/verification.txt，当前 10/10 PASS。
 
 ## 4. 确定性引擎与模型调用的边界
 
@@ -175,7 +175,7 @@ G:/DSH工作区
 
 方案文件只给了六层架构与 CowAgent/LinkAI，未指定 Web 框架；地图把「具体 Web 框架与前端技术栈」列为未定项，由本票决定。本节是该决定的落点：本票其余章节不依赖它，但它决定了 §6.3 依赖管理的形式与 §3.3 S9 白名单的内容。
 
-一手来源依据、许可证、版本策略与离线交付方式的录入位见研究笔记 docs/research/engineering-stack-choice.md（当前为待录入骨架，真实数据后期录入）；候选、代价与推荐见本票评论。
+候选、代价与推荐见本票评论；官方出处、许可证与版本策略待联网可查时补齐（查不到的写「未核实」，不写猜测值）。
 
 ### 8.1 登记表
 
@@ -225,7 +225,7 @@ G:/DSH工作区
 
 ### 8.5 版本纪律
 
-本节不写死第三方包的具体版本号：锁文件是构建与运行时的事实来源，版本下限待研究笔记 docs/research/engineering-stack-choice.md 的一手核实结果录入后给出（该笔记当前为待录入骨架），实施票以锁文件为准。理由是地图的硬约束「未核验数值不进自动判定」—— 未经一手核实的版本号会污染下游每一张规格票；把「怎么锁」定死，把「锁到哪个版本」交给锁文件与研究笔记，两边都不写猜测值。
+本节不写死第三方包的具体版本号：锁文件是构建与运行时的事实来源，实施票以锁文件为准；版本下限待官方出处核实后补齐，查不到的写「未核实」。理由是地图的硬约束「未核验数值不进自动判定」—— 未经一手核实的版本号会污染下游每一张规格票；把「怎么锁」定死，把「锁到哪个版本」交给锁文件，两边都不写猜测值。
 
 ## 9. 验收对照
 
@@ -246,4 +246,4 @@ G:/DSH工作区
 
 ## 11. 变更记录
 
-- 2026-11-06 v1.0：首版；目录布局、依赖矩阵与禁止项、确定性/模型边界、AI 控制边界结构映射（含 S7-AI-8：核心层与智能体层不得直持 HTTP 客户端）、配置与密钥约定、日志与审计格式、技术栈登记（§8：后端 FastAPI、前端 React + TypeScript + Vite、依赖管理 uv 与 pnpm、结构检查用仓内零依赖脚本、lint ruff、类型检查 mypy、密钥扫描仓内正则加 detect-secrets、SQLAlchemy 2.0 Core、openapi-generator、systemd 加可选 Docker Compose）与离线交付要求；一手来源研究笔记 docs/research/engineering-stack-choice.md 以待录入骨架形式建立，许可证、版本策略与来源链接待后期录入。
+- 2026-11-06 v1.0：首版；目录布局、依赖矩阵与禁止项、确定性/模型边界、AI 控制边界结构映射（含 S7-AI-8：核心层与智能体层不得直持 HTTP 客户端）、配置与密钥约定、日志与审计格式、技术栈登记（§8：后端 FastAPI、前端 React + TypeScript + Vite、依赖管理 uv 与 pnpm、结构检查用仓内零依赖脚本、lint ruff、类型检查 mypy、密钥扫描仓内正则加 detect-secrets、SQLAlchemy 2.0 Core、openapi-generator、systemd 加可选 Docker Compose）与离线交付要求；一手出处（官方文档、许可证、版本策略）待联网可查时补齐，查不到的写「未核实」，不写猜测值。

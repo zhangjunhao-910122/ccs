@@ -5,7 +5,7 @@
 配置分环境与密钥规则变成可自动发现的检查项。
 
 检查项编号与 SPEC.md §3.3 对齐：
-  S1 目录与包齐备        S2 层间依赖矩阵      S3 具名禁止项
+  S1 目录与依赖清单齐备   S2 层间依赖矩阵      S3 具名禁止项
   S4 跨包导入须为顶层包名 S5 密钥与连接串扫描   S6 配置分环境
   S7 AI 控制边界落点      S8 依赖清单一致性
   S9 第三方依赖白名单     S10 禁 ORM 推 DDL
@@ -222,9 +222,14 @@ def _importer(root: Path, path: Path):
     return d, PKG_OF_DIR.get(d)
 
 
-# ---------- S1 目录与包齐备 ----------
+# ---------- S1 目录与依赖清单齐备 ----------
 
 def check_layout(root: Path):
+    """S1 目录与依赖清单齐备：只查与技术路线直接绑定的项，不做目录体检。
+
+    刻意不查 README / pyproject.toml / 包入口等样板文件：那些是落地时的书写规范，
+    不是技术路线，不值得变成一条静态规则。
+    """
     out = []
     if not root.exists():
         return [_v("S1", root, "apps/ 目录尚未建立（骨架落地前不计违规）", "info")]
@@ -235,14 +240,8 @@ def check_layout(root: Path):
         base = root / d
         if not base.is_dir():
             continue
-        if not (base / "src" / pkg / "__init__.py").is_file():
-            out.append(_v("S1", base, f"缺少 python 包入口 src/{pkg}/__init__.py"))
         if not (base / "requirements.txt").is_file():
-            out.append(_v("S1", base, "缺少 requirements.txt（依赖锁定清单）"))
-        if not (base / "pyproject.toml").is_file():
-            out.append(_v("S1", base, "缺少 pyproject.toml"))
-        if not (base / "README.md").is_file():
-            out.append(_v("S1", base, "缺少 README.md"))
+            out.append(_v("S1", base, "缺少 requirements.txt（依赖锁定清单，§8 依赖管理的落地形态）"))
     if (root / "web").is_dir() and not (root / "web" / "package.json").is_file():
         out.append(_v("S1", root / "web", "缺少 package.json"))
     return out
@@ -445,12 +444,65 @@ AI_RULE_IDS = (
 )
 
 
+# ---------- 自检探针：每条规则的最小违规片段 ----------
+# 违规样例目录只保留 6 类代表性违规；其余规则用最小片段单独验证，
+# 不必为每条规则在样例树里再造一整套包。
+PROBES = (
+    ("S7-AI-1-no-trading-write", "agents", "probe.py",
+     'def place_order(dataset, volume):\n    return volume\n'),
+    ("S7-AI-3-no-hardcoded-limit", "core", "probe.py",
+     'THRESHOLD = 0.35\n'),
+    ("S7-AI-4-no-future-data", "core", "probe.py",
+     'def fetch_training_window(dataset):\n    return dataset\n'),
+    ("S7-AI-6-no-raw-sensitive", "core", "probe.py",
+     'rows = raw_user_load(dataset)\n'),
+    ("S7-AI-7-no-suggestion-as-value", "core", "probe.py",
+     'value = Suggestion\n'),
+    ("S7-AI-9-purpose-grant", "gateway", "probe.py",
+     'def egress(payload):\n    return payload\n'),
+    ("S3-2-data-no-upper-layer", "data", "probe.py",
+     'from trader_core import engine\n'),
+    ("S3-3-gateway-no-business", "gateway", "probe.py",
+     'from trader_core import engine\n'),
+    ("S3-4-model-no-business", "model", "probe.py",
+     'from trader_core import engine\n'),
+    ("S3-5-agents-no-http", "agents", "probe.py",
+     'from trader_api import routes\n'),
+    ("S3-6-no-frontend-import", "core", "probe.py",
+     'from web import main\n'),
+    ("S8", "core", "probe.py",
+     'import numpy\n'),
+    ("S9", "core", "probe.py",
+     'import sklearn\n'),
+)
+
+
+def probe_hits():
+    """每条规则的最小违规片段写进独立临时目录单独扫描，返回命中的规则集合。"""
+    import shutil
+    import tempfile
+
+    hits = set()
+    for rule, pkg_dir, fname, code in PROBES:
+        tmp = Path(tempfile.mkdtemp(prefix="eng_probe_"))
+        try:
+            p = tmp / pkg_dir / fname
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(code, encoding="utf-8")
+            if rule in _hit_rules(scan(tmp)):
+                hits.add(rule)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+    return hits
+
+
 def _hit_rules(findings):
     return {f["rule"] for f in findings if f.get("level") == "error"}
 
 
 def run_checks():
-    """用 samples/apps（合规）与 samples/apps_bad（故意违规）验证 S1-S10 真的能发现违规。
+    """用 samples/apps（合规）、samples/apps_bad（6 类代表性违规）与最小片段探针
+    验证 S1-S10 真的能发现违规。
 
     返回 [(检查项名, 是否通过, 说明), ...]
     """
@@ -465,22 +517,21 @@ def run_checks():
         "合规样例 apps/ 被报 error 级问题 %d 条" % len(ok_errors),
     ))
 
-    bad_findings = scan(bad_root)
-    hits = _hit_rules(bad_findings)
+    hits = _hit_rules(scan(bad_root)) | probe_hits()
 
     def check(name, rules, note):
         missing = [r for r in rules if r not in hits]
         results.append((name, not missing, note if not missing else ("未触发：" + ", ".join(missing))))
 
-    check("E2 违规骨架触发 S2（层间依赖矩阵）", ("S2",), "core 导入 model 层被矩阵拦下")
-    check("E3 违规骨架触发 S3-1（具名禁止项）", ("S3-1-core-no-model-layer",), "trader_core 不得依赖模型层")
-    check("E4 违规骨架触发 S4（跨包导入须用顶层包名）", ("S4",), "from trader_core.engine.settlement import ...")
-    check("E5 违规骨架触发 S5（明文凭据）", ("S5",), "password = ... 被扫出")
-    check("E6 违规骨架触发 S6（配置分环境）", ("S6",), "环境变量默认值兜底（APP_MODE 缺省回落 dev）")
-    check("E7 违规骨架触发 S7 全部 9 条 AI 控制边界", AI_RULE_IDS, "写交易/改历史/硬阈值/取未来数据/外呼/直引高敏/建议混数值/核心层直持 HTTP 客户端/出域无授权")
-    check("E8 违规骨架触发 S8（依赖清单一致性）", ("S8",), "导入 numpy/requests 未在 requirements.txt 声明")
-    check("E9 违规骨架触发 S9（第三方依赖白名单）", ("S9",), "导入 sklearn 未在 §8 技术栈登记表内")
-    check("E10 违规骨架触发 S10（禁 ORM 推 DDL）", ("S10",), "data 侧 Base.metadata.create_all 与 storage.schema.json 争权威")
+    check("E2 触发 S2（层间依赖矩阵）", ("S2",), "core 导入 model 层被矩阵拦下")
+    check("E3 触发 S3 具名禁止项（六条）", tuple(FORBIDDEN), "core 越界 / data 越界 / gateway 越界 / model 越界 / agents 依赖 api / 导入前端")
+    check("E4 触发 S4（跨包导入须用顶层包名）", ("S4",), "from trader_core.engine.settlement import ...")
+    check("E5 触发 S5（明文凭据）", ("S5",), "password = ... 被扫出")
+    check("E6 触发 S6（配置分环境）", ("S6",), "core 缺 config/prod 环境目录被拦下")
+    check("E7 触发 S7 全部 9 条 AI 控制边界", AI_RULE_IDS, "写交易/改历史/硬阈值/取未来数据/外呼/直引高敏/建议混数值/核心层直持 HTTP 客户端/出域无授权")
+    check("E8 触发 S8（依赖清单一致性）", ("S8",), "导入 numpy 未在 requirements.txt 声明")
+    check("E9 触发 S9（第三方依赖白名单）", ("S9",), "导入 requests/sklearn 未在 §8 技术栈登记表内")
+    check("E10 触发 S10（禁 ORM 推 DDL）", ("S10",), "data 侧 Base.metadata.create_all 与 storage.schema.json 争权威")
 
     return results
 
@@ -491,7 +542,7 @@ def write_verification(results):
         "时间基准: 2026-11-06",
         "契约文件: docs/spec/engineering/SPEC.md",
         "检查器: docs/spec/engineering/reference_structure.py",
-        "样例: docs/spec/engineering/samples/apps（合规） 与 docs/spec/engineering/samples/apps_bad（故意违规）",
+        "样例: apps（合规基线）与 apps_bad（6 类代表性违规）；其余规则用最小片段探针单独验证",
         "",
     ]
     passed = 0
@@ -506,7 +557,7 @@ def write_verification(results):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description="工程结构与运行约定静态检查器（票 #32）")
-    ap.add_argument("--self", action="store_true", help="跑 E1-E8 自检并写 verification.txt")
+    ap.add_argument("--self", action="store_true", help="跑 E1-E10 自检并写 verification.txt")
     ap.add_argument("--root", default=None, help="检查指定目录（默认仓库 apps/）")
     ap.add_argument("--json", action="store_true", help="以 JSON 输出发现项")
     args = ap.parse_args(argv)
