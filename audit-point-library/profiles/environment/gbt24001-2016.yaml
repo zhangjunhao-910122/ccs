@@ -14,6 +14,15 @@ profile:
     withdrawn: null
     supersedes: null
     relation: identical
+    iso_side_status:
+      iso_designation: ISO 14001:2015
+      iso_status: withdrawn
+      iso_withdrawn_on: '2026-04-15'
+      iso_replaced_by: ISO 14001:2026
+      gb_revision_plan: 20261483-T-469
+      gb_revision_stage: 正在征求意见（2026-03-31 下达，周期 12 个月）
+      transition_note: ISO 14001:2026 已发布（第四版，2026-04，目录号 92300）；ISO 侧过渡期日期未公开
+      ref: docs/research/standard-version-watch.md
     official_sources:
     - url: https://openstd.samr.gov.cn/bzgk/gb/std_list
       accessed: '2026-11-05'
@@ -27,7 +36,7 @@ profile:
     verified_by: null
     verified_at: null
     clause_tree_ref: clause_trees/environment-gbt24001-2016.yaml
-    snapshot_id: sha256:ce9426d012d07ea4beb642fac57d3c4084310e2929f05444c96ee57548aec0cb
+    snapshot_id: sha256:e5563ee3059d56d04ecd8c9ef2a35f0374f873646f7ab0524d45d10c11416a58
 clauses:
 - clause_no: '4.1'
   title: 理解组织及其环境
@@ -42,7 +51,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '4.1'
+  - point_key: 4.1#1
+    point_source: baseline
     audit_question: 组织是否系统识别了其所处的内外部环境因素，并针对这些因素做出与体系相称的响应？
     written_evidence:
     - 环境因素识别清单（PESTLE 分析表）
@@ -100,6 +110,8 @@ clauses:
         text: 核对部门共享盘内分析文档的更新日期
         priority: supporting
     difficulty: medium
+    difficulty_reason: 环境因素清单可查，但内外部因素的真实性与更新频率需访谈验证
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '4.2'
   title: 理解相关方需求和期望
@@ -114,7 +126,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '4.2'
+  - point_key: 4.2#1
+    point_source: baseline
     audit_question: 组织是否识别了与 EMS 有关的相关方及其需求和期望，并把其中合法合规的强制要求纳入了体系？
     written_evidence:
     - 相关方识别清单（内外部相关方及其关注事项）
@@ -160,7 +173,9 @@ clauses:
         kind: on_site
         text: 查看社区、政府、行业协会往来函件登记
         priority: supporting
-    difficulty: null
+    difficulty: high
+    difficulty_reason: 类比推定，待研究复核：相关方需求与期望由本组织自述，真伪须向客户、供方、监管方外部取证核对（同体系无参照，比照 OHS 4.2=高）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '4.3'
   title: 确定环境管理体系范围
@@ -175,7 +190,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '4.3'
+  - point_key: 4.3#1
+    point_source: baseline
     audit_question: 体系的边界是否与组织实际运营边界一致，是否覆盖了所有具有 EMS 职责与影响的场所和活动？
     written_evidence:
     - 体系范围说明文件（含场所清单、产品/服务清单、过程边界）
@@ -228,6 +244,8 @@ clauses:
         text: 核查范围描述与现场在产工艺的对应
         priority: supporting
     difficulty: low
+    difficulty_reason: 范围文件、场所清单与证书可直接比对，现场可核
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '4.4'
   title: 环境管理体系
@@ -243,7 +261,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '4.4'
+  - point_key: 4.4#1
+    point_source: baseline
     audit_question: 组织是否建立、实施、保持并持续改进了 EMS，并把体系与业务过程和战略方向整合而非游离？
     written_evidence:
     - EMS 手册或体系文件总纲
@@ -300,8 +319,49 @@ clauses:
         kind: on_site
         text: 抽查体系会议纪要的实际议题
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：体系策划与过程说明文件可查，体系是否真实运行须向各过程负责人取证反查（比照 OHS 4.4=中、QMS 4.4=中）
+    difficulty_basis: estimated
     apg_ref: []
+  - point_key: 4.4#2
+    point_source: block
+    audit_question: 组织如何确定过程的输入输出、顺序和相互作用、准则和方法、资源、职责权限、风险和机遇、绩效指标与改进方式？
+    written_evidence:
+    - 过程清单与过程关系图
+    - 过程说明（准则、方法、绩效指标、负责人）
+    - 绩效监视数据
+    on_site_evidence:
+    - 选一条实际过程做端到端追踪，验证过程图与实际流转一致
+    typical_nc:
+    - 过程清单与实际作业不符
+    - 过程无明确准则与绩效指标
+    - 过程之间的关系未描述，接口失控
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 过程清单与过程关系图
+        priority: core
+      - id: w2
+        kind: written
+        text: 过程说明（准则、方法、绩效指标、负责人）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 绩效监视数据
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 选一条实际过程做端到端追踪，验证过程图与实际流转一致
+        priority: core
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：体系策划与过程说明文件可查，体系是否真实运行须向各过程负责人取证反查（比照 OHS 4.4=中、QMS 4.4=中）
+    difficulty_basis: estimated
+    apg_ref: []
+    block_ref:
+    - pdca-process-approach
+    block_point_key: 4.4#1
 - clause_no: '5.1'
   title: 领导作用和承诺
   scope_note: null
@@ -315,7 +375,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '5.1'
+  - point_key: 5.1#1
+    point_source: baseline
     audit_question: 最高管理者是否对 EMS 作出可见的承诺，并亲自参与体系策划、评审与资源决策？
     written_evidence:
     - 最高管理者环境方针签署件
@@ -373,6 +434,8 @@ clauses:
         text: 查看员工访谈时是否随时能找到管理者
         priority: supporting
     difficulty: high
+    difficulty_reason: 管理层承诺与参与属行为性证据，只能靠访谈与行程记录推断
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '5.2'
   title: 环境方针
@@ -387,7 +450,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '5.2'
+  - point_key: 5.2#1
+    point_source: baseline
     audit_question: 环境方针是否由最高管理者制定并传达，是否适宜于战略方向和环境影响，并提供承诺遵守适用法律法规与持续改进的框架？
     written_evidence:
     - 环境方针正式文本与修订记录
@@ -440,6 +504,8 @@ clauses:
         text: 询问职工代表对方针的理解与建议渠道
         priority: supporting
     difficulty: low
+    difficulty_reason: 方针文本与宣贯记录客观可查，难点在岗位转化
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '5.3'
   title: 组织的岗位、职责和权限
@@ -454,7 +520,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '5.3'
+  - point_key: 5.3#1
+    point_source: baseline
     audit_question: EMS 相关职责与权限是否分配到具体岗位并被理解，是否存在无人负责的空白？
     written_evidence:
     - 岗位说明书中的 EMS 职责条款
@@ -507,10 +574,12 @@ clauses:
         text: 确认兼职岗位的实际投入时间
         priority: supporting
     difficulty: medium
+    difficulty_reason: 职责文件易查，实际授权与知晓度须现场随机访谈验证
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '6.1'
   title: 应对风险和机遇的措施
-  scope_note: null
+  scope_note: 含 6.1.1 总则、6.1.2 环境因素、6.1.3 合规义务、6.1.4 策划措施
   covers:
   - 6.1.1
   - 6.1.2
@@ -519,14 +588,19 @@ clauses:
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 6.1.1
+  - 6.1.2
+  - 6.1.3
+  - 6.1.4
   blocks:
   - common-planning
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '6.1'
+  - point_key: 6.1#1
+    point_source: baseline
     audit_question: 组织是否确定了与 EMS 有关的风险和机遇，并策划了应对措施以增强有利影响、减轻不利影响并支持持续改进？
     written_evidence:
     - 风险与机遇识别清单
@@ -584,7 +658,53 @@ clauses:
         text: 抽查一项已实施措施的效果验证证据
         priority: supporting
     difficulty: high
+    difficulty_reason: 环境因素识别范围与生命周期边界难以客观判定，易遗漏
+    difficulty_basis: baseline
     apg_ref: []
+  - point_key: 6.1#2
+    point_source: block
+    audit_question: 组织如何识别与体系目标相关的机会与风险？如何策划应对措施并评价其有效性？如何融入业务过程？
+    written_evidence:
+    - 风险与机遇识别清单
+    - 应对措施策划记录
+    - 措施有效性评价记录
+    on_site_evidence:
+    - 抽查措施是否融入过程策划而非独立台账
+    - 评价有效性结论是否有客观数据支撑
+    typical_nc:
+    - 风险清单与业务实际脱节
+    - 措施未融入过程策划
+    - 有效性评价无证据
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 风险与机遇识别清单
+        priority: core
+      - id: w2
+        kind: written
+        text: 应对措施策划记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 措施有效性评价记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查措施是否融入过程策划而非独立台账
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 评价有效性结论是否有客观数据支撑
+        priority: supporting
+    difficulty: high
+    difficulty_reason: 环境因素识别范围与生命周期边界难以客观判定，易遗漏
+    difficulty_basis: baseline
+    apg_ref: []
+    block_ref:
+    - common-planning
+    block_point_key: 6.1#1
 - clause_no: 6.1.1
   title: 总则
   scope_note: null
@@ -598,7 +718,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 6.1.1
+  - point_key: 6.1.1#1
+    point_source: baseline
     audit_question: 风险与机遇的识别范围是否覆盖组织全部活动、产品服务、场所以及相关方要求和重大变化？
     written_evidence:
     - 策划过程输入清单（内外部因素变化、相关方要求、法律法规更新、过程绩效数据）
@@ -640,7 +761,9 @@ clauses:
         kind: on_site
         text: 核对策划是否覆盖采购、后勤、研发等支持性职能
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：总则为框架性要求，证据以文件与访谈交叉验证为主（比照 QMS 6.1=中）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: 6.1.2
   title: 环境因素
@@ -655,7 +778,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 6.1.2
+  - point_key: 6.1.2#1
+    point_source: baseline
     audit_question: 是否按确定的方法识别全部环境因素，并覆盖生命周期、正常与异常状态、影响范围及组织可控与可施加影响的对象？
     written_evidence:
     - 环境因素识别与评价清单（含评价准则与评分规则）
@@ -708,6 +832,8 @@ clauses:
         text: 查看区域与设备标识
         priority: supporting
     difficulty: high
+    difficulty_reason: 环境因素识别范围与生命周期边界难以客观判定，易遗漏
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: 6.1.3
   title: 合规义务
@@ -722,7 +848,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 6.1.3
+  - point_key: 6.1.3#1
+    point_source: baseline
     audit_question: 组织是否确定并获取了与 EMS 有关的合规义务，是否评价了其充分性并将义务落实到位？
     written_evidence:
     - 法律法规及其他要求清单（登记编号、条款要点、适用性判定、责任人、频次）
@@ -770,6 +897,8 @@ clauses:
         text: 核对新法规的转化时间与执行状态
         priority: supporting
     difficulty: high
+    difficulty_reason: 法规获取的完整性与更新及时性依赖注册渠道核实
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: 6.1.4
   title: 策划措施
@@ -784,7 +913,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 6.1.4
+  - point_key: 6.1.4#1
+    point_source: baseline
     audit_question: 风险机遇、合规义务与环境因素等策划输出，是否与体系其他条款的过程、目标与运行控制建立了可追溯的联系？
     written_evidence:
     - 策划措施清单及责任人、完成期限
@@ -836,24 +966,29 @@ clauses:
         kind: on_site
         text: 查看措施变更的审批轨迹
         priority: supporting
-    difficulty: null
+    difficulty: high
+    difficulty_reason: 类比推定，待研究复核：措施须与 6.1.2 环境因素、6.1.3 合规义务的识别结论逐条对应，纸面策划易脱离现场实际（比照同体系 6.1.2/6.1.3=高）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '6.2'
   title: 环境目标及其实现的策划
-  scope_note: null
+  scope_note: 含 6.2.1 环境目标、6.2.2 实现环境目标的策划措施
   covers:
   - 6.2.1
   - 6.2.2
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 6.2.1
+  - 6.2.2
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '6.2'
+  - point_key: 6.2#1
+    point_source: baseline
     audit_question: 组织是否策划了可测量的环境目标并建立了包含指标、基准、目标值、方案与资源的实施计划？
     written_evidence:
     - 环境目标分解表（层级、指标、基准、目标值、完成期限）
@@ -905,7 +1040,9 @@ clauses:
         kind: on_site
         text: 确认目标已分解到相关过程与岗位
         priority: supporting
-    difficulty: null
+    difficulty: high
+    difficulty_reason: 类比推定，待研究复核：卡级难度取 6.2.1、6.2.2 最高档（比照 QMS 6.2=高：目标口径是否可测量、目标值与实际绩效差距）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: 6.2.1
   title: 环境目标
@@ -920,7 +1057,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 6.2.1
+  - point_key: 6.2.1#1
+    point_source: baseline
     audit_question: 环境目标是否与环境方针一致、符合合规要求、考虑相关方需求，并覆盖组织的重要环境影响与义务？
     written_evidence:
     - 目标与方针各条款的对应说明
@@ -972,7 +1110,9 @@ clauses:
         kind: on_site
         text: 核实目标的批准层级与发布时间
         priority: supporting
-    difficulty: null
+    difficulty: high
+    difficulty_reason: 类比推定，待研究复核：环境目标的可测量性与目标值—实际绩效差距须现场复算并核对监测数据（比照 QMS 6.2=高）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: 6.2.2
   title: 实现环境目标的策划措施
@@ -987,7 +1127,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 6.2.2
+  - point_key: 6.2.2#1
+    point_source: baseline
     audit_question: 每项目标是否有可执行的实现措施，明确做什么、由谁负责、需要什么资源、何时完成以及如何评价效果？
     written_evidence:
     - 目标—措施—责任—资源—时限—评价方式对照表
@@ -1039,7 +1180,9 @@ clauses:
         kind: on_site
         text: 确认效果评价有客观数据支撑
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：实现策划文件可查，是否融入过程须现场反查（体系性要求取中）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '7.1'
   title: 资源
@@ -1054,7 +1197,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '7.1'
+  - point_key: 7.1#1
+    point_source: baseline
     audit_question: 组织是否为体系的有效运行和目标实现提供了必需且相称的人力、设施与基础设施资源？
     written_evidence:
     - 环境管理体系资源需求清单与配置记录
@@ -1111,7 +1255,9 @@ clauses:
         kind: on_site
         text: 检查设备维护保养与故障记录
         priority: supporting
-    difficulty: null
+    difficulty: medium_high
+    difficulty_reason: 类比推定，待研究复核：资源条款含监视测量资源，其溯源依赖外部校准证书与超期比对，核验须跨部门并向校准机构取证（比照 QMS 7.1=中高，因 7.1.5 监视和测量资源=中高）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '7.2'
   title: 能力
@@ -1126,7 +1272,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '7.2'
+  - point_key: 7.2#1
+    point_source: baseline
     audit_question: 组织是否确定在其控制下影响 EMS 绩效的人员所需能力，并基于教育和培训或采取措施保证其具备该能力？
     written_evidence:
     - 岗位能力要求矩阵（按岗位列出应知应会与判定标准）
@@ -1179,6 +1326,8 @@ clauses:
         text: 检查培训内容是否覆盖其岗位的实际环境因素
         priority: supporting
     difficulty: medium
+    difficulty_reason: 能力评价依赖实际演示取证，签到表不能作为唯一依据
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '7.3'
   title: 意识
@@ -1193,7 +1342,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '7.3'
+  - point_key: 7.3#1
+    point_source: baseline
     audit_question: 组织是否确保其人员知晓岗位对 EMS 的贡献、后果以及不符合 EMS 带来的影响？
     written_evidence:
     - 意识宣贯材料与推送记录（班前会、看板、警示标识）
@@ -1245,11 +1395,13 @@ clauses:
         kind: on_site
         text: 观察班前会是否涉及环境议题
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：意识条款以访谈抽问取证为主，书面材料仅作辅助（比照 QMS 7.3=中）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '7.4'
   title: 沟通
-  scope_note: null
+  scope_note: 含 7.4.1 总则、7.4.2 组织内部沟通、7.4.3 组织外部沟通
   covers:
   - 7.4.1
   - 7.4.2
@@ -1257,13 +1409,17 @@ clauses:
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 7.4.1
+  - 7.4.2
+  - 7.4.3
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '7.4'
+  - point_key: 7.4#1
+    point_source: baseline
     audit_question: 组织是否确定与其 EMS 有关的内外部沟通，包括沟通什么、何时沟通、向谁沟通、如何沟通、由谁负责？
     written_evidence:
     - 沟通矩阵（事项、对象、频次、方式、责任岗位、记录要求）
@@ -1315,7 +1471,9 @@ clauses:
         kind: on_site
         text: 抽查一次对外通报的实际文本与审批记录
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：卡级难度取 7.4.1～7.4.3 最高档（体系性沟通要求，文件与访谈交叉验证）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: 7.4.1
   title: 总则
@@ -1330,7 +1488,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 7.4.1
+  - point_key: 7.4.1#1
+    point_source: baseline
     audit_question: 沟通策划是否基于相关方需求、适用法律法规要求和体系运行中的实际信息需求？
     written_evidence:
     - 沟通策划输入记录
@@ -1382,7 +1541,9 @@ clauses:
         kind: on_site
         text: 核实是否包含法律法规要求的对外公示事项
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：总则为框架性要求（族内推 7.4=中）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: 7.4.2
   title: 组织内部沟通
@@ -1397,7 +1558,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 7.4.2
+  - point_key: 7.4.2#1
+    point_source: baseline
     audit_question: 组织内部各层级与职能之间的环境信息是否得到及时、适宜的沟通，包括异常、事件与绩效数据？
     written_evidence:
     - 内部沟通机制说明（会议、简报、看板、系统）
@@ -1449,7 +1611,9 @@ clauses:
         kind: on_site
         text: 核对内部通报内容的准确性与更新
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：内部沟通记录与知晓度可查，须抽样反查（族内推 7.4=中）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: 7.4.3
   title: 组织外部沟通
@@ -1464,7 +1628,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 7.4.3
+  - point_key: 7.4.3#1
+    point_source: baseline
     audit_question: 组织的外部环境信息沟通是否满足法律法规、许可与其他相关方的要求，内容是否准确一致？
     written_evidence:
     - 排污许可与登记材料及对外公示文本
@@ -1516,11 +1681,13 @@ clauses:
         kind: on_site
         text: 查看对外资料发布版本控制
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：外部沟通（公告、报送、投诉处理）真实性须外部取证，但取证对象明确、渠道有限（族内推 7.4=中）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '7.5'
   title: 文件化信息
-  scope_note: null
+  scope_note: 含 7.5.1 总则、7.5.2 文件化信息的创建和更新、7.5.3 文件化信息的控制
   covers:
   - 7.5.1
   - 7.5.2
@@ -1528,14 +1695,18 @@ clauses:
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 7.5.1
+  - 7.5.2
+  - 7.5.3
   blocks:
   - common-documented-information
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '7.5'
+  - point_key: 7.5#1
+    point_source: baseline
     audit_question: 组织是否建立、实施并保持满足体系要求的文件化信息，包括创建更新与控制所需的机制？
     written_evidence:
     - 文件化信息清单（体系文件、记录、许可证、报表）
@@ -1588,7 +1759,53 @@ clauses:
         text: 核对作废文件是否已标识并撤出使用点
         priority: supporting
     difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：族内推同体系 7.5.3=中；文件化信息条款的证据以文件控制记录为主
+    difficulty_basis: estimated
     apg_ref: []
+  - point_key: 7.5#2
+    point_source: block
+    audit_question: 组织的成文信息如何识别、创建、更新与控制？文件的批准、版本、发放、检索、保护与保留期限如何落实？
+    written_evidence:
+    - 文件控制程序
+    - 文件清单与版本发放记录
+    - 外来文件控制清单
+    on_site_evidence:
+    - 现场抽查在用文件版本是否为受控版本
+    - 核对记录的保存期限与处置记录
+    typical_nc:
+    - 现场使用作废版本文件
+    - 外来文件未评审即使用
+    - 电子文件修改无痕、无审批记录
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 文件控制程序
+        priority: core
+      - id: w2
+        kind: written
+        text: 文件清单与版本发放记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 外来文件控制清单
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场抽查在用文件版本是否为受控版本
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对记录的保存期限与处置记录
+        priority: supporting
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：族内推同体系 7.5.3=中；文件化信息条款的证据以文件控制记录为主
+    difficulty_basis: estimated
+    apg_ref: []
+    block_ref:
+    - common-documented-information
+    block_point_key: 7.5#1
 - clause_no: 7.5.1
   title: 总则
   scope_note: null
@@ -1602,7 +1819,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 7.5.1
+  - point_key: 7.5.1#1
+    point_source: baseline
     audit_question: 体系所需的文件化信息是否涵盖组织与体系两个层面，并明确哪些必须具备？
     written_evidence:
     - 组织层面文件化信息需求识别记录
@@ -1654,7 +1872,9 @@ clauses:
         kind: on_site
         text: 确认清单随体系版本同步更新
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：族内推同体系 7.5.3=中；文件化信息条款的证据以文件控制记录为主
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: 7.5.2
   title: 文件化信息的创建和更新
@@ -1669,7 +1889,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 7.5.2
+  - point_key: 7.5.2#1
+    point_source: baseline
     audit_question: 文件化信息的标识、格式、评审与批准是否恰当，创建和更新过程是否保证其充分性与适宜性？
     written_evidence:
     - 文件编制与评审批准流程
@@ -1726,7 +1947,9 @@ clauses:
         kind: on_site
         text: 检查作废文件的标识与隔离处理
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：族内推同体系 7.5.3=中；创建与更新环节的版本、审批证据可查可反查
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: 7.5.3
   title: 文件化信息的控制
@@ -1741,7 +1964,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 7.5.3
+  - point_key: 7.5.3#1
+    point_source: baseline
     audit_question: 文件化信息在分发、访问、检索、使用、存储、防护、变更与保留上是否得到适当控制？
     written_evidence:
     - 文件分发与领用记录
@@ -1799,6 +2023,8 @@ clauses:
         text: 确认过期记录按期限处置且有审批
         priority: supporting
     difficulty: medium
+    difficulty_reason: 电子记录控制可通过权限与日志验证，外来文件须现场比对
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '8.1'
   title: 运行策划和控制
@@ -1813,7 +2039,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '8.1'
+  - point_key: 8.1#1
+    point_source: baseline
     audit_question: 组织是否对满足 EMS 要求的过程实施策划、实施、控制与评价，并对运行中的偏离与变化及时作出响应和处置？
     written_evidence:
     - 运行策划与控制清单（过程、准则、控制措施、责任人）
@@ -1904,6 +2131,8 @@ clauses:
         text: 核实外包作业是否纳入现场监督与评价范围
         priority: supporting
     difficulty: high
+    difficulty_reason: 运行控制、环境因素识别与变更管理内容交织，证据散落于多套记录，需现场交叉验证
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '8.2'
   title: 应急准备和响应
@@ -1918,7 +2147,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '8.2'
+  - point_key: 8.2#1
+    point_source: baseline
     audit_question: 组织是否对已识别的应急情景建立策划、准备与响应机制，是否覆盖相关方沟通与定期演练并保留改进证据？
     written_evidence:
     - 应急准备与响应程序与情景清单
@@ -1976,23 +2206,28 @@ clauses:
         text: 核对演练是否真实触发响应流程并有改进项落地
         priority: supporting
     difficulty: high
+    difficulty_reason: 应急响应能力需演练与实物核查配合，纸面证据证明力弱
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '9.1'
   title: 监视、测量、分析和评价
-  scope_note: null
+  scope_note: 含 9.1.1 总则、9.1.2 合规性评价
   covers:
   - 9.1.1
   - 9.1.2
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 9.1.1
+  - 9.1.2
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '9.1'
+  - point_key: 9.1#1
+    point_source: baseline
     audit_question: 组织是否监视、测量、分析和评价其 EMS 绩效，并是否及时报告结果以供决策？
     written_evidence:
     - 监视测量项目清单与频次规定
@@ -2049,7 +2284,9 @@ clauses:
         kind: on_site
         text: 核对分析结论是否真正用于改进决策
         priority: supporting
-    difficulty: null
+    difficulty: high
+    difficulty_reason: 类比推定，待研究复核：卡级难度取 9.1.1、9.1.2 最高档（同体系 9.3=高：汇总性结论须追溯输入源文件）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: 9.1.1
   title: 总则
@@ -2064,7 +2301,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 9.1.1
+  - point_key: 9.1.1#1
+    point_source: baseline
     audit_question: 监视测量的方法是否适用、结果是否有效，评价结论是否支持决策并推动体系改进？
     written_evidence:
     - 监视测量方法说明与评价准则
@@ -2116,7 +2354,9 @@ clauses:
         kind: on_site
         text: 查看评价频次与业务变化节奏是否匹配
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：总则为框架性要求，监视测量方法与策划可查（族内推 9.1=高）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: 9.1.2
   title: 合规性评价
@@ -2131,7 +2371,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 9.1.2
+  - point_key: 9.1.2#1
+    point_source: baseline
     audit_question: 组织是否定期评价对法律法规及其他合规义务的遵守情况，并在必要时进行重新评价？
     written_evidence:
     - 合规性评价计划与频次说明
@@ -2188,25 +2429,30 @@ clauses:
         kind: on_site
         text: 访谈环保专职人员评价的开展方式
         priority: supporting
-    difficulty: null
+    difficulty: high
+    difficulty_reason: 类比推定，待研究复核：合规性评价多依赖自我声明与内部监测数据，结论可事后修饰，须追原始记录与外部监测数据交叉复算（同体系 9.3=高）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '9.2'
   title: 内部审核
-  scope_note: null
+  scope_note: 含 9.2.1 总则、9.2.2 内部审核方案
   covers:
   - 9.2.1
   - 9.2.2
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 9.2.1
+  - 9.2.2
   blocks:
   - common-audit-and-review
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '9.2'
+  - point_key: 9.2#1
+    point_source: baseline
     audit_question: 本条为 9.2 内部审核的引导条款，其下设 9.2.1 总则、9.2.2 内部审核方案：9.2.1 侧重内部审核的策划前提（审核方针与方案的策划、审核准则的确定、审核员独立性与能力要求、审核范围与频次的确定），9.2.2
       侧重审核方案的实施（年度审核计划的制定与调整、审核组组成与分工、审核实施记录与证据获取、审核报告的编制与发布、不符合项的报告与闭环、审核结果的输入与跟踪）。作为引导条款，其本身不设独立审核点，本基线关注的整体问题仍为：组织是否按策划的时间间隔实施内部审核，审核是否覆盖体系全部过程与条款并由具备能力且独立于受审核活动的审核员实施？
     written_evidence:
@@ -2265,7 +2511,53 @@ clauses:
         text: 核对上年度内审发现的重复发生情况
         priority: supporting
     difficulty: high
+    difficulty_reason: 内审的独立性与抽样合理性须与受审核部门交叉验证
+    difficulty_basis: baseline
     apg_ref: []
+  - point_key: 9.2#2
+    point_source: block
+    audit_question: 组织如何策划、建立、实施和保持内部审核方案？审核员是否独立于被审核活动？审核发现是否按期闭环？
+    written_evidence:
+    - 内部审核方案与年度审核计划
+    - 内部审核报告
+    - 不符合项与纠正措施记录
+    on_site_evidence:
+    - 核查审核员独立性声明与能力评价记录
+    - 抽查内部审核发现是否真正闭环
+    typical_nc:
+    - 审核员审核自己的工作
+    - 内部审核流于形式，无不符合项或全部为轻微
+    - 内部审核发现未转化为改进
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 内部审核方案与年度审核计划
+        priority: core
+      - id: w2
+        kind: written
+        text: 内部审核报告
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 不符合项与纠正措施记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核查审核员独立性声明与能力评价记录
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查内部审核发现是否真正闭环
+        priority: supporting
+    difficulty: high
+    difficulty_reason: 内审的独立性与抽样合理性须与受审核部门交叉验证
+    difficulty_basis: baseline
+    apg_ref: []
+    block_ref:
+    - common-audit-and-review
+    block_point_key: 9.2#1
 - clause_no: 9.2.1
   title: 总则
   scope_note: null
@@ -2279,7 +2571,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 9.2.1
+  - point_key: 9.2.1#1
+    point_source: baseline
     audit_question: 内部审核的策划前提是否事先确立——审核方针与方案的策划、审核准则的确定、审核员的能力要求与独立性、审核范围与频次的确定，是否成文、明确并经批准？
     written_evidence:
     - 内部审核方针或内部审核策划文件（含批准与修订记录）
@@ -2342,6 +2635,8 @@ clauses:
         text: 核对审核准则在实际审核中的可操作性
         priority: supporting
     difficulty: medium
+    difficulty_reason: 审核方针与年度计划可查，但实际执行须向审核组长取证
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: 9.2.2
   title: 内部审核方案
@@ -2356,7 +2651,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: 9.2.2
+  - point_key: 9.2.2#1
+    point_source: baseline
     audit_question: 内部审核方案是否被真正执行——年度审核计划的制定与调整、审核组组成与分工、审核实施记录与证据获取、审核报告的编制与发布、不符合项的报告与闭环、审核结果的输入与跟踪，各环节是否有真实可查的落地证据？
     written_evidence:
     - 年度内部审核计划及其变更调整记录
@@ -2430,6 +2726,8 @@ clauses:
         text: 观察审核记录是否有事后补填痕迹
         priority: supporting
     difficulty: high
+    difficulty_reason: 审核记录与报告可写成样板，真实性须向被审核部门与被审核人分别取证比对
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '9.3'
   title: 管理评审
@@ -2445,7 +2743,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '9.3'
+  - point_key: 9.3#1
+    point_source: baseline
     audit_question: 组织是否按策划的时间间隔开展管理评审，输入是否完整，输出是否包含必要的决定与资源承诺？
     written_evidence:
     - 管理评审计划与历次评审记录
@@ -2498,7 +2797,53 @@ clauses:
         text: 访谈参会人员核实其对输出决定的理解与落实情况
         priority: supporting
     difficulty: high
+    difficulty_reason: 管理评审的输入质量与输出落实难度在单次审核中难以取证
+    difficulty_basis: baseline
     apg_ref: []
+  - point_key: 9.3#2
+    point_source: block
+    audit_question: 管理评审是否按策划的间隔举行？输入输出是否完整？评审结论与决定是否得到落实并传达？
+    written_evidence:
+    - 管理评审计划与通知
+    - 管理评审记录与报告
+    - 评审输出的落实跟踪记录
+    on_site_evidence:
+    - 核对评审输入是否覆盖全部规定输入项
+    - 抽查评审结论的落实证据
+    typical_nc:
+    - 评审未按期举行
+    - 输入缺失或输出仅为复述会议内容
+    - 评审决定无人跟踪
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 管理评审计划与通知
+        priority: core
+      - id: w2
+        kind: written
+        text: 管理评审记录与报告
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 评审输出的落实跟踪记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核对评审输入是否覆盖全部规定输入项
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查评审结论的落实证据
+        priority: supporting
+    difficulty: high
+    difficulty_reason: 管理评审的输入质量与输出落实难度在单次审核中难以取证
+    difficulty_basis: baseline
+    apg_ref: []
+    block_ref:
+    - common-audit-and-review
+    block_point_key: 9.3#1
 - clause_no: '10.1'
   title: 总则
   scope_note: null
@@ -2512,7 +2857,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '10.1'
+  - point_key: 10.1#1
+    point_source: baseline
     audit_question: 组织是否持续改进 EMS 的适宜性、充分性与有效性，并使改进成为体系运行的内生机制而非专项行动？
     written_evidence:
     - 改进机会识别与来源说明
@@ -2569,7 +2915,9 @@ clauses:
         kind: on_site
         text: 观察改进建议来自基层的比例与落地率
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：总则与体系有效性表述须由不符合台账闭环、外部报告回执等间接证据反查（比照 OHS 10.1=中、QMS 10.1=中）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '10.2'
   title: 不符合和纠正措施
@@ -2585,7 +2933,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '10.2'
+  - point_key: 10.2#1
+    point_source: baseline
     audit_question: 组织是否对不符合（含投诉）作出响应、采取措施纠正并消除原因，必要时采取纠正行动以防止再发生，并保留证据？
     written_evidence:
     - 不符合与纠正措施处理程序
@@ -2643,7 +2992,53 @@ clauses:
         text: 访谈责任部门对闭环标准的理解
         priority: supporting
     difficulty: medium
+    difficulty_reason: 不符合根因分析与验证证据质量差异大，须逐项复核
+    difficulty_basis: baseline
     apg_ref: []
+  - point_key: 10.2#2
+    point_source: block
+    audit_question: 组织如何识别、评价不符合并采取纠正措施？纠正措施是否消除了原因、防止再发生？有效性是否得到验证？
+    written_evidence:
+    - 不符合项台账
+    - 纠正措施记录与原因分析
+    - 有效性验证记录
+    on_site_evidence:
+    - 抽查不符合项的原因分析是否触及根本原因
+    - 验证同类问题是否在其他过程重复发生
+    typical_nc:
+    - 以纠正代替纠正措施，未消除原因
+    - 有效性验证无客观证据
+    - 同类不符合重复发生未升级处理
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 不符合项台账
+        priority: core
+      - id: w2
+        kind: written
+        text: 纠正措施记录与原因分析
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 有效性验证记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查不符合项的原因分析是否触及根本原因
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 验证同类问题是否在其他过程重复发生
+        priority: supporting
+    difficulty: medium
+    difficulty_reason: 不符合根因分析与验证证据质量差异大，须逐项复核
+    difficulty_basis: baseline
+    apg_ref: []
+    block_ref:
+    - common-nonconformity
+    block_point_key: 10.2#1
 - clause_no: '10.3'
   title: 持续改进
   scope_note: null
@@ -2657,7 +3052,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '10.3'
+  - point_key: 10.3#1
+    point_source: baseline
     audit_question: 组织是否持续改进 EMS 的适宜性、充分性与有效性，改进是否有明确的输入来源、推进机制与成效衡量？
     written_evidence:
     - 持续改进推进计划与责任分工
@@ -2714,5 +3110,7 @@ clauses:
         kind: on_site
         text: 确认改进未停留在口号层面
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：改进落地情况须查验收证据，环保类改进常涉设施变更与投入，纸面立项易与实况脱节（比照 QMS 10.3=中）
+    difficulty_basis: estimated
     apg_ref: []

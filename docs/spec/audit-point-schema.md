@@ -1,7 +1,7 @@
 # 审核点库数据结构规格（S1）
 
 > 对应 GitHub Issue #2（map #1 的子票 S1）。本文是 #2 的交付规格，也是 #7/#11/#12/#15 的地基。
-> 状态：已实现并通过 `tools/build_library.py validate`（0 错误）。版本：v2（2026-11-05 增补条款树层）。
+> 状态：已实现并通过 `tools/build_library.py validate`（0 错误）。版本：v3（2026-11-06 增补 point_key 形态、共享块合并与 V12~V15 校验）。
 
 ## 1. 目的
 
@@ -148,7 +148,8 @@ clauses:
     photo_note: null
     aliases: []                         # 旧版/别称编号，路由到本卡
     points:
-      - point_key: "8.2"
+      - point_key: "8.2#1"              # <条款号>#<序号>，卡内序号从 1 起连续
+        point_source: baseline          # baseline | block（共享块并入的补充审核点）
         audit_question: 组织如何确定、评审并变更产品与服务的要求？
         written_evidence: ["...", "..."]
         on_site_evidence: ["...", "..."]
@@ -160,7 +161,11 @@ clauses:
           on_site:
             - {id: o1, kind: on_site, text: "...", priority: core}
         difficulty: high                 # high | medium_high | medium | low | null（取不到就留空，不猜）
+        difficulty_reason: "..."         # 取自基线难度表同行理由
+        difficulty_basis: baseline       # baseline（基线原值）| estimated（类比推定，待 #16 R4 复核）
         apg_ref: []                      # ISO 审计实践组相关条款引用（可空）
+        block_ref: []                    # 共享块 id 列表（仅块并入的审核点有）
+        block_point_key: null            # 块内原始 point_key（仅块并入的审核点有）
 ```
 
 **四行式是审核点的最小完整形态**：审核问题 / 需索取的书面证据 / 现场核查证据 / 常见不符合项。
@@ -175,11 +180,14 @@ clauses:
 ### 4.4 共享条款公共块 `shared/blocks.yaml`
 
 三体系共有的条款（4.4 过程方法、7.5 成文信息、9.2+9.3 内审与管理评审、10.2 不符合与纠正措施、6.1 策划）
-在三个画像里各写一遍必然漂移。共享块提供共通骨架，画像按 `inheritance: extend` 继承并可 override 同名 `point_key`。
+在三个画像里各写一遍必然漂移。共享块提供共通骨架，画像按 `inheritance: extend` 继承。
 
-合并规则：**画像内已有的基线点优先，块里的点只补缺失的 `point_key`**。
-理由：本阶段的 9001 画像由基线生成、内容更全，块不应覆盖它；块的价值在于新画像缺骨架时补位，
-以及为三体系共有条款的**漂移检测**提供锚点。
+合并规则：**基线审核点的内容优先、绝不被块覆盖；共享块审核点作为补充按卡内序号追加**。
+块点身份 = (块 id, 块内 `point_key`)，与卡内 `point_key` 命名空间相互独立，
+因此块点不会被误判为与基线点同一条；已合并过的块点不重复追加。
+每个块点带 `block_ref`（块 id 列表）与 `block_point_key`（块内原 key），用于**漂移检测**。
+理由：本阶段的 9001 画像由基线生成、内容更全，块不应覆盖它；
+块的价值在于为三体系共有条款补齐通用视角，并给漂移检测提供锚点。
 
 ### 4.5 编号别名路由 `shared/aliases.yaml`
 
@@ -217,6 +225,9 @@ profiles:
 6. 标题取全角括号前为 `title`，括号内容进 `scope_note`；括注里的编号进 `mentioned_units`（仅线索）。
 7. `covers` 由条款树推导，不由括注推导。
 8. `snapshot_id` = `sha256(json.dumps({"clauses": clauses}, sort_keys=True))`。
+9. 审核点 `point_key` 形如 `<条款号>#<序号>`，卡内序号从 1 起连续分配；共享块并入的审核点接续编号，并标 `point_source: block`。
+10. 难度表同行的理由写入 `difficulty_reason`；理由以「类比推定」开头时 `difficulty_basis: estimated`（待复核），否则 `baseline`。
+11. 共享块审核点按 §4.4 的合并规则并入条款卡，四行不齐的块点跳过。
 
 ## 6. 校验规则（`validate`）
 
@@ -233,8 +244,15 @@ profiles:
 | V9 | `covers_mode` 合法；`subclauses_named` 时 `covers` 非空；`content_blocks` 时有 `block_count` |
 | V10 | 条款号存在于条款树；`covers` ⊆ 条款树的直接子条款 |
 | V11 | 基线括注提到的编号必须在条款树或别名表中；基线称「N 个内容块」时与树的子条款数一致 |
+| V12 | 审核点 `point_key` 形如 `<条款号>#<序号>`，前缀与所在条款号一致，卡内序号连续 |
+| V13 | 审核点缺难度只告警；难度为类比推定（`difficulty_basis: estimated`）也告警，提示待 #16 R4 复核 |
+| V14 | `apg_ref` 为空的审核点在画像级汇总告警，提示待 #16 R4 回填 |
+| V15 | 共享块登记的条款必须被条款卡引用，且块内审核点必须已合并进该卡（按 `block_ref` + `block_point_key` 判定） |
 
 V11 不报错只告警：基线是判断性内容，与条款树冲突时应由人裁定谁对，而不是让工具替人裁定。
+V13、V14 同样只告警：难度缺失与 `apg_ref` 缺失都是「取不到就留空，不猜」的既定口径，
+由 #16 R4 复核或回填，校验器只负责把缺口显式喊出来，不替人补值。
+V15 报错：共享块已登记的条款与审核点若没有并进画像，说明 §4.4 的继承规则没有被真正执行。
 
 ## 7. 版本与失效
 
@@ -270,8 +288,10 @@ V11 不报错只告警：基线是判断性内容，与条款树冲突时应由�
    但中文标题、正文措辞，以及 GB/T 与 ISO 的目录差异（ISO 45001:2018 官方目录含 6.1.2.1~6.1.2.3、
    8.1.4.1~8.1.4.3，GB/T 45001-2020 官方目次未列该层级）仍须 #5 I8 以正版标准逐条核定，
    核定后回填 `verified_by` / `verified_at`。
-3. **难度标注**：基线按子条款分档，转换器聚合到卡级（`resolve_difficulty`）；
-   未被难度表覆盖的条款留 `null`，不猜。
+3. **难度标注**：基线按子条款分档，转换器聚合到卡级（`resolve_difficulty`）。
+   三份基线中未被难度表覆盖的条款（ems 20 条、ohs 4 条）已按同类条款类比补齐，
+   理由列一律以「类比推定，待研究复核」开头，对应 `difficulty_basis: estimated`，
+   并登记在各自基线的待核实表里，由 #16 R4 复核；校验器 V13 持续告警提示这些点是推定值而非基线原值。
 4. `photo_evidence` 全部为 `not_applicable`，白名单待 #11 I4 照片取证链路核定。
 5. `shared/rules.yaml` 目前是最小版本，四态细则与锚点规则由 #9 S2 展开。
 

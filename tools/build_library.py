@@ -48,6 +48,7 @@ VALID_PHOTO = ("allowed", "conditional", "not_applicable")
 VALID_DIFFICULTY = ("high", "medium_high", "medium", "low")
 DIFF_ORDER = {"low": 0, "medium": 1, "medium_high": 2, "high": 3}
 VALID_COVERS_MODE = ("subclauses_named", "content_blocks", "single_clause", "not_in_clause_tree")
+POINT_KEY_RE = re.compile(r"^\d+(?:\.\d+)*#\d+$")
 CN_NUM = {"一": 1, "两": 2, "二": 2, "三": 3, "四": 4, "五": 5, "六": 6, "七": 7, "八": 8, "九": 9, "十": 10}
 
 
@@ -205,6 +206,8 @@ def parse_difficulty(lines):
     定位靠标题含「取证难度分级」，不写死节号（9001 在 8.3 节，14001/45001 是独立章）。
     列序靠表头自适应：9001 表头是「难度|条款|…」，14001/45001 是「条款号|难度|理由」。
     同一编号出现在多行时取最高档，不取最后一行。
+    返回 {clause_no: {"level": 枚举或 None, "reason": 原文或 None, "basis": "baseline"|"estimated"}}。
+    reason 与 basis 必须带出来：难度是人工判断，丢了理由就无法复核、补齐或推翻。
     """
     table = {}
     start = None
@@ -234,6 +237,11 @@ def parse_difficulty(lines):
         return table
     level_idx = next(i for i, c in enumerate(header) if "难度" in c)
     clause_idx = next(i for i, c in enumerate(header) if "条款" in c)
+    reason_idx = None
+    for i, c in enumerate(header):
+        if "理由" in c or "难点" in c:
+            reason_idx = i
+            break
     for line in lines[start + 1:]:
         if re.match(r"^#{1,6}\s", line):
             break
@@ -246,10 +254,14 @@ def parse_difficulty(lines):
         lv = norm_difficulty(cells[level_idx])
         if lv is None:
             continue
+        reason = None
+        if reason_idx is not None and reason_idx < len(cells):
+            reason = cells[reason_idx].strip() or None
+        basis = "estimated" if (reason and reason.startswith("类比推定")) else "baseline"
         for token in expand_clause_ref(cells[clause_idx]):
             prev = table.get(token)
-            if prev is None or DIFF_ORDER[lv] > DIFF_ORDER[prev]:
-                table[token] = lv
+            if prev is None or DIFF_ORDER[lv] > DIFF_ORDER[prev["level"]]:
+                table[token] = {"level": lv, "reason": reason, "basis": basis}
     return table
 
 
@@ -338,26 +350,43 @@ def resolve_difficulty(clause_no, covers, table):
 
     基线按子条款分档（如 8.5.2 标识和可追溯性为中高），而审核点按条款卡组织；
     不向上聚合，这批子条款的难度会整段丢失。
+    返回 {"level","reason","basis"}，取不到返回 None（不猜）。
     """
-    best = table.get(clause_no)
+    def as_entry(v):
+        if not v:
+            return None
+        if isinstance(v, str):
+            return {"level": v, "reason": None, "basis": "baseline"}
+        return v
+
+    best = as_entry(table.get(clause_no))
     for cv in covers or ():
-        lv = table.get(cv)
-        if lv is None:
+        cur = as_entry(table.get(cv))
+        if cur is None:
             continue
-        if best is None or DIFF_ORDER[lv] > DIFF_ORDER[best]:
-            best = lv
+        if best is None or DIFF_ORDER[cur["level"]] > DIFF_ORDER[best["level"]]:
+            best = cur
     return best
 
 
-def build_points(clause, difficulty, covers=()):
-    f = clause["_fields"]
-    question = f.get("audit_question", "").strip()
-    written = split_items(f.get("written_evidence", ""))
-    on_site = split_items(f.get("on_site_evidence", ""))
-    typical = split_items(f.get("typical_nc", ""))
-    if not (question and written and on_site and typical):
+def norm_items(value):
+    """基线里证据是一段分号分隔文本，共享块里已经是列表；统一成列表。"""
+    if value is None:
         return []
-    items = {
+    if isinstance(value, list):
+        out = []
+        for v in value:
+            if isinstance(v, str):
+                out.extend(split_items(v))
+            elif v:
+                out.append(str(v).strip())
+        return [x for x in out if x]
+    return split_items(value)
+
+
+def make_evidence_items(written, on_site):
+    """证据项编号必须连续（w1.. / o1..），判定要能回指到具体某一条。"""
+    return {
         "written": [
             {"id": f"w{i}", "kind": "written", "text": t,
              "priority": "core" if i == 1 else "supporting"}
@@ -369,16 +398,83 @@ def build_points(clause, difficulty, covers=()):
             for i, t in enumerate(on_site, 1)
         ],
     }
+
+
+def build_points(clause, difficulty, covers=()):
+    f = clause["_fields"]
+    question = f.get("audit_question", "").strip()
+    written = split_items(f.get("written_evidence", ""))
+    on_site = split_items(f.get("on_site_evidence", ""))
+    typical = split_items(f.get("typical_nc", ""))
+    if not (question and written and on_site and typical):
+        return []
+    items = make_evidence_items(written, on_site)
+    diff = resolve_difficulty(clause["clause_no"], covers, difficulty)
     return [{
-        "point_key": clause["clause_no"],
+        "point_key": f"{clause['clause_no']}#1",
+        "point_source": "baseline",
         "audit_question": question,
         "written_evidence": written,
         "on_site_evidence": on_site,
         "typical_nc": typical,
         "evidence_items": items,
-        "difficulty": resolve_difficulty(clause["clause_no"], covers, difficulty),
+        "difficulty": diff["level"] if diff else None,
+        "difficulty_reason": diff.get("reason") if diff else None,
+        "difficulty_basis": diff.get("basis") if diff else None,
         "apg_ref": [],
     }]
+
+
+def merge_block_points(clause, block_points, difficulty, covers):
+    """把共享块内的审核点并入条款卡（规格 §4.4）。
+
+    合并规则（规格 §4.4，inheritance=extend）：画像内已有的基线审核点内容优先，
+    绝不覆盖；共享块提供三体系通用的补充审核点，按卡内序号追加。
+    块点身份 = (块 id, 块内 point_key)，与卡内 point_key 命名空间相互独立，
+    因此块点不会与基线点误判为同一条；已合并过的块点不重复追加。
+    每个块点带 block_ref / block_point_key，用于三体系漂移检测。
+    """
+    if not block_points:
+        return 0
+    added = 0
+    diff = resolve_difficulty(clause["clause_no"], covers, difficulty)
+    for bp in block_points:
+        bkey = bp.get("point_key")
+        bid = bp.get("block_id")
+        question = (bp.get("audit_question") or "").strip()
+        written = norm_items(bp.get("written_evidence"))
+        on_site = norm_items(bp.get("on_site_evidence"))
+        typical = norm_items(bp.get("typical_nc"))
+        if not (question and written and on_site and typical):
+            continue
+        hit = next(
+            (
+                p
+                for p in clause["points"]
+                if bid in (p.get("block_ref") or []) and p.get("block_point_key") == bkey
+            ),
+            None,
+        )
+        if hit is not None:
+            continue
+        seq = len(clause["points"]) + added + 1
+        clause["points"].append({
+            "point_key": f"{clause['clause_no']}#{seq}",
+            "point_source": "block",
+            "audit_question": question,
+            "written_evidence": written,
+            "on_site_evidence": on_site,
+            "typical_nc": typical,
+            "evidence_items": make_evidence_items(written, on_site),
+            "difficulty": diff["level"] if diff else None,
+            "difficulty_reason": diff.get("reason") if diff else None,
+            "difficulty_basis": diff.get("basis") if diff else None,
+            "apg_ref": [],
+            "block_ref": [bid] if bid else [],
+            "block_point_key": bkey,
+        })
+        added += 1
+    return added
 
 
 def cmd_parse(args):
@@ -396,9 +492,17 @@ def cmd_parse(args):
     alias_map = {a_["clause_no"]: a_ for a_ in aliases_cfg.get("aliases", [])}
     blocks_cfg = read_yaml(LIB / "shared/blocks.yaml")
     block_of_clause = {}
+    block_points_of_clause = {}
     for b in blocks_cfg.get("blocks", []):
+        applies = b.get("applies_to")
+        if applies and entry.get("domain") and entry["domain"] not in applies:
+            continue
         for cc in b.get("clauses", []):
             block_of_clause.setdefault(cc["clause_no"], []).append(b["id"])
+            for bp in cc.get("points", []) or []:
+                item = dict(bp)
+                item["block_id"] = b["id"]
+                block_points_of_clause.setdefault(cc["clause_no"], []).append(item)
 
     tree_ref = entry.get("clause_tree_ref")
     tree_index = {}
@@ -443,6 +547,12 @@ def cmd_parse(args):
             continue
         c["points"] = pts
         c["blocks"] = block_of_clause.get(c["clause_no"], [])
+        merge_block_points(
+            c,
+            block_points_of_clause.get(c["clause_no"], []),
+            difficulty,
+            c.get("covers") or [],
+        )
         alias_entry = alias_map.get(c["clause_no"])
         c["aliases"] = list(alias_entry.get("aliases", [])) if alias_entry else []
         if alias_entry and alias_entry.get("note"):
@@ -494,17 +604,21 @@ def cmd_parse(args):
 
 # ---------------------------------------------------------------- 校验
 
-def validate():
-    registry = read_yaml(LIB / "registry.yaml")
-    aliases_cfg = read_yaml(LIB / "shared/aliases.yaml").get("profiles") or {}
-    blocks_cfg = read_yaml(LIB / "shared/blocks.yaml")
+def validate(lib_dir=None):
+    lib = Path(lib_dir) if lib_dir else LIB
+    registry = read_yaml(lib / "registry.yaml")
+    aliases_cfg = read_yaml(lib / "shared/aliases.yaml").get("profiles") or {}
+    blocks_cfg = read_yaml(lib / "shared/blocks.yaml")
     block_clause = {}
     block_ids_of = {}
+    block_points_of_clause = {}
     for b in blocks_cfg.get("blocks", []):
         bid = b.get("id")
         for cc in b.get("clauses", []):
             block_clause.setdefault(cc["clause_no"], set()).add(bid)
             block_ids_of.setdefault(bid, set()).add(cc["clause_no"])
+            for bp in cc.get("points", []) or []:
+                block_points_of_clause.setdefault(cc["clause_no"], []).append((bid, bp.get("point_key")))
 
     errors, warns, infos = [], [], []
     seen_ids = set()
@@ -516,7 +630,7 @@ def validate():
         if entry.get("status") == "pending":
             infos.append(f"{pid}: 画像尚未产出（status=pending，预期文件 {entry.get('file')}），跳过内容校验")
             continue
-        fp = LIB / entry.get("file", "")
+        fp = lib / entry.get("file", "")
         if not fp.exists():
             errors.append(f"{pid}: 画像文件缺失 {entry.get('file')}")
             continue
@@ -535,6 +649,8 @@ def validate():
             if not s.get("url") or not s.get("accessed"):
                 errors.append(f"{pid}: official_sources 条目缺 url/accessed（V8）")
 
+        domain = entry.get("domain")
+        apg_empty = 0
         acfg = aliases_cfg.get(pid, {})
         invalid = {x["number"] for x in acfg.get("invalid_numbers", [])}
         known_alias = set(invalid)
@@ -544,7 +660,7 @@ def validate():
         tree_index = {}
         tree_ref = entry.get("clause_tree_ref")
         if tree_ref:
-            tp = LIB / tree_ref
+            tp = lib / tree_ref
             if not tp.exists():
                 errors.append(f"{pid}: 条款树文件缺失 {tree_ref}（V10）")
             else:
@@ -606,11 +722,21 @@ def validate():
                 if pk in pkeys:
                     errors.append(f"{pid}:{cn}: point_key 重复 {pk}（V2）")
                 pkeys.add(pk)
+                if not POINT_KEY_RE.match(str(pk or "")):
+                    errors.append(f"{pid}:{cn}:{pk}: point_key 形态非法，应为 <条款号>#<序号>（V12）")
+                elif not str(pk).startswith(str(cn) + "#"):
+                    errors.append(f"{pid}:{cn}:{pk}: point_key 前缀与所在条款号不一致（V12）")
                 for f in ("audit_question", "written_evidence", "on_site_evidence", "typical_nc"):
                     if not pt.get(f):
                         errors.append(f"{pid}:{cn}:{pk}: 缺字段 {f}（V3）")
                 if pt.get("difficulty") not in VALID_DIFFICULTY + (None,):
                     errors.append(f"{pid}:{cn}:{pk}: difficulty 非法（V4）")
+                if pt.get("difficulty") is None:
+                    warns.append(f"{pid}:{cn}:{pk}: 缺难度标注（V13，取不到就留空，不猜）")
+                elif pt.get("difficulty_basis") == "estimated":
+                    warns.append(f"{pid}:{cn}:{pk}: 难度为类比推定（{pt.get('difficulty')}），待 #16 R4 复核（V13）")
+                if not pt.get("apg_ref"):
+                    apg_empty += 1
                 items = pt.get("evidence_items", {})
                 for kind, prefix in (("written", "w"), ("on_site", "o")):
                     seq = items.get(kind, [])
@@ -621,12 +747,31 @@ def validate():
                             errors.append(f"{pid}:{cn}:{pk}: 证据项 priority 非法（V4）")
                     if len(seq) != len(pt.get(f"{kind}_evidence", [])):
                         errors.append(f"{pid}:{cn}:{pk}: evidence_items 与 {kind}_evidence 数量不一致（V3）")
+            seqs = sorted(
+                int(str(pk).split("#")[1])
+                for pk in pkeys
+                if POINT_KEY_RE.match(str(pk or ""))
+            )
+            if seqs and seqs != list(range(1, len(seqs) + 1)):
+                errors.append(f"{pid}:{cn}: point_key 序号不连续 {seqs}（V12）")
+            merged_block_points = {
+                (bid, p.get("block_point_key"))
+                for p in c.get("points", [])
+                for bid in (p.get("block_ref") or [])
+            }
+            for bid, bpkey in block_points_of_clause.get(cn, []):
+                if bid not in (c.get("blocks") or []):
+                    errors.append(f"{pid}:{cn}: 块 {bid} 登记了该条款但本卡未引用（V15）")
+                elif (bid, bpkey) not in merged_block_points:
+                    errors.append(f"{pid}:{cn}: 块 {bid} 的审核点 {bpkey} 未合并进本卡（V15）")
         sid = p.get("version_meta", {}).get("snapshot_id")
         if not sid:
             errors.append(f"{pid}: 缺 version_meta.snapshot_id")
         elif sid != snapshot_id(prof.get("clauses", [])):
             errors.append(f"{pid}: snapshot_id 与当前内容不符（内容被手改或过期）")
         npts = sum(len(c.get("points", [])) for c in prof.get("clauses", []))
+        if apg_empty:
+            warns.append(f"{pid}: {apg_empty} 条审核点 apg_ref 为空，待 #16 R4 回填（V14）")
         infos.append(f"{pid}: {len(prof.get('clauses', []))} 张条款卡 / {npts} 条审核点 / 快照 {str(sid)[7:19]}")
 
     print("== 校验报告 ==")
@@ -649,7 +794,8 @@ def main():
     pp.add_argument("--domain", default=None, help="与注册表核对用")
     pp.set_defaults(func=cmd_parse)
     vv = sub.add_parser("validate", help="校验库")
-    vv.set_defaults(func=lambda a: validate())
+    vv.add_argument("--lib-dir", default=None, help="库目录（默认 audit-point-library/），供负例测试指定")
+    vv.set_defaults(func=lambda a: validate(a.lib_dir))
     args = ap.parse_args()
     raise SystemExit(args.func(args))
 

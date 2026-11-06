@@ -14,6 +14,15 @@ profile:
     withdrawn: null
     supersedes: null
     relation: identical
+    iso_side_status:
+      iso_designation: ISO 45001:2018
+      iso_status: current
+      iso_withdrawn_on: null
+      iso_replaced_by: ISO/DIS 45001（计划以 ISO 45001:2027 发布）
+      gb_revision_plan: null
+      gb_revision_stage: 公开平台检索不到修订计划
+      transition_note: ISO 45001:2018 经 2024 年复审确认仍现行；GB/T 45001-2020 于 2020-03-06 发布并实施
+      ref: docs/research/standard-version-watch.md
     official_sources:
     - url: https://openstd.samr.gov.cn/bzgk/gb/std_list
       accessed: '2026-11-05'
@@ -27,7 +36,7 @@ profile:
     verified_by: null
     verified_at: null
     clause_tree_ref: clause_trees/ohs-gbt45001-2020.yaml
-    snapshot_id: sha256:92199cead0182e5101314d7767450319d05d7ac0202230361e65c0ef1ec1c71e
+    snapshot_id: sha256:64d063e4dd8890f99b302faa312580196fb0e14824f4ff1a1274d55822c7e1c8
 clauses:
 - clause_no: '4.1'
   title: 理解组织及其所处的环境
@@ -42,7 +51,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '4.1'
+  - point_key: 4.1#1
+    point_source: baseline
     audit_question: 组织如何确定与其职业健康安全管理体系相关的内部因素与外部因素？识别过程是否覆盖法律法规要求、相关方需求与期望、组织规模与场所条件、员工能力与安全文化、既有事件与应急状况等维度？环境分析结论是否转化为
       4.2 的相关方要求与 6.1 的风险和机遇，而非停留在清单本身？
     written_evidence:
@@ -101,6 +111,8 @@ clauses:
         text: 向一线了解其知晓的重大变化事项及是否被识别为环境因素
         priority: supporting
     difficulty: medium
+    difficulty_reason: 环境识别清单易停留在建体系当年，静态文件齐备但动态更新情况需跨生产、设备、人力、采购、环保多部门口头访谈反查
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '4.2'
   title: 理解工作人员和其他相关方的需求和期望
@@ -115,7 +127,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '4.2'
+  - point_key: 4.2#1
+    point_source: baseline
     audit_question: 组织如何确定与其职业健康安全管理体系相关的相关方及其需求和期望？相关方是否覆盖法律法规与其他要求方、工作场所内的各层人员与承包商、供方、客户、监管机构、社区与公众等类别，并分别确定接口与责任部门？工作人员与其他相关方的需求和期望是否被监视、评审，并在发生变化时转化为体系策划输入？
     written_evidence:
     - 相关方清单及其需求事项、责任部门与沟通方式的对应表
@@ -184,6 +197,8 @@ clauses:
         text: 核实工作人员与其他相关方的需求是否真的进入了策划过程，而非只登记在册
         priority: supporting
     difficulty: high
+    difficulty_reason: 相关方需求与期望由本组织自述，真伪须向客户、供方、监管方外部取证核对，本方文件无法自证
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '4.3'
   title: 确定职业健康安全管理体系的范围
@@ -198,7 +213,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '4.3'
+  - point_key: 4.3#1
+    point_source: baseline
     audit_question: 体系范围如何确定并形成文件？范围是否覆盖组织的所有场所、所有活动与所有人员，包括承包商、临时用工、劳务派遣与访客？是否存在被排除的场所或活动，排除是否有充分理由且不影响法律法规符合性与职业健康安全风险的降低？范围文件与实际场所清单、实际业务范围是否一致？
     written_evidence:
     - 管理体系范围文件，明确场所、过程、活动与人员边界
@@ -256,7 +272,9 @@ clauses:
         kind: on_site
         text: 核实排除项的实际影响范围是否与说明相符
         priority: supporting
-    difficulty: null
+    difficulty: low
+    difficulty_reason: 类比推定，待研究复核：范围文件、场所清单与证书可直接比对，现场可核（比照 QMS 4.3=低、EMS 4.3=低）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '4.4'
   title: 职业健康安全管理体系
@@ -272,7 +290,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '4.4'
+  - point_key: 4.4#1
+    point_source: baseline
     audit_question: 组织如何建立、实施、保持并持续改进职业健康安全管理体系？体系所覆盖的过程与活动如何确定，各过程的输入输出、顺序与相互作用、准则与方法、资源、职责权限、绩效指标与改进方式是否明确？体系的范围与边界是否与
       4.3 的范围文件保持一致？体系与职业健康安全方针（5.2）、目标（6.2）、风险和机遇（6.1）如何衔接？4.1 的内外部因素与 4.2 的相关方需求如何体现在体系过程要求与策划输入中？体系在环境变化时是否被评审并保持完整与有效？
     written_evidence:
@@ -343,7 +362,48 @@ clauses:
         text: 验证扩产、并购、场所搬迁或外包范围变化后是否做过体系结构性调整评审
         priority: supporting
     difficulty: medium
+    difficulty_reason: 体系策划与过程说明文件可查，但体系过程是否真实运行、与方针目标风险的衔接是否成立，须向各过程负责人取证反查
+    difficulty_basis: baseline
     apg_ref: []
+  - point_key: 4.4#2
+    point_source: block
+    audit_question: 组织如何确定过程的输入输出、顺序和相互作用、准则和方法、资源、职责权限、风险和机遇、绩效指标与改进方式？
+    written_evidence:
+    - 过程清单与过程关系图
+    - 过程说明（准则、方法、绩效指标、负责人）
+    - 绩效监视数据
+    on_site_evidence:
+    - 选一条实际过程做端到端追踪，验证过程图与实际流转一致
+    typical_nc:
+    - 过程清单与实际作业不符
+    - 过程无明确准则与绩效指标
+    - 过程之间的关系未描述，接口失控
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 过程清单与过程关系图
+        priority: core
+      - id: w2
+        kind: written
+        text: 过程说明（准则、方法、绩效指标、负责人）
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 绩效监视数据
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 选一条实际过程做端到端追踪，验证过程图与实际流转一致
+        priority: core
+    difficulty: medium
+    difficulty_reason: 体系策划与过程说明文件可查，但体系过程是否真实运行、与方针目标风险的衔接是否成立，须向各过程负责人取证反查
+    difficulty_basis: baseline
+    apg_ref: []
+    block_ref:
+    - pdca-process-approach
+    block_point_key: 4.4#1
 - clause_no: '5.1'
   title: 领导作用和承诺
   scope_note: null
@@ -357,7 +417,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '5.1'
+  - point_key: 5.1#1
+    point_source: baseline
     audit_question: 最高管理者如何体现对体系的领导作用与承诺？是否承担体系有效性的责任、提供资源、建立沟通渠道、确保要求融入业务过程？是否保证体系与组织的战略方向和业务过程相容？是否亲自推动持续改进？是否对工作人员的协商和参与机制给予公开支持？
     written_evidence:
     - 管理评审记录中最高管理者的主持与决策痕迹
@@ -421,6 +482,8 @@ clauses:
         text: 核对承诺事项在体系文件与部门目标中的落地情况
         priority: supporting
     difficulty: high
+    difficulty_reason: 领导承诺无直接证据形式，须用访谈、知识掌握度、批示落实情况与资源投向联合反查，文件签署可轻易伪造
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '5.2'
   title: 职业健康安全方针
@@ -435,7 +498,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '5.2'
+  - point_key: 5.2#1
+    point_source: baseline
     audit_question: 组织如何制定、批准和发布职业健康安全方针？方针是否与组织的目的、战略方向和运行环境相适应，是否满足法律法规及其他要求，是否包含持续改进承诺，是否为职业健康安全目标提供框架？方针如何沟通、理解和在组织内保持一致，使各层级人员知晓其含义与自身岗位的关系？方针的制定是否经过与工作人员的协商，并在需要时评审和修订？
     written_evidence:
     - 职业健康安全方针文本及最高管理者批准与发布记录
@@ -501,6 +565,8 @@ clauses:
         text: 观察方针宣贯后是否产生了可核查的行为变化，如作业禁令、报告义务与防护要求的落实
         priority: supporting
     difficulty: medium
+    difficulty_reason: 方针文本与批准发布记录可查，但落实情况须查沟通记录、员工知晓度与资源投入
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '5.3'
   title: 组织的角色、职责和权限
@@ -515,7 +581,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '5.3'
+  - point_key: 5.3#1
+    point_source: baseline
     audit_question: 组织如何确定并分配职业健康安全管理体系中各层级的角色、职责和权限？最高管理者、体系归口管理部门、各职能部门、各场所与岗位的职责是否明确到可核查的层面？各岗位所需能力要求是否与所承担的职责相匹配？职责分配是否已沟通、传达并被相关人员所理解？职责是否覆盖协商与参与、内部审核、管理评审、事件报告等关键角色？
     written_evidence:
     - 组织机构图与职业健康安全职责分配表
@@ -585,6 +652,8 @@ clauses:
         text: 向一线员工了解其对自身报告义务与升级路径的知晓情况
         priority: supporting
     difficulty: low
+    difficulty_reason: 职责分工文件与授权文件可查，但实际履职须向各部门负责人取证反查
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '5.4'
   title: 工作人员的协商和参与
@@ -599,7 +668,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '5.4'
+  - point_key: 5.4#1
+    point_source: baseline
     audit_question: 组织如何确定并落实与工作人员协商和参与职业健康安全事务的机制？是否消除参与障碍，明确工作人员提出意见不受惩罚？是否提供工作人员获得咨询与参与决策的渠道、资源与时间？工作人员代表如何产生并履行职责？参与过程是否真正影响了决策与作业条件？
     written_evidence:
     - 协商与参与的程序文件或机制说明
@@ -669,10 +739,12 @@ clauses:
         text: 确认是否存在因提意见受处理的迹象
         priority: supporting
     difficulty: high
+    difficulty_reason: 参与记录属组织自产，只能无预告随机访谈一线与承包商员工验证深度与反馈闭环
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '6.1'
   title: 应对风险和机遇的措施
-  scope_note: null
+  scope_note: 含 6.1.1 总则、6.1.2 危险源辨识和职业健康安全风险评价、6.1.3 法律法规要求和其他要求的确定、6.1.4 措施的策划
   covers:
   - 6.1.1
   - 6.1.2
@@ -681,14 +753,19 @@ clauses:
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 6.1.1
+  - 6.1.2
+  - 6.1.3
+  - 6.1.4
   blocks:
   - common-planning
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '6.1'
+  - point_key: 6.1#1
+    point_source: baseline
     audit_question: 本条覆盖 6.1.1 总则、6.1.2 危险源辨识和职业健康安全风险评价、6.1.3 法律法规要求和其他要求的确定、6.1.4 措施的策划。组织如何确定体系中的危险源、风险和机遇？危险源辨识与风险和机遇评价的方法、准则、分级规则是否明确并保持一致？评价是否覆盖全部人员活动、场所、过程、设备与外包过程？法律法规要求和其他要求如何确定并持续更新？措施如何策划、纳入体系并配置资源？是否优先采用消除危险源、降低风险的工程技术与管理措施？
     written_evidence:
     - 危险源辨识与风险评价程序及方法说明
@@ -758,23 +835,72 @@ clauses:
         text: 核对检维修、动火、高处、受限空间、临时作业等非常规作业是否单独辨识
         priority: supporting
     difficulty: high
+    difficulty_reason: 危险源辨识与风险和机遇评价结论需与现场实际危险源逐项比对，须跨安全、工艺、设备、属地部门联合走线，纸面分级与现场实况常不一致
+    difficulty_basis: baseline
     apg_ref: []
+  - point_key: 6.1#2
+    point_source: block
+    audit_question: 组织如何识别与体系目标相关的机会与风险？如何策划应对措施并评价其有效性？如何融入业务过程？
+    written_evidence:
+    - 风险与机遇识别清单
+    - 应对措施策划记录
+    - 措施有效性评价记录
+    on_site_evidence:
+    - 抽查措施是否融入过程策划而非独立台账
+    - 评价有效性结论是否有客观数据支撑
+    typical_nc:
+    - 风险清单与业务实际脱节
+    - 措施未融入过程策划
+    - 有效性评价无证据
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 风险与机遇识别清单
+        priority: core
+      - id: w2
+        kind: written
+        text: 应对措施策划记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 措施有效性评价记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查措施是否融入过程策划而非独立台账
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 评价有效性结论是否有客观数据支撑
+        priority: supporting
+    difficulty: high
+    difficulty_reason: 危险源辨识与风险和机遇评价结论需与现场实际危险源逐项比对，须跨安全、工艺、设备、属地部门联合走线，纸面分级与现场实况常不一致
+    difficulty_basis: baseline
+    apg_ref: []
+    block_ref:
+    - common-planning
+    block_point_key: 6.1#1
 - clause_no: '6.2'
   title: 职业健康安全目标及其实现的策划
-  scope_note: null
+  scope_note: 含 6.2.1 职业健康安全目标、6.2.2 实现职业健康安全目标的策划
   covers:
   - 6.2.1
   - 6.2.2
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 6.2.1
+  - 6.2.2
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '6.2'
+  - point_key: 6.2#1
+    point_source: baseline
     audit_question: 本条覆盖 6.2.1 职业健康安全目标、6.2.2 实现职业健康安全目标的策划。目标如何制定，是否与方针一致、可测量、有时限、有责任人，并与相关职能和层级相关？目标是否考虑法律法规要求与危险源辨识、风险和机遇评价的结果？实现目标的措施是否已纳入
       8.1 的运行策划并配置资源？目标进展是否被监视，并作为绩效评价与管理评审的输入？
     written_evidence:
@@ -835,6 +961,8 @@ clauses:
         text: 验证目标未达标时是否启动纠偏与升级机制
         priority: supporting
     difficulty: low
+    difficulty_reason: 目标本身可查，但分解值与实际完成值分散在各部门绩效表与现场统计中，须跨部门逐条比对口径才能坐实，核对不到位极易以纸面数字掩盖未达标
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '7.1'
   title: 资源
@@ -849,7 +977,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '7.1'
+  - point_key: 7.1#1
+    point_source: baseline
     audit_question: 体系所需资源（人员、职责权限、能力、技术、资金、基础设施、信息与沟通渠道）如何确定并提供？资源是否与风险水平、法律法规要求、组织规模、场所数量相适应？资源不足时是否有识别与升级反映的机制？
     written_evidence:
     - 资源需求评估与保障计划，含人力编制与预算
@@ -917,7 +1046,10 @@ clauses:
         kind: on_site
         text: 观察信息系统与应急通信设施是否实际可用
         priority: supporting
-    difficulty: null
+    difficulty: medium_high
+    difficulty_reason: 类比推定，待研究复核：监视测量资源（职业健康检测设备、防护用品检测）的溯源依赖外部校准或检验证书，超期与补检须向检测机构取证（比照 QMS 7.1=中高，因
+      7.1.5 监视和测量资源=中高）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '7.2'
   title: 能力
@@ -932,7 +1064,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '7.2'
+  - point_key: 7.2#1
+    point_source: baseline
     audit_question: 如何确定与体系相关岗位所需的能力？如何依据教育、培训或经历保证能力？培训是否覆盖新员工、临时用工、承包商、转岗人员与新岗位？培训有效性如何评价？是否对夜班、高龄、孕期、残障等特殊人群与高风险岗位作出针对性安排？
     written_evidence:
     - 岗位能力要求矩阵，含岗位、对应法规要求、培训项目与评价方式
@@ -997,6 +1130,8 @@ clauses:
         text: 现场观察特殊岗位人员的能力是否与其实际承担的工作匹配
         priority: supporting
     difficulty: medium
+    difficulty_reason: 培训记录、证书、签到表均可查，但培训有效性只能通过现场操作演示验证，且需核外包方人员资质真伪
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '7.3'
   title: 意识
@@ -1011,7 +1146,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '7.3'
+  - point_key: 7.3#1
+    point_source: baseline
     audit_question: 如何确保相关人员知晓职业健康安全方针、目标、体系要求及其与自身岗位的关系？如何确认沟通是有效的而非仅完成动作？员工是否清楚自身安全责任、作业禁令与主动报告问题的义务？
     written_evidence:
     - 意识提升的策划与实施记录，含入职宣贯、日常班前会、警示告知与看板宣传
@@ -1076,10 +1212,12 @@ clauses:
         text: 观察新员工是否带教满规定周期后独立上岗
         priority: supporting
     difficulty: high
+    difficulty_reason: 意识无法留痕，任何书面材料都是自证，只能现场随机抽问班组与一线员工，看其能否说出本岗位风险与应急处置
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '7.4'
   title: 沟通
-  scope_note: null
+  scope_note: 含 7.4.1 总则、7.4.2 内部沟通、7.4.3 外部沟通
   covers:
   - 7.4.1
   - 7.4.2
@@ -1087,13 +1225,17 @@ clauses:
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 7.4.1
+  - 7.4.2
+  - 7.4.3
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '7.4'
+  - point_key: 7.4#1
+    point_source: baseline
     audit_question: 本条覆盖 7.4.1 总则、7.4.2 内部沟通、7.4.3 外部沟通。内部与外部沟通的事项、时机、对象、渠道与责任是否明确？沟通内容是否覆盖法规更新、危险源与风险和机遇变化、事件信息、协商与参与机制、应急信息与体系变更？对外沟通中谁在什么时限内向哪个机构报告什么内容，是否有明确的报告路径？
     written_evidence:
     - 沟通矩阵，含事项、对象、渠道、责任人、频次与记录要求
@@ -1162,11 +1304,13 @@ clauses:
         kind: on_site
         text: 验证交接班记录是否覆盖夜班与特殊作业
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：沟通记录与知晓度可查可抽样反查，但协商参与机制的真实性须无预告访谈一线与承包商员工（比照 QMS 7.4=中、EMS 7.4=中）
+    difficulty_basis: estimated
     apg_ref: []
 - clause_no: '7.5'
   title: 文件化信息
-  scope_note: null
+  scope_note: 含 7.5.1 总则、7.5.2 文件化信息的创建和更新、7.5.3 文件化信息的控制
   covers:
   - 7.5.1
   - 7.5.2
@@ -1174,14 +1318,18 @@ clauses:
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 7.5.1
+  - 7.5.2
+  - 7.5.3
   blocks:
   - common-documented-information
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '7.5'
+  - point_key: 7.5#1
+    point_source: baseline
     audit_question: 本条覆盖 7.5.1 总则、7.5.2 创建和更新、7.5.3 文件化信息的控制。体系要求的文件化信息是否已建立、保持并可获取？文件化信息的格式、审批、修订、版本、发放与保管要求是否明确？记录的保存期限、销毁审批与备份恢复是否满足法规与合同要求？外来文件是否受控？
     written_evidence:
     - 文件化信息控制程序与职责分工
@@ -1250,11 +1398,57 @@ clauses:
         kind: on_site
         text: 确认现场可即时取得所需的受控版本
         priority: supporting
-    difficulty: null
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：文件控制记录可查，现场在用版本与外来文件须逐项比对（比照 QMS 7.5=中、EMS 7.5.3=中）
+    difficulty_basis: estimated
     apg_ref: []
+  - point_key: 7.5#2
+    point_source: block
+    audit_question: 组织的成文信息如何识别、创建、更新与控制？文件的批准、版本、发放、检索、保护与保留期限如何落实？
+    written_evidence:
+    - 文件控制程序
+    - 文件清单与版本发放记录
+    - 外来文件控制清单
+    on_site_evidence:
+    - 现场抽查在用文件版本是否为受控版本
+    - 核对记录的保存期限与处置记录
+    typical_nc:
+    - 现场使用作废版本文件
+    - 外来文件未评审即使用
+    - 电子文件修改无痕、无审批记录
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 文件控制程序
+        priority: core
+      - id: w2
+        kind: written
+        text: 文件清单与版本发放记录
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 外来文件控制清单
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 现场抽查在用文件版本是否为受控版本
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 核对记录的保存期限与处置记录
+        priority: supporting
+    difficulty: medium
+    difficulty_reason: 类比推定，待研究复核：文件控制记录可查，现场在用版本与外来文件须逐项比对（比照 QMS 7.5=中、EMS 7.5.3=中）
+    difficulty_basis: estimated
+    apg_ref: []
+    block_ref:
+    - common-documented-information
+    block_point_key: 7.5#1
 - clause_no: '8.1'
   title: 运行策划和控制
-  scope_note: null
+  scope_note: 含 8.1.1 总则、8.1.2 消除危险源和降低职业健康安全风险、8.1.3 变更管理、8.1.4 采购
   covers:
   - 8.1.1
   - 8.1.2
@@ -1263,13 +1457,18 @@ clauses:
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 8.1.1
+  - 8.1.2
+  - 8.1.3
+  - 8.1.4
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '8.1'
+  - point_key: 8.1#1
+    point_source: baseline
     audit_question: 本条覆盖 8.1.1 总则、8.1.2 消除危险源和降低职业健康安全风险、8.1.3 变更管理、8.1.4 采购。是否对满足体系要求的产品和服务实施策划，并对其要求进行评审与验证？是否策划、实施并控制满足体系要求的过程，包括外包过程？消除危险源和降低职业健康安全风险的措施是否在策划阶段就被识别并落实，而不是事后补救？变更管理、设备与设施维护、采购与承包商接口等控制要求是否逐项策划并留存证据？
     written_evidence:
     - 过程的策划与评审记录，含策划方案、评审意见与批准记录
@@ -1340,6 +1539,8 @@ clauses:
         text: 观察策划结论是否改变了实际作业方式，而非只增加审批环节
         priority: supporting
     difficulty: high
+    difficulty_reason: 变更管理、作业许可、设备点检类记录可事后补造且时间戳可调整，须现场比对实物状态、作业习惯与许可签批时序
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '8.2'
   title: 应急准备和响应
@@ -1354,7 +1555,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '8.2'
+  - point_key: 8.2#1
+    point_source: baseline
     audit_question: 是否策划并实施应急准备与响应方案？是否识别可能的紧急情况并制定计划，明确行动、职责、沟通方式与所需资源？是否与相关方（消防、医疗机构、承包商、周边社区）协调与沟通？是否提供应急培训与演练，并评价演练结果以改进？是否定期评价应急准备与响应的充分性？
     written_evidence:
     - 应急管理程序与各场景应急预案，含火灾、泄漏与中毒窒息、坍塌、高处坠落、极端天气与自然灾害等
@@ -1425,23 +1627,28 @@ clauses:
         text: 检查预案中的关键岗位在夜班与节假日是否有人
         priority: supporting
     difficulty: medium
+    difficulty_reason: 预案与演练记录可查，但应急物资完好性与人员真实反应能力必须现场实操与实地核查，跨后勤与保卫部门取证
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '9.1'
   title: 监视、测量、分析和评价
-  scope_note: null
+  scope_note: 含 9.1.1 总则、9.1.2 合规性评价
   covers:
   - 9.1.1
   - 9.1.2
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 9.1.1
+  - 9.1.2
   blocks: []
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '9.1'
+  - point_key: 9.1#1
+    point_source: baseline
     audit_question: 本条覆盖 9.1.1 总则、9.1.2 合规性评价。监视、测量、分析和评价由谁负责，依据什么准则、以什么频率进行？是否同时监视体系绩效与职业健康安全绩效？法律法规符合性如何评价，评价准则、频次与责任人是否明确？监测与测量设备是否经校准或检定，数据的准确性与完整性如何保证？分析与评价的结果流向何处，是否进入管理评审与改进？
     written_evidence:
     - 监视测量分析与评价程序及职责分工
@@ -1511,24 +1718,29 @@ clauses:
         text: 查看评价结果是否转化为资源或整改决策
         priority: supporting
     difficulty: high
+    difficulty_reason: 绩效与合规性数据可修约、可重算，统计口径易被调整掩盖偏离，须追原始检测记录、点检记录与系统导出交叉复算
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '9.2'
   title: 内部审核
-  scope_note: null
+  scope_note: 含 9.2.1 总则、9.2.2 内部审核方案
   covers:
   - 9.2.1
   - 9.2.2
   covers_mode: subclauses_named
   covers_source: clause_tree
   block_count: null
-  mentioned_units: []
+  mentioned_units:
+  - 9.2.1
+  - 9.2.2
   blocks:
   - common-audit-and-review
   photo_evidence: not_applicable
   photo_note: null
   aliases: []
   points:
-  - point_key: '9.2'
+  - point_key: 9.2#1
+    point_source: baseline
     audit_question: 本条覆盖 9.2.1 总则、9.2.2 内部审核方案。是否建立并实施内部审核方案，覆盖体系全部要素与过程、全部场所与相关职能，并考虑过程的相互作用与重要性、变化及以往审核结果？审核员是否胜任、独立且不审核自己的工作？审核是否依据策划的准则与范围实施，形成可核查的记录与报告？发现的不符合项是否按时关闭并验证有效性？审核结果是否向员工通报？
     written_evidence:
     - 年度内部审核方案，含审核准则、范围、场所、审核组构成与时间安排
@@ -1599,7 +1811,53 @@ clauses:
         text: 观察审核员在现场是否取证充分、是否仅凭被审核方口头陈述下结论
         priority: supporting
     difficulty: high
+    difficulty_reason: 审核报告与不符合项可写成样板，真实有效性须向被审核部门与被审核人分别取证比对，并核查审核员独立性
+    difficulty_basis: baseline
     apg_ref: []
+  - point_key: 9.2#2
+    point_source: block
+    audit_question: 组织如何策划、建立、实施和保持内部审核方案？审核员是否独立于被审核活动？审核发现是否按期闭环？
+    written_evidence:
+    - 内部审核方案与年度审核计划
+    - 内部审核报告
+    - 不符合项与纠正措施记录
+    on_site_evidence:
+    - 核查审核员独立性声明与能力评价记录
+    - 抽查内部审核发现是否真正闭环
+    typical_nc:
+    - 审核员审核自己的工作
+    - 内部审核流于形式，无不符合项或全部为轻微
+    - 内部审核发现未转化为改进
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 内部审核方案与年度审核计划
+        priority: core
+      - id: w2
+        kind: written
+        text: 内部审核报告
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 不符合项与纠正措施记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核查审核员独立性声明与能力评价记录
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查内部审核发现是否真正闭环
+        priority: supporting
+    difficulty: high
+    difficulty_reason: 审核报告与不符合项可写成样板，真实有效性须向被审核部门与被审核人分别取证比对，并核查审核员独立性
+    difficulty_basis: baseline
+    apg_ref: []
+    block_ref:
+    - common-audit-and-review
+    block_point_key: 9.2#1
 - clause_no: '9.3'
   title: 管理评审
   scope_note: null
@@ -1614,7 +1872,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '9.3'
+  - point_key: 9.3#1
+    point_source: baseline
     audit_question: 最高管理者是否按策划的时间间隔主持管理评审，输入是否完整（监视测量分析评价结果、合规性评价、审核结果、事件与不符合、相关方反馈、应急准备状况、资源充分性、危险源与风险和机遇识别结果、改进建议）？评审输出是否包含必要的变更、改进决定与资源承诺？评审结论是否向员工传达并落实？
     written_evidence:
     - 管理评审计划与历次评审记录，含输入清单与逐项结论
@@ -1679,7 +1938,53 @@ clauses:
         text: 观察评审中的分歧、追问与决策过程是否有真实痕迹
         priority: supporting
     difficulty: high
+    difficulty_reason: 评审输入输出多为汇总性结论，真实性靠追溯各输入源文件与向参会中层取证发现，只能间接反查
+    difficulty_basis: baseline
     apg_ref: []
+  - point_key: 9.3#2
+    point_source: block
+    audit_question: 管理评审是否按策划的间隔举行？输入输出是否完整？评审结论与决定是否得到落实并传达？
+    written_evidence:
+    - 管理评审计划与通知
+    - 管理评审记录与报告
+    - 评审输出的落实跟踪记录
+    on_site_evidence:
+    - 核对评审输入是否覆盖全部规定输入项
+    - 抽查评审结论的落实证据
+    typical_nc:
+    - 评审未按期举行
+    - 输入缺失或输出仅为复述会议内容
+    - 评审决定无人跟踪
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 管理评审计划与通知
+        priority: core
+      - id: w2
+        kind: written
+        text: 管理评审记录与报告
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 评审输出的落实跟踪记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 核对评审输入是否覆盖全部规定输入项
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 抽查评审结论的落实证据
+        priority: supporting
+    difficulty: high
+    difficulty_reason: 评审输入输出多为汇总性结论，真实性靠追溯各输入源文件与向参会中层取证发现，只能间接反查
+    difficulty_basis: baseline
+    apg_ref: []
+    block_ref:
+    - common-audit-and-review
+    block_point_key: 9.3#1
 - clause_no: '10.1'
   title: 总则
   scope_note: null
@@ -1693,7 +1998,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '10.1'
+  - point_key: 10.1#1
+    point_source: baseline
     audit_question: 是否针对事件、不符合和纠正措施建立并实施一套成文的过程？过程是否同时覆盖事件（事故、险情、职业健康损害事件及法定报告事项）与不符合两类输入？是否要求策划纠正措施并考虑原因分析、措施实施、有效性验证、职责与权限、资源、必要的变更以及记录的保留？
     written_evidence:
     - 事件、不符合和纠正措施的过程文件
@@ -1768,6 +2074,8 @@ clauses:
         text: 检查不符合项来源是否覆盖审核、巡检、投诉与作业反馈等渠道
         priority: supporting
     difficulty: medium
+    difficulty_reason: 过程文件易写，真实执行情况需查不符合项台账闭环与外部报告回执，跨安环、人力、法务取证
+    difficulty_basis: baseline
     apg_ref: []
 - clause_no: '10.2'
   title: 事件、不符合和纠正措施
@@ -1783,7 +2091,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '10.2'
+  - point_key: 10.2#1
+    point_source: baseline
     audit_question: 事件是否被及时报告、记录与分级？是否按规定向外部机构报告并保存现场证据？是否调查事件并识别根本原因，包含管理体系层面的系统性因素？是否针对根本原因策划纠正措施并明确时限、责任人与资源？是否验证措施有效性，并据此更新危险源辨识、风险评价与体系文件？不符合项是否在规定期限内关闭？
     written_evidence:
     - 事件报告单与外部报告回执
@@ -1863,7 +2172,53 @@ clauses:
         text: 验证同类问题的复发情况
         priority: supporting
     difficulty: high
+    difficulty_reason: 根本原因分析与有效性验证易流于文字，须现场核纠正措施实物落地状态，并向当事岗位人员取证真实因果
+    difficulty_basis: baseline
     apg_ref: []
+  - point_key: 10.2#2
+    point_source: block
+    audit_question: 组织如何识别、评价不符合并采取纠正措施？纠正措施是否消除了原因、防止再发生？有效性是否得到验证？
+    written_evidence:
+    - 不符合项台账
+    - 纠正措施记录与原因分析
+    - 有效性验证记录
+    on_site_evidence:
+    - 抽查不符合项的原因分析是否触及根本原因
+    - 验证同类问题是否在其他过程重复发生
+    typical_nc:
+    - 以纠正代替纠正措施，未消除原因
+    - 有效性验证无客观证据
+    - 同类不符合重复发生未升级处理
+    evidence_items:
+      written:
+      - id: w1
+        kind: written
+        text: 不符合项台账
+        priority: core
+      - id: w2
+        kind: written
+        text: 纠正措施记录与原因分析
+        priority: supporting
+      - id: w3
+        kind: written
+        text: 有效性验证记录
+        priority: supporting
+      on_site:
+      - id: o1
+        kind: on_site
+        text: 抽查不符合项的原因分析是否触及根本原因
+        priority: core
+      - id: o2
+        kind: on_site
+        text: 验证同类问题是否在其他过程重复发生
+        priority: supporting
+    difficulty: high
+    difficulty_reason: 根本原因分析与有效性验证易流于文字，须现场核纠正措施实物落地状态，并向当事岗位人员取证真实因果
+    difficulty_basis: baseline
+    apg_ref: []
+    block_ref:
+    - common-nonconformity
+    block_point_key: 10.2#1
 - clause_no: '10.3'
   title: 持续改进
   scope_note: null
@@ -1877,7 +2232,8 @@ clauses:
   photo_note: null
   aliases: []
   points:
-  - point_key: '10.3'
+  - point_key: 10.3#1
+    point_source: baseline
     audit_question: 是否持续改进体系的适用性、充分性与有效性？改进机会来自何处（绩效分析、审核结果、事件与不符合、相关方反馈、管理评审结论、员工建议）？改进是否经过策划、实施并评价效果？是否鼓励员工与相关方提出改进建议，并对采纳与否给予反馈？
     written_evidence:
     - 持续改进的程序或机制说明
@@ -1947,4 +2303,6 @@ clauses:
         text: 查看改进成果是否进入下一轮目标与风险评价
         priority: supporting
     difficulty: low
+    difficulty_reason: 改进项目是否真落地只能现场反查，核验收数据须跨改进提出部门与受益现场双向走访，书面立项材料易与现场实况脱节
+    difficulty_basis: baseline
     apg_ref: []

@@ -1,6 +1,8 @@
 # 共享条款公共块
 # 对应 GitHub Issue #2（规格 S1）。三体系共用的审核骨架条款。
-# 块内定义共通审核点；画像引用时按 inheritance 继承，并允许 override 覆盖同名 point_key。
+# 块内定义共通审核点；画像引用时按 inheritance 继承。
+# 块内 point_key 采用与画像一致的 <条款号>#<序号> 形态（块内局部序号），
+# 合并进画像后按 §4.4 规则重新分配卡内序号，并保留 block_ref / block_point_key 用于溯源与漂移检测。
 
 schema_version: 1
 
@@ -13,7 +15,7 @@ blocks:
       - clause_no: "4.4"
         title: 组织的过程方法
         points:
-          - point_key: "4.4"
+          - point_key: "4.4#1"
             audit_question: 组织如何确定过程的输入输出、顺序和相互作用、准则和方法、资源、职责权限、风险和机遇、绩效指标与改进方式？
             written_evidence:
               - 过程清单与过程关系图
@@ -34,7 +36,7 @@ blocks:
       - clause_no: "7.5"
         title: 成文信息
         points:
-          - point_key: "7.5"
+          - point_key: "7.5#1"
             audit_question: 组织的成文信息如何识别、创建、更新与控制？文件的批准、版本、发放、检索、保护与保留期限如何落实？
             written_evidence:
               - 文件控制程序
@@ -56,7 +58,7 @@ blocks:
       - clause_no: "9.2"
         title: 内部审核
         points:
-          - point_key: "9.2"
+          - point_key: "9.2#1"
             audit_question: 组织如何策划、建立、实施和保持内部审核方案？审核员是否独立于被审核活动？审核发现是否按期闭环？
             written_evidence:
               - 内部审核方案与年度审核计划
@@ -72,7 +74,7 @@ blocks:
       - clause_no: "9.3"
         title: 管理评审
         points:
-          - point_key: "9.3"
+          - point_key: "9.3#1"
             audit_question: 管理评审是否按策划的间隔举行？输入输出是否完整？评审结论与决定是否得到落实并传达？
             written_evidence:
               - 管理评审计划与通知
@@ -94,7 +96,7 @@ blocks:
       - clause_no: "10.2"
         title: 不符合与纠正措施
         points:
-          - point_key: "10.2"
+          - point_key: "10.2#1"
             audit_question: 组织如何识别、评价不符合并采取纠正措施？纠正措施是否消除了原因、防止再发生？有效性是否得到验证？
             written_evidence:
               - 不符合项台账
@@ -116,7 +118,7 @@ blocks:
       - clause_no: "6.1"
         title: 应对风险和机遇的措施
         points:
-          - point_key: "6.1"
+          - point_key: "6.1#1"
             audit_question: 组织如何识别与体系目标相关的机会与风险？如何策划应对措施并评价其有效性？如何融入业务过程？
             written_evidence:
               - 风险与机遇识别清单

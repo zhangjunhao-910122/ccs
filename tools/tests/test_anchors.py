@@ -173,12 +173,15 @@ class TestAnchorFields(AnchorsTestBase):
             self.assertIn(snapshot["status"], anchors.BASIS_STATUSES)
 
     def test_points_link_to_audit_points(self):
-        """子条款 8.5.2 落到条款卡 8.5 的审核点。"""
+        """子条款 8.5.2 落到条款卡 8.5 的审核点（审核点 ID 形如 8.5#1）。"""
         _, _, table = self.build_table([MANUAL])
         targets = [a for a in table.anchors if a["clause_no"] == "8.5.2"]
         self.assertTrue(targets)
         for anchor in targets:
-            self.assertIn("8.5", anchor["points"])
+            self.assertTrue(
+                any(str(pk).startswith("8.5#") for pk in anchor["points"]),
+                f"锚点未指向条款卡 8.5 的审核点: {anchor['points']}",
+            )
 
     def test_anchor_id_matches_element_id_linkage(self):
         result, _, table = self.build_table([MANUAL])

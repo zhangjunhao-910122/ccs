@@ -238,9 +238,12 @@ class AuditPointProfile:
         """取某条款（或其所属条款卡）下的审核点。"""
         out = list(self.points_by_clause.get(clause_no) or [])
         if not out:
+            # 兜底：point_key 形如 <条款号>#<序号>（见审核点库规格 §4.3），
+            # 也兼容早期裸条款号形态。
             for cno, bucket in self.points_by_clause.items():
                 for point in bucket:
-                    if str(point.get("point_key") or "") == clause_no:
+                    key = str(point.get("point_key") or "")
+                    if key == clause_no or key.startswith(str(clause_no) + "#"):
                         out.append(point)
         if not out:
             card = self.card_for(clause_no)
