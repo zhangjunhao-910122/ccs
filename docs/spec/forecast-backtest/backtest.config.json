@@ -1,0 +1,49 @@
+{
+  "version": "v1.0",
+  "ticket": 31,
+  "updated": "2026-11-06",
+  "data": {
+    "history_csv": "samples/load_history_backtest.csv",
+    "calendar_csv": "samples/business_calendar_2026.csv",
+    "data_label": "SAMPLE-SYNTHETIC",
+    "note": "SAMPLE=合成样例，非公司真实入库数据；真实数据到位后按同一 CSV 表头替换，指标口径不变"
+  },
+  "availability": {
+    "shift_days": 1,
+    "cutoff": "00:00",
+    "origin_types": ["P_CURVE", "P_BID", "P_REVIEW"],
+    "note": "shift_days=业务日 D 的实测在 D+shift 的 cutoff 时刻可查；cutoff=00:00 时 P_CURVE 最近可得日=D-3，P_BID/P_REVIEW=D-2"
+  },
+  "backtest": {
+    "eval_start": "2026-10-01",
+    "eval_end": "2026-10-28",
+    "step_days": 1,
+    "horizon_hours": 24,
+    "n2_window_days": 7,
+    "n3_same_weekday_count": 8,
+    "interval_min_points": 3,
+    "primary_baseline": "N3",
+    "note": "N1=最近可得日同刻；N2=最近 N 个可得日同刻中位数；N3=目标日同星期几最近 N 周中位数（主基线）；N3a=可得日同星期几最近 N 周中位数（锚点对照，仅作口径对照，不作主基线）"
+  },
+  "metrics": {
+    "primary": ["MAE", "RMSE", "nMAE"],
+    "supplementary": ["MAPE"],
+    "mape_eps_mode": "P1_ALL_USERS_BEFORE_FIRST_ORIGIN",
+    "mape_eps_percentile": 1.0,
+    "mape_eps_fixed": null,
+    "mape_excluded_ratio_limit": 0.10,
+    "note": "MAPE 近零剔除阈值 ε 取首个切点之前历史负荷的 P1（全体用户合并），全程固定不变；剔除比例 >10% 时 MAPE 标为不适用"
+  },
+  "calendar": {
+    "enabled": true,
+    "skip_non_business_days": false,
+    "stratify_by": ["day_type"],
+    "business_day_types": ["普通工作日", "调休上班日"],
+    "note": "日历默认只作误差分层维度，不默认跳过目标日（电负荷每天存在、每天都要预测）"
+  },
+  "aggregation": {
+    "mode": "pooled_all_points",
+    "also_report": "macro_of_period_metrics",
+    "note": "主口径=所有期 × 所有时刻等权汇总（一次算）；macro=各期指标再平均，仅作对照"
+  }
+}

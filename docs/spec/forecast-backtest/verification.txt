@@ -1,0 +1,22 @@
+[PASS] E1
+      {"bounds": {"P_CURVE": "2026-10-17", "P_BID": "2026-10-18", "P_REVIEW": "2026-10-18"}, "shift2_curve": "2026-10-16", "origins": {"P_CURVE": "2026-10-18T12:00:00", "P_BID": "2026-10-19T08:00:00", "P_REVIEW": "2026-10-19T20:00:00"}}
+[PASS] E2
+      {"N1": 30.0, "N2": 60.0, "N3": 88.5, "N3a": 129.5, "anchor": "2026-10-17", "n2_days": ["2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17"], "n3_days": ["2026-10-13", "2026-10-06", "2026-09-29", "2026-09-22", "2026-09-15", "2026-09-08", "2026-09-01", "2026-08-25"], "n3a_days": ["2026-10-10", "2026-10-03", "2026-09-26", "2026-09-19", "2026-09-12", "2026-09-05", "2026-08-29", "2026-08-22"]}
+[PASS] E3
+      {"metrics_n": 2, "metrics_mae": 0.0, "n1_slot2_is_none": true, "n2_slot2": 5.0, "days_with_data": ["2026-10-16"]}
+[PASS] E4
+      {"cases": 5, "diffs": []}
+[PASS] E5
+      {"leak_error": "历史日 2026-10-20 在 P_CURVE 起点不可得", "future_injection_changes_nothing": true, "anchor_before": "2026-10-17", "anchor_after": "2026-10-17"}
+[PASS] E6
+      {"n_targets": 28, "first": "2026-10-01", "last": "2026-10-28", "targets_ok": true, "digest_a": "37938619cc84741f11bc7ee050abf0e80b9d6dcba6f2eab7c7871f32ac995067", "digest_b": "37938619cc84741f11bc7ee050abf0e80b9d6dcba6f2eab7c7871f32ac995067"}
+[PASS] E7
+      {"pooled_mae": 4.666667, "pooled_n": 36, "macro_mae": 6.0}
+[PASS] E8
+      {"eps": 0.747, "expect_eps": 0.747, "excluded": 15, "ratio": 0.75, "mape_applicable": false}
+[PASS] E9
+      {"holiday_1001": "法定节假日", "makeup_0920": "调休上班日", "strata": ["ALL", "普通休息日", "普通工作日", "法定节假日", "调休上班日"], "n_targets_default": 28, "n_targets_skip": 16, "skip_only_business_days": true}
+[PASS] E10
+      {"n2_mae_win7": 0.403056, "n2_mae_win3": 0.40156, "periods_win7": 28, "periods_short": 14, "digest_repeat_equal": true}
+samples: {"config": "backtest.config.json", "history": "load_history_backtest.csv", "calendar": "business_calendar_2026.csv", "users": 3, "data_label": "SAMPLE-SYNTHETIC"}
+10/10 PASS
