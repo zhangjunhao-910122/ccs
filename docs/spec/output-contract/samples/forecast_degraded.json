@@ -1,0 +1,298 @@
+{
+  "document_id": "0000000000000000",
+  "output_type": "FORECAST",
+  "contract_version": "1.0.0",
+  "payload_contract_ref": null,
+  "scope": {
+    "subject_scope": "COMPANY",
+    "entity_type": "PORTFOLIO",
+    "entity_id": "PORT-2026-A",
+    "period": {
+      "kind": "DAY_CURVE",
+      "start": "2026-11-07T00:00:00+08:00",
+      "end": "2026-11-07T23:00:00+08:00",
+      "slot_count": 24
+    },
+    "timezone": "Asia/Shanghai"
+  },
+  "as_of": "2026-11-06T00:00:00+08:00",
+  "generated_at": "2026-11-06T09:00:00+08:00",
+  "revision": 1,
+  "status": "DEGRADED",
+  "status_reason": {
+    "code": "FEATURE_DEGRADED",
+    "message": "DEGRADED 状态说明",
+    "detail": {
+      "degraded_features": [
+        "D11_weather_temp"
+      ],
+      "accuracy_impact": "缺少气温特征，区间整体变宽"
+    }
+  },
+  "sources": [
+    {
+      "data_source_id": "D01",
+      "batch_id": "B20261106A",
+      "verified": true
+    },
+    {
+      "data_source_id": "D11",
+      "batch_id": "B20261106A",
+      "verified": true
+    }
+  ],
+  "model": {
+    "model_id": "seasonal_naive_v1",
+    "version": "1.0.0",
+    "feature_set_hash": "sha256:0f1e2d3c4b5a6978",
+    "training_window": {
+      "start": "2025-11-01",
+      "end": "2026-10-31"
+    },
+    "origin_type": "P_CURVE",
+    "degraded_features": [
+      "D11_weather_temp"
+    ],
+    "missing_features": [
+      "D11_weather_temp"
+    ]
+  },
+  "metrics": {
+    "coverage": {
+      "value": "0.9167",
+      "unit": "ratio",
+      "precision": 4,
+      "source_ref": {
+        "data_source_id": "D01",
+        "batch_id": "B20261106A",
+        "field": "load_mwh"
+      },
+      "verification_status": "VERIFIED",
+      "as_of": "2026-11-06T00:00:00+08:00",
+      "note": null
+    },
+    "accuracy": [
+      {
+        "value": null,
+        "unit": "ratio",
+        "precision": 4,
+        "source_ref": null,
+        "verification_status": "MISSING",
+        "as_of": "2026-11-06T00:00:00+08:00",
+        "note": "待基线确认：#61 A06 基线未锁定前不预填精度数值",
+        "name": "MAPE",
+        "sample_size": 220,
+        "excluded_count": 0,
+        "excluded_reason": null
+      }
+    ],
+    "refusal_rate": {
+      "value": "0.0000",
+      "unit": "ratio",
+      "precision": 4,
+      "source_ref": {
+        "data_source_id": "D01",
+        "batch_id": "B20261106A",
+        "field": "load_mwh"
+      },
+      "verification_status": "VERIFIED",
+      "as_of": "2026-11-06T00:00:00+08:00",
+      "note": null
+    },
+    "baseline_comparison": {
+      "baseline_id": "seasonal_naive",
+      "baseline_value": null,
+      "window": "2026-01-01/2026-10-31"
+    },
+    "sampling_note": "回测口径与样本外窗口见 SPEC §5.3"
+  },
+  "items": [
+    {
+      "item_ref": "item:1",
+      "item_type": "POINT_VALUE",
+      "label": "次日 24 时段组合负荷点预测（降级）",
+      "values": [
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        }
+      ],
+      "payload": null,
+      "notes": [],
+      "evidence_refs": []
+    },
+    {
+      "item_ref": "item:2",
+      "item_type": "INTERVAL",
+      "label": "次日 24 时段组合负荷区间（降级）",
+      "values": [
+        {
+          "value": "105.000",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "151.800",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        }
+      ],
+      "payload": {
+        "roles": [
+          "P10",
+          "P50",
+          "P90"
+        ]
+      },
+      "notes": [],
+      "evidence_refs": []
+    },
+    {
+      "item_ref": "item:3",
+      "item_type": "STATEMENT",
+      "label": "特征降级说明",
+      "values": [
+        {
+          "value": "气象特征缺失，输出标注为降级，区间整体变宽，精度影响见 metrics。",
+          "unit": "none",
+          "precision": 0,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "note_text"
+          },
+          "verification_status": "UNVERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        }
+      ],
+      "payload": null,
+      "notes": [],
+      "evidence_refs": []
+    }
+  ],
+  "attributions": [
+    {
+      "feature_id": "D11_weather_temp",
+      "contribution": null,
+      "direction": null,
+      "text": "气温特征缺失占比超过阈值，该特征与次日负荷在 2026-01-01/2026-10-31 窗口内的统计关联无法给出，置信等级 LOW（未核验）。基于历史统计关联，非因果判定",
+      "verification_status": "UNVERIFIED",
+      "time_window": {
+        "start": "2026-01-01",
+        "end": "2026-10-31",
+        "label": "2026-01-01/2026-10-31"
+      },
+      "confidence": {
+        "kind": "LEVEL",
+        "p10": null,
+        "p90": null,
+        "level": "LOW",
+        "calibration": null
+      },
+      "statement": "基于历史统计关联，非因果判定",
+      "attributable": false,
+      "not_attributable_reason": "FEATURE_MISSING_RATIO"
+    }
+  ],
+  "risks": [
+    {
+      "risk_code": "DATA_GAP",
+      "severity": "MEDIUM",
+      "statement": "气象特征缺失，区间整体变宽",
+      "target_ref": "D11",
+      "verification_status": "VERIFIED",
+      "recommendation": "DATA_COLLECTION_RECOMMENDED"
+    }
+  ],
+  "overrides": [],
+  "drift_signals": [],
+  "notes": [
+    "缺少气温特征，请补数据或换源后重跑；当前精度影响见 metrics。"
+  ],
+  "actions": [
+    {
+      "action_id": "ACT-VIEW",
+      "type": "VIEW",
+      "label": "查看输出底稿",
+      "target_ref": "document",
+      "requires_approval": false
+    },
+    {
+      "action_id": "ACT-REVIEW",
+      "type": "REQUEST_REVIEW",
+      "label": "复核降级范围",
+      "target_ref": "document",
+      "requires_approval": true
+    }
+  ],
+  "projections": {
+    "page_blocks": [
+      {
+        "page_id": "trader_home",
+        "block_id": "tomorrow_forecast",
+        "document_id": "0000000000000000",
+        "output_ref": {
+          "output_id": "0000000000000000",
+          "contract": "#39",
+          "status": "READY"
+        }
+      }
+    ],
+    "api_endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/v1/outputs/{output_id}",
+        "document_id": "0000000000000000"
+      }
+    ],
+    "report_sections": [
+      {
+        "section_id": "forecast_result",
+        "document_id": "0000000000000000",
+        "content_hash": "0000000000000000"
+      }
+    ]
+  },
+  "supersedes": null,
+  "superseded_by": null,
+  "content_hash": "0000000000000000"
+}

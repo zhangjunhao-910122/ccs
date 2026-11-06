@@ -1,0 +1,174 @@
+{
+  "document_id": "0000000000000000",
+  "output_type": "SETTLEMENT_REPORT",
+  "contract_version": "1.0.0",
+  "payload_contract_ref": {
+    "ticket": "55",
+    "contract": "settlement-replay",
+    "version": "1.0.0"
+  },
+  "scope": {
+    "subject_scope": "COMPANY",
+    "entity_type": "COMPANY",
+    "entity_id": "COMPANY-2026-10",
+    "period": {
+      "kind": "DAY_CURVE",
+      "start": "2026-11-07T00:00:00+08:00",
+      "end": "2026-11-07T23:00:00+08:00",
+      "slot_count": 24
+    },
+    "timezone": "Asia/Shanghai"
+  },
+  "as_of": "2026-11-06T00:00:00+08:00",
+  "generated_at": "2026-11-06T09:00:00+08:00",
+  "revision": 1,
+  "status": "OK",
+  "status_reason": {
+    "code": "OK",
+    "message": "OK 状态说明",
+    "detail": {}
+  },
+  "sources": [
+    {
+      "data_source_id": "D01",
+      "batch_id": "B20261106A",
+      "verified": true
+    },
+    {
+      "data_source_id": "D11",
+      "batch_id": "B20261106A",
+      "verified": true
+    }
+  ],
+  "model": null,
+  "metrics": {
+    "coverage": {
+      "value": "1.0000",
+      "unit": "ratio",
+      "precision": 4,
+      "source_ref": {
+        "data_source_id": "D01",
+        "batch_id": "B20261106A",
+        "field": "load_mwh"
+      },
+      "verification_status": "VERIFIED",
+      "as_of": "2026-11-06T00:00:00+08:00",
+      "note": null
+    },
+    "accuracy": [
+      {
+        "value": null,
+        "unit": "ratio",
+        "precision": 4,
+        "source_ref": null,
+        "verification_status": "MISSING",
+        "as_of": "2026-11-06T00:00:00+08:00",
+        "note": "待基线确认：#61 A06 基线未锁定前不预填精度数值",
+        "name": "对账差异率",
+        "sample_size": 128,
+        "excluded_count": 0,
+        "excluded_reason": null
+      }
+    ],
+    "refusal_rate": {
+      "value": "0.0000",
+      "unit": "ratio",
+      "precision": 4,
+      "source_ref": {
+        "data_source_id": "D01",
+        "batch_id": "B20261106A",
+        "field": "load_mwh"
+      },
+      "verification_status": "VERIFIED",
+      "as_of": "2026-11-06T00:00:00+08:00",
+      "note": null
+    },
+    "baseline_comparison": {
+      "baseline_id": "seasonal_naive",
+      "baseline_value": null,
+      "window": "2026-01-01/2026-10-31"
+    },
+    "sampling_note": "回测口径与样本外窗口见 SPEC §5.3"
+  },
+  "items": [
+    {
+      "item_ref": "item:1",
+      "item_type": "SET",
+      "label": "结算复现汇总",
+      "values": [
+        {
+          "value": "182340.00",
+          "unit": "CNY",
+          "precision": 2,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        }
+      ],
+      "payload": {
+        "settlement_batch": "2026-10",
+        "line_count": 128,
+        "unit": "CNY"
+      },
+      "notes": [],
+      "evidence_refs": []
+    }
+  ],
+  "attributions": [],
+  "risks": [],
+  "overrides": [],
+  "drift_signals": [],
+  "notes": [],
+  "actions": [
+    {
+      "action_id": "ACT-VIEW",
+      "type": "VIEW",
+      "label": "查看结算复现汇总",
+      "target_ref": "document",
+      "requires_approval": false
+    },
+    {
+      "action_id": "ACT-EXPORT",
+      "type": "EXPORT",
+      "label": "导出对账快照",
+      "target_ref": "document",
+      "requires_approval": true
+    }
+  ],
+  "projections": {
+    "page_blocks": [
+      {
+        "page_id": "trader_home",
+        "block_id": "tomorrow_forecast",
+        "document_id": "0000000000000000",
+        "output_ref": {
+          "output_id": "0000000000000000",
+          "contract": "#39",
+          "status": "READY"
+        }
+      }
+    ],
+    "api_endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/v1/outputs/{output_id}",
+        "document_id": "0000000000000000"
+      }
+    ],
+    "report_sections": [
+      {
+        "section_id": "forecast_result",
+        "document_id": "0000000000000000",
+        "content_hash": "0000000000000000"
+      }
+    ]
+  },
+  "supersedes": null,
+  "superseded_by": null,
+  "content_hash": "0000000000000000"
+}

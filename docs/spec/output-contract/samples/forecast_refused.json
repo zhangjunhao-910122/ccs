@@ -1,0 +1,184 @@
+{
+  "document_id": "0000000000000000",
+  "output_type": "FORECAST",
+  "contract_version": "1.0.0",
+  "payload_contract_ref": null,
+  "scope": {
+    "subject_scope": "COMPANY",
+    "entity_type": "PORTFOLIO",
+    "entity_id": "PORT-2026-A",
+    "period": {
+      "kind": "DAY_CURVE",
+      "start": "2026-11-07T00:00:00+08:00",
+      "end": "2026-11-07T23:00:00+08:00",
+      "slot_count": 24
+    },
+    "timezone": "Asia/Shanghai"
+  },
+  "as_of": "2026-11-06T00:00:00+08:00",
+  "generated_at": "2026-11-06T09:00:00+08:00",
+  "revision": 1,
+  "status": "REFUSED",
+  "status_reason": {
+    "code": "SOURCE_UNREACHABLE",
+    "message": "REFUSED 状态说明",
+    "detail": {
+      "reason": "LOGIN_REQUIRED",
+      "target_ref": "D09"
+    }
+  },
+  "sources": [
+    {
+      "data_source_id": "D01",
+      "batch_id": "B20261106A",
+      "verified": true
+    },
+    {
+      "data_source_id": "D11",
+      "batch_id": "B20261106A",
+      "verified": true
+    }
+  ],
+  "model": {
+    "model_id": "seasonal_naive_v1",
+    "version": "1.0.0",
+    "feature_set_hash": "sha256:0f1e2d3c4b5a6978",
+    "training_window": {
+      "start": "2025-11-01",
+      "end": "2026-10-31"
+    },
+    "origin_type": "P_CURVE",
+    "degraded_features": [],
+    "missing_features": []
+  },
+  "metrics": {
+    "coverage": {
+      "value": "0.0000",
+      "unit": "ratio",
+      "precision": 4,
+      "source_ref": {
+        "data_source_id": "D01",
+        "batch_id": "B20261106A",
+        "field": "load_mwh"
+      },
+      "verification_status": "VERIFIED",
+      "as_of": "2026-11-06T00:00:00+08:00",
+      "note": null
+    },
+    "accuracy": [
+      {
+        "value": null,
+        "unit": "ratio",
+        "precision": 4,
+        "source_ref": null,
+        "verification_status": "MISSING",
+        "as_of": "2026-11-06T00:00:00+08:00",
+        "note": "待基线确认：#61 A06 基线未锁定前不预填精度数值",
+        "name": "MAPE",
+        "sample_size": 0,
+        "excluded_count": 0,
+        "excluded_reason": null
+      }
+    ],
+    "refusal_rate": {
+      "value": "1.0000",
+      "unit": "ratio",
+      "precision": 4,
+      "source_ref": {
+        "data_source_id": "D01",
+        "batch_id": "B20261106A",
+        "field": "load_mwh"
+      },
+      "verification_status": "VERIFIED",
+      "as_of": "2026-11-06T00:00:00+08:00",
+      "note": null
+    },
+    "baseline_comparison": {
+      "baseline_id": "seasonal_naive",
+      "baseline_value": null,
+      "window": "2026-01-01/2026-10-31"
+    },
+    "sampling_note": "回测口径与样本外窗口见 SPEC §5.3"
+  },
+  "items": [
+    {
+      "item_ref": "item:1",
+      "item_type": "STATEMENT",
+      "label": "拒答说明",
+      "values": [
+        {
+          "value": "湖北省零售套餐公告需登录平台，当前数据源不可达，本目标拒答，不以历史值冒充当前值。",
+          "unit": "none",
+          "precision": 0,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "note_text"
+          },
+          "verification_status": "UNVERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        }
+      ],
+      "payload": null,
+      "notes": [],
+      "evidence_refs": []
+    }
+  ],
+  "attributions": [],
+  "risks": [
+    {
+      "risk_code": "SOURCE_UNREACHABLE",
+      "severity": "HIGH",
+      "statement": "零售套餐公告需登录，源不可达",
+      "target_ref": "D09",
+      "verification_status": "VERIFIED",
+      "recommendation": "SOURCE_REPLACEMENT_RECOMMENDED"
+    }
+  ],
+  "overrides": [],
+  "drift_signals": [],
+  "notes": [
+    "零售套餐公告源不可达（需登录），本目标拒答；请换源或补数据后重跑。"
+  ],
+  "actions": [
+    {
+      "action_id": "ACT-VIEW",
+      "type": "VIEW",
+      "label": "查看拒答说明",
+      "target_ref": "document",
+      "requires_approval": false
+    }
+  ],
+  "projections": {
+    "page_blocks": [
+      {
+        "page_id": "trader_home",
+        "block_id": "tomorrow_forecast",
+        "document_id": "0000000000000000",
+        "output_ref": {
+          "output_id": "0000000000000000",
+          "contract": "#39",
+          "status": "READY"
+        }
+      }
+    ],
+    "api_endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/v1/outputs/{output_id}",
+        "document_id": "0000000000000000"
+      }
+    ],
+    "report_sections": [
+      {
+        "section_id": "forecast_result",
+        "document_id": "0000000000000000",
+        "content_hash": "0000000000000000"
+      }
+    ]
+  },
+  "supersedes": null,
+  "superseded_by": null,
+  "content_hash": "0000000000000000"
+}

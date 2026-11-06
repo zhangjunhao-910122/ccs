@@ -1,0 +1,211 @@
+{
+  "document_id": "0000000000000000",
+  "output_type": "FORECAST",
+  "contract_version": "1.0.0",
+  "payload_contract_ref": null,
+  "scope": {
+    "subject_scope": "COMPANY",
+    "entity_type": "PORTFOLIO",
+    "entity_id": "PORT-2026-A",
+    "period": {
+      "kind": "DAY_CURVE",
+      "start": "2026-11-07T00:00:00+08:00",
+      "end": "2026-11-07T23:00:00+08:00",
+      "slot_count": 24
+    },
+    "timezone": "Asia/Shanghai"
+  },
+  "as_of": "2026-11-06T00:00:00+08:00",
+  "generated_at": "2026-11-06T09:00:00+08:00",
+  "revision": 1,
+  "status": "OUT_OF_RANGE",
+  "status_reason": {
+    "code": "OUT_OF_DISTRIBUTION",
+    "message": "OUT_OF_RANGE 状态说明",
+    "detail": {
+      "feature_id": "D11_weather_temp",
+      "distance": "12.5000",
+      "train_range": [
+        "-5.0000",
+        "42.0000"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "data_source_id": "D01",
+      "batch_id": "B20261106A",
+      "verified": true
+    },
+    {
+      "data_source_id": "D11",
+      "batch_id": "B20261106A",
+      "verified": true
+    }
+  ],
+  "model": {
+    "model_id": "seasonal_naive_v1",
+    "version": "1.0.0",
+    "feature_set_hash": "sha256:0f1e2d3c4b5a6978",
+    "training_window": {
+      "start": "2025-11-01",
+      "end": "2026-10-31"
+    },
+    "origin_type": "P_CURVE",
+    "degraded_features": [],
+    "missing_features": []
+  },
+  "metrics": {
+    "coverage": {
+      "value": "0.0000",
+      "unit": "ratio",
+      "precision": 4,
+      "source_ref": {
+        "data_source_id": "D01",
+        "batch_id": "B20261106A",
+        "field": "load_mwh"
+      },
+      "verification_status": "VERIFIED",
+      "as_of": "2026-11-06T00:00:00+08:00",
+      "note": null
+    },
+    "accuracy": [
+      {
+        "value": null,
+        "unit": "ratio",
+        "precision": 4,
+        "source_ref": null,
+        "verification_status": "MISSING",
+        "as_of": "2026-11-06T00:00:00+08:00",
+        "note": "待基线确认：#61 A06 基线未锁定前不预填精度数值",
+        "name": "MAPE",
+        "sample_size": 0,
+        "excluded_count": 0,
+        "excluded_reason": null
+      }
+    ],
+    "refusal_rate": {
+      "value": "1.0000",
+      "unit": "ratio",
+      "precision": 4,
+      "source_ref": {
+        "data_source_id": "D01",
+        "batch_id": "B20261106A",
+        "field": "load_mwh"
+      },
+      "verification_status": "VERIFIED",
+      "as_of": "2026-11-06T00:00:00+08:00",
+      "note": null
+    },
+    "baseline_comparison": {
+      "baseline_id": "seasonal_naive",
+      "baseline_value": null,
+      "window": "2026-01-01/2026-10-31"
+    },
+    "sampling_note": "回测口径与样本外窗口见 SPEC §5.3"
+  },
+  "items": [
+    {
+      "item_ref": "item:1",
+      "item_type": "STATEMENT",
+      "label": "超范围说明",
+      "values": [
+        {
+          "value": "本次样本的日最高气温超出训练分布，输出标注为超出可用范围，不给出点预测与特征贡献排序。",
+          "unit": "none",
+          "precision": 0,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "note_text"
+          },
+          "verification_status": "UNVERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        }
+      ],
+      "payload": null,
+      "notes": [],
+      "evidence_refs": []
+    }
+  ],
+  "attributions": [
+    {
+      "feature_id": "D11_weather_temp",
+      "contribution": null,
+      "direction": null,
+      "text": "日最高气温落在训练分布之外，统计关联无法给出，置信等级 LOW（未核验），统计窗口 2026-01-01/2026-10-31。基于历史统计关联，非因果判定",
+      "verification_status": "UNVERIFIED",
+      "time_window": {
+        "start": "2026-01-01",
+        "end": "2026-10-31",
+        "label": "2026-01-01/2026-10-31"
+      },
+      "confidence": {
+        "kind": "LEVEL",
+        "p10": null,
+        "p90": null,
+        "level": "LOW",
+        "calibration": null
+      },
+      "statement": "基于历史统计关联，非因果判定",
+      "attributable": false,
+      "not_attributable_reason": "OUT_OF_DISTRIBUTION"
+    }
+  ],
+  "risks": [
+    {
+      "risk_code": "OUT_OF_DISTRIBUTION",
+      "severity": "MEDIUM",
+      "statement": "样本超出训练分布，该点无法给出特征贡献",
+      "target_ref": "item:1",
+      "verification_status": "VERIFIED",
+      "recommendation": "MANUAL_REVIEW_RECOMMENDED"
+    }
+  ],
+  "overrides": [],
+  "drift_signals": [],
+  "notes": [
+    "样本超出可用范围，请复核特征口径或补数据后重跑。"
+  ],
+  "actions": [
+    {
+      "action_id": "ACT-VIEW",
+      "type": "VIEW",
+      "label": "查看超范围说明",
+      "target_ref": "document",
+      "requires_approval": false
+    }
+  ],
+  "projections": {
+    "page_blocks": [
+      {
+        "page_id": "trader_home",
+        "block_id": "tomorrow_forecast",
+        "document_id": "0000000000000000",
+        "output_ref": {
+          "output_id": "0000000000000000",
+          "contract": "#39",
+          "status": "READY"
+        }
+      }
+    ],
+    "api_endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/v1/outputs/{output_id}",
+        "document_id": "0000000000000000"
+      }
+    ],
+    "report_sections": [
+      {
+        "section_id": "forecast_result",
+        "document_id": "0000000000000000",
+        "content_hash": "0000000000000000"
+      }
+    ]
+  },
+  "supersedes": null,
+  "superseded_by": null,
+  "content_hash": "0000000000000000"
+}

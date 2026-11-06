@@ -1,0 +1,600 @@
+{
+  "document_id": "0000000000000000",
+  "output_type": "FORECAST",
+  "contract_version": "1.0.0",
+  "payload_contract_ref": null,
+  "scope": {
+    "subject_scope": "COMPANY",
+    "entity_type": "PORTFOLIO",
+    "entity_id": "PORT-2026-A",
+    "period": {
+      "kind": "DAY_CURVE",
+      "start": "2026-11-07T00:00:00+08:00",
+      "end": "2026-11-07T23:00:00+08:00",
+      "slot_count": 24
+    },
+    "timezone": "Asia/Shanghai"
+  },
+  "as_of": "2026-11-06T00:00:00+08:00",
+  "generated_at": "2026-11-06T09:00:00+08:00",
+  "revision": 1,
+  "status": "PARTIAL",
+  "status_reason": {
+    "code": "PARTIAL_GAP",
+    "message": "PARTIAL 状态说明",
+    "detail": {
+      "gap_slots": [
+        7,
+        8,
+        9
+      ],
+      "gap_ratio": "0.1250",
+      "last_available_at": "2026-11-06T23:00:00+08:00"
+    }
+  },
+  "sources": [
+    {
+      "data_source_id": "D01",
+      "batch_id": "B20261106A",
+      "verified": true
+    },
+    {
+      "data_source_id": "D11",
+      "batch_id": "B20261106A",
+      "verified": true
+    }
+  ],
+  "model": {
+    "model_id": "seasonal_naive_v1",
+    "version": "1.0.0",
+    "feature_set_hash": "sha256:0f1e2d3c4b5a6978",
+    "training_window": {
+      "start": "2025-11-01",
+      "end": "2026-10-31"
+    },
+    "origin_type": "P_CURVE",
+    "degraded_features": [],
+    "missing_features": []
+  },
+  "metrics": {
+    "coverage": {
+      "value": "0.8750",
+      "unit": "ratio",
+      "precision": 4,
+      "source_ref": {
+        "data_source_id": "D01",
+        "batch_id": "B20261106A",
+        "field": "load_mwh"
+      },
+      "verification_status": "VERIFIED",
+      "as_of": "2026-11-06T00:00:00+08:00",
+      "note": null
+    },
+    "accuracy": [
+      {
+        "value": null,
+        "unit": "ratio",
+        "precision": 4,
+        "source_ref": null,
+        "verification_status": "MISSING",
+        "as_of": "2026-11-06T00:00:00+08:00",
+        "note": "待基线确认：#61 A06 基线未锁定前不预填精度数值",
+        "name": "MAPE",
+        "sample_size": 221,
+        "excluded_count": 0,
+        "excluded_reason": null
+      }
+    ],
+    "refusal_rate": {
+      "value": "0.0000",
+      "unit": "ratio",
+      "precision": 4,
+      "source_ref": {
+        "data_source_id": "D01",
+        "batch_id": "B20261106A",
+        "field": "load_mwh"
+      },
+      "verification_status": "VERIFIED",
+      "as_of": "2026-11-06T00:00:00+08:00",
+      "note": null
+    },
+    "baseline_comparison": {
+      "baseline_id": "seasonal_naive",
+      "baseline_value": null,
+      "window": "2026-01-01/2026-10-31"
+    },
+    "sampling_note": "回测口径与样本外窗口见 SPEC §5.3"
+  },
+  "items": [
+    {
+      "item_ref": "item:1",
+      "item_type": "INTERVAL",
+      "label": "次日 24 时段组合负荷区间（缺口已标注）",
+      "values": [
+        {
+          "value": "110.200",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "146.700",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        }
+      ],
+      "payload": {
+        "roles": [
+          "P10",
+          "P50",
+          "P90"
+        ]
+      },
+      "notes": [],
+      "evidence_refs": []
+    },
+    {
+      "item_ref": "item:2",
+      "item_type": "SERIES",
+      "label": "24 时段组合负荷序列（缺口时段为空值）",
+      "values": [
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": null,
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "MISSING",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": null,
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "MISSING",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": null,
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "MISSING",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        },
+        {
+          "value": "128.400",
+          "unit": "MWh",
+          "precision": 3,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "load_mwh"
+          },
+          "verification_status": "VERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        }
+      ],
+      "payload": {
+        "slots": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      "notes": [],
+      "evidence_refs": []
+    },
+    {
+      "item_ref": "item:3",
+      "item_type": "STATEMENT",
+      "label": "缺口说明",
+      "values": [
+        {
+          "value": "第 7 至第 9 时段缺少实测负荷，本输出按缺口标注给出区间，区间宽度随缺口比例放大。",
+          "unit": "none",
+          "precision": 0,
+          "source_ref": {
+            "data_source_id": "D01",
+            "batch_id": "B20261106A",
+            "field": "note_text"
+          },
+          "verification_status": "UNVERIFIED",
+          "as_of": "2026-11-06T00:00:00+08:00",
+          "note": null
+        }
+      ],
+      "payload": null,
+      "notes": [],
+      "evidence_refs": []
+    }
+  ],
+  "attributions": [],
+  "risks": [
+    {
+      "risk_code": "DATA_GAP",
+      "severity": "LOW",
+      "statement": "第 7 至第 9 时段缺 3 个数据点",
+      "target_ref": "item:1",
+      "verification_status": "VERIFIED",
+      "recommendation": "DATA_COLLECTION_RECOMMENDED"
+    }
+  ],
+  "overrides": [],
+  "drift_signals": [],
+  "notes": [
+    "缺 3 个时段的实测负荷，请补数据后重跑预测并复核区间宽度。"
+  ],
+  "actions": [
+    {
+      "action_id": "ACT-VIEW",
+      "type": "VIEW",
+      "label": "查看输出底稿",
+      "target_ref": "document",
+      "requires_approval": false
+    },
+    {
+      "action_id": "ACT-COLLECT",
+      "type": "COLLECT_DATA",
+      "label": "补齐缺口时段数据",
+      "target_ref": "item:1",
+      "requires_approval": true
+    }
+  ],
+  "projections": {
+    "page_blocks": [
+      {
+        "page_id": "trader_home",
+        "block_id": "tomorrow_forecast",
+        "document_id": "0000000000000000",
+        "output_ref": {
+          "output_id": "0000000000000000",
+          "contract": "#39",
+          "status": "READY"
+        }
+      }
+    ],
+    "api_endpoints": [
+      {
+        "method": "GET",
+        "path": "/api/v1/outputs/{output_id}",
+        "document_id": "0000000000000000"
+      }
+    ],
+    "report_sections": [
+      {
+        "section_id": "forecast_result",
+        "document_id": "0000000000000000",
+        "content_hash": "0000000000000000"
+      }
+    ]
+  },
+  "supersedes": null,
+  "superseded_by": null,
+  "content_hash": "0000000000000000"
+}

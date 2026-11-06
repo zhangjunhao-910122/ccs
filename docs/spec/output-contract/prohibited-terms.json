@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "spec": "docs/spec/output-contract/SPEC.md#6.5",
+  "upstream": ["#28", "#45"],
+  "note": "本文件是禁用词与固定句的唯一机器可读来源；#45 的 check_attribution 与本契约的检查器共用这一份。",
+  "normalization": {
+    "fullwidth_to_halfwidth": true,
+    "case_fold": true,
+    "collapse_whitespace": true,
+    "strip_zero_width": true,
+    "trim": true,
+    "description": "比对前统一做 NFKC 归一（全角→半角）、大小写折叠、连续空白折叠为零宽字符剔除、去首尾空白。"
+  },
+  "prohibited_terms": [
+    { "term": "因为", "source": "#28" },
+    { "term": "因此", "source": "#45 §9" },
+    { "term": "原因", "source": "#45 §9" },
+    { "term": "导致", "source": "#28" },
+    { "term": "保证", "source": "#28" },
+    { "term": "必然", "source": "#28" },
+    { "term": "一定会", "source": "#28" },
+    { "term": "稳赚", "source": "#28" },
+    { "term": "建议买入", "source": "#28" },
+    { "term": "建议卖出", "source": "#28" },
+    { "term": "预测一定", "source": "#28" },
+    { "term": "肯定能", "source": "#28" },
+    { "term": "由于", "source": "#45 §9" }
+  ],
+  "prohibited_patterns": [
+    {
+      "id": "CONJUNCTION_YIN",
+      "pattern": "(?<!原)因(?!果)",
+      "description": "单独作连词的「因」，兜住「因高温」这类写法；「原因」「因果」不命中（「因果」出现在固定句中，扫描前已剥离固定句）。",
+      "source": "#28 + #45 §9"
+    }
+  ],
+  "allowed_phrases": [
+    {
+      "id": "NON_CAUSAL_SUFFIX",
+      "text": "基于历史统计关联，非因果判定",
+      "description": "归因文本必含的固定句。扫描前先从待检文本中剥离，避免固定句里的「因」被连词规则命中。",
+      "source": "#28"
+    }
+  ],
+  "check_scope": [
+    "attributions[].text",
+    "items[].values[].value (item_type = STATEMENT)",
+    "risks[].statement",
+    "drift_signals[].signal_text",
+    "notes[]",
+    "overrides[].reason_text",
+    "actions[].label"
+  ],
+  "notes": [
+    "本清单是 #28 的超集：#28 列「因、因为、导致、原因是、保证、必然、一定会、稳赚、建议买入/卖出、预测一定、肯定能」，#45 §9 另补「因此、原因、由于」；本票取全集。",
+    "「原因」同时以词条命中；连词正则用 (?<!原) 排除「原因」，两者并存不冲突。",
+    "「建议」本身不禁用；禁的是「建议买入」「建议卖出」。actions[].label 过本清单检查。",
+    "词条命中与正则命中都记为拦截；正则命中处需人工复核是否属于同义表达（例如「因素」会被连词规则命中，属已知取舍）。"
+  ]
+}
