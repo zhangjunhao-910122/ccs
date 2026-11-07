@@ -1,0 +1,399 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ccs.local/spec/model-registry/model_artifact.schema.json",
+  "title": "模型注册表与训练产物契约 v1.0",
+  "description": "可切换模型注册表的登记记录（model_registry_record）与逐用户训练产物（model_artifact）的表结构；注册表只追加，训练产物按 (model_id, version, user_id, origin_type, target_date) 唯一且可复现。",
+  "type": "object",
+  "required": [
+    "tables"
+  ],
+  "properties": {
+    "tables": {
+      "type": "object",
+      "required": [
+        "model_registry_record",
+        "model_artifact"
+      ],
+      "properties": {
+        "model_registry_record": {
+          "type": "object",
+          "required": [
+            "primary_key",
+            "fields"
+          ],
+          "properties": {
+            "primary_key": {
+              "const": [
+                "model_id",
+                "version"
+              ]
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/field"
+              }
+            }
+          }
+        },
+        "model_artifact": {
+          "type": "object",
+          "required": [
+            "primary_key",
+            "fields"
+          ],
+          "properties": {
+            "primary_key": {
+              "const": [
+                "model_id",
+                "version",
+                "user_id",
+                "origin_type",
+                "target_date"
+              ]
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/field"
+              }
+            }
+          }
+        }
+      }
+    },
+    "enums": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "required": [
+        "name",
+        "type"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "string",
+            "int",
+            "decimal",
+            "datetime",
+            "bool",
+            "enum",
+            "json"
+          ]
+        },
+        "unit": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "enum": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tables": {
+    "model_registry_record": {
+      "primary_key": [
+        "model_id",
+        "version"
+      ],
+      "fields": [
+        {
+          "name": "model_id",
+          "type": "string",
+          "required": true,
+          "desc": "模型标识，如 naive_n3 / linear_v1 / gbdt_v1 / quantile_v1 / ar_resid_v1"
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": true,
+          "desc": "语义化版本；特征集或超参变化必须升版本"
+        },
+        {
+          "name": "family",
+          "type": "enum",
+          "enum": "MODEL_FAMILY",
+          "required": true
+        },
+        {
+          "name": "scope",
+          "type": "enum",
+          "enum": "MODEL_SCOPE",
+          "required": true,
+          "desc": "模型口径：单用户（USER）或组合（PORTFOLIO）"
+        },
+        {
+          "name": "feature_set_hash",
+          "type": "string",
+          "required": true,
+          "desc": "实际使用特征子集的 sha256 前 16 位（沿用 #45 feature_set_hash 算法）"
+        },
+        {
+          "name": "training_window",
+          "type": "json",
+          "required": true,
+          "desc": "{start,end}，两端含；本票参考构建 = 2026-10-28 / P_CURVE 的训练窗"
+        },
+        {
+          "name": "hyperparams",
+          "type": "json",
+          "required": true,
+          "desc": "超参原样登记，取自 model.config.json"
+        },
+        {
+          "name": "metrics",
+          "type": "json",
+          "required": true,
+          "desc": "训练窗内指标 {n,mae,rmse,scope=TRAIN_WINDOW}"
+        },
+        {
+          "name": "seed",
+          "type": "int",
+          "required": true,
+          "desc": "随机种子（本期实现为确定性算法，登记以备后用）"
+        },
+        {
+          "name": "data_label",
+          "type": "string",
+          "required": true,
+          "desc": "SAMPLE-SYNTHETIC / REAL；带 SAMPLE-SYNTHETIC 的记录不得用于达标判定"
+        },
+        {
+          "name": "data_digest",
+          "type": "string",
+          "required": true,
+          "desc": "输入数据版本指纹（历史 + 日历文件字节 sha256 组合）"
+        },
+        {
+          "name": "artifact_digest",
+          "type": "string",
+          "required": true,
+          "desc": "参考构建产物指纹（产物规范 JSON 的 sha256 前 16 位）"
+        },
+        {
+          "name": "supported_origins",
+          "type": "json",
+          "required": true,
+          "desc": "该模型支持的起点集合，如 [P_CURVE,P_BID,P_REVIEW]"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "enum": "MODEL_STATUS",
+          "required": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "name": "code_version",
+          "type": "string",
+          "required": true,
+          "desc": "产出该记录的代码版本标识（本期 model-pipeline/1.0）"
+        },
+        {
+          "name": "build",
+          "type": "json",
+          "required": true,
+          "desc": "构建批次信息 {reference_target,reference_origin,config_digest}"
+        }
+      ]
+    },
+    "model_artifact": {
+      "primary_key": [
+        "model_id",
+        "version",
+        "user_id",
+        "origin_type",
+        "target_date"
+      ],
+      "fields": [
+        {
+          "name": "model_id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "version",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "desc": "逐用户建模；组合口径由本票之外的组合层汇总"
+        },
+        {
+          "name": "origin_type",
+          "type": "enum",
+          "enum": "ORIGIN_TYPE",
+          "required": true
+        },
+        {
+          "name": "target_date",
+          "type": "date",
+          "required": true,
+          "desc": "预测目标日（训练窗截止于该日之前的可得日）"
+        },
+        {
+          "name": "family",
+          "type": "enum",
+          "enum": "MODEL_FAMILY",
+          "required": true
+        },
+        {
+          "name": "feature_ids",
+          "type": "json",
+          "required": true,
+          "desc": "本模型实际使用的特征 id 列表（有序）"
+        },
+        {
+          "name": "feature_set_hash",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "target",
+          "type": "enum",
+          "enum": "TRAIN_TARGET",
+          "required": true,
+          "desc": "训练目标口径：RESIDUAL_ON_N3 = 学习相对 N3 基线的残差"
+        },
+        {
+          "name": "hyperparams",
+          "type": "json",
+          "required": true
+        },
+        {
+          "name": "params",
+          "type": "json",
+          "required": true,
+          "desc": "拟合出的模型参数（线性系数 / 树集合 / 分位数模型 / AR 系数）"
+        },
+        {
+          "name": "scaler",
+          "type": "json",
+          "required": true,
+          "desc": "标准化器 {feature_ids,mean,std}；只在训练窗 fit"
+        },
+        {
+          "name": "calibration",
+          "type": "json",
+          "required": true,
+          "desc": "区间校准层 {scope,min_points,slots,global,n_slots_calibrated,n_slots_total}；只在训练窗 fit"
+        },
+        {
+          "name": "training_window",
+          "type": "json",
+          "required": true,
+          "desc": "{start,end,n_days,n_rows,n_dropped_missing_label,n_dropped_missing_feature}"
+        },
+        {
+          "name": "train_metrics",
+          "type": "json",
+          "required": true,
+          "desc": "训练窗内指标 {n,mae,rmse,scope=TRAIN_WINDOW}"
+        },
+        {
+          "name": "seed",
+          "type": "int",
+          "required": true
+        },
+        {
+          "name": "data_label",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "data_digest",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "artifact_digest",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "created_at",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "name": "code_version",
+          "type": "string",
+          "required": true
+        }
+      ]
+    }
+  },
+  "enums": {
+    "MODEL_FAMILY": [
+      "NAIVE",
+      "LINEAR",
+      "GBDT",
+      "QUANTILE",
+      "SEQUENTIAL",
+      "ENSEMBLE"
+    ],
+    "MODEL_SCOPE": [
+      "USER",
+      "PORTFOLIO"
+    ],
+    "MODEL_STATUS": [
+      "DRAFT",
+      "ACTIVE",
+      "RETIRED"
+    ],
+    "ORIGIN_TYPE": [
+      "P_CURVE",
+      "P_BID",
+      "P_REVIEW"
+    ],
+    "TRAIN_TARGET": [
+      "RESIDUAL_ON_N3"
+    ],
+    "INTERVAL_SOURCE": [
+      "MODEL_CALIBRATED_SLOT",
+      "N2_WINDOW_EMPIRICAL",
+      "NOT_APPLICABLE_POINT_FORECAST"
+    ]
+  },
+  "invariants": [
+    "注册表只追加：(model_id, version) 唯一，不改写历史条目；同名模型换特征集必须换 version。",
+    "model_artifact.feature_set_hash 必须等于其 feature_ids 按 #45 feature_set_hash 算法重算的值。",
+    "校准层参数只能在训练窗内 fit：calibration.slots 中任一 slot 的 n 不得超过 training_window.n_days。",
+    "同 seed + 同 data_digest + 同训练窗 → 同 artifact_digest（产物可复现）。",
+    "区间口径：当 interval_source=MODEL_CALIBRATED_SLOT 时 p10 <= p50 <= p90 成立。",
+    "训练目标口径固定为 RESIDUAL_ON_N3：绝对值口径实测把高峰时段拉平，模型 MAE 劣化到基线的 4 倍以上。",
+    "带 data_label=SAMPLE-SYNTHETIC 的模型与误差表不得用于达标判定（地图 #22 硬约束：未核验数值不进自动判定）。"
+  ]
+}

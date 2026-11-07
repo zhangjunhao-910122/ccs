@@ -212,6 +212,61 @@
           "name": "created_at",
           "type": "datetime",
           "required": true
+        },
+        {
+          "name": "scope",
+          "type": "enum",
+          "enum": "MODEL_SCOPE",
+          "required": false,
+          "desc": "模型口径：USER / PORTFOLIO（#48 追加）"
+        },
+        {
+          "name": "metrics",
+          "type": "json",
+          "required": false,
+          "desc": "训练窗内指标 {n,mae,rmse,scope}（#48 追加）"
+        },
+        {
+          "name": "seed",
+          "type": "int",
+          "required": false,
+          "desc": "随机种子（#48 追加）"
+        },
+        {
+          "name": "data_label",
+          "type": "string",
+          "required": false,
+          "desc": "SAMPLE-SYNTHETIC / REAL（#48 追加）"
+        },
+        {
+          "name": "data_digest",
+          "type": "string",
+          "required": false,
+          "desc": "输入数据版本指纹（#48 追加）"
+        },
+        {
+          "name": "artifact_digest",
+          "type": "string",
+          "required": false,
+          "desc": "训练产物指纹（#48 追加）"
+        },
+        {
+          "name": "supported_origins",
+          "type": "json",
+          "required": false,
+          "desc": "支持的起点集合（#48 追加）"
+        },
+        {
+          "name": "code_version",
+          "type": "string",
+          "required": false,
+          "desc": "产出该记录的代码版本标识（#48 追加）"
+        },
+        {
+          "name": "build",
+          "type": "json",
+          "required": false,
+          "desc": "构建批次信息 {reference_target,reference_origin,config_digest}（#48 追加）"
         }
       ]
     },
@@ -448,7 +503,12 @@
       "LINEAR",
       "GBDT",
       "QUANTILE",
+      "SEQUENTIAL",
       "ENSEMBLE"
+    ],
+    "MODEL_SCOPE": [
+      "USER",
+      "PORTFOLIO"
     ],
     "MODEL_STATUS": [
       "DRAFT",
@@ -486,6 +546,7 @@
     "组合口径当 status=PARTIAL 时 coverage<0.99 且 observed_users<expected_users，禁止补零。",
     "p10 <= p50 <= p90（存在时）；point 缺失时至少 p50 存在。",
     "attribution.text 必须通过 check_attribution()，禁用词命中即拒绝入库。",
-    "tariff_segment 仅 100 kVA 及以上工商业用户非空，范围外为 null 且 reason=OUT_OF_SCOPE。"
+    "tariff_segment 仅 100 kVA 及以上工商业用户非空，范围外为 null 且 reason=OUT_OF_SCOPE。",
+    "同一 model_id 下 feature_set_hash 变化必须升 version，不得复用旧版本号（#48 追加）。"
   ]
 }

@@ -151,7 +151,7 @@ is_complete = coverage >= 0.99
 
 | 表 | 关键字段 | 约束 |
 |---|---|---|
-| `model_registry` | model_id, version, family, feature_set_hash, training_window, hyperparams, created_at, status | `(model_id, version)` 唯一；启用状态显式 |
+| `model_registry` | model_id, version, family, feature_set_hash, training_window, hyperparams, created_at, status；**#48 追加**：scope, metrics, seed, data_label, data_digest, artifact_digest, supported_origins, code_version, build | `(model_id, version)` 唯一；启用状态显式；追加字段一律 `required: false`，既有字段与约束未改动 |
 | `forecast_run` | run_id, origin_type, forecast_origin, target_date, model_id, model_version, feature_set_hash, degraded_features, created_at | 只追加；同 run 重跑生成新 run_id |
 | `forecast_prediction` | run_id, entity_type(USER/PORTFOLIO), entity_id, slot_no, p10, p50, p90, point, missing_features, tariff_segment | `(run_id, entity_type, entity_id, slot_no)` 唯一 |
 | `forecast_attribution` | run_id, entity_type, entity_id, slot_no, feature_id, contribution, direction, text, evidence | 文本必须过 G2 校验；`text` 不得为空 |
@@ -191,4 +191,5 @@ is_complete = coverage >= 0.99
 
 ## 14. 变更记录
 
+- v1.1（2026-11-07）：#48 加法式扩展 —— `model_registry` 表追加 10 个字段（scope / metrics / seed / data_label / data_digest / artifact_digest / supported_origins / code_version / build，均 `required: false`）、`MODEL_FAMILY` 枚举增 `SEQUENTIAL`、新增 `MODEL_SCOPE` 枚举；既有字段与约束未改动。详见[模型注册表与训练推理流水线规格](../model-registry/SPEC.md)。
 - v1.0（2026-11-05）：首版。落定三级起点、21 条特征台账、组合复算、峰平谷映射（77 号）、基线与指标口径、G2 归因约束；E1–E10 自检全通过。

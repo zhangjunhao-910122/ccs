@@ -1,0 +1,23 @@
+feature_id,family,availability_kind,supplied,reason
+f_load_same_hour_lag1,,,SUPPLIED,N1 口径：最近可得日同刻小时电量
+f_load_med7,,,SUPPLIED,N2 口径：最近 7 个可得日同刻中位数
+f_load_med_weekday8,,,SUPPLIED,N3 口径：同星期几最近 8 周同刻中位数
+f_load_peak_stats,,,SUPPLIED,最近 7 个可得日的日峰负荷中位数
+f_agency_user_set,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_contract_energy,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_retail_package,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_declared_energy,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_deviation_assessment,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_weather_forecast_temp,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_weather_forecast_humidity,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_calendar_day_type,,,SUPPLIED,目标日日类型编码
+f_calendar_position,,,SUPPLIED,目标日距月末天数
+f_production_correction,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_agency_change,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_system_load_forecast,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_renewable_forecast,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_tie_line_plan,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_da_price,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_rt_price,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_settlement_energy,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模
+f_monthly_settlement,,,NOT_PROVIDED,外部数据源未接入 / 真实样本未到位，本期不入模

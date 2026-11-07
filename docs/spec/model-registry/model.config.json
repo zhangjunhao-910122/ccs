@@ -1,0 +1,186 @@
+{
+  "version": "v1.0",
+  "ticket": 48,
+  "parent_map": 22,
+  "updated": "2026-11-07",
+  "data": {
+    "history_csv": "../forecast-backtest/samples/load_history_backtest.csv",
+    "calendar_csv": "../forecast-backtest/samples/business_calendar_2026.csv",
+    "data_label": "SAMPLE-SYNTHETIC",
+    "note": "复用 #31 的同一份合成样本（同一份数据，误差表才可比）；真实入库数据未到位（地图 #22 Q02），产出物一律标 SAMPLE-SYNTHETIC"
+  },
+  "availability": {
+    "shift_days": 1,
+    "cutoff": "00:00",
+    "origin_types": ["P_CURVE", "P_BID", "P_REVIEW"],
+    "note": "与 #31 backtest.config.json 同源；可得日反推只用 #31 的 latest_available_date()，不手填"
+  },
+  "backtest": {
+    "eval_start": "2026-10-01",
+    "eval_end": "2026-10-28",
+    "step_days": 1,
+    "horizon_hours": 24,
+    "n2_window_days": 7,
+    "n3_same_weekday_count": 8,
+    "interval_min_points": 3,
+    "primary_baseline": "N3",
+    "note": "n2_window_days / n3_same_weekday_count / interval_min_points 与 #31 一致，保证基线行逐格相同"
+  },
+  "metrics": {
+    "primary": ["MAE", "RMSE", "nMAE"],
+    "supplementary": ["MAPE"],
+    "mape_eps_mode": "P1_ALL_USERS_BEFORE_FIRST_ORIGIN",
+    "mape_eps_percentile": 1.0,
+    "mape_eps_fixed": null,
+    "mape_excluded_ratio_limit": 0.10,
+    "note": "指标函数不在本票实现：只用 #31 的 metrics()（#31 L8：#48 换模型不得换指标函数）"
+  },
+  "train": {
+    "window_days": 28,
+    "min_rows": 120,
+    "missing_feature_ratio_limit": 0.30,
+    "seed": 20261107,
+    "target": "RESIDUAL_ON_N3",
+    "calibration_folds": 4,
+    "calibration_recent_blocks": 2,
+    "note": "训练窗 = 目标日最近可得日往前 window_days 个有数据日；标签必须在起点可得；预处理对象只在训练窗 fit；训练目标为相对 N3 基线的残差（绝对值口径下全局模型无法表达分时段水平，实测 GBDT/分位数 MAE 劣化到基线 4 倍）；calibration_folds = 区间校准层的时间向前交叉拟合折数（每折校准样本用更早的数据训练出的模型预测，校准样本量等于整个训练窗）"
+  },
+  "preprocess": {
+    "scaler": "STANDARD",
+    "fit_scope": "TRAIN_WINDOW_ONLY",
+    "imputation": "NONE",
+    "note": "缺失显式不插值不补零；缩放器（均值/标准差）只在训练窗 fit，禁止跨期共享；不设缺失填充值"
+  },
+  "interval": {
+    "quantiles": [0.05, 0.5, 0.95],
+    "nominal_coverage": 0.9,
+    "calibration_tolerance_pp": 5.0,
+    "min_support_days": 3,
+    "winsorize_percentile": 2.0,
+    "acceptance_target": null,
+    "note": "分位数区间口径与校准要求由 #48 定义：名义覆盖 90% 对应双侧 P5/P95（用 P10/P90 只有 80% 宽度）；宽度取自时间向前交叉拟合的样本外误差（训练窗内误差是样本内乐观，对可拟合模型系统性偏窄）；分数按 winsorize_percentile 先裁剪极端值再取分位（早期折训练样本少、误差极端会污染分位）；分日型分组估分位并按日型判定达标——训练窗内同类日支持不足 min_support_days 的日型（法定节假日、调休上班日）只报实测值并标 UNSUPPORTED_DAYTYPE，不判达标；验收目标覆盖率由 #37 在基线确认后写死（地图 #22 决策 Q28：不预填），此处只留 null"
+  },
+  "feature_encoding": {
+    "f_calendar_day_type": {
+      "普通工作日": 0,
+      "调休上班日": 1,
+      "普通休息日": 2,
+      "法定节假日": 3
+    },
+    "f_calendar_position": "目标日距当月最后一天的天数",
+    "f_load_peak_stats": "最近 n2_window_days 个可得日的日均负荷（日均分量；日峰/日谷分量本期不入模）"
+  },
+  "day_groups": {
+    "WORKDAY": ["普通工作日", "调休上班日"],
+    "RESTDAY": ["普通休息日"],
+    "HOLIDAY": ["法定节假日"],
+    "note": "区间校准按日型分组估分位：同一训练窗里工作日与假期的残差分布不同（实测假期残差整体下移约 0.86），混在一起估会同时污染两侧；组内样本不足时回退全局分位"
+  },
+  "build": {
+    "created_at": "2026-11-07T00:00:00+08:00",
+    "note": "参考实现的构建时刻固定在配置里，保证产出物逐字节可复现；接入真实系统时由调用方传入实际时刻（run_id/created_at 随之变化，数值结果不变）"
+  },
+  "models": [
+    {
+      "model_id": "naive_n3",
+      "version": "v1",
+      "family": "NAIVE",
+      "enabled": true,
+      "supported_origins": ["P_CURVE", "P_BID", "P_REVIEW"],
+      "feature_ids": ["f_load_med_weekday8"],
+      "hyperparams": {}
+    },
+    {
+      "model_id": "linear_v1",
+      "version": "v1",
+      "family": "LINEAR",
+      "enabled": true,
+      "supported_origins": ["P_CURVE", "P_BID", "P_REVIEW"],
+      "feature_ids": [
+        "f_load_same_hour_lag1",
+        "f_load_med7",
+        "f_load_med_weekday8",
+        "f_load_peak_stats",
+        "f_calendar_day_type",
+        "f_calendar_position"
+      ],
+      "hyperparams": {
+        "ridge_lambda": 0.001
+      }
+    },
+    {
+      "model_id": "gbdt_v1",
+      "version": "v1",
+      "family": "GBDT",
+      "enabled": true,
+      "supported_origins": ["P_CURVE", "P_BID", "P_REVIEW"],
+      "feature_ids": [
+        "f_load_same_hour_lag1",
+        "f_load_med7",
+        "f_load_med_weekday8",
+        "f_load_peak_stats",
+        "f_calendar_day_type",
+        "f_calendar_position"
+      ],
+      "hyperparams": {
+        "n_estimators": 30,
+        "learning_rate": 0.1,
+        "max_depth": 3,
+        "min_samples_leaf": 20,
+        "subsample": 1.0
+      }
+    },
+    {
+      "model_id": "quantile_v1",
+      "version": "v1",
+      "family": "QUANTILE",
+      "enabled": true,
+      "supported_origins": ["P_CURVE", "P_BID", "P_REVIEW"],
+      "feature_ids": [
+        "f_load_same_hour_lag1",
+        "f_load_med7",
+        "f_load_med_weekday8",
+        "f_load_peak_stats",
+        "f_calendar_day_type",
+        "f_calendar_position"
+      ],
+      "hyperparams": {
+        "quantiles": [0.1, 0.5, 0.9],
+        "iterations": 80,
+        "learning_rate": 0.05,
+        "ridge_lambda": 0.001
+      }
+    },
+    {
+      "model_id": "ar_resid_v1",
+      "version": "v1",
+      "family": "SEQUENTIAL",
+      "enabled": true,
+      "supported_origins": ["P_CURVE", "P_BID", "P_REVIEW"],
+      "feature_ids": ["f_load_med_weekday8"],
+      "hyperparams": {
+        "ar_order": 1,
+        "min_pairs": 5
+      }
+    }
+  ],
+  "selection": {
+    "default_by_origin": {
+      "P_CURVE": "gbdt_v1",
+      "P_BID": "linear_v1",
+      "P_REVIEW": "naive_n3"
+    },
+    "fallback": "LATEST_ACTIVE_SUPPORTING",
+    "note": "按目标与口径切换的唯一入口：上层只调 run_forecast()，换模型只改这里与注册表"
+  },
+  "forecast_runs": {
+    "target_dates": ["2026-10-01", "2026-10-15", "2026-10-28"],
+    "origin_types": ["P_CURVE", "P_BID", "P_REVIEW"],
+    "note": "落盘 forecast_run / forecast_prediction 记录的期次；回测 28 期全跑，点级明细不落盘（体积），只落误差表与分期汇总"
+  },
+  "registry": {
+    "reference_target": "2026-10-28",
+    "reference_origin": "P_CURVE",
+    "note": "注册表登记模型定义；参考构建 = 以 reference_target/reference_origin 训练的那次产物，其训练窗与指标写进注册表；同一 model_id 只能一条 (model_id, version)"
+  }
+}

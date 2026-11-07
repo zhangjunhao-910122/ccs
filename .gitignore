@@ -27,3 +27,7 @@ tools/__pycache__/
 tools/tests/__pycache__/
 docs/spec/data-storage/__pycache__/
 __pycache__/
+
+# 模型注册表回测产物不入库（可由 reference_model_pipeline.py --run 重新生成；
+# 入库的是 samples/ 与 verification.txt）
+docs/spec/model-registry/out/
