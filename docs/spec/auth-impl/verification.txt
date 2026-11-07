@@ -1,0 +1,13 @@
+[PASS] E1 六角色 54 格逐格一致：核对 54 格，差异 0 处
+[PASS] E2 未声明即拒绝：未知角色 NO_ROLE / 未知维度 UNKNOWN_DIMENSION / 未声明动作 UNKNOWN_ACTION
+[PASS] E3 字段级掩码：HIGHLY 默认掩码 2 字段、双人会签解掩、单签被拒、掩码稳定 MASK-H61ef
+[PASS] E4 无写入真实交易系统通路：54 格无禁止动作；六角色 × 3 个真实交易动作全 FORBIDDEN_ACTION；平台效果 ['READ', 'PROPOSE', 'SIMULATE']
+[PASS] E5 会话失效：空闲 30 分钟失效、绝对 12 小时失效、登出即时失效；与 #29 SessionStore 口径一致
+[PASS] E6 锁定限流与越权全拒：5 次失败锁 15 分钟→RATE_LIMITED；同 IP 15 分钟 20 次→RATE_LIMITED；6 个越权探针全 DENY 且有审计
+[PASS] E7 拒绝同形不泄露存在性：存在/不存在/未知动作 → 同一错误体；越权裁定码一致 NO_GRANT
+[PASS] E8 审计同构与只追加：事件 10 条（ALLOW 4 / DENY 6）、字段集统一且含 AU18 全字段、链校验通过、篡改即断链、每日锚定 10 条、留存 180+1095 天分级
+[PASS] E9 能力投影唯一且与矩阵一致：与 #46 compress_capabilities 逐字节相同；无矩阵外能力；响应形状符合 openapi
+[PASS] E10 轮换与改密吊销：轮换后旧令牌失效、新令牌可用、轮换链可追；改密吊销该账号全部会话
+[PASS] E11 认证状态机与错误码：口令错/账号不存在同形 UNAUTHENTICATED；ADMIN 强制 TOTP（MFA_REQUIRED/MFA_INVALID/通过）；服务账号不可交互登录；Cookie HttpOnly+Secure+SameSite=Lax；再认证 5 分钟有效
+
+Summary: 11/11 PASS
