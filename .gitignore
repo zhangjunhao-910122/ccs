@@ -13,6 +13,8 @@
 !docs/spec/**
 !docs/notes/
 !docs/notes/**
+!docs/prototype/
+!docs/prototype/**
 !audit-point-library/
 !audit-point-library/**
 !tools/

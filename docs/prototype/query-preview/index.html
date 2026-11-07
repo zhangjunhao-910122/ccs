@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>查询预览界面形态 · 原型（throwaway）</title>
+<!--
+  原型：查询预览界面形态（#40）
+  问题：查询预览页应该长什么样？（评布局与信息密度，不是验后端逻辑）
+  变体数：3，用 ?variant=A|B|C 切换，底部浮动条 + 左右方向键切换
+  一次性代码（throwaway）：做完决策即删，不进 main
+  跑法：双击本文件打开（file:// 下 ?variant= 生效）；也可用浏览器打开后改地址栏参数
+  假数据对齐口径：#33 统一数据契约（D01–D16、C6/C7/C8/C9/C12）、#46 API 契约（A6/A7/A8/A9/A10/A15）、
+                #29 认证与权限（掩码 MASK-Hxxxx、scope、reason_code、审计 18 字段）
+  三条硬约束：① 预览 ≠ 执行（平台效果只有 READ/PROPOSE/SIMULATE，无写交易系统通道）
+              ② 口径必须显式可见（数据集 / 业务日范围 / 粒度 / as_of / 覆盖与掩码状态同屏可见）
+              ③ 同一页面按权限裁剪（掩码有可见标记；无数据与无权限是显式空态，禁止 0 填充）
+-->
+<style>
+:root{
+  --bg:#0f1216; --panel:#171b21; --panel2:#1d222a; --line:#2a313b; --line2:#3a434f;
+  --fg:#e6e9ee; --fg2:#9aa4b2; --fg3:#6b7684;
+  --accent:#4c8dff; --accent2:#2f6fe0; --ok:#3fb98c; --warn:#e0a63c; --bad:#e05a5a; --mask:#8b7bd8;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:14px/1.55 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+a{color:var(--accent)}
+.mono{font-family:var(--mono)}
+button{font:inherit;color:inherit;background:var(--panel2);border:1px solid var(--line2);border-radius:6px;padding:5px 10px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+select,input{font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line2);border-radius:6px;padding:4px 7px}
+h1{font-size:16px;margin:0}
+h2{font-size:13px;margin:0 0 8px;color:var(--fg2);font-weight:600;letter-spacing:.3px}
+.chip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line2);border-radius:999px;padding:2px 9px;font-size:12px;background:var(--panel2)}
+.chip .k{color:var(--fg3)}
+.chip.mask{border-color:var(--mask);color:#c9bfff}
+.chip.warn{border-color:var(--warn);color:#f0c477}
+.chip.ok{border-color:var(--ok);color:#7fd7b4}
+.chip.bad{border-color:var(--bad);color:#f0a0a0}
+.badge{font-size:11px;border-radius:4px;padding:1px 6px;border:1px solid var(--line2);color:var(--fg2)}
+.badge.highly{color:#f0a0a0;border-color:#7a3a3a}
+.badge.sensitive{color:#f0c477;border-color:#7a5f2a}
+.badge.public{color:#7fd7b4;border-color:#2f6b52}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--fg3);font-weight:600;font-size:11.5px}
+td.num{text-align:right;font-family:var(--mono)}
+tr.sel td{background:#1b2740}
+.maskv{color:#c9bfff;font-family:var(--mono)}
+.muted{color:var(--fg3)}
+.note{font-size:12px;color:var(--fg2)}
+.statebar{font-family:var(--mono);font-size:11.5px;color:var(--fg3);border-top:1px dashed var(--line2);margin-top:10px;padding-top:8px}
+.empty{border:1px dashed var(--line2);border-radius:8px;padding:16px;color:var(--fg2);background:#12161b}
+.empty b{color:var(--fg)}
+.proto-flag{background:repeating-linear-gradient(45deg,#3a2f12,#3a2f12 8px,#453718 8px,#453718 16px);color:#f0c477;border:1px solid #6b5420;border-radius:6px;padding:3px 9px;font-size:12px}
+
+/* ---------- 顶部条（三个变体共用） ---------- */
+.topbar{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.topbar .sp{flex:1}
+.roleset{display:flex;gap:4px;align-items:center}
+.roleset button{padding:3px 9px;font-size:12px}
+.roleset button[aria-pressed="true"]{background:var(--accent2);border-color:var(--accent);color:#fff}
+
+/* ---------- 浮动切换条 ---------- */
+.switcher{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;display:flex;align-items:center;gap:10px;
+  background:#0b0e12;border:1px solid var(--line2);border-radius:999px;padding:6px 12px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:99}
+.switcher button{border-radius:999px;padding:2px 12px;background:#1b222c}
+.switcher .cur{font-size:12.5px;min-width:150px;text-align:center}
+.switcher .cur b{color:var(--accent)}
+
+/* ================= Variant A：左条件 / 中结果 / 右口径元数据 ================= */
+.a-grid{display:grid;grid-template-columns:270px minmax(0,1fr) 300px;gap:12px;padding:12px 14px 76px;align-items:start}
+.a-col{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+.field{margin-bottom:10px}
+.field label{display:block;font-size:11.5px;color:var(--fg3);margin-bottom:3px}
+.field select,.field input{width:100%}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.kpi{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+.kpi .v{font-size:19px;font-family:var(--mono)}
+.kpi .l{font-size:11.5px;color:var(--fg3)}
+.a-mid h2{margin-top:14px}
+.a-right .kv{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:3px 0;border-bottom:1px dotted var(--line)}
+.a-right .kv span:last-child{font-family:var(--mono);text-align:right}
+.qtable td,.qtable th{padding-left:5px;padding-right:5px}
+
+/* ================= Variant B：顶部口径条 + 纵向叙事 ================= */
+.b-wrap{padding:0 0 76px}
+.b-sticky{position:sticky;top:0;z-index:5;background:#141920;border-bottom:1px solid var(--line);padding:8px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.b-main{max-width:1180px;margin:0 auto;padding:14px 16px}
+.b-hero{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+.b-legend{display:flex;gap:14px;font-size:11.5px;color:var(--fg3);margin-top:6px;flex-wrap:wrap}
+.b-hero h2{margin-top:0}
+details.fold{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:12px}
+details.fold>summary{cursor:pointer;font-size:13px;color:var(--fg2)}
+.b-foot{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.b-foot .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px}
+
+/* ================= Variant C：主从双栏 + 抽屉 ================= */
+.c-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:12px;padding:12px 14px 76px;align-items:start}
+.c-list{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.c-row{display:grid;grid-template-columns:118px 44px 92px 1fr 96px;gap:8px;align-items:center;padding:6px 11px;border-bottom:1px solid var(--line);cursor:pointer;font-size:12.5px}
+.c-row:hover{background:#1b2027}
+.c-row.on{background:#1b2740;border-left:3px solid var(--accent)}
+.c-row .t{font-family:var(--mono);font-size:11.5px;color:var(--fg2)}
+.c-detail{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+.c-detail .kv{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:5px 0;border-bottom:1px dotted var(--line)}
+.c-detail .kv span:last-child{font-family:var(--mono)}
+.drawer{position:fixed;top:0;right:0;height:100%;width:330px;background:#141920;border-left:1px solid var(--line2);padding:14px;z-index:40;overflow:auto;transform:translateX(100%);transition:transform .18s;box-shadow:-8px 0 24px rgba(0,0,0,.4)}
+.drawer.open{transform:none}
+.drawer .masked{position:absolute;right:-1px;top:52px;background:var(--accent2);color:#fff;font-size:11px;padding:2px 8px;border-radius:6px 0 0 6px;cursor:pointer}
+.spark{display:block}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="proto-flag">原型 · throwaway · 假数据</span>
+  <h1>查询预览</h1>
+  <span class="muted" id="variantTag">变体</span>
+  <span class="sp"></span>
+  <span class="note">当前身份</span>
+  <div class="roleset" id="roleset"></div>
+</div>
+
+<div id="root"></div>
+
+<div class="switcher" id="switcher">
+  <button id="prev" title="上一个变体（←）">◀</button>
+  <div class="cur" id="cur"></div>
+  <button id="next" title="下一个变体（→）">▶</button>
+</div>
+
+<script>
+/* ===================== 假数据（对齐 #33 契约字段与 #46 契约语义） ===================== */
+const ENERGY = [0.62,0.51,0.48,0.45,0.50,0.71,0.95,1.20,1.42,1.51,1.47,1.38,1.22,1.10,1.06,1.12,1.28,1.55,1.86,1.94,1.71,1.38,1.02,0.79];
+const MISSING_SLOT = 13;                 // 缺测一小时 → coverage_ratio = 23/24 = 0.958
+const MASK_VALUE = "MASK-H61ef";         // #29 mask_value() 形态：MASK-H + sha256 前 4 位
+const C_MASK="#8b7bd8", C_POINT="#4c8dff", C_DIM="#3a4a63";   // 颜色常量（避免在模板表达式里写字符串字面量）
+const USER_ID_MASKED = "a1b2c3d4e5f6";   // #33 C8：标识类字段脱敏 = SHA-256 前 12 位
+
+const DATASETS = [
+  {code:"D04", title:"用户负荷曲线", sensitivity:"HIGHLY", grain:"小时", state:"ok"},
+  {code:"D09", title:"日清数据", sensitivity:"HIGHLY", grain:"时段", state:"ok"},
+  {code:"D11", title:"天气数据", sensitivity:"PUBLIC", grain:"小时", state:"ok"},
+  {code:"D12", title:"节假日与交易日历", sensitivity:"PUBLIC", grain:"日", state:"ok"},
+  {code:"D13", title:"生产计划修正", sensitivity:"SENSITIVE", grain:"日", state:"ok"},
+  {code:"D02", title:"用户主数据", sensitivity:"HIGHLY", grain:"静态", state:"forbidden"}
+];
+
+const ROLES = {
+  TRADER:  {label:"交易员", scope:"GRANT", expose:false, note:"SENSITIVE_DATA 范围=GRANT，未取得授权 → HIGHLY 数值默认掩码"},
+  RISK:    {label:"风控",   scope:"GRANT", expose:true,  note:"已获 GRANT + expose=HIGHLY + 双人会签 → 数值可见；主体标识仍脱敏"},
+  AUDITOR: {label:"审计",   scope:"ALL",   expose:true,  note:"SENSITIVE_DATA 范围=ALL，cell mask=MASKED → 数值可见、标识脱敏"}
+};
+
+const state = {
+  variant: new URLSearchParams(location.search).get("variant") || "A",
+  role: (new URLSearchParams(location.search).get("role") || "TRADER"),
+  dataset: "D04",
+  from: "2026-10-29", to: "2026-11-05",
+  granularity: "slot",
+  asOf: "2026-11-05T12:00:00+08:00",
+  selected: 12
+};
+
+/* 固定假行（业务日 2026-11-04，D04 业务键 user_id+business_date+slot_no） */
+function buildRows(){
+  const rows = [];
+  for(let i=0;i<24;i++){
+    const slot = i+1;
+    const missing = (slot-1) === MISSING_SLOT;
+    rows.push({
+      business_date:"2026-11-04",
+      slot_no:slot,
+      interval_start:`2026-11-04T${String(slot-1).padStart(2,"0")}:00:00+08:00`,
+      energy_mwh: missing ? null : ENERGY[i],
+      observed_sum_mwh: missing ? null : Number((ENERGY[i]*1.02).toFixed(3)),
+      source_15min_count: missing ? 0 : 4,
+      quality_flag: missing ? "MISSING" : (slot===18 ? "UNIT_WARN" : "OK"),
+      user_id:"USER-4201-000123-X"
+    });
+  }
+  return rows;
+}
+const ROWS = buildRows();
+
+/* 裁剪：把 #29 的裁定口径显式化（可见的掩码标记 + 可见的 reason_code） */
+function crop(ds, role){
+  const r = ROLES[role];
+  if(ds.state === "forbidden"){
+    return {state:"forbidden", rows:[], masked:[], reason:"HIGHLY_REQUIRES_TWO_APPROVERS",
+            notes:"该数据集为 HIGHLY_SENSITIVE，当前主体没有 GRANT + expose=HIGHLY 的双人会签授权，不能显示任何字段（连行数都不给）。"};
+  }
+  if(ds.sensitivity === "HIGHLY" && !r.expose){
+    return {state:"ok", rows:ROWS.map(x=>({...x, energy_mwh:"masked", observed_sum_mwh:"masked"})), masked:["energy_mwh","observed_sum_mwh"],
+            reason:"NO_GRANT",
+            notes:"HIGHLY 数据在未获双人会签授权前一律掩码；数值不保留量级、不可排序，表头仍显示字段名以免「看起来没有这个字段」。"};
+  }
+  const rows = ROWS.map(x=>({...x, user_id: ds.sensitivity==="PUBLIC" ? x.user_id : USER_ID_MASKED}));
+  const masked = ds.sensitivity==="PUBLIC" ? [] : ["user_id"];
+  return {state:"ok", rows, masked, reason: null,
+          notes: masked.length ? "主体标识按 #33 C8 脱敏（SHA-256 前 12 位）后展示。" : ""};
+}
+
+/* 覆盖与质量（#26 T7 / #33 C7） */
+function coverage(){
+  const valid = 23, expected = 24;
+  return {valid_hours:valid, expected_hours:expected, coverage_ratio:(valid/expected).toFixed(3)};
+}
+const QUALITY = [
+  {rule:"Q01 MISSING", level:"BLOCK", n:1, note:"slot_no=14 缺测 1 小时"},
+  {rule:"Q02 DUP",      level:"—",    n:0, note:""},
+  {rule:"Q03 RANGE",    level:"—",    n:0, note:""},
+  {rule:"Q04 SHIFT",    level:"—",    n:0, note:""},
+  {rule:"Q05 UNIT",     level:"WARN", n:1, note:"slot_no=19 源单位不一致，已换算"},
+  {rule:"Q06 LOGIC",    level:"—",    n:0, note:""}
+];
+
+function dataset(){ return DATASETS.find(d=>d.code===state.dataset); }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c])); }
+function chip(k,v,cls){ return `<span class="chip ${cls||""}"><span class="k">${k}</span>${v}</span>`; }
+function sensBadge(s){ const cls = s==="HIGHLY"?"highly":(s==="SENSITIVE"?"sensitive":"public"); return `<span class="badge ${cls}">${s}</span>`; }
+function emptyState(c, ds){
+  return `<div class="empty"><b>${c.state==="forbidden"?"无权限":"无数据"}</b> · ${esc(ds.title)}（${ds.code}）
+    <div class="note" style="margin-top:6px">${esc(c.notes||"该范围与粒度下没有数据。")}</div>
+    <div class="note mono" style="margin-top:6px">state=empty · reason_code=${esc(c.reason||"NO_DATA")}</div></div>`;
+}
+
+/* ===================== 变体 A：三栏工作台 ===================== */
+function VariantA(){
+  const ds = dataset(), c = crop(ds, state.role), cov = coverage();
+  const usable = c.state==="ok";
+  const total = usable ? c.rows.reduce((s,r)=> s + (typeof r.energy_mwh==="number"? r.energy_mwh : 0), 0) : null;
+  const shown = usable ? c.rows.slice(0,8) : [];
+  const maxE = Math.max(...ENERGY);
+
+  const line = usable ? c.rows.map((r,i)=>{
+    const x = 34 + i*28.5, y = 178 - (typeof r.energy_mwh==="number"? r.energy_mwh:0)/maxE*140;
+    const masked = r.energy_mwh==="masked";
+    const miss = r.energy_mwh===null;
+    const fill = masked ? C_MASK : C_POINT, op = masked ? 0.55 : 1;
+    return (miss? "" : `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${masked?3:2.4}" fill="${fill}" opacity="${op}"/>`);
+  }).join("") : "";
+  const poly = usable ? c.rows.map((r,i)=>{
+    const x = 34 + i*28.5, y = 178 - (typeof r.energy_mwh==="number"? r.energy_mwh:0)/maxE*140;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(" ") : "";
+
+  return `
+  <div class="a-grid">
+    <div class="a-col">
+      <h2>查询条件</h2>
+      <div class="field"><label>数据集</label>
+        <select id="ds">${DATASETS.map(d=>`<option value="${d.code}" ${d.code===state.dataset?"selected":""}>${d.code} · ${d.title}${d.state==="forbidden"?"（不可用）":""}</option>`).join("")}</select></div>
+      <div class="field"><label>业务日范围（含 from，不含 to）</label>
+        <div style="display:flex;gap:6px"><input id="from" value="${state.from}"><input id="to" value="${state.to}"></div></div>
+      <div class="field"><label>粒度</label>
+        <select id="gran"><option ${state.granularity==="slot"?"selected":""}>slot</option><option>day</option><option>month</option><option>year</option></select></div>
+      <div class="field"><label>as_of（双时态命中版本）</label><input id="asof" value="${state.asOf}"></div>
+      <div class="field"><label>过滤（等值 / in，非 TBD 非掩码字段）</label>
+        <div class="mono note">user_id in [USER-4201-000123-X]</div></div>
+      <div class="field"><label>聚合</label><div class="note">电量求和 · 官方价保持原值 · 自有价电量加权 · 质量取最差</div></div>
+      <div class="field"><label>导出</label>
+        <button disabled title="HIGHLY 一律拒绝">导出（不可用）</button>
+        <div class="note" style="margin-top:4px">HIGHLY 数据集导出拒绝：DATA_EXPORT_DENIED</div></div>
+    </div>
+
+    <div class="a-col a-mid">
+      <div class="kpis">
+        <div class="kpi"><div class="l">总电量（MWh）</div><div class="v">${total===null?"—":total.toFixed(3)}</div></div>
+        <div class="kpi"><div class="l">覆盖（valid/expected）</div><div class="v">${cov.valid_hours}/${cov.expected_hours}</div><div class="l mono">coverage_ratio=${cov.coverage_ratio}</div></div>
+        <div class="kpi"><div class="l">当前页行数</div><div class="v">${usable?c.rows.length:0}</div><div class="l">不提供总数，按游标翻页</div></div>
+        <div class="kpi"><div class="l">被掩码字段</div><div class="v">${c.masked.length}</div><div class="l">${c.masked.join(", ")||"无"}</div></div>
+      </div>
+      ${usable?`
+      <h2>时序（24 时段）</h2>
+      <svg viewBox="0 0 720 200" width="100%" height="200" role="img" aria-label="24 时段电量">
+        <line x1="34" y1="178" x2="712" y2="178" stroke="#2a313b"/>
+        <line x1="34" y1="38" x2="34" y2="178" stroke="#2a313b"/>
+        <polyline points="${poly}" fill="none" stroke="#4c8dff" stroke-width="1.8" ${c.rows.some(r=>r.energy_mwh==="masked")?'stroke-dasharray="4 3"':""}/>
+        ${line}
+        ${c.rows.map((r,i)=> r.energy_mwh===null
+          ? `<rect x="${(30+i*28.5).toFixed(1)}" y="168" width="18" height="10" fill="none" stroke="#e05a5a" stroke-dasharray="3 2"/>`
+          : "").join("")}
+        ${[0,6,12,18,23].map(i=>`<text x="${(30+i*28.5).toFixed(1)}" y="194" fill="#6b7684" font-size="10">${i+1}:00</text>`).join("")}
+        <text x="6" y="44" fill="#6b7684" font-size="10">${maxE.toFixed(1)}</text>
+        <text x="6" y="180" fill="#6b7684" font-size="10">0</text>
+      </svg>
+      <div class="b-legend">
+        <span>● 正常点</span><span style="color:#c9bfff">● 已掩码（数值不保留量级）</span>
+        <span style="color:#e05a5a">▢ 缺测（不插值，电量给 null）</span>
+      </div>
+      <h2>明细（前 8 行）</h2>
+      <table class="qtable"><thead><tr>
+        <th>business_date</th><th>slot_no</th><th>interval_start</th><th style="text-align:right">energy_mwh</th>
+        <th style="text-align:right">source_15min_count</th><th>quality_flag</th><th>user_id</th></tr></thead><tbody>
+        ${shown.map(r=>`<tr>
+          <td class="mono">${r.business_date}</td><td class="mono">${r.slot_no}</td><td class="mono">${r.interval_start}</td>
+          <td class="num ${r.energy_mwh==="masked"?"maskv":""}">${r.energy_mwh==="masked"?MASK_VALUE:(r.energy_mwh===null?"null":r.energy_mwh.toFixed(3))}</td>
+          <td class="num">${r.source_15min_count}</td><td class="mono">${r.quality_flag}</td>
+          <td class="mono ${r.user_id===USER_ID_MASKED?"maskv":""}">${r.user_id}</td></tr>`).join("")}
+      </tbody></table>
+      <div class="note" style="margin-top:6px">只显示前 8 行；接口不提供总数，翻页走不透明游标（15 分钟过期）。</div>
+      `:emptyState(c, ds)}
+    </div>
+
+    <div class="a-col a-right">
+      <h2>口径与核验</h2>
+      <div class="kv"><span>数据集</span><span>${ds.code} ${ds.title}</span></div>
+      <div class="kv"><span>敏感级别</span><span>${sensBadge(ds.sensitivity)}</span></div>
+      <div class="kv"><span>业务日范围</span><span>${state.from} → ${state.to}</span></div>
+      <div class="kv"><span>粒度</span><span>${state.granularity}</span></div>
+      <div class="kv"><span>as_of</span><span>${state.asOf}</span></div>
+      <div class="kv"><span>coverage_ratio</span><span>${cov.coverage_ratio}</span></div>
+      <div class="kv"><span>掩码字段</span><span>${c.masked.join(", ")||"无"}</span></div>
+      <div class="kv"><span>裁定 reason_code</span><span>${esc(c.reason||"ALLOW")}</span></div>
+      <h2 style="margin-top:14px">来源</h2>
+      <div class="kv"><span>batch_id</span><span>BATCH-20261104-03</span></div>
+      <div class="kv"><span>src_file</span><span>S01_2026-11-04.csv</span></div>
+      <div class="kv"><span>template_fingerprint</span><span>a3f9…c21</span></div>
+      <div class="kv"><span>imported_at</span><span>2026-11-04T03:12:07+08:00</span></div>
+      <h2 style="margin-top:14px">质量规则</h2>
+      <table><tbody>${QUALITY.map(q=>`<tr><td>${q.rule}</td><td>${q.level==="—"?"":`<span class="badge ${q.level==="BLOCK"?"highly":"sensitive"}">${q.level}</span>`}</td><td class="num">${q.n}</td></tr>`).join("")}</tbody></table>
+      <div class="note" style="margin-top:6px">A02 门槛：完整率 ≥99% 且异常可定位 → 本批次 ${((23/24)*100).toFixed(1)}%，达门槛。</div>
+      <h2 style="margin-top:14px">本次审计</h2>
+      <div class="kv"><span>event_id</span><span>E004211</span></div>
+      <div class="kv"><span>actor / roles</span><span>u-1001 / [${state.role}]</span></div>
+      <div class="kv"><span>dimension / action</span><span>SENSITIVE_DATA / VIEW</span></div>
+      <div class="kv"><span>verdict</span><span>${c.reason?"DENY":"ALLOW"}</span></div>
+      <div class="kv"><span>dataset / row_count</span><span>${ds.code} / ${usable?c.rows.length:0}</span></div>
+      <div class="kv"><span>granularity / as_of</span><span>${state.granularity}</span></div>
+    </div>
+  </div>
+  ${statebar(c,ds)}`;
+}
+
+/* ===================== 变体 B：顶部口径条 + 纵向叙事 ===================== */
+function VariantB(){
+  const ds = dataset(), c = crop(ds, state.role), cov = coverage();
+  const usable = c.state==="ok";
+  const total = usable ? c.rows.reduce((s,r)=> s + (typeof r.energy_mwh==="number"? r.energy_mwh:0), 0) : null;
+  const bars = c.rows.map((r,i)=>{
+    const v = typeof r.energy_mwh==="number" ? r.energy_mwh : 0;
+    const sc = r.energy_mwh==="masked" ? C_MASK : C_DIM;
+    const h = (v/Math.max(...ENERGY))*150;
+    const masked = r.energy_mwh==="masked";
+    const fill = masked ? C_MASK : C_POINT, op = masked ? 0.45 : 1;
+    return `<rect x="${40+i*46}" y="${190-h}" width="26" height="${h}" fill="${fill}" opacity="${op}" rx="2"/>`;
+  }).join("");
+  const gaps = c.rows.map((r,i)=> r.energy_mwh===null
+    ? `<rect x="${40+i*46}" y="172" width="26" height="18" fill="none" stroke="#e05a5a" stroke-dasharray="3 2"/>` : "").join("");
+
+  return `
+  <div class="b-wrap">
+    <div class="b-sticky">
+      ${chip("数据集", `${ds.code} ${ds.title}`)}
+      ${chip("敏感", ds.sensitivity)}
+      ${chip("业务日", `${state.from} → ${state.to}`)}
+      ${chip("粒度", state.granularity)}
+      ${chip("as_of", state.asOf)}
+      ${chip("覆盖", cov.coverage_ratio, "warn")}
+      ${chip("掩码", c.masked.length?c.masked.join(", "):"无", c.masked.length?"mask":"ok")}
+      ${chip("动作", "仅 READ（无写交易系统通道）")}
+    </div>
+    <div class="b-main">
+      <div class="b-hero">
+        <h2>电量时序 · 业务日 2026-11-04</h2>
+        ${usable?`<svg viewBox="0 0 1180 220" width="100%" height="220" role="img" aria-label="24 时段电量柱状图">
+          <line x1="34" y1="190" x2="1160" y2="190" stroke="#2a313b"/>
+          ${bars}${gaps}
+          ${[0,4,8,12,16,20,23].map(i=>`<text x="${36+i*46}" y="208" fill="#6b7684" font-size="11">${String(i+1).padStart(2,"0")}:00</text>`).join("")}
+        </svg>
+        <div class="b-legend">
+          <span>合计 ${total.toFixed(3)} MWh</span><span>·</span><span>valid ${cov.valid_hours} / expected ${cov.expected_hours}</span><span>·</span>
+          <span style="color:#e05a5a">缺测 1 小时（电量 null，不插值）</span>
+          ${c.masked.includes("energy_mwh")?`<span>·</span><span style="color:#c9bfff">数值已掩码，柱高不可读</span>`:""}
+        </div>`:emptyState(c, ds)}
+      </div>
+
+      <details class="fold" open>
+        <summary>明细表（${usable?c.rows.length:0} 行，字段按契约默认列）</summary>
+        ${usable?`<table style="margin-top:8px"><thead><tr>
+          <th>business_date</th><th>slot_no</th><th>interval_start</th><th style="text-align:right">energy_mwh</th>
+          <th style="text-align:right">observed_sum_mwh</th><th style="text-align:right">source_15min_count</th>
+          <th>quality_flag</th><th>user_id</th></tr></thead><tbody>
+          ${c.rows.map(r=>`<tr>
+            <td class="mono">${r.business_date}</td><td class="mono">${r.slot_no}</td><td class="mono">${r.interval_start}</td>
+            <td class="num ${r.energy_mwh==="masked"?"maskv":""}">${r.energy_mwh==="masked"?MASK_VALUE:(r.energy_mwh===null?"null":r.energy_mwh.toFixed(3))}</td>
+            <td class="num ${r.observed_sum_mwh==="masked"?"maskv":""}">${r.observed_sum_mwh==="masked"?MASK_VALUE:(r.observed_sum_mwh===null?"null":r.observed_sum_mwh.toFixed(3))}</td>
+            <td class="num">${r.source_15min_count}</td><td class="mono">${r.quality_flag}</td>
+            <td class="mono ${r.user_id===USER_ID_MASKED?"maskv":""}">${r.user_id}</td></tr>`).join("")}
+        </tbody></table>`:`<div class="note" style="margin-top:8px">无数据可展开。</div>`}
+      </details>
+
+      <div class="b-foot">
+        <div class="panel">
+          <h2>来源</h2>
+          <div class="note mono">batch_id: BATCH-20261104-03<br>src_file: S01_2026-11-04.csv<br>template_fingerprint: a3f9…c21<br>imported_at: 2026-11-04T03:12:07+08:00</div>
+        </div>
+        <div class="panel">
+          <h2>核验状态</h2>
+          <div class="note">质量规则：${QUALITY.filter(q=>q.n>0).map(q=>`${q.rule} ${q.level}×${q.n}`).join("、")}；其余 0。<br>完整率 ${((23/24)*100).toFixed(1)}% ≥ 99%（A02 门槛）。<br>coverage_ratio ${cov.coverage_ratio} &lt; 1 → 电量 null + observed_sum_mwh 诊断值。</div>
+        </div>
+        <div class="panel">
+          <h2>权限与审计</h2>
+          <div class="note">主体：${esc(state.role)}（${ROLES[state.role].scope}）<br>${esc(ROLES[state.role].note)}<br>
+          裁定：${c.reason?`DENY · ${c.reason}`:"ALLOW"} · masked_fields=[${c.masked.join(", ")}]<br>
+          审计：E004211 · actor=u-1001 · SENSITIVE_DATA/VIEW · dataset=${ds.code}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  ${statebar(c,ds)}`;
+}
+
+/* ===================== 变体 C：主从双栏 + 抽屉 ===================== */
+function VariantC(){
+  const ds = dataset(), c = crop(ds, state.role), cov = coverage();
+  const usable = c.state==="ok";
+  const sel = usable ? c.rows[Math.min(state.selected, c.rows.length-1)] : null;
+  const maxE = Math.max(...ENERGY);
+
+  const list = usable ? c.rows.map((r,i)=>{
+    const v = typeof r.energy_mwh==="number" ? r.energy_mwh : 0;
+    const sc = r.energy_mwh==="masked" ? C_MASK : C_DIM;
+    const spark = `<svg class="spark" width="120" height="18" viewBox="0 0 120 18">${
+      ENERGY.map((e,j)=>`<rect x="${(j*5).toFixed(1)}" y="${(18-e/maxE*16).toFixed(1)}" width="3.4" height="${(e/maxE*16).toFixed(1)}" fill="${sc}"/>`).join("")
+    }</svg>`;
+    return `<div class="c-row ${i===state.selected?"on":""}" data-i="${i}">
+      <span class="t">${r.business_date} ${String(r.slot_no).padStart(2,"0")}:00</span>
+      <span class="mono">#${r.slot_no}</span>
+      <span class="num ${r.energy_mwh==="masked"?"maskv":""}">${r.energy_mwh==="masked"?MASK_VALUE:(r.energy_mwh===null?"null":r.energy_mwh.toFixed(3))}</span>
+      ${spark}
+      <span class="mono">${r.quality_flag}</span>
+    </div>`;
+  }).join("") : `<div style="padding:12px">${emptyState(c, ds)}</div>`;
+
+  return `
+  <div class="c-grid">
+    <div class="c-list">
+      <div style="padding:9px 12px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center">
+        <strong style="font-size:13px">${ds.code} ${ds.title}</strong>${sensBadge(ds.sensitivity)}
+        <span class="sp" style="flex:1"></span>
+        <span class="note">${usable?c.rows.length:0} 行 · 覆盖 ${cov.coverage_ratio}</span>
+        <button id="drawerBtn">口径与筛选 ▸</button>
+      </div>
+      ${list}
+    </div>
+    <div class="c-detail">
+      <h2>选中行 · 字段级解释</h2>
+      ${sel?`
+      <div class="kv"><span>business_date</span><span>${sel.business_date}</span></div>
+      <div class="kv"><span>slot_no / interval_start</span><span>${sel.slot_no} · ${sel.interval_start}</span></div>
+      <div class="kv"><span>energy_mwh</span><span class="${sel.energy_mwh==="masked"?"maskv":""}">${sel.energy_mwh==="masked"?MASK_VALUE:(sel.energy_mwh===null?"null":sel.energy_mwh.toFixed(3))}</span></div>
+      <div class="kv"><span>observed_sum_mwh</span><span class="${sel.observed_sum_mwh==="masked"?"maskv":""}">${sel.observed_sum_mwh==="masked"?MASK_VALUE:(sel.observed_sum_mwh===null?"null":sel.observed_sum_mwh.toFixed(3))}</span></div>
+      <div class="kv"><span>source_15min_count</span><span>${sel.source_15min_count}</span></div>
+      <div class="kv"><span>quality_flag</span><span>${sel.quality_flag}</span></div>
+      <div class="kv"><span>user_id</span><span class="${sel.user_id===USER_ID_MASKED?"maskv":""}">${sel.user_id}</span></div>
+      <h2 style="margin-top:14px">这行为什么是这样显示</h2>
+      <div class="note">${esc(c.notes||"字段按契约原值显示；标识类字段按 #33 C8 脱敏。")}
+      <br>列可见性由 <span class="mono">/me/capabilities</span> 与矩阵裁定给出，掩码写在 <span class="mono">meta.masked_fields</span>，本页不另写权限逻辑。</div>
+      <h2 style="margin-top:14px">审计</h2>
+      <div class="note mono">E004211 · actor=u-1001 · roles=[${state.role}]<br>SENSITIVE_DATA / VIEW · verdict=${c.reason?"DENY":"ALLOW"}<br>reason_code=${esc(c.reason||"ALLOW")} · masked_fields=[${c.masked.join(", ")}]</div>
+      `:`<div class="note">当前数据集不可用，无选中行。</div>`}
+    </div>
+  </div>
+
+  <div class="drawer" id="drawer">
+    <div class="masked" id="drawerTab">◂ 收起</div>
+    <h2>口径与筛选</h2>
+    <div class="field" style="margin-top:10px"><label>数据集</label>
+      <select id="ds2">${DATASETS.map(d=>`<option value="${d.code}" ${d.code===state.dataset?"selected":""}>${d.code} · ${d.title}</option>`).join("")}</select></div>
+    <div class="field"><label>业务日范围</label><div style="display:flex;gap:6px"><input id="from2" value="${state.from}"><input id="to2" value="${state.to}"></div></div>
+    <div class="field"><label>粒度</label><select id="gran2">
+      ${["slot","day","month","year"].map(g=>`<option ${g===state.granularity?"selected":""}>${g}</option>`).join("")}</select></div>
+    <div class="field"><label>as_of</label><input id="asof2" value="${state.asOf}"></div>
+    <div class="field"><label>过滤</label><div class="mono note">user_id in [USER-4201-000123-X]</div></div>
+    <h2 style="margin-top:12px">当前状态</h2>
+    <div class="note mono" style="margin-top:6px">dataset=${ds.code}<br>role=${state.role}<br>granularity=${state.granularity}<br>as_of=${state.asOf}<br>masked=[${c.masked.join(", ")}]<br>reason_code=${esc(c.reason||"ALLOW")}</div>
+    <h2 style="margin-top:12px">来源与核验</h2>
+    <div class="note mono" style="margin-top:6px">BATCH-20261104-03<br>S01_2026-11-04.csv<br>完整率 ${((23/24)*100).toFixed(1)}%<br>coverage_ratio ${cov.coverage_ratio}</div>
+    <button style="margin-top:14px;width:100%" disabled>导出（HIGHLY 拒绝）</button>
+  </div>
+  ${statebar(c,ds)}`;
+}
+
+/* ===================== 状态条（每次切换都把相关状态全部摊开） ===================== */
+function statebar(c,ds){
+  const cov = coverage();
+  return `<div class="statebar" style="padding:0 14px 10px">
+    <b>当前状态</b> · variant=${state.variant} · role=${state.role}(${ROLES[state.role].scope}) · dataset=${ds.code} ·
+    time_range=${state.from}→${state.to} · granularity=${state.granularity} · as_of=${state.asOf} ·
+    valid/expected=${cov.valid_hours}/${cov.expected_hours} · coverage_ratio=${cov.coverage_ratio} ·
+    masked_fields=[${c.masked.join(", ")}] · reason_code=${esc(c.reason||"ALLOW")} ·
+    effects=[READ]（无写入真实交易系统通道）
+  </div>`;
+}
+
+/* ===================== 切换与交互 ===================== */
+const VARIANTS = {
+  A:{name:"三栏工作台（左条件 / 中结果 / 右口径元数据）", render:VariantA},
+  B:{name:"顶部口径条 + 纵向叙事（图为主角）", render:VariantB},
+  C:{name:"主从双栏 + 抽屉（以行为单位逐条解释）", render:VariantC}
+};
+const ORDER = ["A","B","C"];
+
+function setVariant(v){
+  state.variant = v;
+  const url = new URL(location.href);
+  url.searchParams.set("variant", v);
+  history.replaceState(null,"",url);
+  render();
+}
+function render(){
+  document.getElementById("root").innerHTML = VARIANTS[state.variant].render();
+  document.getElementById("variantTag").textContent = `变体 ${state.variant} · ${VARIANTS[state.variant].name}`;
+  document.getElementById("cur").innerHTML = `<b>${state.variant}</b> · ${VARIANTS[state.variant].name}`;
+  document.querySelectorAll("#roleset button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.role===state.role)));
+  bind();
+}
+function bind(){
+  const dsEl = document.getElementById("ds") || document.getElementById("ds2");
+  if(dsEl) dsEl.onchange = e => { state.dataset = e.target.value; render(); };
+  const gran = document.getElementById("gran") || document.getElementById("gran2");
+  if(gran) gran.onchange = e => { state.granularity = e.target.value; render(); };
+  const from = document.getElementById("from") || document.getElementById("from2");
+  const to = document.getElementById("to") || document.getElementById("to2");
+  if(from) from.onchange = e => { state.from = e.target.value; render(); };
+  if(to) to.onchange = e => { state.to = e.target.value; render(); };
+  const asof = document.getElementById("asof") || document.getElementById("asof2");
+  if(asof) asof.onchange = e => { state.asOf = e.target.value; render(); };
+  document.querySelectorAll(".c-row").forEach(r=> r.onclick = () => { state.selected = +r.dataset.i; render(); });
+  const btn = document.getElementById("drawerBtn"), drawer = document.getElementById("drawer"), tab = document.getElementById("drawerTab");
+  if(btn && drawer){
+    btn.onclick = () => drawer.classList.toggle("open");
+    tab.onclick = () => drawer.classList.toggle("open");
+  }
+}
+document.getElementById("roleset").innerHTML = Object.entries(ROLES)
+  .map(([k,v])=>`<button data-role="${k}" aria-pressed="${k===state.role}" title="${esc(v.note)}">${v.label}</button>`).join("");
+document.querySelectorAll("#roleset button").forEach(b=> b.onclick = ()=>{ state.role = b.dataset.role; render(); });
+document.getElementById("prev").onclick = ()=> setVariant(ORDER[(ORDER.indexOf(state.variant)+ORDER.length-1)%ORDER.length]);
+document.getElementById("next").onclick = ()=> setVariant(ORDER[(ORDER.indexOf(state.variant)+1)%ORDER.length]);
+document.addEventListener("keydown", e=>{
+  const t = e.target;
+  if(t && (t.tagName==="INPUT" || t.tagName==="TEXTAREA" || t.isContentEditable)) return;
+  if(e.key==="ArrowLeft") document.getElementById("prev").click();
+  if(e.key==="ArrowRight") document.getElementById("next").click();
+});
+render();
+</script>
+</body>
+</html>
